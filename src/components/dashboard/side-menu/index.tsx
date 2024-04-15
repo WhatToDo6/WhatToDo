@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import DashboardListSection from '@/src/components/dashboard/side-menu/dashboard-list-section'
 import { ROUTE } from '@/src/constants/route'
 
 import { LOGO_IMAGE, LOGO_TEXT } from './constants'
-import DashboardListSection from './dashboard-list-section'
 import S from './SideMenu.module.scss'
 
 const SideMenu = () => {

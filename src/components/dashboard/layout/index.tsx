@@ -1,7 +1,8 @@
 import { ReactNode } from 'react'
 
+import SideMenu from '@/src/components/dashboard/side-menu'
+
 import S from './Layout.module.scss'
-import SideMenu from '../side-menu'
 
 type MyComponentProps = {
   children: ReactNode
