@@ -13,18 +13,13 @@ const SideMenu = () => {
       <header className={S.logoWrapper}>
         <Link href={ROUTE.landing}>
           <h1>
-            <Image
-              src={LOGO_IMAGE}
-              width={28}
-              height={33}
-              alt="Taskiyfy 로고"
-            />
+            <Image src={LOGO_IMAGE} width={28} height={33} alt="Taskify 로고" />
             <Image
               className={S.logoText}
               src={LOGO_TEXT}
               width={80}
               height={22}
-              alt="Taskiyfy"
+              alt="Taskify"
             />
           </h1>
         </Link>
