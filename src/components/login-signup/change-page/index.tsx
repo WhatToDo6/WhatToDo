@@ -8,7 +8,7 @@ const ChangePage = () => {
   const currPath = router.pathname as SignPath
 
   const TEXT_MAP = {
-    '/signin': (
+    '/login': (
       <div className={S.container}>
         <span className={S.black}>회원이 아니신가요?</span>
         <span className={S.violet} onClick={() => router.push('/signup')}>
@@ -19,7 +19,7 @@ const ChangePage = () => {
     '/signup': (
       <div className={S.container}>
         <span className={S.black}>이미 가입하셨나요?</span>
-        <span className={S.violet} onClick={() => router.push('/signin')}>
+        <span className={S.violet} onClick={() => router.push('/login')}>
           로그인하기
         </span>
       </div>

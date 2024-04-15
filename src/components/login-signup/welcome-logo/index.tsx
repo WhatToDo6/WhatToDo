@@ -6,10 +6,10 @@ import LOGO_TEXT from '@/public/images/logo-text.svg'
 
 import S from './WelcomLogo.module.scss'
 
-export type SignPath = '/signin' | '/signup'
+export type SignPath = '/login' | '/signup'
 
 const WELCOME_TEXT: Record<SignPath, string> = {
-  '/signin': '오늘도 만나서 반가워요!',
+  '/login': '오늘도 만나서 반가워요!',
   '/signup': '첫 방문을 환영합니다!',
 }
 

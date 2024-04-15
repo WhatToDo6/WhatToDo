@@ -1,14 +1,14 @@
 import Button from '../../button'
-import SignInInput from '../../input/signin'
+import LogInInput from '../../input/login'
 import S from '../Form.module.scss'
 
-const SignInForm = () => {
+const LogInForm = () => {
   return (
     <form className={S.container}>
       <label className={S.label}>이메일</label>
-      <SignInInput inputType="email" error={false} />
+      <LogInInput inputType="email" error={false} />
       <label className={S.label}>비밀번호</label>
-      <SignInInput inputType="password" error={false} />
+      <LogInInput inputType="password" error={false} />
       <Button>
         <span className={S.buttonText}>로그인</span>
       </Button>
@@ -16,4 +16,4 @@ const SignInForm = () => {
   )
 }
 
-export default SignInForm
+export default LogInForm

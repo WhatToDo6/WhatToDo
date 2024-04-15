@@ -11,7 +11,7 @@ interface InputProps {
   error: boolean
 }
 
-const SignInInput = ({ inputType, error }: InputProps) => {
+const LogInInput = ({ inputType, error }: InputProps) => {
   const [isPwVisible, setIsPwVisible] = useState(false)
 
   const INPUT_MAP = {
@@ -47,4 +47,4 @@ const SignInInput = ({ inputType, error }: InputProps) => {
   return INPUT_MAP[inputType]
 }
 
-export default SignInInput
+export default LogInInput
