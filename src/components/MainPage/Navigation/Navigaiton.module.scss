@@ -1,0 +1,23 @@
+@import '../../styles/global.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 8rem 2rem 2.6rem;
+  background-color: $color-black-400;
+}
+
+.cta {
+  display: flex;
+  gap: 3.5rem;
+}
+
+.cta a {
+  text-decoration: none;
+}
+
+.ctaText {
+  color: $color-white;
+  @include font-style(1.6rem, 400, normal);
+}
