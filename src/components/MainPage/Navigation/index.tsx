@@ -2,8 +2,9 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import S from './Navigaiton.module.scss'
-import LOGO_IMG from '../../../public/icons/whiteLogo.svg'
-import LOGO_TEXT_IMG from '../../../public/icons/whiteLogoText.svg'
+
+import LOGO_IMG from '/public/icons/whiteLogo.svg'
+import LOGO_TEXT_IMG from '/public/icons/whiteLogoText.svg'
 
 const Navigation = () => {
   return (
