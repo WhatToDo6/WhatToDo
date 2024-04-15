@@ -3,7 +3,7 @@
 .wrapper {
   display: flex;
   align-items: center;
-  padding: 1.2rem 0 1.2rem 1.2rem;
+  padding: 1.2rem;
   width: 100%;
   background-color: $color-violet-100;
   border-radius: 4px;
@@ -16,6 +16,7 @@
 }
 
 .dashboard-color {
+  flex-shrink: 0;
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 100px;
@@ -24,6 +25,9 @@
 
 .dashboard-title {
   margin: 0 0.6rem 0 1.6rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   @include font-style(1.8rem, 500, normal);
 
   @include tablet {
@@ -36,6 +40,12 @@
 }
 
 .crown {
+  flex-shrink: 0;
+
+  @include tablet {
+    width: 1.5rem;
+  }
+
   @include mobile {
     display: none;
   }

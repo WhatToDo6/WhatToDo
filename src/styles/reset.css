@@ -91,6 +91,7 @@ video {
   vertical-align: baseline;
   word-break: keep-all;
   font-size: 62.5%;
+  box-sizing: border-box;
 }
 /* HTML5 display-role reset for older browsers */
 article,
