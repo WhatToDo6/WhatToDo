@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { ROUTE } from '@/src/constants/route'
 
 import { LOGO_IMAGE, LOGO_TEXT } from './constants'
-import DashboardListSection from './DashboardListSection'
+import DashboardListSection from './dashboard-list-section'
 import S from './SideMenu.module.scss'
 
 const SideMenu = () => {
