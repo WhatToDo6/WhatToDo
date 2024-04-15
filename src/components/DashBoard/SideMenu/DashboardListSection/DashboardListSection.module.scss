@@ -5,3 +5,18 @@
   flex-direction: column;
   gap: 1.5rem;
 }
+
+.dashboard-wrapper {
+  width: 27.6rem;
+  height: 4.5rem;
+
+  @include tablet {
+    width: 13.4rem;
+    height: 4.3rem;
+  }
+
+  @include mobile {
+    width: 4rem;
+    height: 4rem;
+  }
+}

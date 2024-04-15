@@ -4,6 +4,10 @@
   display: flex;
   align-items: center;
   padding: 1.2rem 0 1.2rem 1.2rem;
+  width: 100%;
+  background-color: $color-violet-100;
+  border-radius: 4px;
+  cursor: pointer;
 
   @include mobile {
     padding: 2rem 0;
@@ -21,6 +25,10 @@
 .dashboard-title {
   margin: 0 0.6rem 0 1.6rem;
   @include font-style(1.8rem, 500, normal);
+
+  @include tablet {
+    @include font-style(1.6rem, 500, normal);
+  }
 
   @include mobile {
     display: none;

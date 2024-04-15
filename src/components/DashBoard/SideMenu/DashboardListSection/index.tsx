@@ -6,7 +6,7 @@ const DashboardListSection = () => {
   return (
     <div className={S.container}>
       <ListHeader />
-      <div>
+      <div className={S['dashboard-wrapper']}>
         <DashboardList />
         <DashboardList />
         <DashboardList />
