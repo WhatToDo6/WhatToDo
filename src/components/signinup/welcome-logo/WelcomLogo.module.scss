@@ -1,0 +1,35 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  width: 20rem;
+  height: 27.9rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3rem;
+}
+
+.img {
+  position: relative;
+  width: 16.4557rem;
+  height: 18.9796rem;
+}
+
+.text {
+  position: relative;
+  width: 19.8407rem;
+  height: 5.5186rem;
+}
+
+.span {
+  color: $color-black-200;
+  @include font-style(2rem, 500, normal);
+}
