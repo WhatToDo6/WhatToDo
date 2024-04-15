@@ -1,20 +1,30 @@
 import Image from 'next/image'
-import { useState } from 'react'
 
 import S from './DashboardList.module.scss'
 import { CROWN } from '../../constants'
 
 interface DashboardListProps {
   title: string
-  isSelected: boolean
+  color: string
+  selected: string
+  onSelect: () => void
 }
 
-const DashboardList: React.FC<DashboardListProps> = ({ title, isSelected }) => {
-  const [selected, setSelected] = useState(isSelected)
-
+const DashboardList: React.FC<DashboardListProps> = ({
+  title,
+  color,
+  selected,
+  onSelect,
+}) => {
   return (
-    <div className={S.wrapper}>
-      <div className={S['dashboard-color']} />
+    <div
+      className={`${S.wrapper} ${selected === title && S.selected}`}
+      onClick={onSelect}
+    >
+      <div
+        className={S['dashboard-color']}
+        style={{ backgroundColor: color }}
+      />
       <div className={S['dashboard-title']}>{title}</div>
       <Image
         className={S.crown}

@@ -5,9 +5,12 @@
   align-items: center;
   padding: 1.2rem;
   width: 100%;
-  background-color: $color-violet-100;
   border-radius: 4px;
   cursor: pointer;
+
+  &.selected {
+    background-color: $color-violet-100;
+  }
 
   @include mobile {
     padding: 2rem 0;
@@ -20,7 +23,6 @@
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 100px;
-  background-color: $color-green;
 }
 
 .dashboard-title {
