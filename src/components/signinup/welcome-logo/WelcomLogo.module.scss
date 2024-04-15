@@ -2,12 +2,18 @@
 
 .container {
   display: flex;
-  width: 20rem;
-  height: 27.9rem;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
+}
+
+.signin {
+  margin-top: 22rem;
+}
+
+.signup {
+  margin-top: 17rem;
 }
 
 .logo {

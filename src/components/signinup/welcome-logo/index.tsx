@@ -6,16 +6,16 @@ import LOGO_TEXT from '@/public/images/logo-text.svg'
 
 import S from './WelcomLogo.module.scss'
 
-type Path = '/signin' | '/signup'
+export type SignPath = '/signin' | '/signup'
 
-const WELCOME_TEXT: Record<Path, string> = {
+const WELCOME_TEXT: Record<SignPath, string> = {
   '/signin': '오늘도 만나서 반가워요!',
   '/signup': '첫 방문을 환영합니다!',
 }
 
 const WelcomeLogo = () => {
   const router = useRouter()
-  const currPath = router.asPath as Path
+  const currPath = router.pathname as SignPath
 
   return (
     <div className={S.container}>
