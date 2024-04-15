@@ -1,10 +1,9 @@
 import { useCallback, useState } from 'react'
 
 import DashboardList from '@/src/components/dashboard/side-menu/dashboard-list-section/dashboard-list'
+import ListHeader from '@/src/components/dashboard/side-menu/dashboard-list-section/list-header'
 
 import S from './DashboardListSection.module.scss'
-
-import ListHeader from '@/src/components/dashboard/side-menu/dashboard-list-section/list-header'
 
 interface MockData {
   title: string
