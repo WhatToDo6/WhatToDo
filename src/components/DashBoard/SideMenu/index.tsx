@@ -24,7 +24,9 @@ const SideMenu = () => {
           </h1>
         </Link>
       </div>
-      <DashboardList />
+      <div className={S['list-wrapper']}>
+        <DashboardList />
+      </div>
     </div>
   )
 }

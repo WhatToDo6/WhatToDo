@@ -1,5 +1,11 @@
+import ListHeader from './ListHeader/ListHeader'
+
 const DashboardList = () => {
-  return <div>DashboardList</div>
+  return (
+    <div>
+      <ListHeader />
+    </div>
+  )
 }
 
 export default DashboardList
