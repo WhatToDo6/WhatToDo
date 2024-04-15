@@ -24,7 +24,7 @@ const SideMenu = () => {
               src={LOGO_TEXT}
               width={80}
               height={22}
-              alt="Taskyfy"
+              alt="Taskiyfy"
             />
           </h1>
         </Link>
