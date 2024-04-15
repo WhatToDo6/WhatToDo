@@ -1,0 +1,63 @@
+@import '../../../styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-black-400;
+}
+
+.items {
+  display: flex;
+  width: 120rem;
+  height: 60rem;
+  margin-bottom: 9rem;
+  background-color: $color-black-300;
+}
+
+.item1 {
+  gap: 24.4rem;
+}
+
+.item2 {
+  gap: 10rem;
+}
+
+.point {
+  color: $color-gray-400;
+  @include font-style(2.2rem, 500, normal);
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+}
+
+.first {
+  margin-top: 12.3rem;
+  margin-left: 6rem;
+}
+
+.second {
+  margin-top: 12.3rem;
+}
+
+.description {
+  color: $color-white;
+  @include font-style(4.8rem, 700, 133%);
+}
+
+.description span {
+  color: $color-gray-300;
+  @include font-style(4.8rem, 700, 133%);
+}
+
+.img1 {
+  padding-top: 10.3rem;
+}
+
+.img2 {
+  padding-top: 9.8rem;
+  padding-left: 10.8rem;
+}
