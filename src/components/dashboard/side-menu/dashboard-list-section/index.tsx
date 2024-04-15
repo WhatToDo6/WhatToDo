@@ -28,7 +28,7 @@ const DashboardListSection = () => {
   return (
     <div className={S.container}>
       <ListHeader />
-      <div className={S['dashboard-wrapper']}>
+      <div className={S.dashboardWrapper}>
         {mockData.map((data, idx) => (
           <DashboardList
             key={idx}

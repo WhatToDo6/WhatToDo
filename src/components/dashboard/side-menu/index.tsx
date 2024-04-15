@@ -10,7 +10,7 @@ import S from './SideMenu.module.scss'
 const SideMenu = () => {
   return (
     <aside className={S.container}>
-      <header className={S['logo-wrapper']}>
+      <header className={S.logoWrapper}>
         <Link href={ROUTE.landing}>
           <h1>
             <Image
@@ -20,7 +20,7 @@ const SideMenu = () => {
               alt="Taskiyfy 로고"
             />
             <Image
-              className={S['logo-text']}
+              className={S.logoText}
               src={LOGO_TEXT}
               width={80}
               height={22}
@@ -29,7 +29,7 @@ const SideMenu = () => {
           </h1>
         </Link>
       </header>
-      <div className={S['list-wrapper']}>
+      <div className={S.listWrapper}>
         <DashboardListSection />
       </div>
     </aside>

@@ -22,11 +22,8 @@ const DashboardList = ({
       className={`${S.wrapper} ${selected === title && S.selected}`}
       onClick={onSelect}
     >
-      <div
-        className={S['dashboard-color']}
-        style={{ backgroundColor: color }}
-      />
-      <div className={S['dashboard-title']}>{title}</div>
+      <div className={S.dashboardColor} style={{ backgroundColor: color }} />
+      <div className={S.dashboardTitle}>{title}</div>
       <Image
         className={S.crown}
         src={CROWN}

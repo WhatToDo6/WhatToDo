@@ -16,7 +16,7 @@
   }
 }
 
-.logo-wrapper {
+.logoWrapper {
   padding: 2rem 0 0 2.4rem;
 
   @include tablet {
@@ -28,12 +28,12 @@
   }
 }
 
-.logo-text {
+.logoText {
   @include mobile {
     display: none;
   }
 }
 
-.list-wrapper {
+.listWrapper {
   padding: 4rem 1.2rem 0;
 }
