@@ -1,5 +1,7 @@
-const id = () => {
-  return <div>id</div>
+import Layout from '@/src/components/DashBoard/Layout'
+
+const DashboardIdPage = () => {
+  return <Layout>main</Layout>
 }
 
-export default id
+export default DashboardIdPage
