@@ -14,6 +14,7 @@ const SettingsContent = () => {
               <section key={index}>
                 <div className={S.img}>
                   <Image
+                    className={S[`img${index + 1}`]}
                     src={section.imgSrc}
                     alt={section.title}
                     width={section.width}
