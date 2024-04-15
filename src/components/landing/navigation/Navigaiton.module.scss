@@ -4,13 +4,25 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2rem 8rem 2rem 2.6rem;
+  padding: 2rem 8rem 1.5rem 2.6rem;
   background-color: $color-black-400;
+
+  @include tablet {
+    padding: 1.6rem 4rem 1.5rem 2.6rem;
+  }
+
+  @include mobile {
+    padding: 1.6rem 2.4rem 1.6rem 2.4rem;
+  }
 }
 
 .cta {
   display: flex;
   gap: 3.5rem;
+
+  @include mobile {
+    gap: 2rem;
+  }
 }
 
 .cta a {
@@ -20,4 +32,8 @@
 .ctaText {
   color: $color-white;
   @include font-style(1.6rem, 400, normal);
+
+  @include mobile {
+    @include font-style(1.4rem, 400, normal);
+  }
 }

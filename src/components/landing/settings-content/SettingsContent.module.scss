@@ -6,6 +6,10 @@
   align-items: center;
   background-color: $color-black-400;
   padding-bottom: 16rem;
+
+  @include mobile {
+    padding-bottom: 12rem;
+  }
 }
 
 .title {
@@ -21,10 +25,12 @@
   display: flex;
   margin-top: 3.6rem;
   gap: 3.3rem;
+
   @include tablet {
     flex-direction: column;
     gap: 4.8rem;
   }
+
   @include mobile {
     margin-top: 4.2rem;
     gap: 4rem;
@@ -40,11 +46,13 @@
   height: 26rem;
   border-radius: 0.8rem 0.8rem 0 0;
   background-color: $color-black-100;
+
   @include mobile {
     width: 34.3rem;
     height: 23.5rem;
   }
 }
+
 .img1 {
   @include mobile {
     width: 26rem;
@@ -65,11 +73,13 @@
     height: 16.9rem;
   }
 }
+
 .text {
   width: 37.8rem;
   padding: 3.3rem 0 3.3rem 3.2rem;
   border-radius: 0 0 0.8rem 0.8rem;
   background-color: $color-black-300;
+
   @include mobile {
     width: 34.3rem;
     padding: 2.7rem 0 2.7rem 2.5rem;

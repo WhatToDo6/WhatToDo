@@ -7,7 +7,7 @@ import S from './Footer.module.scss'
 const Footer = () => {
   return (
     <footer className={S.container}>
-      <p className={S.copyright}>©codeit - 2023</p>
+      <p className={S.copyright}>©codeit - 2024</p>
       <div className={S.links}>
         {LINK.map((link) => {
           return (
@@ -21,7 +21,13 @@ const Footer = () => {
         {SNS.map((sns) => {
           return (
             <Link key={sns.id} href={sns.link}>
-              <Image src={sns.src} alt={sns.name} width={22} height={22} />
+              <Image
+                className={S.img}
+                src={sns.src}
+                alt={sns.name}
+                width={22}
+                height={22}
+              />
             </Link>
           )
         })}
