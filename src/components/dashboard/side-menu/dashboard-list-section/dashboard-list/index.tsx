@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { PropsWithChildren } from 'react'
 
 import S from './DashboardList.module.scss'
 import { CROWN } from '../../constants'
@@ -10,12 +11,12 @@ interface DashboardListProps {
   onSelect: () => void
 }
 
-const DashboardList: React.FC<DashboardListProps> = ({
+const DashboardList = ({
   title,
   color,
   selected,
   onSelect,
-}) => {
+}: PropsWithChildren<DashboardListProps>) => {
   return (
     <div
       className={`${S.wrapper} ${selected === title && S.selected}`}
