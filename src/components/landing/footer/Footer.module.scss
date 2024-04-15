@@ -1,0 +1,29 @@
+@import '../../../styles/global.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 4rem 14rem;
+  background-color: $color-black-400;
+}
+
+.copyright {
+  color: $color-gray-400;
+  @include font-style(1.6rem, 400, normal);
+}
+
+.links {
+  display: flex;
+  gap: 3.2rem;
+}
+
+.link {
+  color: $color-gray-400;
+  text-decoration: none;
+  @include font-style(1.6rem, 400, normal);
+}
+
+.icons {
+  display: flex;
+  gap: 1.4rem;
+}
