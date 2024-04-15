@@ -5,7 +5,7 @@ import { ADD_BOX } from '../../constants'
 
 const ListHeader = () => {
   return (
-    <div className={S.wrapper}>
+    <header className={S.wrapper}>
       <h2 className={S.title}>Dash Boards</h2>
       <Image
         className={S['add-button']}
@@ -14,7 +14,7 @@ const ListHeader = () => {
         height={20}
         alt="대시보드 생성 버튼"
       />
-    </div>
+    </header>
   )
 }
 

@@ -4,13 +4,13 @@ import Link from 'next/link'
 import { ROUTE } from '@/src/constants/route'
 
 import { LOGO_IMAGE, LOGO_TEXT } from './constants'
-import DashboardList from './DashboardList'
+import DashboardListSection from './DashboardListSection'
 import S from './SideMenu.module.scss'
 
 const SideMenu = () => {
   return (
-    <div className={S.container}>
-      <div className={S['logo-wrapper']}>
+    <aside className={S.container}>
+      <header className={S['logo-wrapper']}>
         <Link href={ROUTE.landing}>
           <h1>
             <Image src={LOGO_IMAGE} width={28} height={33} alt="Taskyfy 로고" />
@@ -23,11 +23,11 @@ const SideMenu = () => {
             />
           </h1>
         </Link>
-      </div>
+      </header>
       <div className={S['list-wrapper']}>
-        <DashboardList />
+        <DashboardListSection />
       </div>
-    </div>
+    </aside>
   )
 }
 
