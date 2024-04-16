@@ -1,0 +1,23 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  margin-top: 2.4rem;
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+@mixin text($color) {
+  color: $color;
+  @include font-style(1.6rem, 400, normal);
+}
+
+.black {
+  @include text($color-black-200);
+}
+
+.violet {
+  @include text($color-violet-200);
+  cursor: pointer;
+  border-bottom: 0.1rem solid $color-violet-200;
+}

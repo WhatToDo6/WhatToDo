@@ -20,7 +20,7 @@ const OptionButton = ({
   onRightClick,
 }: OptionButtonProps) => {
   return (
-    <div className={S.container}>
+    <div className={`${S.container} ${S.size}`}>
       <BorderButton size={size} color={leftColor} onClick={onLeftClick}>
         {leftText}
       </BorderButton>

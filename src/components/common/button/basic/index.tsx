@@ -4,7 +4,7 @@ import S from './BasicButton.module.scss'
 
 interface ButtonProps {
   children: ReactNode
-  size: 'small' | 'medium' | 'large'
+  size: 'small' | 'large'
   isDisabled?: boolean
   onClick?: () => void
 }
