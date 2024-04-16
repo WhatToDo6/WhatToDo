@@ -1,0 +1,54 @@
+@import '@/src/styles/global.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding: 1.2rem;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &.selected {
+    background-color: $color-violet-100;
+  }
+
+  @include mobile {
+    padding: 1.6rem 0;
+    justify-content: center;
+  }
+}
+
+.dashboardColor {
+  flex-shrink: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 100px;
+}
+
+.dashboardTitle {
+  margin: 0 0.6rem 0 1.6rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  @include font-style(1.8rem, 500, normal);
+
+  @include tablet {
+    @include font-style(1.6rem, 500, normal);
+  }
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.crown {
+  flex-shrink: 0;
+
+  @include tablet {
+    width: 1.5rem;
+  }
+
+  @include mobile {
+    display: none;
+  }
+}
