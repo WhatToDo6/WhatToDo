@@ -1,4 +1,4 @@
-import Layout from '@/src/components/dashboard/layout'
+import Layout from '@/src/components/common/layout'
 
 const DashboardIdPage = () => {
   return <Layout>main</Layout>
