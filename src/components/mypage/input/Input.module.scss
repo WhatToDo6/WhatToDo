@@ -1,0 +1,53 @@
+@import '../../../styles/global.scss';
+
+.input {
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: 1.5rem;
+  border-radius: 0.6rem;
+  border: 0.1rem solid $color-gray-300;
+  color: $color-black-200;
+  cursor: pointer;
+  @include font-style(1.6rem, 400, normal);
+
+  &:focus {
+    outline: none;
+  }
+
+  @include mobile {
+    @include font-style(1.4rem, 400, normal);
+  }
+}
+
+.input::placeholder {
+  color: $color-gray-400;
+}
+
+.small {
+  width: 36.6rem;
+  height: 4.8rem;
+
+  @include tablet {
+    width: 29rem;
+  }
+
+  @include mobile {
+    width: 24.4rem;
+    height: 4.2rem;
+    padding: 1.2rem;
+  }
+}
+
+.large {
+  width: 56.4rem;
+  height: 4.8rem;
+
+  @include tablet {
+    width: 48.8rem;
+  }
+
+  @include mobile {
+    width: 24.4rem;
+    height: 4.2rem;
+  }
+}

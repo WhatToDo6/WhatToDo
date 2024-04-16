@@ -2,6 +2,7 @@ import Image from 'next/image'
 
 import S from './Profile.module.scss'
 import BorderButton from '../../common/button/border'
+import Input from '../input'
 
 import ADD_IMG from '/public/icons/add-img.svg'
 
@@ -13,21 +14,20 @@ const Profile = () => {
         <div className={S['img-container']}>
           <Image src={ADD_IMG} alt="이미지 추가하기" width={30} height={30} />
         </div>
-        <div className={S['item-container']}>
+        <form className={S.form}>
           <div className={S.item}>
-            <p className={S.text}>이메일</p>
-            <input
-              type="text"
-              className={S[`email-input`]}
-              disabled
-              placeholder="이메일 값 받아오면 추가하기"
+            <label className={S.label}>이메일</label>
+            <Input
+              size="small"
+              placeholder="이메일 추가 예정"
+              isDisabled={true}
             />
           </div>
           <div className={S.item}>
-            <p className={S.text}>닉네임</p>
-            <input type="text" className={S[`name-input`]} />
+            <label className={S.label}>닉네임</label>
+            <Input size="small" />
           </div>
-        </div>
+        </form>
       </div>
       <div className={S['button-container']}>
         <BorderButton size="small" color="purple">
