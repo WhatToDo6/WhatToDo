@@ -18,7 +18,7 @@
 .rightBox {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 3rem;
   padding-right: 5rem;
 }
 
@@ -90,5 +90,29 @@
   span {
     @include font-style(1.6rem, 500, normal);
     color: $color-black-200;
+  }
+}
+
+.memberImgBox {
+  display: flex;
+}
+
+.memberImg {
+  margin-right: -1rem;
+}
+
+.overImg {
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: 50%;
+  background-color: #f4d7da;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid $color-white;
+
+  span {
+    color: #d25b68;
+    @include font-style(1.6rem, 500, normal);
   }
 }
