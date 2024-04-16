@@ -1,0 +1,60 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  padding-top: 3rem;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.label {
+  color: $color-black-200;
+  cursor: pointer;
+  @include font-style(1.6rem, 400, normal);
+}
+
+.errorText {
+  color: $color-red;
+
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.buttonText {
+  color: $color-white;
+  @include font-style(1.8rem, 500, normal);
+}
+
+.agreeBox {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.agreeCheck {
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -o-appearance: none;
+
+  width: 2rem;
+  height: 2rem;
+
+  border-radius: 0.4rem;
+  border: 0.1rem solid $color-gray-300;
+  background: $color-white;
+
+  cursor: pointer;
+  margin-left: -0.1rem;
+}
+
+.agreeCheck:checked {
+  background: $color-violet-200;
+}
+
+.agreeText {
+  color: $color-black-200;
+  @include font-style(1.6rem, 400, normal);
+  cursor: pointer;
+}
