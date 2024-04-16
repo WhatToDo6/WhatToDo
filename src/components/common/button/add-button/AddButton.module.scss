@@ -1,0 +1,12 @@
+@import '@/src/styles/global.scss';
+
+.addButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem;
+  border: none;
+  border-radius: 0.4rem;
+  background-color: $color-violet-100;
+  cursor: pointer;
+}
