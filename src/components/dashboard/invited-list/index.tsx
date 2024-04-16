@@ -1,3 +1,8 @@
+import Image from 'next/image'
+
+import magnifyingGlassIcon from '@/public/icons/magnifying-glass-icon.svg'
+import emptyBoardImg from '@/public/images/empty-board-img.png'
+
 import InvitedCard from './invite-card'
 import S from './InvitedDashboard.module.scss'
 
@@ -19,7 +24,12 @@ function InvitedDashboard({ inviteData }: Props) {
       <div className={S.container}>
         <div className={S.title}>초대받은 대시보드</div>
         <div className={contentsClassName}>
-          <div>img</div>
+          <Image
+            width={100}
+            height={100}
+            src={emptyBoardImg}
+            alt="emptyBoardImg"
+          />
           <span>아직 초대받은 대시보드가 없어요</span>
         </div>
       </div>
@@ -30,7 +40,13 @@ function InvitedDashboard({ inviteData }: Props) {
     <div className={S.container}>
       <div className={S.title}>초대받은 대시보드</div>
       <div className={S.input_box}>
-        <span>img</span>
+        <Image
+          width={24}
+          height={24}
+          className={S.magnifyingGlassImg}
+          src={magnifyingGlassIcon}
+          alt="magnifyingGlassImg"
+        />
         <input placeholder="검색" />
       </div>
       <div className={contentsClassName}>
