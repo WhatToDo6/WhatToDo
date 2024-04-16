@@ -1,7 +1,10 @@
 import Image from 'next/image'
+import { useEffect, useRef, useState } from 'react'
 
 import magnifyingGlassIcon from '@/public/icons/magnifying-glass-icon.svg'
 import emptyBoardImg from '@/public/images/empty-board-img.png'
+import { useInputSearch } from '@/src/hooks/useInputSearch'
+import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 
 import InvitedCard from './invite-card'
 import S from './InvitedDashboard.module.scss'
@@ -11,13 +14,43 @@ type MockData = {
 }
 
 interface Props {
-  inviteData?: MockData[]
+  inviteData: MockData[]
 }
 
+const MOCK_DATA2: MockData[] = [
+  { name: '유닛I', person: '안귀영' },
+  { name: '유닛J', person: '장혁' },
+  { name: '유닛K', person: '강나무' },
+  { name: '유닛L', person: '안귀영' },
+  { name: '유닛M', person: '장혁' },
+  { name: '유닛N', person: '강나무' },
+  { name: '유닛O', person: '강나무' },
+  { name: '유닛P', person: '강나무' },
+  { name: '최원석', person: '강나무' },
+]
+
 function InvitedDashboard({ inviteData }: Props) {
+  const observeRef = useRef<HTMLDivElement>(null)
+  const [myInviteData, setMyInviteData] = useState<MockData[]>(inviteData)
+  const [observe, isScrolled] = useIntersectionObserver()
+  const [searchWord, handleWordChange, searchedData] =
+    useInputSearch(myInviteData)
+
   const contentsClassName = `${S.contents} ${
     inviteData ? S.withInviteData : S.withoutInviteData
   }`
+
+  useEffect(() => {
+    if (observeRef.current) {
+      observe(observeRef.current)
+    }
+  }, [observe])
+
+  useEffect(() => {
+    if (isScrolled) {
+      setMyInviteData((prev) => [...prev, ...MOCK_DATA2])
+    }
+  }, [isScrolled])
 
   if (!inviteData) {
     return (
@@ -47,7 +80,11 @@ function InvitedDashboard({ inviteData }: Props) {
           src={magnifyingGlassIcon}
           alt="magnifyingGlassImg"
         />
-        <input placeholder="검색" />
+        <input
+          value={searchWord}
+          onChange={handleWordChange}
+          placeholder="검색"
+        />
       </div>
       <div className={contentsClassName}>
         <div className={S.invite_info}>
@@ -55,13 +92,15 @@ function InvitedDashboard({ inviteData }: Props) {
           <div>초대자</div>
           <div>수락 여부</div>
         </div>
-        {inviteData.map((invite) => (
-          <InvitedCard
-            key={invite.name}
-            name={invite.name}
-            person={invite.person}
-          />
-        ))}
+        {searchedData &&
+          searchedData.map((invite) => (
+            <InvitedCard
+              key={invite.name}
+              name={invite.name}
+              person={invite.person}
+            />
+          ))}
+        {!searchWord && <div ref={observeRef} />}
       </div>
     </div>
   )
