@@ -1,0 +1,15 @@
+@import '@/src/styles/global.scss';
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.ellipse {
+  flex-shrink: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 100px;
+  background-color: $color-violet-200;
+}

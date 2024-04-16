@@ -1,14 +1,10 @@
-import { ReactNode } from 'react'
-
 import SideMenu from '@/src/components/dashboard/side-menu'
 
 import S from './Layout.module.scss'
 
-type LayoutProps = {
-  children: ReactNode
-}
+import type { ChildrenProps } from '@/src/types/ChildrenProps.interface'
 
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }: ChildrenProps) => {
   return (
     <div className={S.container}>
       <SideMenu />
