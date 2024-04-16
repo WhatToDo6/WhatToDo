@@ -1,6 +1,6 @@
-export const LOGO_IMAGE = '/icons/logo.svg'
+export const LOGO_IMAGE = '/images/logo-img.png'
 
-export const LOGO_TEXT = '/icons/taskify.svg'
+export const LOGO_TEXT = '/images/logo-text.svg'
 
 export const ADD_BOX = '/icons/add-box.svg'
 
