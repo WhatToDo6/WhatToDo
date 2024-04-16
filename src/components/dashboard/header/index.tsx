@@ -68,7 +68,7 @@ const MEMBERS = [
 ]
 
 interface DashboardHeaderProps {
-  id?: number
+  id?: string | string[]
 }
 
 function DashboardHeader({ id }: DashboardHeaderProps) {
@@ -76,22 +76,22 @@ function DashboardHeader({ id }: DashboardHeaderProps) {
     <div className={S.container}>
       <div className={S.title}>내 대시보드</div>
       <div className={S.rightBox}>
-        <div className={S.btnBox}>
-          {BUTTONS.map((btn) => (
-            <button key={btn.tag} className={btn.className}>
-              <Image
-                className={S.btnImg}
-                width={btn.size}
-                height={btn.size}
-                src={btn.src}
-                alt={btn.tag}
-              />
-              <span>{btn.text}</span>
-            </button>
-          ))}
-        </div>
         {id && (
           <>
+            <div className={S.btnBox}>
+              {BUTTONS.map((btn) => (
+                <button key={btn.tag} className={btn.className}>
+                  <Image
+                    className={S.btnImg}
+                    width={btn.size}
+                    height={btn.size}
+                    src={btn.src}
+                    alt={btn.tag}
+                  />
+                  <span>{btn.text}</span>
+                </button>
+              ))}
+            </div>
             <div className={S.memberImgBox}>
               {MEMBERS.filter((_, idx) => idx < 4).map((member) => (
                 <Image
