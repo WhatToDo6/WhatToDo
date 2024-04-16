@@ -6,30 +6,50 @@
   align-items: center;
   border-radius: 0.4rem;
   cursor: pointer;
-}
-
-.xsmall {
-  width: 5.2rem;
-  padding: 0.7rem 0.9rem;
-  @include font-style(1.2rem, 500, normal);
-}
-
-.small {
-  width: 7.2rem;
-  padding: 0.6rem 2.3rem;
-  @include font-style(1.4rem, 500, normal);
-}
-
-.medium {
   width: 8.4rem;
   padding: 0.7rem 2.9rem;
   @include font-style(1.4rem, 500, normal);
 }
 
+.xsmall {
+  @include mobile {
+    width: 5.2rem;
+    padding: 0.7rem 0.9rem;
+    @include font-style(1.2rem, 500, normal);
+  }
+}
+
+.small {
+  @include mobile {
+    @include font-style(1.2rem, 500, normal);
+  }
+}
+
+.medium {
+  @include tablet {
+    width: 7.2rem;
+    padding: 0.6rem 2.3rem;
+    @include font-style(1.4rem, 500, normal);
+  }
+
+  @include mobile {
+    width: 10.9rem;
+    padding: 0.7rem 3.7rem;
+    @include font-style(1.2rem, 500, normal);
+  }
+}
+
 .large {
-  width: 10.9rem;
-  padding: 0.7rem 3.7rem;
-  @include font-style(1.2rem, 500, normal);
+  width: 12rem;
+  padding: 1.4rem 4.6rem;
+  border-radius: 0.8rem;
+  @include font-style(1.6rem, 500, normal);
+
+  @include mobile {
+    width: 13.8rem;
+    padding: 1.2rem 5.6rem;
+    @include font-style(1.4rem, 500, normal);
+  }
 }
 
 .white {

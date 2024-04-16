@@ -1,0 +1,161 @@
+@import '../../../styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: $color-black-400;
+}
+
+.items {
+  display: flex;
+  width: 120rem;
+  height: 60rem;
+  margin-bottom: 9rem;
+  background-color: $color-black-300;
+
+  @include tablet {
+    flex-direction: column;
+    width: 66.4rem;
+    height: 97.2rem;
+  }
+
+  @include mobile {
+    width: 34.3rem;
+    height: 68.6rem;
+  }
+}
+
+.item1 {
+  gap: 24.4rem;
+
+  @include tablet {
+    gap: 22rem;
+  }
+
+  @include mobile {
+    gap: 19.4rem;
+  }
+}
+
+.item2 {
+  gap: 10rem;
+
+  @include tablet {
+    flex-direction: column-reverse;
+    gap: 24rem;
+  }
+
+  @include mobile {
+    gap: 19.2rem;
+  }
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 10rem;
+
+  @include mobile {
+    align-items: center;
+    gap: 6.1rem;
+  }
+}
+
+.first {
+  margin-top: 12.3rem;
+  margin-left: 6rem;
+
+  @include tablet {
+    margin-top: 6.3rem;
+  }
+
+  @include mobile {
+    margin-top: 6rem;
+    margin-left: 0;
+  }
+}
+
+.second {
+  margin-top: 12.3rem;
+
+  @include tablet {
+    margin-top: 6.3rem;
+    margin-left: 6rem;
+  }
+
+  @include mobile {
+    margin-top: 6rem;
+    margin-left: 0;
+  }
+}
+
+.point {
+  color: $color-gray-400;
+  @include font-style(2.2rem, 500, normal);
+
+  @include mobile {
+    @include font-style(1.8rem, 500, normal);
+  }
+}
+
+.description {
+  color: $color-white;
+  @include font-style(4.8rem, 700, 133%);
+
+  @include mobile {
+    text-align: center;
+    @include font-style(3.6rem, 500, 138%);
+  }
+}
+
+.img1 {
+  padding-top: 10.3rem;
+
+  @include tablet {
+    padding-top: 0;
+    padding-left: 14.5rem;
+  }
+
+  @include mobile {
+    padding-left: 4.7rem;
+  }
+}
+
+.img2 {
+  padding-top: 9.8rem;
+  padding-left: 10.8rem;
+
+  @include tablet {
+    padding-top: 0;
+    padding-left: 15.2rem;
+  }
+
+  @include mobile {
+    padding-left: 6.3rem;
+  }
+}
+
+.imgSize1 {
+  @include tablet {
+    width: 51.9rem;
+    height: 43.5rem;
+  }
+
+  @include mobile {
+    width: 29.6rem;
+    height: 24.8rem;
+  }
+}
+
+.imgSize2 {
+  @include tablet {
+    width: 36rem;
+    height: 41.5rem;
+  }
+
+  @include mobile {
+    width: 21.7rem;
+    height: 25rem;
+  }
+}

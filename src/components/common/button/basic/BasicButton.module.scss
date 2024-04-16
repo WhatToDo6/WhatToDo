@@ -19,12 +19,16 @@
 
 .small {
   width: 28rem;
-}
 
-.medium {
-  width: 35.1rem;
+  @include mobile {
+    width: 23.5rem;
+    padding: 1.3rem 0;
+  }
 }
 
 .large {
   width: 52rem;
+  @include mobile {
+    width: 35.1rem;
+  }
 }
