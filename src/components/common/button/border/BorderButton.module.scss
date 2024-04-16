@@ -1,0 +1,45 @@
+@import '../../../../styles/global.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+
+.xsmall {
+  width: 5.2rem;
+  padding: 0.7rem 0.9rem;
+  @include font-style(1.2rem, 500, normal);
+}
+
+.small {
+  width: 7.2rem;
+  padding: 0.6rem 2.3rem;
+  @include font-style(1.4rem, 500, normal);
+}
+
+.medium {
+  width: 8.4rem;
+  padding: 0.7rem 2.9rem;
+  @include font-style(1.4rem, 500, normal);
+}
+
+.large {
+  width: 10.9rem;
+  padding: 0.7rem 3.7rem;
+  @include font-style(1.2rem, 500, normal);
+}
+
+.white {
+  background-color: $color-white;
+  color: $color-violet-200;
+  border: 1px solid $color-gray-300;
+}
+
+.purple {
+  background-color: $color-violet-200;
+  color: $color-white;
+  border: none;
+}
