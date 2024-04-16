@@ -103,7 +103,7 @@ function DashboardHeader({ id }: DashboardHeaderProps) {
                   alt={`${member.name}의 이미지`}
                 />
               ))}
-              {MEMBERS.length >= 4 && (
+              {MEMBERS.length > 4 && (
                 <div className={S.overImg}>
                   <span>+{+MEMBERS.length - 4}</span>
                 </div>
