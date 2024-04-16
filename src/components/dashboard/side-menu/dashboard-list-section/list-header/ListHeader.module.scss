@@ -1,0 +1,24 @@
+@import '@/src/styles/global.scss';
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  @include mobile {
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.title {
+  color: $color-gray-500;
+  @include font-style(1.2rem, 700, normal);
+
+  @include mobile {
+    display: none;
+  }
+}
+
+.add-button {
+  cursor: pointer;
+}
