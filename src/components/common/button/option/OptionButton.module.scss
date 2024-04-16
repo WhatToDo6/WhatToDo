@@ -4,3 +4,11 @@
   display: flex;
   gap: 1rem;
 }
+
+.large {
+  gap: 1.2rem;
+
+  @include mobile {
+    gap: 1.1rem;
+  }
+}
