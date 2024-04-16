@@ -1,0 +1,55 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  width: 100%;
+  height: 7rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $color-gray-300;
+
+  .title {
+    @include font-style(2rem, 700, normal);
+    color: $color-black-200;
+    padding-left: 5rem;
+  }
+
+  .right_box {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding-right: 5rem;
+
+    .button_box {
+      display: flex;
+      gap: 1.2rem;
+
+      button {
+        cursor: pointer;
+        width: 10.8rem;
+        height: 3.6rem;
+        border-radius: 0.8rem;
+        border: 1px solid $color-gray-300;
+        background-color: $color-white;
+      }
+    }
+
+    .login_info_box {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+
+      .image_box {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background-color: $color-green;
+      }
+
+      span {
+        @include font-style(1.6rem, 500, normal);
+        color: $color-black-200;
+      }
+    }
+  }
+}
