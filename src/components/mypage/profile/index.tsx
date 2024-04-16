@@ -1,6 +1,7 @@
 import Image from 'next/image'
 
 import S from './Profile.module.scss'
+import BorderButton from '../../common/button/border'
 
 import ADD_IMG from '/public/icons/add-img.svg'
 
@@ -27,6 +28,11 @@ const Profile = () => {
             <input type="text" className={S[`name-input`]} />
           </div>
         </div>
+      </div>
+      <div className={S['button-container']}>
+        <BorderButton size="small" color="purple">
+          저장
+        </BorderButton>
       </div>
     </div>
   )

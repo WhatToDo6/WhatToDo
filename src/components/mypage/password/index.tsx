@@ -1,4 +1,5 @@
 import S from './Password.module.scss'
+import BorderButton from '../../common/button/border'
 
 const Password = () => {
   return (
@@ -29,6 +30,11 @@ const Password = () => {
             placeholder="새 비밀번호 입력"
           />
         </div>
+      </div>
+      <div className={S['button-container']}>
+        <BorderButton size="small" color="purple">
+          변경
+        </BorderButton>
       </div>
     </div>
   )
