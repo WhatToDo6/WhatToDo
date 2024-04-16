@@ -21,7 +21,7 @@ function test() {
     <div>
       <div />
       <DashboardHeader />
-      <DashboardHeader id={1} />
+      <DashboardHeader id="1" />
       <div style={{ backgroundColor: 'grey' }}>
         <div style={{ width: '332px' }}>
           <DashboardButton />
