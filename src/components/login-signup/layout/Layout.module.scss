@@ -1,0 +1,21 @@
+@import '@/src/styles/global.scss';
+
+@mixin container {
+  background: $color-gray-100;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login {
+  @include container;
+
+  justify-content: center;
+  height: 100vh;
+}
+
+.signup {
+  @include container;
+  padding: 17rem 0;
+}
