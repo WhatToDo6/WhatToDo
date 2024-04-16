@@ -15,18 +15,17 @@ const Profile = () => {
           <Image src={ADD_IMG} alt="이미지 추가하기" width={30} height={30} />
         </div>
         <form className={S.form}>
-          <div className={S.item}>
-            <label className={S.label}>이메일</label>
-            <Input
-              size="small"
-              placeholder="이메일 추가 예정"
-              isDisabled={true}
-            />
-          </div>
-          <div className={S.item}>
-            <label className={S.label}>닉네임</label>
-            <Input size="small" />
-          </div>
+          <Input
+            label="이메일"
+            size="small"
+            placeholder="이메일 추가 예정"
+            isDisabled={true}
+          />
+          <Input
+            label="닉네임"
+            size="small"
+            helperText="닉네임을 입력해주세요"
+          />
         </form>
       </div>
       <div className={S['button-container']}>

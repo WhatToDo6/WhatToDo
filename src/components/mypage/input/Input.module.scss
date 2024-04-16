@@ -1,5 +1,26 @@
 @import '../../../styles/global.scss';
 
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.label {
+  color: $color-black-200;
+  @include font-style(1.8rem, 500, normal);
+
+  @include mobile {
+    @include font-style(1.6rem, 500, normal);
+  }
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
 .input {
   box-sizing: border-box;
   flex-shrink: 0;
@@ -12,6 +33,7 @@
 
   &:focus {
     outline: none;
+    border: 0.1rem solid $color-violet-200;
   }
 
   @include mobile {
@@ -50,4 +72,13 @@
     width: 24.4rem;
     height: 4.2rem;
   }
+}
+
+.error {
+  border: 0.1rem solid $color-red;
+}
+
+.helperText {
+  color: $color-red;
+  @include font-style(1.4rem, 400, normal);
 }
