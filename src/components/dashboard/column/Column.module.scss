@@ -5,7 +5,9 @@
   flex-direction: column;
   gap: 2.5rem;
   width: 35.4rem;
+  height: 100vh;
   padding: 2.8rem 2rem;
+  border-right: 1px solid $color-gray-300;
 }
 
 .taskWrapper {
