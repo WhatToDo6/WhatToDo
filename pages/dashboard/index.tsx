@@ -1,5 +1,5 @@
 import Layout from '@/src/components/common/layout'
-import DashboardButton from '@/src/components/dashboard/dashboard-button'
+import DashboardButtonContainer from '@/src/components/dashboard/button-container'
 import InvitedDashboard from '@/src/components/dashboard/invited-list'
 
 import S from './Dashboard.module.scss'
@@ -16,16 +16,11 @@ const MOCK_DATA = [
   { name: '유닛H', person: '강나무' },
 ]
 
-const MOCK_BTN = { name: 'choi' }
-
 const dashboard = () => {
   return (
     <Layout>
       <div className={S.container}>
-        <div>
-          <DashboardButton />
-          <DashboardButton dashboard={MOCK_BTN} />
-        </div>
+        <DashboardButtonContainer />
         <div className={S.invitedDashboard}>
           <InvitedDashboard inviteData={MOCK_DATA} />
         </div>
