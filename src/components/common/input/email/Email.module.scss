@@ -1,0 +1,6 @@
+@use '../Input.module.scss' as Input;
+@import '@/src/styles/global.scss';
+
+.container {
+  @include Input.input;
+}

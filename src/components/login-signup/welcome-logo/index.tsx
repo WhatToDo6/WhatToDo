@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import LOGO_IMAGE from '@/public/images/logo-img.png'
@@ -19,14 +20,14 @@ const WelcomeLogo = () => {
 
   return (
     <div className={S.container}>
-      <div className={S.logo}>
+      <Link href="/" className={S.logo}>
         <div className={S.img}>
           <Image src={LOGO_IMAGE} alt="로고 이미지" fill objectFit="cover" />
         </div>
         <div className={S.text}>
           <Image src={LOGO_TEXT} alt="로고 글자" fill objectFit="cover" />
         </div>
-      </div>
+      </Link>
       <span className={S.span}>{WELCOME_TEXT[currPath]}</span>
     </div>
   )
