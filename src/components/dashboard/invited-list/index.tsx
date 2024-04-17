@@ -7,7 +7,7 @@ import { useInputSearch } from '@/src/hooks/useInputSearch'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 
 import InvitedCard from './invite-card'
-import S from './InvitedDashboard.module.scss'
+import S from './InvitedList.module.scss'
 
 type MockData = {
   [key: string]: string
