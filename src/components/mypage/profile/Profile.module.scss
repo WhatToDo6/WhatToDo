@@ -1,0 +1,81 @@
+@import '../../../styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 62rem;
+  flex-shrink: 0;
+  border-radius: 0.8rem;
+  padding: 3.2rem 2.8rem 2.8rem;
+  background-color: $color-white;
+
+  @include tablet {
+    width: 54.4rem;
+  }
+
+  @include mobile {
+    width: 28.4rem;
+    padding: 2.8rem 2rem 2rem;
+  }
+}
+
+.title {
+  color: $color-black-200;
+  @include font-style(2.4rem, 700, normal);
+
+  @include mobile {
+    @include font-style(2rem, 700, normal);
+  }
+}
+
+.items {
+  display: flex;
+  margin-top: 3.2rem;
+  margin-bottom: 2rem;
+  gap: 1.6rem;
+
+  @include mobile {
+    flex-direction: column;
+    margin-top: 2.4rem;
+    margin-bottom: 1.6rem;
+    gap: 2.4rem;
+  }
+}
+
+.img-container {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18.2rem;
+  height: 18.2rem;
+  border-radius: 0.6rem;
+  background-color: #f5f5f5;
+
+  cursor: pointer;
+
+  @include mobile {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+
+.input {
+  display: none;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  @include mobile {
+    gap: 1.6rem;
+  }
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end;
+}
