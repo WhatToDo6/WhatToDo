@@ -29,7 +29,7 @@ const MOCK_DATA2: MockData[] = [
   { name: '최원석', person: '강나무' },
 ]
 
-function InvitedDashboard({ inviteData }: Props) {
+function InvitedList({ inviteData }: Props) {
   const observeRef = useRef<HTMLDivElement>(null)
   const [myInviteData, setMyInviteData] = useState<MockData[]>(inviteData)
   const [observe, isScrolled] = useIntersectionObserver()
@@ -106,4 +106,4 @@ function InvitedDashboard({ inviteData }: Props) {
   )
 }
 
-export default InvitedDashboard
+export default InvitedList

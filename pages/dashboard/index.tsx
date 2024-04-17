@@ -1,6 +1,6 @@
 import Layout from '@/src/components/common/layout'
 import DashboardButtonContainer from '@/src/components/dashboard/button-container'
-import InvitedDashboard from '@/src/components/dashboard/invited-list'
+import InvitedList from '@/src/components/dashboard/invited-list'
 
 import S from './Dashboard.module.scss'
 
@@ -22,7 +22,7 @@ const dashboard = () => {
       <div className={S.container}>
         <DashboardButtonContainer />
         <div className={S.invitedDashboard}>
-          <InvitedDashboard inviteData={MOCK_DATA} />
+          <InvitedList inviteData={MOCK_DATA} />
         </div>
       </div>
     </Layout>
