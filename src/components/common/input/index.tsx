@@ -17,6 +17,7 @@ const Input = ({
   newPassword,
   currentPassword,
   size,
+  disabled,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
@@ -63,6 +64,7 @@ const Input = ({
         register={register}
         textType="nickname"
         size={size || ''}
+        disabled={disabled || false}
       />
     ),
     title: (
@@ -72,6 +74,7 @@ const Input = ({
         register={register}
         textType="title"
         size={size || ''}
+        disabled={disabled || false}
       />
     ),
     date: <input type="date" />, // TODO: date input

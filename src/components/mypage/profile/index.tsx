@@ -57,11 +57,13 @@ const Profile = () => {
         <form className={S.form}>
           <div className={S.item}>
             <label className={S.label}>이메일</label>
-            <input
-              type="text"
+            <Input
+              inputType="title"
               placeholder="이메일 추가 예정"
+              error={errors.email}
+              register={register}
+              size="small"
               disabled={true}
-              className={S.email}
             />
           </div>
           <div className={S.item}>

@@ -90,16 +90,6 @@
   }
 }
 
-.email {
-  box-sizing: border-box;
-  flex-shrink: 0;
-  padding: 1.8rem 1.5rem;
-  border-radius: 0.8rem;
-  border: 0.1rem solid $color-gray-300;
-  color: $color-gray-400;
-  @include font-style(1.4rem, 400, normal);
-}
-
 .button-container {
   display: flex;
   justify-content: flex-end;

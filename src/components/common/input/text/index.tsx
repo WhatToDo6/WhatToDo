@@ -5,6 +5,7 @@ import S from './Text.module.scss'
 interface InputTextProps extends InputProps {
   textType: 'nickname' | 'title' // 다른 input이 필요하면 추가
   size: string
+  disabled: boolean
 }
 
 const InputText = ({
@@ -13,6 +14,7 @@ const InputText = ({
   register,
   textType,
   size,
+  disabled,
 }: InputTextProps) => {
   const VALIDATION_MAP = {
     nickname: {
@@ -32,6 +34,7 @@ const InputText = ({
       className={`${S.container} ${error && S.error} ${S[size]}`}
       type="text"
       placeholder={placeholder}
+      disabled={disabled}
       {...register(textType, VALIDATION_MAP[textType])}
     />
   )
