@@ -24,6 +24,7 @@ const Password = () => {
             placeholder="현재 비밀번호 입력"
             error={errors.password}
             register={register}
+            size="large"
           />
         </div>
         <div className={S.item}>
@@ -34,6 +35,7 @@ const Password = () => {
             error={errors.newPassword}
             register={register}
             currentPassword={watch('password')}
+            size="large"
           />
         </div>
         <div className={S.item}>
@@ -44,6 +46,7 @@ const Password = () => {
             error={errors.newPasswordCheck}
             register={register}
             newPassword={watch('newPassword')}
+            size="large"
           />
         </div>
       </form>

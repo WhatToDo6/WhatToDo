@@ -17,6 +17,7 @@ export interface InputInterface {
   password?: string // passwordCheck에서 password를 비교하기 위해 필요
   currentPassword?: string // password와 newPassword를 비교하기 위해 필요
   newPassword?: string // newPasswordCheck에서 newPassword를 비교하기 위해 필요
+  size?: string
 }
 export interface InputFormValues {
   email: string

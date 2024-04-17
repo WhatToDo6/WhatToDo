@@ -16,6 +16,7 @@ const Input = ({
   password,
   newPassword,
   currentPassword,
+  size,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
@@ -26,6 +27,7 @@ const Input = ({
         placeholder={placeholder}
         error={error}
         register={register}
+        size={size || ''}
       />
     ),
     passwordCheck: (
@@ -42,6 +44,7 @@ const Input = ({
         error={error}
         register={register}
         currentPassword={currentPassword || ''}
+        size={size || ''}
       />
     ),
     newPasswordCheck: (
@@ -50,6 +53,7 @@ const Input = ({
         error={error}
         register={register}
         newPassword={newPassword || ''}
+        size={size || ''}
       />
     ),
     text: (

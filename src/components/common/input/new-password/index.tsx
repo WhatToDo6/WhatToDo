@@ -10,6 +10,7 @@ import S from './NewPassword.module.scss'
 
 interface InputNewPasswordProps extends InputProps {
   currentPassword: string
+  size: string
 }
 
 const InputNewPassword = ({
@@ -17,13 +18,14 @@ const InputNewPassword = ({
   error,
   register,
   currentPassword,
+  size,
 }: InputNewPasswordProps) => {
   const [isNewPwVisible, setIsNewPwVisible] = useState(false)
 
   return (
     <div className={S.pwContainer}>
       <input
-        className={`${S.container} ${error ? S.error : ''}`}
+        className={`${S.container} ${error ? S.error : ''} ${S[size]}`}
         type={isNewPwVisible ? 'text' : 'password'}
         placeholder={placeholder}
         {...register('newPassword', {
