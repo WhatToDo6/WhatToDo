@@ -1,10 +1,10 @@
 import { useRef, useState, useEffect } from 'react'
 
-interface usePagenationProps {
+type usePagenationProps = {
   [key: string]: string
 }
 
-type usePageNation = {
+interface usePageNation {
   currPage: number
   lastPage: number
   currPageData: usePagenationProps[]
