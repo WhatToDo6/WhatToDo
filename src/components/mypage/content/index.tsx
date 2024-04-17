@@ -4,14 +4,14 @@ import S from './Content.module.scss'
 import Password from '../password'
 import Profile from '../profile'
 
-import ARROW_ICON from '/public/icons/arrow-icon.svg'
+import LEFT_ARROW from '/public/icons/left-arrow.svg'
 
 const Content = () => {
   return (
     <div className={S.container}>
       <div className={S.before}>
         <Image
-          src={ARROW_ICON}
+          src={LEFT_ARROW}
           alt="돌아가기"
           width={20}
           height={20}
