@@ -3,6 +3,7 @@
 @mixin input {
   display: flex;
   width: 52rem;
+  box-sizing: border-box;
   padding: 1.8rem 1.5rem;
   justify-content: center;
   align-items: center;
@@ -21,6 +22,11 @@
 
   &.error {
     border-color: $color-red;
+  }
+
+  @include mobile {
+    width: 35.1rem;
+    padding: 1.5rem 1.6rem;
   }
 }
 
