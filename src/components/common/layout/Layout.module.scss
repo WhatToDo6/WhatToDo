@@ -4,3 +4,8 @@
   display: flex;
   width: 100vw;
 }
+
+.rightSideContainer {
+  flex-grow: 1;
+  background: $color-gray-100;
+}

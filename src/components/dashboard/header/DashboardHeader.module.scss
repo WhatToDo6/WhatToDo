@@ -6,50 +6,114 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid $color-gray-300;
+  border-bottom: 0.1rem solid $color-gray-300;
+  background-color: $color-white;
+}
 
-  .title {
-    @include font-style(2rem, 700, normal);
-    color: $color-black-200;
-    padding-left: 5rem;
+.title {
+  @include font-style(2rem, 700, normal);
+  color: $color-black-200;
+  padding-left: 5rem;
+}
+
+.rightBox {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  padding-right: 5rem;
+}
+
+.btnBox {
+  display: flex;
+  gap: 1.2rem;
+
+  .btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+    cursor: pointer;
+    height: 4rem;
+    border-radius: 0.8rem;
+    border: 0.1rem solid $color-gray-300;
+    background-color: $color-white;
+    @include tablet {
+      height: 3.6rem;
+    }
+    @include mobile {
+      height: 3rem;
+    }
+
+    &.settingBtn {
+      width: 8.8rem;
+      @include tablet {
+        width: 8.5rem;
+      }
+      @include mobile {
+        width: 4.9rem;
+      }
+    }
+
+    &.inviteBtn {
+      width: 11.6rem;
+      @include tablet {
+        width: 10.9rem;
+      }
+      @include mobile {
+        width: 7.3rem;
+      }
+    }
+
+    span {
+      @include font-style(1.6rem, 500, normal);
+    }
+  }
+}
+
+.btnImg {
+  @include mobile {
+    display: none;
+  }
+}
+
+.loginInfoBox {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+
+  .imageBox {
+    width: 3.8rem;
+    height: 3.8rem;
+    border-radius: 50%;
+    background-color: $color-green;
   }
 
-  .right_box {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    padding-right: 5rem;
+  span {
+    @include font-style(1.6rem, 500, normal);
+    color: $color-black-200;
+  }
+}
 
-    .button_box {
-      display: flex;
-      gap: 1.2rem;
+.memberImgBox {
+  display: flex;
+}
 
-      button {
-        cursor: pointer;
-        width: 10.8rem;
-        height: 3.6rem;
-        border-radius: 0.8rem;
-        border: 1px solid $color-gray-300;
-        background-color: $color-white;
-      }
-    }
+.memberImg {
+  margin-right: -1rem;
+}
 
-    .login_info_box {
-      display: flex;
-      align-items: center;
-      gap: 1.2rem;
+.overImg {
+  width: 3.8rem;
+  height: 3.8rem;
+  border-radius: 50%;
+  background-color: #f4d7da;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid $color-white;
 
-      .image_box {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        background-color: $color-green;
-      }
-
-      span {
-        @include font-style(1.6rem, 500, normal);
-        color: $color-black-200;
-      }
-    }
+  span {
+    color: #d25b68;
+    @include font-style(1.6rem, 500, normal);
   }
 }
