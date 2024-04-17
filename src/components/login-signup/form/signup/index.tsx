@@ -1,9 +1,9 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 
+import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
 import { InputFormValues } from '@/src/types/input'
 
-import Button from '../../button'
 import S from '../Form.module.scss'
 
 const SignUpForm = () => {
@@ -60,9 +60,9 @@ const SignUpForm = () => {
           약관에 동의합니다.
         </label>
       </div>
-      <Button>
+      <BasicButton size="large" isDisabled>
         <span className={S.buttonText}>가입하기</span>
-      </Button>
+      </BasicButton>
     </form>
   )
 }
