@@ -1,14 +1,39 @@
+import { useForm, SubmitHandler } from 'react-hook-form'
+
+import Input from '@/src/components/common/input'
+import { InputFormValues } from '@/src/types/input'
+
 import Button from '../../button'
-import LogInInput from '../../input/login'
 import S from '../Form.module.scss'
 
 const LogInForm = () => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<InputFormValues>({ mode: 'onBlur' })
+
+  const onSubmit: SubmitHandler<InputFormValues> = (data) => {
+    console.log(data)
+  }
+
   return (
     <form className={S.container}>
       <label className={S.label}>이메일</label>
-      <LogInInput inputType="email" error={false} />
+      <Input
+        inputType="email"
+        placeholder="이메일을 입력해주세요"
+        error={errors.email}
+        register={register}
+      />
       <label className={S.label}>비밀번호</label>
-      <LogInInput inputType="password" error={false} />
+      <Input
+        inputType="password"
+        placeholder="비밀번호를 입력해 주세요"
+        error={errors.password}
+        register={register}
+      />
       <Button>
         <span className={S.buttonText}>로그인</span>
       </Button>
