@@ -118,7 +118,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
                 </div>
               )}
             </div>
-            <Image src={barIcon} alt="bar" />
+            <Image width={0} height={38} src={barIcon} alt="bar" />
           </>
         )}
         <div className={S.loginInfoBox}>

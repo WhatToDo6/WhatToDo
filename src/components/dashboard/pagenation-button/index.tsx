@@ -25,10 +25,10 @@ function PagenationButton({
       </p>
       <div className={S.btnContainer}>
         <button onClick={onClickLeft}>
-          <Image src={arrowLeft} alt="이전" />
+          <Image width={16} height={16} src={arrowLeft} alt="이전" />
         </button>
         <button onClick={onClickRight}>
-          <Image src={arrowRight} alt="다음" />
+          <Image width={16} height={16} src={arrowRight} alt="다음" />
         </button>
       </div>
     </div>

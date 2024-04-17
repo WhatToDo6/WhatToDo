@@ -26,18 +26,36 @@ interface DashboardButtonProps {
 function DashboardButton({ dashboard, type, onClick }: DashboardButtonProps) {
   const BTN_CHILDREN: Record<DashboardButtonType, JSX.Element> = {
     add: (
-      <Image className={S.addBoardBtn} src={addBoardBtn} alt="addBoardBtn" />
+      <Image
+        width={22}
+        height={22}
+        className={S.addBoardBtn}
+        src={addBoardBtn}
+        alt="addBoardBtn"
+      />
     ),
     addColumn: (
       <>
         <div>새로운 칼럼 추가하기</div>
-        <Image className={S.addBoardBtn} src={addBoardBtn} alt="addBoardBtn" />
+        <Image
+          width={22}
+          height={22}
+          className={S.addBoardBtn}
+          src={addBoardBtn}
+          alt="addBoardBtn"
+        />
       </>
     ),
     addDashboard: (
       <>
         <div>새로운 대시보드</div>
-        <Image className={S.addBoardBtn} src={addBoardBtn} alt="addBoardBtn" />
+        <Image
+          width={22}
+          height={22}
+          className={S.addBoardBtn}
+          src={addBoardBtn}
+          alt="addBoardBtn"
+        />
       </>
     ),
     moveDashboard: (
@@ -45,9 +63,9 @@ function DashboardButton({ dashboard, type, onClick }: DashboardButtonProps) {
         <div className={S.infoBox}>
           <span>img1</span>
           <p>{dashboard && dashboard.name}</p>
-          <Image src={crownIcon} alt="왕관" />
+          <Image width={20} height={16} src={crownIcon} alt="왕관" />
         </div>
-        <Image src={rightArrow} alt="rightArrow" />
+        <Image width={18} height={18} src={rightArrow} alt="rightArrow" />
       </>
     ),
 
