@@ -6,6 +6,7 @@ interface InputTextProps extends InputProps {
   textType: 'nickname' | 'title' // 다른 input이 필요하면 추가
   size: string
   disabled: boolean
+  required: boolean
 }
 
 const InputText = ({
@@ -15,10 +16,11 @@ const InputText = ({
   textType,
   size,
   disabled,
+  required,
 }: InputTextProps) => {
   const VALIDATION_MAP = {
     nickname: {
-      required: '닉네임을 입력해주세요.',
+      required: required ? '닉네임을 입력해주세요.' : undefined,
       validate: (value: string) => {
         return value.length < 10 || '10자 이하로 작성해주세요.'
       },

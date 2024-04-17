@@ -18,6 +18,7 @@ const Input = ({
   currentPassword,
   size,
   disabled,
+  required = true,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
@@ -65,6 +66,7 @@ const Input = ({
         textType="nickname"
         size={size || ''}
         disabled={disabled || false}
+        required={required || false}
       />
     ),
     title: (
@@ -75,6 +77,7 @@ const Input = ({
         textType="title"
         size={size || ''}
         disabled={disabled || false}
+        required={required || false}
       />
     ),
     date: <input type="date" />, // TODO: date input

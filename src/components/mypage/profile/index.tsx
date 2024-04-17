@@ -74,6 +74,7 @@ const Profile = () => {
               error={errors.nickname}
               register={register}
               size="small"
+              required={false}
             />
           </div>
         </form>
