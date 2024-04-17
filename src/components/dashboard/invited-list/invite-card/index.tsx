@@ -1,3 +1,5 @@
+import OptionButton from '@/src/components/common/button/option'
+
 import S from './InviteCard.module.scss'
 
 interface Props {
@@ -10,10 +12,13 @@ function InvitedCard({ name, person }: Props) {
     <div className={S.container}>
       <div>{name}</div>
       <div>{person}</div>
-      <div>
-        <button>수락</button>
-        <button>거절</button>
-      </div>
+      <OptionButton
+        size="medium"
+        leftColor="purple"
+        rightColor="white"
+        leftText="수락"
+        rightText="거절"
+      />
     </div>
   )
 }
