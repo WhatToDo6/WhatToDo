@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import BasicButton from '@/src/components/common/button/basic'
@@ -7,6 +8,7 @@ import { InputFormValues } from '@/src/types/input'
 import S from '../Form.module.scss'
 
 const SignUpForm = () => {
+  const [isChecked, setIsChecked] = useState(false)
   const {
     register,
     handleSubmit,
@@ -15,7 +17,7 @@ const SignUpForm = () => {
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
-    console.log(data)
+    if (!isChecked || Object.keys(errors).length > 0) return
   }
 
   return (
@@ -55,12 +57,24 @@ const SignUpForm = () => {
           type="checkbox"
           id="agree"
           name="agree"
+          checked={isChecked}
+          onChange={() => setIsChecked(!isChecked)}
         />
         <label className={S.agreeText} htmlFor="agree">
           약관에 동의합니다.
         </label>
       </div>
-      <BasicButton size="large" isDisabled>
+      <BasicButton
+        size="large"
+        isDisabled={
+          watch('email') === '' ||
+          watch('password') === '' ||
+          watch('passwordCheck') === '' ||
+          isChecked === false
+            ? true
+            : false
+        }
+      >
         <span className={S.buttonText}>가입하기</span>
       </BasicButton>
     </form>
