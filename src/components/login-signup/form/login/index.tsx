@@ -1,9 +1,9 @@
 import { useForm, SubmitHandler } from 'react-hook-form'
 
+import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
 import { InputFormValues } from '@/src/types/input'
 
-import Button from '../../button'
 import S from '../Form.module.scss'
 
 const LogInForm = () => {
@@ -34,9 +34,9 @@ const LogInForm = () => {
         error={errors.password}
         register={register}
       />
-      <Button>
+      <BasicButton size="large" isDisabled={true}>
         <span className={S.buttonText}>로그인</span>
-      </Button>
+      </BasicButton>
     </form>
   )
 }
