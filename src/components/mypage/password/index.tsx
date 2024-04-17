@@ -40,6 +40,17 @@ const Password = () => {
     validateCheckPassword()
   }
 
+  const isFormValid = !newPwError && !checkPwError
+
+  const changePassword = () => {
+    setCurrentPassword(newPassword)
+  }
+  const handleSubmit = () => {
+    if (isFormValid) {
+      changePassword()
+    }
+  }
+
   return (
     <div className={S.container}>
       <h1 className={S.title}>비밀번호 변경</h1>
@@ -73,7 +84,12 @@ const Password = () => {
         />
       </form>
       <div className={S['button-container']}>
-        <BorderButton size="small" color="purple">
+        <BorderButton
+          size="small"
+          color="purple"
+          onClick={handleSubmit}
+          isDisabled={!isFormValid}
+        >
           변경
         </BorderButton>
       </div>

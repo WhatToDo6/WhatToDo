@@ -32,7 +32,7 @@ const Profile = () => {
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            style={{ display: 'none' }}
+            className={S.input}
           />
           {selectedImage ? (
             <Image

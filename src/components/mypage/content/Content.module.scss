@@ -4,8 +4,6 @@
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  width: 100vw;
-  height: 100vh;
   padding-top: 2rem;
   padding-left: 2rem;
   background-color: $color-gray-100;
@@ -29,6 +27,7 @@
 
 .img {
   display: flex;
+
   @include mobile {
     width: 1.8rem;
     height: 1.8rem;
