@@ -34,6 +34,7 @@ const SignUpForm = () => {
       })
       .catch((err) => {
         console.error(err)
+        //TODO: 에러 모달
       })
   }
 
