@@ -41,7 +41,7 @@ function InvitedDashboard({ inviteData }: Props) {
   }`
 
   useEffect(() => {
-    if (observeRef.current) {
+    if (inviteData.length >= 6 && observeRef.current) {
       observe(observeRef.current)
     }
   }, [observe])
