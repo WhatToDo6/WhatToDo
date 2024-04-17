@@ -21,7 +21,7 @@ function PagenationButton({
   return (
     <div className={S.container}>
       <p>
-        {currPage} 페이지 중 {lastPage}
+        {lastPage} 페이지 중 {currPage}
       </p>
       <div className={S.btnContainer}>
         <button onClick={onClickLeft}>
