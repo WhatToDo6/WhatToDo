@@ -1,0 +1,31 @@
+@import '@/src/styles/global.scss';
+
+@mixin input {
+  display: flex;
+  width: 52rem;
+  padding: 1.8rem 1.5rem;
+  justify-content: center;
+  align-items: center;
+
+  border-radius: 0.8rem;
+  border: 0.1rem solid $color-gray-300;
+  background-color: $color-white;
+
+  &::placeholder {
+    color: $color-gray-400;
+  }
+
+  &:focus {
+    border-color: $color-violet-200;
+  }
+
+  &.error {
+    border-color: $color-red;
+  }
+}
+
+.errorText {
+  color: $color-red;
+
+  @include font-style(1.4rem, 400, normal);
+}
