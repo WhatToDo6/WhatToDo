@@ -3,6 +3,10 @@
    License: none (public domain)
 */
 
+* {
+  font-family: 'Pretendard', 'Montserrat', 'sans-serif';
+}
+
 html,
 body,
 div,
