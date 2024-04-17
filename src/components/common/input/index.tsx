@@ -2,6 +2,8 @@ import { InputInterface } from '@/src/types/input'
 
 import InputEmail from './email'
 import S from './Input.module.scss'
+import InputNewPassword from './new-password'
+import InputNewPasswordCheck from './new-password-check'
 import InputPassword from './password'
 import InputPasswordCheck from './password-check'
 import InputText from './text'
@@ -12,6 +14,8 @@ const Input = ({
   error,
   register,
   password,
+  newPassword,
+  currentPassword,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
@@ -30,6 +34,22 @@ const Input = ({
         error={error}
         register={register}
         password={password || ''}
+      />
+    ),
+    newPassword: (
+      <InputNewPassword
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        currentPassword={currentPassword || ''}
+      />
+    ),
+    newPasswordCheck: (
+      <InputNewPasswordCheck
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        newPassword={newPassword || ''}
       />
     ),
     text: (

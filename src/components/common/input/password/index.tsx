@@ -3,10 +3,10 @@ import { useState } from 'react'
 
 import EYE_OFF from '@/public/icons/eye-off.svg'
 import EYE_ON from '@/public/icons/eye-on.svg'
+import { InputProps } from '@/src/types/input'
 import { validatePassword } from '@/src/utils/validation'
 
 import S from './Password.module.scss'
-import { InputProps } from '../email'
 
 const InputPassword = ({ placeholder, error, register }: InputProps) => {
   const [isPwVisible, setIsPwVisible] = useState(false)
@@ -14,7 +14,7 @@ const InputPassword = ({ placeholder, error, register }: InputProps) => {
   return (
     <div className={S.pwContainer}>
       <input
-        className={`${S.container} ${error && S.error}`}
+        className={`${S.container} ${error ? S.error : ''} `}
         required
         type={isPwVisible ? 'text' : 'password'}
         placeholder={placeholder}
