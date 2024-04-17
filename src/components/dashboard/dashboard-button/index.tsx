@@ -44,7 +44,7 @@ function DashboardButton({ dashboard, type, onClick }: DashboardButtonProps) {
       <>
         <div className={S.infoBox}>
           <span>img1</span>
-          <div>{dashboard && dashboard.name}</div>
+          <p>{dashboard && dashboard.name}</p>
           <Image src={crownIcon} alt="왕관" />
         </div>
         <Image src={rightArrow} alt="rightArrow" />

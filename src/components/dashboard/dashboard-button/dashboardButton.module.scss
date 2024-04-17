@@ -38,12 +38,12 @@
 
     .infoBox {
       display: flex;
+      align-items: center;
     }
 
-    div {
+    p {
       @include font-style(1.6rem, 600, normal);
-      display: flex;
-      gap: 2rem;
+      margin: 0 0.8rem 0 1.6rem;
     }
   }
 
