@@ -4,6 +4,7 @@ import S from './Text.module.scss'
 
 interface InputTextProps extends InputProps {
   textType: 'nickname' | 'title' // 다른 input이 필요하면 추가
+  size: string
 }
 
 const InputText = ({
@@ -11,6 +12,7 @@ const InputText = ({
   error,
   register,
   textType,
+  size,
 }: InputTextProps) => {
   const VALIDATION_MAP = {
     nickname: {
@@ -27,7 +29,7 @@ const InputText = ({
 
   return (
     <input
-      className={`${S.container} ${error && S.error}`}
+      className={`${S.container} ${error && S.error} ${S[size]}`}
       type="text"
       placeholder={placeholder}
       {...register(textType, VALIDATION_MAP[textType])}

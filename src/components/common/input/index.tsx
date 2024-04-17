@@ -62,6 +62,7 @@ const Input = ({
         error={error}
         register={register}
         textType="nickname"
+        size={size || ''}
       />
     ),
     title: (
@@ -70,6 +71,7 @@ const Input = ({
         error={error}
         register={register}
         textType="title"
+        size={size || ''}
       />
     ),
     date: <input type="date" />, // TODO: date input
