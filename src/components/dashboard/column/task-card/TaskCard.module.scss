@@ -1,0 +1,15 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem;
+  border: 1px solid $color-gray-300;
+  border-radius: 6px;
+}
+
+.cardHeading {
+  color: $color-black-200;
+  @include font-style(1.6rem, 500, normal);
+}

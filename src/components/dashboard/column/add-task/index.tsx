@@ -4,7 +4,7 @@ import S from './AddTask.module.scss'
 
 const AddTask = () => {
   return (
-    <div className={S.buttonContainer}>
+    <div className={S.buttonWrapper}>
       <AddButton />
     </div>
   )
