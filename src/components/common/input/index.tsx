@@ -56,8 +56,21 @@ const Input = ({
         size={size || ''}
       />
     ),
-    text: (
-      <InputText placeholder={placeholder} error={error} register={register} />
+    nickname: (
+      <InputText
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        textType="nickname"
+      />
+    ),
+    title: (
+      <InputText
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        textType="title"
+      />
     ),
     date: <input type="date" />, // TODO: date input
     tag: <input type="tag" />, // TODO: tag input

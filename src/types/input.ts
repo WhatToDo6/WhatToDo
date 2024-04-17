@@ -7,7 +7,8 @@ export interface InputInterface {
     | 'passwordCheck'
     | 'newPassword'
     | 'newPasswordCheck'
-    | 'text'
+    | 'nickname'
+    | 'title'
     | 'date'
     | 'tag'
     | 'textarea'
@@ -25,7 +26,8 @@ export interface InputFormValues {
   passwordCheck: string
   newPassword: string
   newPasswordCheck: string
-  text: string
+  nickname: string
+  title: string
   date: string
   tag: string
   textarea: string
