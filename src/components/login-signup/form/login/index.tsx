@@ -1,5 +1,8 @@
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
+import AXIOS from '@/lib/axios'
 import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
 import { InputFormValues } from '@/src/types/input'
@@ -7,6 +10,9 @@ import { InputFormValues } from '@/src/types/input'
 import S from '../Form.module.scss'
 
 const LogInForm = () => {
+  const router = useRouter()
+  const [loginError, setLoginError] = useState('')
+
   const {
     register,
     handleSubmit,
@@ -15,11 +21,23 @@ const LogInForm = () => {
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
-    console.log(data)
+    if (data.email === '' || data.password === '') return
+
+    AXIOS.post('/auth/login', {
+      email: data.email,
+      password: data.password,
+    })
+      .then((res) => {
+        localStorage.setItem('accessToken', res.data.accessToken)
+        router.push('/mydashboard')
+      })
+      .catch((err) => {
+        setLoginError(err.response.data.message)
+      })
   }
 
   return (
-    <form className={S.container}>
+    <form className={S.container} onSubmit={handleSubmit(onSubmit)}>
       <label className={S.label}>이메일</label>
       <Input
         inputType="email"
@@ -34,7 +52,13 @@ const LogInForm = () => {
         error={errors.password}
         register={register}
       />
-      <BasicButton size="large" isDisabled={true}>
+      <span className={S.errorText}>* {loginError}</span>
+      <BasicButton
+        size="large"
+        isDisabled={
+          watch('email') === '' || watch('password') === '' ? true : false
+        }
+      >
         <span className={S.buttonText}>로그인</span>
       </BasicButton>
     </form>
