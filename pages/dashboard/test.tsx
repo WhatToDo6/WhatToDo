@@ -18,27 +18,16 @@ const MOCK_BTN = { name: 'choi' }
 
 function test() {
   return (
-    <div>
-      <div />
-      <DashboardHeader />
-      <DashboardHeader id="1" />
-      <div style={{ backgroundColor: 'grey' }}>
-        <div style={{ width: '332px' }}>
-          <DashboardButton />
-        </div>
-        <br />
-        <div style={{ width: '332px' }}>
-          <DashboardButton dashboard={MOCK_BTN} />
-        </div>
-        <br />
-        <div style={{ width: '1000px' }}>
-          <InvitedDashboard inviteData={MOCK_DATA} />
-        </div>
-        <br />
-        {/* <div style={{ width: '1000px' }}>
-          <InvitedDashboard />
-        </div> */}
+    <div style={{ backgroundColor: 'grey' }}>
+      <div style={{ width: '1000px' }}>
+        <DashboardButton type="add" />
       </div>
+      <div style={{ width: '1000px' }}>
+        <DashboardButton type="addColumn" />
+      </div>
+      <DashboardButton type="addDashboard" />
+      <DashboardButton type="moveDashboard" />
+      <DashboardButton type="deleteDashboard" dashboard={MOCK_BTN} />
     </div>
   )
 }
