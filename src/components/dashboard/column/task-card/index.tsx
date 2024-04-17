@@ -24,11 +24,15 @@ const TaskCard = () => {
           alt="카드 이미지"
         />
       </div>
-      <div className={S.cardHeading}>새로운 일정 관리 Taskify</div>
-      <TaskCardTag tagType="프로젝트" />
-      <div className={S.cardBottom}>
-        <TaskCardDate />
-        <div>아이콘</div>
+      <div className={S.content}>
+        <div className={S.cardHeading}>새로운 일정 관리 Taskify</div>
+        <div className={S.wrapper}>
+          <TaskCardTag tagType="프로젝트" />
+          <div className={S.cardBottom}>
+            <TaskCardDate />
+            <div>아이콘</div>
+          </div>
+        </div>
       </div>
     </div>
   )

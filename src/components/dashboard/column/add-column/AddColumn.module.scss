@@ -10,8 +10,13 @@
   border-radius: 6px;
   background-color: $color-white;
   cursor: pointer;
+
+  @include tablet {
+    width: 100%;
+  }
 }
 
 .text {
+  white-space: nowrap;
   @include font-style(1.8rem, 700, normal);
 }

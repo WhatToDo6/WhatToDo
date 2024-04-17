@@ -2,4 +2,8 @@
 
 .container {
   display: flex;
+
+  @include tablet {
+    flex-direction: column;
+  }
 }

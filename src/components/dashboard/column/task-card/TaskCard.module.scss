@@ -10,6 +10,16 @@
   border: 1px solid $color-gray-300;
   border-radius: 6px;
   background-color: $color-white;
+
+  @include tablet {
+    flex-direction: row;
+    justify-content: start;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 .imageWrapper {
@@ -17,6 +27,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @include tablet {
+    width: 9.1rem;
+    height: 5.4rem;
+  }
+
+  @include mobile {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
 }
 
 .cardHeading {
@@ -24,8 +51,26 @@
   @include font-style(1.6rem, 500, normal);
 }
 
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  @include tablet {
+    flex-direction: row;
+  }
+
+  @include mobile {
+    flex-direction: column;
+  }
+}
+
 .cardBottom {
   display: flex;
+  flex: 1;
   justify-content: space-between;
   align-items: center;
+
+  @include tablet {
+  }
 }
