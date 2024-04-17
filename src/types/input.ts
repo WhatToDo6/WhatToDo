@@ -5,7 +5,8 @@ export interface InputInterface {
     | 'email'
     | 'password'
     | 'passwordCheck'
-    | 'text'
+    | 'nickname'
+    | 'title'
     | 'date'
     | 'tag'
     | 'textarea'
@@ -18,7 +19,8 @@ export interface InputFormValues {
   email: string
   password: string
   passwordCheck: string
-  text: string
+  nickname: string
+  title: string
   date: string
   tag: string
   textarea: string
