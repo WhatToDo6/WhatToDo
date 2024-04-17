@@ -1,6 +1,8 @@
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
+import AXIOS from '@/lib/axios'
 import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
 import { InputFormValues } from '@/src/types/input'
@@ -8,6 +10,8 @@ import { InputFormValues } from '@/src/types/input'
 import S from '../Form.module.scss'
 
 const SignUpForm = () => {
+  const router = useRouter()
+
   const [isChecked, setIsChecked] = useState(false)
   const {
     register,
@@ -18,6 +22,19 @@ const SignUpForm = () => {
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     if (!isChecked || Object.keys(errors).length > 0) return
+
+    AXIOS.post('/users', {
+      email: data.email,
+      nickname: data.nickname,
+      password: data.password,
+    })
+      .then(() => {
+        alert('가입이 완료되었습니다')
+        router.push('/login')
+      })
+      .catch((err) => {
+        console.error(err)
+      })
   }
 
   return (
@@ -68,8 +85,10 @@ const SignUpForm = () => {
         size="large"
         isDisabled={
           watch('email') === '' ||
+          watch('nickname') === '' ||
           watch('password') === '' ||
           watch('passwordCheck') === '' ||
+          watch('password') !== watch('passwordCheck') ||
           isChecked === false
             ? true
             : false
