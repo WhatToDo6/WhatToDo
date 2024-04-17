@@ -1,12 +1,18 @@
+import { useRouter } from 'next/router'
+import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
+import AXIOS from '@/lib/axios'
+import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
 import { InputFormValues } from '@/src/types/input'
 
-import Button from '../../button'
 import S from '../Form.module.scss'
 
 const SignUpForm = () => {
+  const router = useRouter()
+
+  const [isChecked, setIsChecked] = useState(false)
   const {
     register,
     handleSubmit,
@@ -15,7 +21,21 @@ const SignUpForm = () => {
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
-    console.log(data)
+    if (!isChecked || Object.keys(errors).length > 0) return
+
+    AXIOS.post('/users', {
+      email: data.email,
+      nickname: data.nickname,
+      password: data.password,
+    })
+      .then(() => {
+        alert('가입이 완료되었습니다')
+        router.push('/login')
+      })
+      .catch((err) => {
+        console.error(err)
+        //TODO: 에러 모달
+      })
   }
 
   return (
@@ -29,9 +49,9 @@ const SignUpForm = () => {
       />
       <label className={S.label}>닉네임</label>
       <Input
-        inputType="text"
+        inputType="nickname"
         placeholder="닉네임을 입력해 주세요"
-        error={errors.text}
+        error={errors.nickname}
         register={register}
       />
       <label className={S.label}>비밀번호</label>
@@ -55,14 +75,28 @@ const SignUpForm = () => {
           type="checkbox"
           id="agree"
           name="agree"
+          checked={isChecked}
+          onChange={() => setIsChecked(!isChecked)}
         />
         <label className={S.agreeText} htmlFor="agree">
           약관에 동의합니다.
         </label>
       </div>
-      <Button>
+      <BasicButton
+        size="large"
+        isDisabled={
+          watch('email') === '' ||
+          watch('nickname') === '' ||
+          watch('password') === '' ||
+          watch('passwordCheck') === '' ||
+          watch('password') !== watch('passwordCheck') ||
+          isChecked === false
+            ? true
+            : false
+        }
+      >
         <span className={S.buttonText}>가입하기</span>
-      </Button>
+      </BasicButton>
     </form>
   )
 }
