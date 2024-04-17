@@ -29,9 +29,9 @@ const SignUpForm = () => {
       />
       <label className={S.label}>닉네임</label>
       <Input
-        inputType="text"
+        inputType="nickname"
         placeholder="닉네임을 입력해 주세요"
-        error={errors.text}
+        error={errors.nickname}
         register={register}
       />
       <label className={S.label}>비밀번호</label>

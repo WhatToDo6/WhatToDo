@@ -1,0 +1,44 @@
+@import '../../../styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding-top: 2rem;
+  padding-left: 2rem;
+  background-color: $color-gray-100;
+
+  @include mobile {
+    padding-top: 1.7rem;
+    padding-bottom: 1.2rem;
+  }
+}
+
+.before {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  gap: 0.6rem;
+
+  @include mobile {
+    margin-bottom: 2rem;
+  }
+}
+
+.img {
+  display: flex;
+
+  @include mobile {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}
+
+.title {
+  color: $color-black-200;
+  @include font-style(1.6rem, 500, normal);
+
+  @include mobile {
+    @include font-style(1.4rem, 500, normal);
+  }
+}
