@@ -5,13 +5,15 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import AXIOS from '@/lib/axios'
 import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
+import Modal from '@/src/components/common/modal'
+import ModalAlert from '@/src/components/common/modal/modal-alert'
 import { InputFormValues } from '@/src/types/input'
 
 import S from '../Form.module.scss'
 
 const LogInForm = () => {
   const router = useRouter()
-  const [loginError, setLoginError] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const {
     register,
@@ -31,38 +33,46 @@ const LogInForm = () => {
         localStorage.setItem('accessToken', res.data.accessToken)
         router.push('/mydashboard')
       })
-      .catch((err) => {
-        setLoginError(err.response.data.message)
-        //TODO: 에러 모달
+      .catch(() => {
+        setIsModalOpen(true)
       })
   }
 
   return (
-    <form className={S.container} onSubmit={handleSubmit(onSubmit)}>
-      <label className={S.label}>이메일</label>
-      <Input
-        inputType="email"
-        placeholder="이메일을 입력해주세요"
-        error={errors.email}
-        register={register}
-      />
-      <label className={S.label}>비밀번호</label>
-      <Input
-        inputType="password"
-        placeholder="비밀번호를 입력해 주세요"
-        error={errors.password}
-        register={register}
-      />
-      <span className={S.errorText}>* {loginError}</span>
-      <BasicButton
-        size="large"
-        isDisabled={
-          watch('email') === '' || watch('password') === '' ? true : false
-        }
-      >
-        <span className={S.buttonText}>로그인</span>
-      </BasicButton>
-    </form>
+    <>
+      {isModalOpen && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalAlert
+            content="비밀번호가 일치하지 않습니다."
+            buttonText="확인"
+          />
+        </Modal>
+      )}
+      <form className={S.container} onSubmit={handleSubmit(onSubmit)}>
+        <label className={S.label}>이메일</label>
+        <Input
+          inputType="email"
+          placeholder="이메일을 입력해주세요"
+          error={errors.email}
+          register={register}
+        />
+        <label className={S.label}>비밀번호</label>
+        <Input
+          inputType="password"
+          placeholder="비밀번호를 입력해 주세요"
+          error={errors.password}
+          register={register}
+        />
+        <BasicButton
+          size="large"
+          isDisabled={
+            watch('email') === '' || watch('password') === '' ? true : false
+          }
+        >
+          <span className={S.buttonText}>로그인</span>
+        </BasicButton>
+      </form>
+    </>
   )
 }
 
