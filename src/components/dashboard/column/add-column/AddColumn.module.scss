@@ -1,0 +1,22 @@
+@import '@/src/styles/global.scss';
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 2.4rem 8.5rem;
+  border: 0.1rem solid $color-gray-300;
+  border-radius: 0.6rem;
+  background-color: $color-white;
+  cursor: pointer;
+
+  @include tablet {
+    width: 100%;
+  }
+}
+
+.text {
+  white-space: nowrap;
+  @include font-style(1.8rem, 700, normal);
+}
