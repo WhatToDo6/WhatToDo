@@ -1,4 +1,4 @@
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Image from 'next/image'
 
@@ -8,9 +8,12 @@ import S from './Profile.module.scss'
 import BorderButton from '../../common/button/border'
 import Input from '../../common/input'
 
+import AXIOS from '@/lib/axios'
+
 import ADD_IMG from '/public/icons/add-img.svg'
 
 const Profile = () => {
+  const [userData, setUserData] = useState('')
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
 
@@ -24,6 +27,23 @@ const Profile = () => {
   const handleImageUpload = () => {
     fileInputRef.current?.click()
   }
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken')
+    if (accessToken) {
+      AXIOS.get('/users/me', {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+        .then((res) => {
+          setUserData(res.data.email)
+        })
+        .catch((err) => {
+          console.error('Error fetching user data:', err.response.data.message)
+        })
+    }
+  }, [])
 
   const {
     register,
@@ -59,7 +79,7 @@ const Profile = () => {
             <label className={S.label}>이메일</label>
             <Input
               inputType="title"
-              placeholder="이메일 추가 예정"
+              placeholder={userData}
               error={errors.email}
               register={register}
               size="small"
