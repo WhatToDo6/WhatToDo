@@ -1,33 +1,20 @@
-import { ChangeEvent, useEffect, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import Image from 'next/image'
+import { ChangeEvent, useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
+import AXIOS from '@/lib/axios'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './Profile.module.scss'
 import BorderButton from '../../common/button/border'
 import Input from '../../common/input'
 
-import AXIOS from '@/lib/axios'
-
 import ADD_IMG from '/public/icons/add-img.svg'
 
 const Profile = () => {
   const [userData, setUserData] = useState('')
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
-  const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      let img = e.target.files[0]
-      setSelectedImage(URL.createObjectURL(img))
-    }
-  }
-
-  const handleImageUpload = () => {
-    fileInputRef.current?.click()
-  }
-
+  // 이메일 받아오는 부분
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
@@ -45,36 +32,59 @@ const Profile = () => {
     }
   }, [])
 
+  // imageUpload시 서버로부터 profileImgURL 받아오는 부분
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files ? e.target.files[0] : null
+    if (file) {
+      await uploadFile(file)
+    }
+  }
+
+  const uploadFile = async (file: File) => {
+    const accessToken = localStorage.getItem('accessToken')
+    const formData = new FormData()
+    formData.append('image', file)
+
+    if (accessToken) {
+      AXIOS.post('/users/me/image', formData, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }).then((res) => {
+        console.log(res.data.profileImageUrl)
+      })
+    }
+  }
+
   const {
     register,
+    handleSubmit,
     formState: { errors },
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onSubmit' })
 
   return (
     <div className={S.container}>
       <h1 className={S.title}>프로필</h1>
-      <div className={S.items}>
-        <div className={S['img-container']} onClick={handleImageUpload}>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-            className={S.input}
-          />
-          {selectedImage ? (
+      <div className={S.form}>
+        <div className={S['img-container']}>
+          <label htmlFor="image-upload">
             <Image
-              src={selectedImage}
-              alt="선택된 이미지"
-              fill
-              unoptimized={true}
-              className={S['preview-image']}
+              src={ADD_IMG}
+              alt="이미지 추가하기"
+              width={30}
+              height={30}
+              className={S.img}
             />
-          ) : (
-            <Image src={ADD_IMG} alt="이미지 추가하기" width={30} height={30} />
-          )}
+            <input
+              id="image-upload"
+              type="file"
+              accept="image/*"
+              className={S.input}
+              onChange={handleImageChange}
+            />
+          </label>
         </div>
-        <form className={S.form}>
+        <form className={S.items} onSubmit={handleSubmit(onSubmit)}>
           <div className={S.item}>
             <label className={S.label}>이메일</label>
             <Input
@@ -97,12 +107,12 @@ const Profile = () => {
               required={false}
             />
           </div>
+          <div className={S['button-container']}>
+            <BorderButton size="small" color="purple" type="submit">
+              저장
+            </BorderButton>
+          </div>
         </form>
-      </div>
-      <div className={S['button-container']}>
-        <BorderButton size="small" color="purple">
-          저장
-        </BorderButton>
       </div>
     </div>
   )
