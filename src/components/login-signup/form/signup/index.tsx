@@ -5,14 +5,18 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import AXIOS from '@/lib/axios'
 import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
+import Modal from '@/src/components/common/modal'
+import ModalAlert from '@/src/components/common/modal/modal-alert'
 import { InputFormValues } from '@/src/types/input'
 
 import S from '../Form.module.scss'
 
 const SignUpForm = () => {
   const router = useRouter()
-
   const [isChecked, setIsChecked] = useState(false)
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -29,75 +33,92 @@ const SignUpForm = () => {
       password: data.password,
     })
       .then(() => {
-        alert('가입이 완료되었습니다')
-        router.push('/login')
+        setIsSuccessModalOpen(true)
       })
-      .catch((err) => {
-        console.error(err)
-        //TODO: 에러 모달
+      .catch(() => {
+        setIsErrorModalOpen(true)
       })
   }
 
   return (
-    <form className={S.container} onSubmit={handleSubmit(onSubmit)}>
-      <label className={S.label}>이메일</label>
-      <Input
-        inputType="email"
-        placeholder="이메일을 입력해주세요"
-        error={errors.email}
-        register={register}
-      />
-      <label className={S.label}>닉네임</label>
-      <Input
-        inputType="nickname"
-        placeholder="닉네임을 입력해 주세요"
-        error={errors.nickname}
-        register={register}
-      />
-      <label className={S.label}>비밀번호</label>
-      <Input
-        inputType="password"
-        placeholder="8자 이상 입력해 주세요"
-        error={errors.password}
-        register={register}
-      />
-      <label className={S.label}>비밀번호 확인</label>
-      <Input
-        inputType="passwordCheck"
-        placeholder="비밀번호를 한번 더 입력해 주세요"
-        error={errors.passwordCheck}
-        register={register}
-        password={watch('password')}
-      />
-      <div className={S.agreeBox}>
-        <input
-          className={S.agreeCheck}
-          type="checkbox"
-          id="agree"
-          name="agree"
-          checked={isChecked}
-          onChange={() => setIsChecked(!isChecked)}
+    <>
+      {isSuccessModalOpen && (
+        <Modal setIsOpen={setIsSuccessModalOpen}>
+          <ModalAlert
+            content="가입이 완료되었습니다!"
+            buttonText="확인"
+            moveTo="/login"
+          />
+        </Modal>
+      )}
+      {isErrorModalOpen && (
+        <Modal setIsOpen={setIsErrorModalOpen}>
+          <ModalAlert
+            content="이미 사용 중인 이메일입니다."
+            buttonText="확인"
+          />
+        </Modal>
+      )}
+      <form className={S.container} onSubmit={handleSubmit(onSubmit)}>
+        <label className={S.label}>이메일</label>
+        <Input
+          inputType="email"
+          placeholder="이메일을 입력해주세요"
+          error={errors.email}
+          register={register}
         />
-        <label className={S.agreeText} htmlFor="agree">
-          약관에 동의합니다.
-        </label>
-      </div>
-      <BasicButton
-        size="large"
-        isDisabled={
-          watch('email') === '' ||
-          watch('nickname') === '' ||
-          watch('password') === '' ||
-          watch('passwordCheck') === '' ||
-          watch('password') !== watch('passwordCheck') ||
-          isChecked === false
-            ? true
-            : false
-        }
-      >
-        <span className={S.buttonText}>가입하기</span>
-      </BasicButton>
-    </form>
+        <label className={S.label}>닉네임</label>
+        <Input
+          inputType="nickname"
+          placeholder="닉네임을 입력해 주세요"
+          error={errors.nickname}
+          register={register}
+        />
+        <label className={S.label}>비밀번호</label>
+        <Input
+          inputType="password"
+          placeholder="8자 이상 입력해 주세요"
+          error={errors.password}
+          register={register}
+        />
+        <label className={S.label}>비밀번호 확인</label>
+        <Input
+          inputType="passwordCheck"
+          placeholder="비밀번호를 한번 더 입력해 주세요"
+          error={errors.passwordCheck}
+          register={register}
+          password={watch('password')}
+        />
+        <div className={S.agreeBox}>
+          <input
+            className={S.agreeCheck}
+            type="checkbox"
+            id="agree"
+            name="agree"
+            checked={isChecked}
+            onChange={() => setIsChecked(!isChecked)}
+          />
+          <label className={S.agreeText} htmlFor="agree">
+            약관에 동의합니다.
+          </label>
+        </div>
+        <BasicButton
+          size="large"
+          isDisabled={
+            watch('email') === '' ||
+            watch('nickname') === '' ||
+            watch('password') === '' ||
+            watch('passwordCheck') === '' ||
+            watch('password') !== watch('passwordCheck') ||
+            isChecked === false
+              ? true
+              : false
+          }
+        >
+          <span className={S.buttonText}>가입하기</span>
+        </BasicButton>
+      </form>
+    </>
   )
 }
 
