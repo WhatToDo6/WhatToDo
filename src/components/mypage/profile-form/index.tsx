@@ -1,8 +1,9 @@
 import Image from 'next/image'
-import { useEffect, useState, useRef, ChangeEvent } from 'react'
+import { useState, useRef, ChangeEvent } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
+import { useUserData } from '@/src/hooks/useUserData'
 
 import S from './ProfileForm.module.scss'
 import BorderButton from '../../common/button/border'
@@ -15,8 +16,8 @@ type FormValues = {
 }
 
 const ProfileForm = () => {
-  const [userEmail, setUserEmail] = useState('')
-  const [userNickname, setUserNickname] = useState('')
+  const userData = useUserData()
+
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
 
   const {
@@ -25,25 +26,6 @@ const ProfileForm = () => {
     reset,
     formState: { errors },
   } = useForm<FormValues>({ mode: 'onBlur' })
-
-  useEffect(() => {
-    const accessToken = localStorage.getItem('accessToken')
-    if (accessToken) {
-      AXIOS.get('/users/me', {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-        .then((res) => {
-          setUserEmail(res.data.email)
-          setUserNickname(res.data.nickname)
-          setUploadedImageUrl(res.data.profileImageUrl)
-        })
-        .catch((err) => {
-          console.error('Error fetching user data:', err.response.data.message)
-        })
-    }
-  }, []) //초기 유저 정보를 가져온다.
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const accessToken = localStorage.getItem('accessToken')
@@ -72,21 +54,19 @@ const ProfileForm = () => {
       AXIOS.put(
         '/users/me',
         {
-          nickname: data.nickname ? data.nickname : userNickname,
-          profileImageUrl: uploadedImageUrl,
+          nickname: data.nickname ? data.nickname : userData?.nickname,
+          profileImageUrl: uploadedImageUrl
+            ? uploadedImageUrl
+            : userData?.profileImageUrl,
         },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
         },
-      )
-        .then((res) => {
-          setUserNickname(res.data.nickname)
-        })
-        .catch((err) => {
-          console.error(err.response.data.message)
-        })
+      ).catch((err) => {
+        console.error(err.response.data.message)
+      })
     }
     reset({
       nickname: '',
@@ -124,7 +104,7 @@ const ProfileForm = () => {
           <input
             type="text"
             disabled={true}
-            placeholder={userEmail}
+            placeholder={userData?.email}
             className={`${S['text-input']} ${S['first-input']}`}
           />
           <label className={S.title}>닉네임</label>
