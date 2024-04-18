@@ -3,7 +3,6 @@
 .container {
   width: 54rem;
   height: 25rem;
-  padding: 2.8rem;
 
   display: flex;
   flex-direction: column;
@@ -26,7 +25,7 @@
 
 .button {
   position: relative;
-  top: 6rem;
+  top: 8rem;
   left: 18rem;
 
   @include mobile {
