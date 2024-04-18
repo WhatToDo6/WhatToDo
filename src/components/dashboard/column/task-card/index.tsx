@@ -25,7 +25,7 @@ const TaskCard = () => {
         />
       </div>
       <div className={S.content}>
-        <div className={S.cardHeading}>새로운 일정 관리 Taskify</div>
+        <h2 className={S.cardHeading}>새로운 일정 관리 Taskify</h2>
         <div className={S.wrapper}>
           <TaskCardTag tagType="프로젝트" />
           <div className={S.cardBottom}>
