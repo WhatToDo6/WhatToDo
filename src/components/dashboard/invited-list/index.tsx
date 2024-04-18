@@ -7,7 +7,7 @@ import { useInputSearch } from '@/src/hooks/useInputSearch'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 
 import InvitedCard from './invite-card'
-import S from './InvitedList.module.scss'
+import S from './InvitedDashboard.module.scss'
 
 type MockData = {
   [key: string]: string
@@ -29,7 +29,7 @@ const MOCK_DATA2: MockData[] = [
   { name: '최원석', person: '강나무' },
 ]
 
-function InvitedList({ inviteData }: Props) {
+function InvitedDashboard({ inviteData }: Props) {
   const observeRef = useRef<HTMLDivElement>(null)
   const [myInviteData, setMyInviteData] = useState<MockData[]>(inviteData)
   const [observe, isScrolled] = useIntersectionObserver()
@@ -41,7 +41,7 @@ function InvitedList({ inviteData }: Props) {
   }`
 
   useEffect(() => {
-    if (inviteData.length >= 6 && observeRef.current) {
+    if (observeRef.current) {
       observe(observeRef.current)
     }
   }, [observe])
@@ -106,4 +106,4 @@ function InvitedList({ inviteData }: Props) {
   )
 }
 
-export default InvitedList
+export default InvitedDashboard

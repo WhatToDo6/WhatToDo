@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 import S from './Header.module.scss'
 
@@ -8,12 +7,6 @@ import HEADER_IMG from '/public/images/header-img.png'
 import BasicButton from '../../common/button/basic'
 
 const Header = () => {
-  const router = useRouter()
-
-  const handleGoToLogin = () => {
-    router.push('/login')
-  }
-
   return (
     <header className={S.container}>
       <Image
@@ -27,9 +20,7 @@ const Header = () => {
         새로운 일정 관리<span>Taskify</span>
       </h1>
       <p className={S.description}>서비스의 메인 설명 들어갑니다.</p>
-      <BasicButton size="small" onClick={handleGoToLogin}>
-        로그인하기
-      </BasicButton>
+      <BasicButton size="small">로그인하기</BasicButton>
     </header>
   )
 }

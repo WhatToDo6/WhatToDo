@@ -1,0 +1,14 @@
+@import '@/src/styles/global.scss';
+
+.addWrapper {
+  display: flex;
+  height: 7rem;
+  margin: 6.8rem 0 0 2rem;
+
+  @include tablet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem;
+  }
+}

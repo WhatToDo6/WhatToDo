@@ -8,22 +8,13 @@ import { validatePassword } from '@/src/utils/validation'
 
 import S from './Password.module.scss'
 
-interface PasswordProps extends InputProps {
-  size: string
-}
-
-const InputPassword = ({
-  placeholder,
-  error,
-  register,
-  size,
-}: PasswordProps) => {
+const InputPassword = ({ placeholder, error, register }: InputProps) => {
   const [isPwVisible, setIsPwVisible] = useState(false)
 
   return (
     <div className={S.pwContainer}>
       <input
-        className={`${S.container} ${error ? S.error : ''} ${S[size]}`}
+        className={`${S.container} ${error && S.error}`}
         required
         type={isPwVisible ? 'text' : 'password'}
         placeholder={placeholder}

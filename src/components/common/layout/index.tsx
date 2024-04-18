@@ -1,16 +1,12 @@
 import { useRouter } from 'next/router'
-import { ReactNode } from 'react'
 
 import SideMenu from '@/src/components/dashboard/side-menu'
+import { ChildrenProps } from '@/src/types/ChildrenProps.interface'
 
 import S from './Layout.module.scss'
 import DashboardHeader from '../../dashboard/header'
 
-type LayoutProps = {
-  children: ReactNode
-}
-
-const Layout = ({ children }: LayoutProps) => {
+const Layout = ({ children }: ChildrenProps) => {
   const { pathname } = useRouter()
 
   return (

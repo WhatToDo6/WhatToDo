@@ -1,8 +1,6 @@
-import Layout from '@/src/components/common/layout'
 import DashboardButton from '@/src/components/dashboard/dashboard-button'
+import DashboardHeader from '@/src/components/dashboard/header'
 import InvitedDashboard from '@/src/components/dashboard/invited-list'
-
-import S from './Dashboard.module.scss'
 
 const MOCK_DATA = [
   { name: '프로덕트 디자인', person: '손동희' },
@@ -18,20 +16,30 @@ const MOCK_DATA = [
 
 const MOCK_BTN = { name: 'choi' }
 
-const dashboard = () => {
+function test() {
   return (
-    <Layout>
-      <div className={S.container}>
-        <div>
+    <div>
+      <div />
+      <DashboardHeader />
+      <DashboardHeader id="1" />
+      <div style={{ backgroundColor: 'grey' }}>
+        <div style={{ width: '332px' }}>
           <DashboardButton />
+        </div>
+        <br />
+        <div style={{ width: '332px' }}>
           <DashboardButton dashboard={MOCK_BTN} />
         </div>
-        <div className={S.invitedDashboard}>
+        <br />
+        <div style={{ width: '1000px' }}>
           <InvitedDashboard inviteData={MOCK_DATA} />
         </div>
+        <br />
+        {/* <div style={{ width: '1000px' }}>
+          <InvitedDashboard />
+        </div> */}
       </div>
-    </Layout>
+    </div>
   )
 }
-
-export default dashboard
+export default test

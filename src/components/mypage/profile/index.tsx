@@ -1,12 +1,9 @@
 import { ChangeEvent, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
 import Image from 'next/image'
-
-import { InputFormValues } from '@/src/types/input'
 
 import S from './Profile.module.scss'
 import BorderButton from '../../common/button/border'
-import Input from '../../common/input'
+import Input from '../input'
 
 import ADD_IMG from '/public/icons/add-img.svg'
 
@@ -24,11 +21,6 @@ const Profile = () => {
   const handleImageUpload = () => {
     fileInputRef.current?.click()
   }
-
-  const {
-    register,
-    formState: { errors },
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
 
   return (
     <div className={S.container}>
@@ -55,28 +47,17 @@ const Profile = () => {
           )}
         </div>
         <form className={S.form}>
-          <div className={S.item}>
-            <label className={S.label}>이메일</label>
-            <Input
-              inputType="title"
-              placeholder="이메일 추가 예정"
-              error={errors.email}
-              register={register}
-              size="small"
-              disabled={true}
-            />
-          </div>
-          <div className={S.item}>
-            <label className={S.label}>닉네임</label>
-            <Input
-              inputType="nickname"
-              placeholder=""
-              error={errors.nickname}
-              register={register}
-              size="small"
-              required={false}
-            />
-          </div>
+          <Input
+            label="이메일"
+            size="small"
+            placeholder="이메일 추가 예정"
+            isDisabled={true}
+          />
+          <Input
+            label="닉네임"
+            size="small"
+            helperText="닉네임을 입력해주세요"
+          />
         </form>
       </div>
       <div className={S['button-container']}>
