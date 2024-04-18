@@ -4,6 +4,7 @@ import Image from 'next/image'
 import S from './Content.module.scss'
 import Password from '../password'
 import Profile from '../profile'
+import ImageUpload from '../image-upload'
 
 import LEFT_ARROW from '/public/icons/left-arrow.svg'
 
@@ -24,6 +25,7 @@ const Content = () => {
       </div>
       <Profile />
       <Password />
+      <ImageUpload />
     </div>
   )
 }
