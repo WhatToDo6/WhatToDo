@@ -12,6 +12,7 @@ const Password = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
     watch,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
@@ -35,6 +36,11 @@ const Password = () => {
         console.log(err.response.data.message)
       })
     }
+    reset({
+      password: '',
+      newPassword: '',
+      newPasswordCheck: '',
+    })
   }
 
   return (
