@@ -11,20 +11,18 @@ interface InvitedCardProps {
   type: InvitedListType
 }
 
-function isTypeMemberOrEmail(
-  type: InvitedListType,
-): type is 'member' | 'email' {
-  return type === 'member' || type === 'email'
+function isDashboardType(type: InvitedListType): type is 'dashboard' {
+  return type === 'dashboard'
 }
 
-function InvitedCard({ name, person, type }: InvitedCardProps) {
-  const className = `${S.container} ${isTypeMemberOrEmail(type) ? S.inEdit : ''}`
+function InvitedListCard({ name, person, type }: InvitedCardProps) {
+  const className = `${S.container} ${isDashboardType(type) ? S.dashboard : ''}`
 
   const INVITED_CARD = {
     dashboard: (
       <>
-        <div>{name}</div>
-        <div>{person}</div>
+        <p>{name}</p>
+        <p>{person}</p>
         <OptionButton
           size="medium"
           leftColor="purple"
@@ -36,7 +34,7 @@ function InvitedCard({ name, person, type }: InvitedCardProps) {
     ),
     member: (
       <>
-        <div>{name}</div>
+        <p>{name}</p>
         <BorderButton size="small" color="white">
           삭제
         </BorderButton>
@@ -44,7 +42,7 @@ function InvitedCard({ name, person, type }: InvitedCardProps) {
     ),
     email: (
       <>
-        <div>{name}</div>
+        <p>{name}</p>
         <BorderButton size="small" color="white">
           취소
         </BorderButton>
@@ -55,4 +53,4 @@ function InvitedCard({ name, person, type }: InvitedCardProps) {
   return <div className={className}>{INVITED_CARD[type]}</div>
 }
 
-export default InvitedCard
+export default InvitedListCard
