@@ -1,38 +1,67 @@
 @import '@/src/styles/global.scss';
 
-.btn {
+.btn,
+.addDashboard {
   width: 33rem;
   height: 7rem;
   display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: $color-white;
   border-radius: 0.8rem;
   border: 0.1rem solid $color-gray-300;
   cursor: pointer;
+  gap: 1.2rem;
 
-  &.withoutDashboard {
-    justify-content: center;
-    align-items: center;
-    gap: 1.2rem;
+  div {
+    @include font-style(1.6rem, 600, normal);
+    color: $color-black-200;
+  }
 
-    div {
-      @include font-style(1.6rem, 600, normal);
-      color: $color-black-200;
+  &.add {
+    width: 100%;
+    height: 4rem;
+  }
+
+  &.addColumn {
+    width: 100%;
+    height: 7rem;
+    @include mobile {
+      height: 6rem;
     }
   }
 
-  &.withDashboard {
+  &.moveDashboard {
     padding: 0 2rem 0 2rem;
     justify-content: space-between;
     align-items: center;
 
     .infoBox {
       display: flex;
+      align-items: center;
     }
 
-    div {
+    p {
       @include font-style(1.6rem, 600, normal);
-      display: flex;
-      gap: 2rem;
+      margin: 0 0.8rem 0 1.6rem;
     }
+  }
+
+  &.deleteDashboard {
+    background-color: $color-gray-100;
+    width: 32rem;
+    height: 6rem;
+  }
+}
+
+.addDashboard,
+.moveDashboard {
+  @include tablet {
+    width: 25rem;
+  }
+
+  @include mobile {
+    width: 26rem;
+    height: 6rem;
   }
 }
