@@ -32,17 +32,13 @@ function DashboardButtonContainer() {
 
   return (
     <div className={S.container}>
-      {currPageData.map((data) =>
-        data.name === 'first' ? (
-          <DashboardButton key={data.name} type="addDashboard" />
-        ) : (
-          <DashboardButton
-            key={data.name}
-            type="moveDashboard"
-            dashboard={data}
-          />
-        ),
-      )}
+      {currPageData.map((data) => (
+        <DashboardButton
+          key={data.name}
+          type={data.name === 'first' ? 'addDashboard' : 'moveDashboard'}
+          dashboard={data}
+        />
+      ))}
       <PagenationButton
         currPage={currPage}
         lastPage={lastPage}
