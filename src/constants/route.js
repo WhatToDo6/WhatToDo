@@ -1,4 +1,4 @@
 export const ROUTE = {
   landing: '/',
-  myboard: '/myboard',
+  myboard: '/mydashboard',
 }
