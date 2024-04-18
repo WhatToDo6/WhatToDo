@@ -22,7 +22,7 @@ const ModalAlert = ({ content, buttonText, moveTo }: ModalAlertProps) => {
   const router = useRouter()
   const modalStaus = useContext(ModalContext)
   const handleClick = () => {
-    modalStaus.setIsOpen.bind(null, false)
+    modalStaus.setIsOpen.call(null, false)
     moveTo && router.push(moveTo)
   }
 
