@@ -1,0 +1,38 @@
+@use '../InvitedList.module.scss' as InvitedList;
+@import '@/src/styles/global.scss';
+
+.container {
+  @include InvitedList.container;
+}
+
+.headerBox {
+  display: flex;
+  align-items: center;
+  padding: 3.2rem 4rem 0 2.8rem;
+}
+
+.title {
+  @include InvitedList.title;
+}
+
+.tag {
+  @include font-style(1.6rem, 400, normal);
+  color: $color-gray-400;
+  padding-top: 2rem;
+  padding-left: 2.8rem;
+  padding-bottom: 2rem;
+}
+
+.borderButton {
+  margin-left: 1.6rem;
+}
+
+.btnContents {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+
+  p {
+    @include font-style(1.4rem, 400, normal);
+  }
+}
