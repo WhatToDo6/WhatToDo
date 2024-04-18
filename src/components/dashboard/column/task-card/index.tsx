@@ -1,8 +1,7 @@
 import Image from 'next/image'
 
-import TaskCardImg from '@/public/images/task-card-img.png'
-
 import S from './TaskCard.module.scss'
+import { TASK_CARD_IMG } from '../constants'
 import TaskCardDate from '../task-card-date'
 import TaskCardTag from '../task-card-tag'
 
@@ -17,9 +16,10 @@ const TaskCard = () => {
       <div className={S.imageWrapper}>
         <Image
           className={S.cardImage}
-          src={TaskCardImg}
-          fill
-          priority
+          src={TASK_CARD_IMG}
+          width={274}
+          height={160}
+          layout="responsive"
           alt="카드 이미지"
         />
       </div>

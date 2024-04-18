@@ -1,7 +1,7 @@
 import Layout from '@/src/components/common/layout'
 import Column from '@/src/components/dashboard/column'
-import AddColumn from '@/src/components/dashboard/column/add-column'
 import ColumnLayout from '@/src/components/dashboard/column/column-layout'
+import DashboardButton from '@/src/components/dashboard/dashboard-button'
 
 import S from './DashboardId.module.scss'
 
@@ -13,7 +13,7 @@ const DashboardIdPage = () => {
         <Column />
         <Column />
         <div className={S.addWrapper}>
-          <AddColumn />
+          <DashboardButton type="addColumn" />
         </div>
       </ColumnLayout>
     </Layout>
