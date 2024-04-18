@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useState, useRef, ChangeEvent } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
@@ -17,7 +17,6 @@ type FormValues = {
 
 const ProfileForm = () => {
   const userData = useUserData()
-
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
 
   const {
@@ -74,29 +73,19 @@ const ProfileForm = () => {
     })
   } // 저장 누르면 실헹되는 부분
 
-  const inputFileRef = useRef<HTMLInputElement>(null)
-
-  const handleImageClick = () => {
-    inputFileRef.current?.click()
-  }
-
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={S.container}>
       <div className={S.content}>
-        <div className={S['img-container']} onClick={handleImageClick}>
-          <Image
-            src={ADD_IMG}
-            alt=""
-            width={30}
-            height={30}
-            className={S.img}
-          />
+        <div className={S['img-container']}>
+          <label htmlFor="profileImageUpload" className={S.img}>
+            <Image src={ADD_IMG} alt="" width={30} height={30} />
+          </label>
           <input
+            id="profileImageUpload"
             type="file"
             {...register('profileImageUrl')}
-            ref={inputFileRef}
-            className={S['img-input']}
             onChange={handleImageChange}
+            className={S['img-input']}
           />
         </div>
         <div className={S['text-container']}>
