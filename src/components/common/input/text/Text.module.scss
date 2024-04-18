@@ -4,3 +4,15 @@
 .container {
   @include Input.input;
 }
+
+.small {
+  width: 36.6rem;
+
+  @include tablet {
+    width: 29rem;
+  }
+
+  @include mobile {
+    width: 24.4rem;
+  }
+}
