@@ -7,7 +7,7 @@ import { useInputSearch } from '@/src/hooks/useInputSearch'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 
 import S from './InviteListDashboard.module.scss'
-import InvitedCard from '../invite-card'
+import InvitedListCard from '../card'
 
 type MockData = {
   [key: string]: string
@@ -95,7 +95,7 @@ function InviteListDashboard({ inviteData, type }: InviteListDashboardProps) {
         </div>
         {searchedData &&
           searchedData.map((invite) => (
-            <InvitedCard
+            <InvitedListCard
               type={type}
               key={invite.name}
               name={invite.name}

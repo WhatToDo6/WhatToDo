@@ -2,7 +2,7 @@ import { usePagenation } from '@/src/hooks/usePagenation'
 
 import S from './InviteListMember.module.scss'
 import PagenationButton from '../../pagenation-button'
-import InvitedCard from '../invite-card'
+import InvitedListCard from '../card'
 
 type MockData = {
   [key: string]: string
@@ -30,7 +30,7 @@ function InviteListMember({ inviteData, type }: InviteListMemberProps) {
       </div>
       <div className={S.tag}>이름</div>
       {currPageData.map((invite) => (
-        <InvitedCard
+        <InvitedListCard
           type={type}
           key={invite.name}
           name={invite.name}

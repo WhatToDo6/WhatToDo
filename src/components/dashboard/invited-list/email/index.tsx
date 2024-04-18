@@ -6,7 +6,7 @@ import { usePagenation } from '@/src/hooks/usePagenation'
 
 import S from './InviteListEmail.module.scss'
 import PagenationButton from '../../pagenation-button'
-import InvitedCard from '../invite-card'
+import InvitedListCard from '../card'
 
 type MockData = {
   [key: string]: string
@@ -42,7 +42,7 @@ function InviteListEmail({ inviteData, type }: InviteListEmailProps) {
       </div>
       <div className={S.tag}>이메일</div>
       {currPageData.map((invite) => (
-        <InvitedCard
+        <InvitedListCard
           type={type}
           key={invite.name}
           name={invite.name}
