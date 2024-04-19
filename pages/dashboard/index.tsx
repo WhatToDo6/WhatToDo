@@ -22,7 +22,7 @@ const dashboard = () => {
       <div className={S.container}>
         <DashboardButtonContainer />
         <div className={S.invitedDashboard}>
-          <InvitedList inviteData={MOCK_DATA} />
+          <InvitedList inviteData={MOCK_DATA} type="dashboard" />
         </div>
       </div>
     </Layout>
