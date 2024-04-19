@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
@@ -6,8 +7,12 @@ import { InputFormValues } from '@/src/types/input'
 import S from './Password.module.scss'
 import BorderButton from '../../common/button/border'
 import Input from '../../common/input'
+import Modal from '../../common/modal'
+import ModalAlert from '../../common/modal/modal-alert'
 
 const Password = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const {
     register,
     handleSubmit,
@@ -31,9 +36,8 @@ const Password = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         },
-      ).catch((err) => {
-        //TODO: 에러 모달
-        console.log(err.response.data.message)
+      ).catch(() => {
+        setIsModalOpen(true)
       })
     }
     reset({
@@ -44,58 +48,65 @@ const Password = () => {
   }
 
   return (
-    <div className={S.container}>
-      <h1 className={S.title}>비밀번호 변경</h1>
-      <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
-        <div className={S.item}>
-          <label className={S.label}>비밀번호</label>
-          <Input
-            inputType="password"
-            placeholder="현재 비밀번호 입력"
-            error={errors.password}
-            register={register}
-            size="large"
-          />
-        </div>
-        <div className={S.item}>
-          <label className={S.label}>새 비밀번호</label>
-          <Input
-            inputType="newPassword"
-            placeholder="새 비밀번호 입력"
-            error={errors.newPassword}
-            register={register}
-            currentPassword={watch('password')}
-            size="large"
-          />
-        </div>
-        <div className={S.item}>
-          <label className={S.label}>새 비밀번호 확인</label>
-          <Input
-            inputType="newPasswordCheck"
-            placeholder="새 비밀번호 입력"
-            error={errors.newPasswordCheck}
-            register={register}
-            newPassword={watch('newPassword')}
-            size="large"
-          />
-        </div>
-        <div className={S['button-container']}>
-          <BorderButton
-            size="small"
-            color="purple"
-            isDisabled={
-              watch('password') === '' ||
-              watch('newPassword') === '' ||
-              watch('newPasswordCheck') === ''
-                ? true
-                : false
-            }
-          >
-            변경
-          </BorderButton>
-        </div>
-      </form>
-    </div>
+    <>
+      {isModalOpen && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalAlert content="현재 비밀번호가 틀렸습니다." buttonText="확인" />
+        </Modal>
+      )}
+      <div className={S.container}>
+        <h1 className={S.title}>비밀번호 변경</h1>
+        <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
+          <div className={S.item}>
+            <label className={S.label}>비밀번호</label>
+            <Input
+              inputType="password"
+              placeholder="현재 비밀번호 입력"
+              error={errors.password}
+              register={register}
+              size="large"
+            />
+          </div>
+          <div className={S.item}>
+            <label className={S.label}>새 비밀번호</label>
+            <Input
+              inputType="newPassword"
+              placeholder="새 비밀번호 입력"
+              error={errors.newPassword}
+              register={register}
+              currentPassword={watch('password')}
+              size="large"
+            />
+          </div>
+          <div className={S.item}>
+            <label className={S.label}>새 비밀번호 확인</label>
+            <Input
+              inputType="newPasswordCheck"
+              placeholder="새 비밀번호 입력"
+              error={errors.newPasswordCheck}
+              register={register}
+              newPassword={watch('newPassword')}
+              size="large"
+            />
+          </div>
+          <div className={S['button-container']}>
+            <BorderButton
+              size="small"
+              color="purple"
+              isDisabled={
+                watch('password') === '' ||
+                watch('newPassword') === '' ||
+                watch('newPasswordCheck') === ''
+                  ? true
+                  : false
+              }
+            >
+              변경
+            </BorderButton>
+          </div>
+        </form>
+      </div>
+    </>
   )
 }
 
