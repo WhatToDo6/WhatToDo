@@ -33,7 +33,7 @@ const MOCK_DATA2: MockData[] = [
 function InviteListDashboard({ inviteData, type }: InviteListDashboardProps) {
   const observeRef = useRef<HTMLDivElement>(null)
   const [myInviteData, setMyInviteData] = useState<MockData[]>(inviteData)
-  const [observe, isScrolled] = useIntersectionObserver()
+  const { observe, isScrolled } = useIntersectionObserver()
   const [searchWord, handleWordChange, searchedData] =
     useInputSearch(myInviteData)
 
