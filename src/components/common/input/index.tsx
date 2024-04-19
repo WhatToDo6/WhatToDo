@@ -16,9 +16,8 @@ const Input = ({
   password,
   newPassword,
   currentPassword,
+  currentNickname,
   size,
-  disabled,
-  required = true,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
@@ -65,8 +64,16 @@ const Input = ({
         register={register}
         textType="nickname"
         size={size || ''}
-        disabled={disabled || false}
-        required={required || false}
+      />
+    ),
+    newNickname: (
+      <InputText
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        textType="newNickname"
+        currentNickname={currentNickname}
+        size={size || ''}
       />
     ),
     title: (
@@ -76,8 +83,6 @@ const Input = ({
         register={register}
         textType="title"
         size={size || ''}
-        disabled={disabled || false}
-        required={required || false}
       />
     ),
     date: <input type="date" />, // TODO: date input
