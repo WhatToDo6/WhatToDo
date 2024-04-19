@@ -4,16 +4,14 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
 import { useUserData } from '@/src/hooks/useUserData'
+import { InputFormValues } from '@/src/types/input'
 
 import S from './ProfileForm.module.scss'
 import BorderButton from '../../common/button/border'
 
 import ADD_IMG from '/public/icons/add-img.svg'
 
-type FormValues = {
-  nickname: string
-  profileImageUrl: FileList
-}
+import Input from '../../common/input'
 
 const ProfileForm = () => {
   const userData = useUserData()
@@ -24,7 +22,7 @@ const ProfileForm = () => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<FormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onBlur' })
 
   const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
     const accessToken = localStorage.getItem('accessToken')
@@ -47,13 +45,13 @@ const ProfileForm = () => {
     }
   }
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
+  const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
       AXIOS.put(
         '/users/me',
         {
-          nickname: data.nickname ? data.nickname : userData?.nickname,
+          nickname: data.newNickname ? data.newNickname : userData?.nickname,
           profileImageUrl: uploadedImageUrl
             ? uploadedImageUrl
             : userData?.profileImageUrl,
@@ -71,7 +69,7 @@ const ProfileForm = () => {
       nickname: '',
       profileImageUrl: undefined,
     })
-  } // 저장 누르면 실헹되는 부분
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={S.container}>
@@ -97,15 +95,14 @@ const ProfileForm = () => {
             className={`${S['text-input']} ${S['first-input']}`}
           />
           <label className={S.title}>닉네임</label>
-          <input
-            type="text"
-            {...register('nickname', {
-              validate: (value) =>
-                value.length <= 10 || '10자 이하로 작성해주세요.',
-            })}
-            className={`${S['text-input']} ${errors.nickname ? S.error : ''}`}
+          <Input
+            inputType="newNickname"
+            placeholder=""
+            error={errors.newNickname}
+            register={register}
+            currentNickname={userData?.nickname}
+            size="small"
           />
-          <span className={S.errormessage}>{errors.nickname?.message}</span>
         </div>
       </div>
       <div className={S.button}>

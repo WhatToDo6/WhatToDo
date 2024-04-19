@@ -34,6 +34,7 @@ export interface InputFormValues {
   date: string
   tag: string
   textarea: string
+  profileImageUrl: FileList
 }
 
 export interface InputProps {
