@@ -1,0 +1,33 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 0.1rem solid $color-gray-200;
+  padding: 1.5rem 0 1.5rem;
+  padding-right: 2.8rem;
+  align-items: center;
+
+  p {
+    @include font-style(1.6rem, 400, normal);
+    color: $color-black-200;
+    &:first-child {
+      padding-left: 2.8rem;
+    }
+  }
+
+  &:last-child {
+    border: none;
+  }
+
+  &.dashboard {
+    display: grid;
+    padding-right: 0;
+    grid-template-columns: repeat(3, 1fr);
+    p {
+      &:first-child {
+        padding-left: 4rem;
+      }
+    }
+  }
+}

@@ -57,6 +57,16 @@
   }
 }
 
+.extra {
+  width: 10.5rem;
+  @include font-style(1.4rem, 500, normal);
+
+  @include mobile {
+    width: 8.6rem;
+    @include font-style(1.2rem, 500, normal);
+  }
+}
+
 .white {
   background-color: $color-white;
   color: $color-violet-200;
