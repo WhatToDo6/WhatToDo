@@ -3,15 +3,13 @@ import { useState, ChangeEvent } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
+import ADD_IMG from '@/public/icons/add-img.svg'
+import BorderButton from '@/src/components/common/button/border'
+import Input from '@/src/components/common/input'
 import { useUserData } from '@/src/hooks/useUserData'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './ProfileForm.module.scss'
-import BorderButton from '../../common/button/border'
-
-import ADD_IMG from '/public/icons/add-img.svg'
-
-import Input from '../../common/input'
 
 const ProfileForm = () => {
   const userData = useUserData()
