@@ -1,6 +1,7 @@
 import Layout from '@/src/components/common/layout'
 import DashboardButtonContainer from '@/src/components/dashboard/button-container'
 import InvitedList from '@/src/components/dashboard/invited-list'
+import { usePagenationTest } from '@/src/hooks/usePagenationTest'
 
 import S from './Dashboard.module.scss'
 
@@ -16,11 +17,30 @@ const MOCK_DATA = [
   { name: '유닛H', person: '강나무' },
 ]
 
-const dashboard = () => {
+export interface DashboardType {
+  id: number
+  title: string
+  color: string
+  userId: number
+  createdAt: string
+  updatedAt: string
+  createdByMe: true
+}
+
+const Dashboard = () => {
+  const { dashboards, currPage, lastPage, onClickPrevPage, onClickNextPage } =
+    usePagenationTest(5)
+
   return (
     <Layout>
       <div className={S.container}>
-        <DashboardButtonContainer />
+        <DashboardButtonContainer
+          dashboards={dashboards}
+          currPage={currPage}
+          lastPage={lastPage}
+          onClickPrevPage={onClickPrevPage}
+          onClickNextPage={onClickNextPage}
+        />
         <div className={S.invitedDashboard}>
           <InvitedList inviteData={MOCK_DATA} type="dashboard" />
         </div>
@@ -29,4 +49,4 @@ const dashboard = () => {
   )
 }
 
-export default dashboard
+export default Dashboard
