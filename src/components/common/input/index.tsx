@@ -17,6 +17,7 @@ const Input = ({
   newPassword,
   currentPassword,
   currentNickname,
+  currentColumn,
   size,
 }: InputInterface) => {
   const INPUT_MAP = {
@@ -73,6 +74,16 @@ const Input = ({
         register={register}
         textType="newNickname"
         currentNickname={currentNickname}
+        size={size || ''}
+      />
+    ),
+    newColumn: (
+      <InputText
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        textType="newColumn"
+        currentColumn={currentColumn}
         size={size || ''}
       />
     ),

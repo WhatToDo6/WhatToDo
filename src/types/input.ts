@@ -9,6 +9,7 @@ export interface InputInterface {
     | 'newPasswordCheck'
     | 'nickname'
     | 'newNickname'
+    | 'newColumn'
     | 'title'
     | 'date'
     | 'tag'
@@ -21,6 +22,7 @@ export interface InputInterface {
   newPassword?: string // newPasswordCheck에서 newPassword를 비교하기 위해 필요
   size?: string
   currentNickname?: string // 기존 닉네임과 새 닉네임을 비교하기 위해 필요
+  currentColumn?: string // 기존 컬럼 이름과 새로운 칼럼 이름을 비교하기 위해 필요
 }
 export interface InputFormValues {
   email: string
@@ -30,6 +32,7 @@ export interface InputFormValues {
   newPasswordCheck: string
   nickname: string
   newNickname: string
+  newColumn: string
   title: string
   date: string
   tag: string
