@@ -15,12 +15,10 @@ const InputText = ({
   register,
   textType,
   size,
-  disabled,
-  required,
 }: InputTextProps) => {
   const VALIDATION_MAP = {
     nickname: {
-      required: required ? '닉네임을 입력해주세요.' : undefined,
+      required: '닉네임을 입력해주세요.',
       validate: (value: string) => {
         return value.length < 10 || '10자 이하로 작성해주세요.'
       },
@@ -36,7 +34,6 @@ const InputText = ({
       className={`${S.container} ${error && S.error} ${S[size]}`}
       type="text"
       placeholder={placeholder}
-      disabled={disabled}
       {...register(textType, VALIDATION_MAP[textType])}
     />
   )
