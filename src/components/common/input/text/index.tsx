@@ -5,8 +5,6 @@ import S from './Text.module.scss'
 interface InputTextProps extends InputProps {
   textType: 'nickname' | 'title' // 다른 input이 필요하면 추가
   size: string
-  disabled: boolean
-  required: boolean
 }
 
 const InputText = ({
