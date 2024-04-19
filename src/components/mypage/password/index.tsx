@@ -1,5 +1,6 @@
-import { useForm } from 'react-hook-form'
+import { SubmitHandler, useForm } from 'react-hook-form'
 
+import AXIOS from '@/lib/axios'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './Password.module.scss'
@@ -9,14 +10,43 @@ import Input from '../../common/input'
 const Password = () => {
   const {
     register,
+    handleSubmit,
     formState: { errors },
+    reset,
     watch,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
+
+  const onSubmit: SubmitHandler<InputFormValues> = (data) => {
+    const accessToken = localStorage.getItem('accessToken')
+
+    if (accessToken) {
+      AXIOS.put(
+        '/auth/password',
+        {
+          password: data.password,
+          newPassword: data.newPassword,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      ).catch((err) => {
+        //TODO: 에러 모달
+        console.log(err.response.data.message)
+      })
+    }
+    reset({
+      password: '',
+      newPassword: '',
+      newPasswordCheck: '',
+    })
+  }
 
   return (
     <div className={S.container}>
       <h1 className={S.title}>비밀번호 변경</h1>
-      <form className={S.form}>
+      <form className={S.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={S.item}>
           <label className={S.label}>비밀번호</label>
           <Input
@@ -49,12 +79,22 @@ const Password = () => {
             size="large"
           />
         </div>
+        <div className={S['button-container']}>
+          <BorderButton
+            size="small"
+            color="purple"
+            isDisabled={
+              watch('password') === '' ||
+              watch('newPassword') === '' ||
+              watch('newPasswordCheck') === ''
+                ? true
+                : false
+            }
+          >
+            변경
+          </BorderButton>
+        </div>
       </form>
-      <div className={S['button-container']}>
-        <BorderButton size="small" color="purple">
-          변경
-        </BorderButton>
-      </div>
     </div>
   )
 }

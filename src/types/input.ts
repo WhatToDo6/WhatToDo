@@ -8,6 +8,7 @@ export interface InputInterface {
     | 'newPassword'
     | 'newPasswordCheck'
     | 'nickname'
+    | 'newNickname'
     | 'title'
     | 'date'
     | 'tag'
@@ -19,8 +20,7 @@ export interface InputInterface {
   currentPassword?: string // password와 newPassword를 비교하기 위해 필요
   newPassword?: string // newPasswordCheck에서 newPassword를 비교하기 위해 필요
   size?: string
-  disabled?: boolean // input을 비활성하기 위해 필요
-  required?: boolean // required가 필요하지 않은 경우를 위해 필요
+  currentNickname?: string // 기존 닉네임과 새 닉네임을 비교하기 위해 필요
 }
 export interface InputFormValues {
   email: string
@@ -29,10 +29,12 @@ export interface InputFormValues {
   newPassword: string
   newPasswordCheck: string
   nickname: string
+  newNickname: string
   title: string
   date: string
   tag: string
   textarea: string
+  profileImageUrl: FileList
 }
 
 export interface InputProps {
