@@ -4,3 +4,23 @@
 .container {
   @include Input.input;
 }
+
+.small {
+  width: 36.6rem;
+  padding: 1.5rem;
+  border-radius: 0.6rem;
+  border: 0.1rem solid $color-gray-300;
+  color: $color-black-200;
+  @include font-style(1.6rem, 500, normal);
+  margin-bottom: 1rem;
+
+  @include tablet {
+    width: 29rem;
+  }
+
+  @include mobile {
+    width: 24.4rem;
+    @include font-style(1.4rem, 500, normal);
+    margin-bottom: 0.6rem;
+  }
+}
