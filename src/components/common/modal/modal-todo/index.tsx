@@ -37,6 +37,12 @@ const ModalTodo = () => {
       <label className={S.label} htmlFor="description">
         설명<span className={S.required}>*</span>
       </label>
+      <Input
+        inputType="textarea"
+        placeholder="설명을 입력해주세요"
+        error={errors.textarea}
+        register={register}
+      />
       <label className={S.label} htmlFor="due">
         마감일
       </label>

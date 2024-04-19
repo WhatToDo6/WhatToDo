@@ -7,6 +7,7 @@ import InputNewPasswordCheck from './new-password-check'
 import InputPassword from './password'
 import InputPasswordCheck from './password-check'
 import InputText from './text'
+import TextArea from './textarea'
 
 const Input = ({
   inputType,
@@ -82,7 +83,9 @@ const Input = ({
     ),
     date: <input type="date" />, // TODO: date input
     tag: <input type="tag" />, // TODO: tag input
-    textarea: <textarea />, // TODO: textarea input
+    textarea: (
+      <TextArea placeholder={placeholder} error={error} register={register} />
+    ),
   }
 
   return (
