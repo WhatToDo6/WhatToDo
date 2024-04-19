@@ -39,7 +39,6 @@ const InputText = ({
       },
     },
     title: {
-      required: '제목을 입력해주세요.',
       // TODO: 제목 유효성 검사 로직
     },
   }
