@@ -9,6 +9,19 @@ import InputPasswordCheck from './password-check'
 import InputText from './text'
 import TextArea from './textarea'
 
+/**
+ *
+ * @param inputType - input 타입 (email | password | passwordCheck | newPassword | newPasswordCheck | nickname | title | date | tag | textarea)
+ * @param placeholder - input placeholder
+ * @param error - react-hook-form의 에러 객체
+ * @param register - react-hook-form의 register 함수
+ * @param password - (optional) passwordCheck에서 password를 비교하기 위해 필요
+ * @param currentPassword - (optional) password와 newPassword를 비교하기 위해 필요
+ * @param newPassword - (optional) newPasswordCheck에서 newPassword를 비교하기 위해 필요
+ * @param size - (optional) input 사이즈 (small | medium | large)
+ * @param disabled - (optional) input 비활성화 여부
+ * @param required - (optional) required가 필요하지 않은 경우를 위해 필요
+ */
 const Input = ({
   inputType,
   placeholder,
