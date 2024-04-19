@@ -1,0 +1,13 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0;
+}
+
+.date {
+  color: $color-gray-500;
+  @include font-style(1.2rem, 500, normal);
+}

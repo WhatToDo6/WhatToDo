@@ -1,0 +1,14 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.4rem;
+}
+
+.tagContent {
+  @include font-style(1.2rem, 400, normal);
+}

@@ -6,13 +6,14 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: auto;
 }
 
 .login {
   @include container;
 
-  justify-content: center;
   height: 100vh;
+  padding: 17rem 0;
 }
 
 .signup {

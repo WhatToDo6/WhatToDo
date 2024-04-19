@@ -1,0 +1,24 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 35.4rem;
+  height: 100vh;
+  padding: 2.8rem 2rem;
+  border-right: 0.1rem solid $color-gray-300;
+
+  @include tablet {
+    width: 100%;
+    height: fit-content;
+    border-right: none;
+    border-bottom: 0.1rem solid $color-gray-300;
+  }
+}
+
+.taskWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
