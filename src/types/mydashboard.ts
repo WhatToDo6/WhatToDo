@@ -34,23 +34,14 @@ export interface InvitedListDashboardType {
   createdAt: string
   dashboard: PartialDashboardType
   id: number
-  inviteAccepted: any //null TODO: 나중에 수정
+  inviteAccepted: boolean | null
   invitee: InviteeType
   inviter: InviterType
   teamId: string
   updatedAt: string
 }
 
-export interface InvitedListEmailType {
-  id: number
-  inviter: InviterType
-  teamId: string
-  dashboard: PartialDashboardType
-  invitee: InviteeType
-  inviteAccepted: any //null TODO: 나중에 수정
-  createdAt: string
-  updatedAt: string
-}
+export interface InvitedListEmailType extends InvitedListDashboardType {}
 
 export interface InvitedMemberType extends UserType {
   isOwner: boolean
