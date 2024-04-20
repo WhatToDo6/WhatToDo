@@ -46,6 +46,12 @@ const ModalTodo = () => {
       <label className={S.label} htmlFor="due">
         마감일
       </label>
+      <Input
+        inputType="date"
+        placeholder="날짜를 입력해주세요"
+        error={errors.date}
+        register={register}
+      />
       <label className={S.label} htmlFor="tag">
         태그
       </label>

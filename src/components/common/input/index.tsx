@@ -1,5 +1,6 @@
 import { InputInterface } from '@/src/types/input'
 
+import InputDate from './date'
 import InputEmail from './email'
 import S from './Input.module.scss'
 import InputNewPassword from './new-password'
@@ -94,7 +95,7 @@ const Input = ({
         required={required || false}
       />
     ),
-    date: <input type="date" />, // TODO: date input
+    date: <InputDate />,
     tag: <input type="tag" />, // TODO: tag input
     textarea: (
       <TextArea placeholder={placeholder} error={error} register={register} />

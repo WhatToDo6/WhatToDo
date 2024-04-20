@@ -1,0 +1,35 @@
+@use '../Input.module.scss' as Input;
+@import '@/src/styles/global.scss';
+
+.container {
+  @include Input.input;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+}
+
+.black {
+  color: $color-black-200;
+}
+
+.placeholder {
+  color: $color-gray-400;
+  @include font-style(1.4rem, 400, normal);
+  z-index: 100;
+}
+
+.selectedDate {
+  color: $color-black-200;
+  @include font-style(1.4rem, 400, normal);
+}
+
+.icon {
+  position: relative;
+  width: 2rem;
+  height: 2rem;
+}
+
+.calendar {
+  position: relative;
+  z-index: 1;
+}
