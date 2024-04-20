@@ -3,7 +3,7 @@ import DashboardButtonContainer from '@/src/components/dashboard/button-containe
 import InvitedList from '@/src/components/dashboard/invited-list'
 import { usePagenationTest } from '@/src/hooks/usePagenationTest'
 
-import S from './Dashboard.module.scss'
+import S from './MyDashboard.module.scss'
 
 const MOCK_DATA = [
   { name: '프로덕트 디자인', person: '손동희' },
@@ -27,7 +27,7 @@ export interface DashboardType {
   createdByMe: true
 }
 
-const Dashboard = () => {
+const MyDashboard = () => {
   const { dashboards, currPage, lastPage, onClickPrevPage, onClickNextPage } =
     usePagenationTest(5)
 
@@ -49,4 +49,4 @@ const Dashboard = () => {
   )
 }
 
-export default Dashboard
+export default MyDashboard
