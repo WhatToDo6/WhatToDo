@@ -14,7 +14,8 @@ interface ModalColumnProps {
   inputTitle: string
   inputType: 'newColumn' | 'columnName'
   placeholder: string
-  buttonRightText: string
+  leftButtonText: string
+  rightButtonText: string
   moveTo?: string
   currentColumn?: string
   showDeleteButton?: boolean
@@ -27,7 +28,8 @@ interface ModalColumnProps {
  * @param inputTitle - input 제목
  * @param inputType - input type
  * @param placeholder - input placeholder
- * @param buttonRightText - 오른쪽 버튼 텍스트
+ * @param leftButtonText - 왼쪽 버튼 텍스트
+ * @param rightButtonText - 오른쪽 버튼 텍스트
  * @param moveTo - (optional) 버튼 클릭 시 이동할 페이지 경로
  * @param currentColumn - (optional) 새 컬럼 생성 시 유효성 검사할 때 필요한 항목
  * @param showDeleteButton - (optional) 컬럼 관리 시 삭제하기 버튼 생성
@@ -39,7 +41,8 @@ const ModalColumn = ({
   inputTitle,
   inputType,
   placeholder,
-  buttonRightText,
+  leftButtonText,
+  rightButtonText,
   moveTo,
   currentColumn,
   showDeleteButton,
@@ -94,8 +97,8 @@ const ModalColumn = ({
           size="large"
           leftColor="white"
           rightColor="purple"
-          leftText="취소"
-          rightText={buttonRightText}
+          leftText={leftButtonText}
+          rightText={rightButtonText}
           onLeftClick={handleLeftClick}
         />
       </div>
