@@ -6,11 +6,10 @@ import PagenationButton from '../../pagenation-button'
 import InvitedListCard from '../card'
 
 interface InviteListMemberProps {
-  type: 'member'
   dashboardId: number
 }
 //<InviteListMember type="member" dashboardId={dashboardId} />
-function InviteListMember({ type, dashboardId }: InviteListMemberProps) {
+function InviteListMember({ dashboardId }: InviteListMemberProps) {
   const {
     currPage,
     pageData,
@@ -38,7 +37,7 @@ function InviteListMember({ type, dashboardId }: InviteListMemberProps) {
       <div className={S.tag}>이름</div>
       {pageData.map((data) => (
         <InvitedListCard
-          type={type}
+          type="member"
           key={data.id}
           id={data.id}
           nickname={data.nickname}

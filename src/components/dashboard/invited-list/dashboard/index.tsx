@@ -11,11 +11,7 @@ import { InvitedListDashboardType } from '@/src/types/mydashboard'
 import S from './InviteListDashboard.module.scss'
 import InvitedListCard from '../card'
 
-interface InviteListDashboardProps {
-  type: 'dashboard'
-}
-
-function InviteListDashboard({ type }: InviteListDashboardProps) {
+function InviteListDashboard() {
   const observeRef = useRef<HTMLDivElement>(null)
   const [cursorId, setCursorId] = useState(0)
   const { observe, isScrolled } = useIntersectionObserver()
@@ -130,7 +126,7 @@ function InviteListDashboard({ type }: InviteListDashboardProps) {
         </div>
         {searchedData.map((inviteList) => (
           <InvitedListCard
-            type={type}
+            type="dashboard"
             key={inviteList.id}
             id={inviteList.id}
             title={inviteList.dashboard.title}

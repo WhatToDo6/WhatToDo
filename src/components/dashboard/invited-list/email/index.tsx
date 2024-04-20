@@ -10,12 +10,11 @@ import PagenationButton from '../../pagenation-button'
 import InvitedListCard from '../card'
 
 interface InviteListEmailProps {
-  type: 'email'
   dashboardId: number
 }
 ///dashboard/[id]/edit
 //<InviteListEmail type="email" dashboardId={dashboardId} />
-function InviteListEmail({ type, dashboardId }: InviteListEmailProps) {
+function InviteListEmail({ dashboardId }: InviteListEmailProps) {
   const {
     currPage,
     pageData,
@@ -51,7 +50,7 @@ function InviteListEmail({ type, dashboardId }: InviteListEmailProps) {
       <div className={S.tag}>이메일</div>
       {pageData.map((data) => (
         <InvitedListCard
-          type={type}
+          type="email"
           key={data.id}
           id={data.id}
           email={data.invitee.email}

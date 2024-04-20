@@ -21,7 +21,7 @@ const MyDashboard = () => {
           onClickNextPage={onClickNextPage}
         />
         <div className={S.invitedDashboard}>
-          <InviteListDashboard type="dashboard" />
+          <InviteListDashboard />
         </div>
       </div>
     </Layout>
