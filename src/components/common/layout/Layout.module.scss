@@ -5,6 +5,10 @@
   width: 100vw;
   min-height: 100vh;
   align-items: stretch;
+
+  @include tablet {
+    height: fit-content;
+  }
 }
 
 .rightSideContainer {
