@@ -1,21 +1,18 @@
 import { usePagenation } from '@/src/hooks/usePagenation'
+import { InvitedMemberType } from '@/src/types/mydashboard'
 
 import S from './InviteListMember.module.scss'
 import PagenationButton from '../../pagenation-button'
 import InvitedListCard from '../card'
 
-type MockData = {
-  [key: string]: string
-}
-
 interface InviteListMemberProps {
-  inviteData: MockData[]
   type: 'member'
+  dashboardId: number
 }
-
-function InviteListMember({ inviteData, type }: InviteListMemberProps) {
-  const { currPage, lastPage, currPageData, onClickPrevPage, onClickNextPage } =
-    usePagenation(inviteData, 4)
+//<InviteListMember type="member" dashboardId={dashboardId} />
+function InviteListMember({ type, dashboardId }: InviteListMemberProps) {
+  const { currPage, pageData, lastPage, onClickPrevPage, onClickNextPage } =
+    usePagenation<InvitedMemberType>(4, 'member', dashboardId)
 
   return (
     <div className={S.container}>
@@ -29,12 +26,13 @@ function InviteListMember({ inviteData, type }: InviteListMemberProps) {
         />
       </div>
       <div className={S.tag}>이름</div>
-      {currPageData.map((invite) => (
+      {pageData.map((data) => (
         <InvitedListCard
           type={type}
-          key={invite.name}
-          name={invite.name}
-          person={invite.person}
+          key={data.id}
+          nickname={data.nickname}
+          userId={data.userId}
+          profileImageUrl={data.profileImageUrl}
         />
       ))}
     </div>

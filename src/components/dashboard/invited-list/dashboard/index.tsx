@@ -11,12 +11,7 @@ import { InvitedListDashboardType } from '@/src/types/mydashboard'
 import S from './InviteListDashboard.module.scss'
 import InvitedListCard from '../card'
 
-type MockData = {
-  [key: string]: string
-}
-
 interface InviteListDashboardProps {
-  inviteData: MockData[]
   type: 'dashboard'
 }
 
@@ -133,8 +128,8 @@ function InviteListDashboard({ type }: InviteListDashboardProps) {
           <InvitedListCard
             type={type}
             key={inviteList.id}
-            name={inviteList.dashboard.title}
-            person={inviteList.inviter.nickname}
+            title={inviteList.dashboard.title}
+            nickname={inviteList.inviter.nickname}
           />
         ))}
         {!searchWord && <div ref={observeRef} />}
