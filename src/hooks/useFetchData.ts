@@ -1,16 +1,16 @@
 import { useState, useEffect, useCallback } from 'react'
 
-interface UseFetchDataResult<T> {
+interface UseFetchData<T> {
   data: T | null
   isLoading: boolean
   error: Error | null
   refetch: () => Promise<void>
 }
 
-function useFetchData<T, P extends any[] = []>(
+function useFetchData<T, P extends any[]>(
   apiFunction: (...params: P) => Promise<T>,
-  params: P = [] as unknown as P,
-): UseFetchDataResult<T> {
+  params: P,
+): UseFetchData<T> {
   const [data, setData] = useState<T | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)

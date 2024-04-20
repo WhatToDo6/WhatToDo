@@ -27,7 +27,7 @@ const DashboardIdPage = () => {
   return (
     <Layout>
       <ColumnLayout>
-        {columns?.map((column: any) => <Column key={column.id} {...column} />)}
+        {columns?.map((column) => <Column key={column.id} {...column} />)}
         <div className={S.addWrapper}>
           <DashboardButton type="addColumn" />
         </div>
