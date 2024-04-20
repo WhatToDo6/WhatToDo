@@ -29,6 +29,10 @@ function InviteListDashboard({ type }: InviteListDashboardProps) {
     myInvitedListData.length ? S.withInviteData : S.withoutInviteData
   }`
 
+  const handleChange = (id: number) => {
+    setMyInvitedListData((prev) => prev.filter((data) => data.id !== id))
+  }
+
   const getInvitedListDashbaord = async () => {
     const token = localStorage.getItem('accessToken')
     const path = `/invitations?size=6&cursorId=${cursorId}`
@@ -128,8 +132,10 @@ function InviteListDashboard({ type }: InviteListDashboardProps) {
           <InvitedListCard
             type={type}
             key={inviteList.id}
+            id={inviteList.id}
             title={inviteList.dashboard.title}
             nickname={inviteList.inviter.nickname}
+            handleChange={handleChange}
           />
         ))}
         {!searchWord && <div ref={observeRef} />}

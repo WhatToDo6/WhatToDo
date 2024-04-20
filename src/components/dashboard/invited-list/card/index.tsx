@@ -1,5 +1,6 @@
 import Image from 'next/image'
 
+import AXIOS from '@/lib/axios'
 import basicImg from '@/public/icons/temp-circle-6.svg'
 import BorderButton from '@/src/components/common/button/border'
 import OptionButton from '@/src/components/common/button/option'
@@ -30,6 +31,8 @@ interface UnionPartialType
 
 interface InvitedCardProps extends UnionPartialType {
   type: InvitedListType
+  id: number
+  handleChange: (id: number) => void
 }
 
 function isDashboardType(type: InvitedListType): type is 'dashboard' {
@@ -42,8 +45,30 @@ function InvitedListCard({
   email,
   nickname,
   profileImageUrl,
+  id,
+  handleChange,
 }: InvitedCardProps) {
   const className = `${S.container} ${isDashboardType(type) ? S.dashboard : ''}`
+
+  const handleClickanswerInviteDashboard = async (answer: boolean) => {
+    const token = localStorage.getItem('accessToken')
+    try {
+      await AXIOS.put(
+        `/invitations/${id}`,
+        {
+          inviteAccepted: answer,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      handleChange(id)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   const INVITED_CARD = {
     dashboard: (
@@ -56,6 +81,8 @@ function InvitedListCard({
           rightColor="white"
           leftText="수락"
           rightText="거절"
+          onLeftClick={() => handleClickanswerInviteDashboard(true)}
+          onRightClick={() => handleClickanswerInviteDashboard(false)}
         />
       </>
     ),
