@@ -1,55 +1,113 @@
-import { useRef, useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
-type usePagenationProps = {
-  [key: string]: string
-}
+import AXIOS from '@/lib/axios'
 
-interface usePageNation {
-  currPage: number
-  lastPage: number
-  currPageData: usePagenationProps[]
-  onClickNextPage: () => void
-  onClickPrevPage: () => void
-}
+type PagenationType = 'dashboard' | 'email' | 'member'
 
-export function usePagenation(
-  initialData: usePagenationProps[],
+export function usePagenation<T>(
   visibleDataNum: number,
-): usePageNation {
-  const currPageRef = useRef(1)
-  const [currPageData, setCurrPageData] = useState<usePagenationProps[]>(
-    initialData.slice(0, visibleDataNum),
-  )
-  const lastPage = Math.ceil(initialData.length / visibleDataNum)
+  type: PagenationType,
+  dashboardId?: number,
+) {
+  const [currPage, setCurrPage] = useState(1)
+  const [lastPage, setLastpage] = useState(1)
+  const [pageData, setPageData] = useState<T[]>([])
 
-  const onClickNextPage = () => {
-    if (currPageRef.current < lastPage) {
-      currPageRef.current += 1
-      setCurrPageData(getPageData(currPageRef.current))
+  const getDashboards = async (page: number) => {
+    const token = localStorage.getItem('accessToken')
+    try {
+      const response = await AXIOS.get(
+        `/dashboards?navigationMethod=pagination&cursorId=1&page=${page}&size=${visibleDataNum}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      const { data } = response
+      const { dashboards, totalCount } = data
+      setPageData(dashboards)
+      const lastPage = Math.ceil(totalCount / visibleDataNum)
+      setLastpage(lastPage === 0 ? 1 : lastPage)
+    } catch (err) {
+      console.error(err)
     }
+  }
+  const getEmails = async (page: number) => {
+    const token = localStorage.getItem('accessToken')
+    try {
+      const response = await AXIOS.get(
+        `/dashboards/${dashboardId}/invitations?&page=${page}&size=${visibleDataNum}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      const { data } = response
+      const { invitations, totalCount } = data
+      setPageData(invitations)
+      const lastPage = Math.ceil(totalCount / visibleDataNum)
+      setLastpage(lastPage === 0 ? 1 : lastPage)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+  const getMembers = async (page: number) => {
+    const token = localStorage.getItem('accessToken')
+    try {
+      const response = await AXIOS.get(
+        `/members?page=${page}&size=${visibleDataNum}&dashboardId=${dashboardId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      const { data } = response
+      const { members, totalCount } = data
+      setPageData(members)
+      const lastPage = Math.ceil(totalCount / visibleDataNum)
+      setLastpage(lastPage === 0 ? 1 : lastPage)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const GET_DATA = {
+    dashboard: (page: number) => getDashboards(page),
+    email: (page: number) => getEmails(page),
+    member: (page: number) => getMembers(page),
   }
 
   const onClickPrevPage = () => {
-    if (currPageRef.current > 1) {
-      currPageRef.current -= 1
-      setCurrPageData(getPageData(currPageRef.current))
+    if (currPage > 1) {
+      setCurrPage((page) => {
+        const prevPage = page - 1
+        GET_DATA[type](prevPage)
+        return prevPage
+      })
     }
   }
 
-  const getPageData = (page: number): usePagenationProps[] => {
-    const startIdx = (page - 1) * visibleDataNum
-    const endIdx = startIdx + visibleDataNum
-    return initialData.slice(startIdx, endIdx)
+  const onClickNextPage = () => {
+    if (currPage < lastPage) {
+      setCurrPage((page) => {
+        const nextPage = page + 1
+        GET_DATA[type](nextPage)
+        return nextPage
+      })
+    }
   }
 
   useEffect(() => {
-    setCurrPageData(getPageData(currPageRef.current))
-  }, [currPageRef.current, initialData, visibleDataNum])
+    GET_DATA[type](1)
+  }, [])
 
   return {
-    currPage: currPageRef.current,
+    currPage,
+    pageData,
     lastPage,
-    currPageData,
     onClickPrevPage,
     onClickNextPage,
   }
