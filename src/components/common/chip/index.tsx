@@ -4,7 +4,8 @@ import { useState } from 'react'
 import CHECK_IMG from '@/public/icons/check.svg'
 
 import S from './ColorChip.module.scss'
-import { chipsData } from './constants'
+
+const chipColor = ['#7AC555', '#760DDE', '#FFA500', '#76A5EA', '#E876EA']
 
 /**
  *
@@ -13,7 +14,7 @@ import { chipsData } from './constants'
  * @returns
  */
 const ColorChip = ({
-  selectedChipColor = 'green',
+  selectedChipColor = '#7AC555',
   showSelectedOnly = false,
 }) => {
   const [selectedChip, setSelectedChip] = useState(selectedChipColor)
@@ -24,24 +25,18 @@ const ColorChip = ({
 
   return (
     <div className={S.container}>
-      {chipsData.map((chip) => {
-        if (showSelectedOnly && selectedChip !== chip.color) {
+      {chipColor.map((color) => {
+        if (showSelectedOnly && selectedChip !== color) {
           return null
         }
         return (
           <div
-            key={chip.color}
+            key={color}
             className={S.selected}
-            onClick={() => handleSelectChip(chip.color)}
+            onClick={() => handleSelectChip(color)}
           >
-            <Image
-              className={S.chipSize}
-              src={chip.image}
-              alt={`${chip.color} chip`}
-              width={30}
-              height={30}
-            />
-            {selectedChip === chip.color && (
+            <div className={S.chipSize} style={{ backgroundColor: color }} />
+            {selectedChip === color && (
               <Image
                 className={S.check}
                 src={CHECK_IMG}
