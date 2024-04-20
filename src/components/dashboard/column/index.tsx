@@ -16,7 +16,7 @@ const Column = ({ id: columnId, title }: ColumnDataType) => {
 
   return (
     <div className={S.container}>
-      <ColumnHeader title={title} />
+      <ColumnHeader title={title} taskCount={taskCards?.length} />
       <div className={S.taskWrapper}>
         <DashboardButton type="add" />
         {taskCards?.map((taskCard: any) => (

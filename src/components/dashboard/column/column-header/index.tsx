@@ -9,15 +9,16 @@ import { SETTING } from '../constants'
 
 type titleType = {
   title: string
+  taskCount: number | undefined
 }
 
-const ColumnHeader = ({ title }: titleType) => {
+const ColumnHeader = ({ title, taskCount }: titleType) => {
   return (
     <header className={S.wrapper}>
       <div className={S.columnHeading}>
         <div className={S.ellipse} />
         <div className={S.columnTitle}>{title}</div>
-        <div className={S.cardCount}>1</div>
+        <div className={S.cardCount}>{taskCount}</div>
       </div>
       <Image
         className={S.setting}
