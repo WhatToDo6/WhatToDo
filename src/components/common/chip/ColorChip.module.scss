@@ -1,0 +1,28 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  gap: 1rem;
+}
+
+.selected {
+  position: relative;
+}
+
+.check {
+  position: absolute;
+  top: 0.3rem;
+  left: 0.3rem;
+
+  @include mobile {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+}
+
+.chipSize {
+  @include mobile {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+}
