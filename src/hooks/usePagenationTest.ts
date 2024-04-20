@@ -51,7 +51,8 @@ export function usePagenationTest(
       const { data } = response
       const { dashboards, totalCount } = data
       setDashboards(dashboards)
-      setLastpage(Math.ceil(totalCount / visibleDataNum))
+      const lastPage = Math.ceil(totalCount / visibleDataNum)
+      setLastpage(lastPage ? lastPage : 1)
     } catch (err) {
       console.error(err)
     }
