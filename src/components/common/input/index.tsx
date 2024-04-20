@@ -22,7 +22,12 @@ const Input = ({
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
-      <InputEmail placeholder={placeholder} error={error} register={register} />
+      <InputEmail
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        size={size || ''}
+      />
     ),
     password: (
       <InputPassword
