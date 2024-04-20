@@ -9,7 +9,7 @@ import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
 
-interface ModalColumnProps {
+interface ModalDashBoardProps {
   title: string
   inputTitle: string
   inputType: 'newColumn' | 'columnName' | 'email'
@@ -36,7 +36,7 @@ interface ModalColumnProps {
  * @param onSubmit - 오른쪽 버튼 클릭 시 수행해야할 함수
  * @returns
  */
-const ModalColumn = ({
+const ModalDashBoard = ({
   title,
   inputTitle,
   inputType,
@@ -47,7 +47,7 @@ const ModalColumn = ({
   currentColumn,
   showDeleteButton,
   onSubmit,
-}: ModalColumnProps) => {
+}: ModalDashBoardProps) => {
   const router = useRouter()
   const modalStatus = useContext(ModalContext)
 
@@ -106,4 +106,4 @@ const ModalColumn = ({
   )
 }
 
-export default ModalColumn
+export default ModalDashBoard
