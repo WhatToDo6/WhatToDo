@@ -1,6 +1,7 @@
+import { ko } from 'date-fns/locale/ko'
 import Image from 'next/image'
 import { useState } from 'react'
-import ReactDatePicker from 'react-datepicker'
+import ReactDatePicker, { registerLocale } from 'react-datepicker'
 
 import CALENDAR_BLACK_ICON from '@/public/icons/calendar-black.svg'
 import CALENDAR_GRAY_ICON from '@/public/icons/calendar-gray.svg'
@@ -19,6 +20,7 @@ import S from './Date.module.scss'
 
 const InputDate = () => {
   const [selectedDate, setSelectedDate] = useState<any>()
+  registerLocale('ko', ko)
 
   return (
     <div className={S.container}>
@@ -37,6 +39,7 @@ const InputDate = () => {
           dateFormat="yyyy-MM-dd HH:mm"
           placeholderText="날짜를 입력해주세요"
           minDate={new Date()}
+          locale="ko"
         />
       </div>
     </div>
