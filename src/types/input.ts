@@ -10,6 +10,7 @@ export interface InputInterface {
     | 'nickname'
     | 'newNickname'
     | 'newColumn'
+    | 'columnName'
     | 'title'
     | 'date'
     | 'tag'
@@ -33,6 +34,7 @@ export interface InputFormValues {
   nickname: string
   newNickname: string
   newColumn: string
+  columnName: string
   title: string
   date: string
   tag: string

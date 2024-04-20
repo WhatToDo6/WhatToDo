@@ -12,7 +12,7 @@ import Input from '../../input'
 interface ModalColumnProps {
   title: string
   inputTitle: string
-  inputType: 'newColumn' | 'title'
+  inputType: 'newColumn' | 'columnName'
   placeholder: string
   buttonRightText: string
   moveTo?: string

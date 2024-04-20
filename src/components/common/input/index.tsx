@@ -87,6 +87,15 @@ const Input = ({
         size={size || ''}
       />
     ),
+    columnName: (
+      <InputText
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        textType="columnName"
+        size={size || ''}
+      />
+    ),
     title: (
       <InputText
         placeholder={placeholder}
