@@ -3,7 +3,13 @@ import { InputProps } from '@/src/types/input'
 import S from './Text.module.scss'
 
 interface InputTextProps extends InputProps {
-  textType: 'nickname' | 'newNickname' | 'newColumn' | 'columnName' | 'title' // 다른 input이 필요하면 추가
+  textType:
+    | 'nickname'
+    | 'newNickname'
+    | 'newColumn'
+    | 'columnName'
+    | 'newDash'
+    | 'title' // 다른 input이 필요하면 추가
   size: string
   currentNickname?: string
   currentColumn?: string
@@ -39,6 +45,9 @@ const InputText = ({
       },
     },
     columnName: {
+      // TODO : 유효성 검사 로직
+    },
+    newDash: {
       // TODO : 유효성 검사 로직
     },
     title: {

@@ -96,6 +96,15 @@ const Input = ({
         size={size || ''}
       />
     ),
+    newDash: (
+      <InputText
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        textType="newDash"
+        size={size || ''}
+      />
+    ),
     title: (
       <InputText
         placeholder={placeholder}
