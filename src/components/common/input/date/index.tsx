@@ -36,6 +36,7 @@ const InputDate = () => {
           showTimeSelect
           dateFormat="yyyy-MM-dd HH:mm"
           placeholderText="날짜를 입력해주세요"
+          minDate={new Date()}
         />
       </div>
     </div>
