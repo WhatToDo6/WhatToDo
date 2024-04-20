@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { DashboardType } from '@/pages/dashboard'
+import { DashboardType } from '@/pages/mydashboard'
 import addBoardBtn from '@/public/icons/add-board-btn.svg'
 import crownIcon from '@/public/icons/crown-icon.svg'
 import rightArrow from '@/public/icons/right-arrow.svg'

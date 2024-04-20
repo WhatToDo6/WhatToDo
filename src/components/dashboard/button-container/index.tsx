@@ -1,4 +1,4 @@
-import { DashboardType } from '@/pages/dashboard'
+import { DashboardType } from '@/pages/mydashboard'
 
 import S from './buttonContainer.module.scss'
 import DashboardButton from '../dashboard-button'
