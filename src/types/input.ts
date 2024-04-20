@@ -21,6 +21,7 @@ export interface InputInterface {
   size?: string
   disabled?: boolean // input을 비활성하기 위해 필요
   required?: boolean // required가 필요하지 않은 경우를 위해 필요
+  control?: any // react-hook-form의 control 객체
 }
 export interface InputFormValues {
   email: string

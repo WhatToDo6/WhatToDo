@@ -12,6 +12,7 @@ const ModalTodo = () => {
     handleSubmit,
     formState: { errors },
     watch,
+    control,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
@@ -51,6 +52,7 @@ const ModalTodo = () => {
         placeholder="날짜를 입력해주세요"
         error={errors.date}
         register={register}
+        control={control}
       />
       <label className={S.label} htmlFor="tag">
         태그

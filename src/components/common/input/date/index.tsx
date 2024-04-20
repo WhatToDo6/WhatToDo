@@ -1,13 +1,17 @@
 import { ko } from 'date-fns/locale/ko'
 import Image from 'next/image'
-import { useState } from 'react'
 import ReactDatePicker, { registerLocale } from 'react-datepicker'
+import { Controller } from 'react-hook-form'
 
 import CALENDAR_BLACK_ICON from '@/public/icons/calendar-black.svg'
 import CALENDAR_GRAY_ICON from '@/public/icons/calendar-gray.svg'
 import { InputProps } from '@/src/types/input'
 
 import S from './Date.module.scss'
+
+interface InputDateProps extends InputProps {
+  control: any
+}
 
 /**
  *
@@ -18,30 +22,44 @@ import S from './Date.module.scss'
  * @ref [react-datepicker](https://www.npmjs.com/package/react-datepicker)
  */
 
-const InputDate = () => {
-  const [selectedDate, setSelectedDate] = useState<any>()
+const InputDate = ({
+  placeholder,
+  error,
+  register,
+  control,
+}: InputDateProps) => {
   registerLocale('ko', ko)
 
   return (
-    <div className={S.container}>
-      <div className={S.icon}>
-        <Image
-          src={selectedDate ? CALENDAR_BLACK_ICON : CALENDAR_GRAY_ICON}
-          fill
-          alt="날짜 선택"
-        />
-      </div>
-      <div className={S.calendar}>
-        <ReactDatePicker
-          selected={selectedDate}
-          onChange={(date) => date && setSelectedDate(date)}
-          showTimeSelect
-          dateFormat="yyyy-MM-dd HH:mm"
-          placeholderText="날짜를 입력해주세요"
-          minDate={new Date()}
-          locale="ko"
-        />
-      </div>
+    <div className={`${S.container} ${error && S.error}`}>
+      <Controller
+        name="date"
+        control={control}
+        render={({ field: { onChange, onBlur, value } }) => {
+          return (
+            <>
+              <div className={S.icon}>
+                <Image
+                  src={value ? CALENDAR_BLACK_ICON : CALENDAR_GRAY_ICON}
+                  fill
+                  alt="날짜 선택"
+                />
+              </div>
+              <ReactDatePicker
+                selected={value}
+                onChange={onChange}
+                onBlur={onBlur}
+                showTimeSelect
+                dateFormat="yyyy-MM-dd HH:mm"
+                placeholderText="날짜를 입력해주세요"
+                minDate={new Date()}
+                locale="ko"
+                timeCaption="시간"
+              />
+            </>
+          )
+        }}
+      />
     </div>
   )
 }

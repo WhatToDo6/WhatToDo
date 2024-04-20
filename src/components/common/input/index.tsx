@@ -34,6 +34,7 @@ const Input = ({
   size,
   disabled,
   required = true,
+  control,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
@@ -95,7 +96,14 @@ const Input = ({
         required={required || false}
       />
     ),
-    date: <InputDate />,
+    date: (
+      <InputDate
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        control={control}
+      />
+    ),
     tag: <input type="tag" />, // TODO: tag input
     textarea: (
       <TextArea placeholder={placeholder} error={error} register={register} />
