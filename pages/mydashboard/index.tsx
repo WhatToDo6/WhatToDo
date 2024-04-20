@@ -17,16 +17,6 @@ const MOCK_DATA = [
   { name: '유닛H', person: '강나무' },
 ]
 
-export interface DashboardType {
-  id: number
-  title: string
-  color: string
-  userId: number
-  createdAt: string
-  updatedAt: string
-  createdByMe: true
-}
-
 const MyDashboard = () => {
   const { dashboards, currPage, lastPage, onClickPrevPage, onClickNextPage } =
     usePagenationTest(5)

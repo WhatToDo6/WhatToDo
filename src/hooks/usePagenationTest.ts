@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import AXIOS from '@/lib/axios'
-import { DashboardType } from '@/pages/mydashboard'
+import { DashboardType } from '@/src/types/mydashboard'
 
 interface UsePagenationReturnType {
   currPage: number
