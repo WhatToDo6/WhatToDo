@@ -7,3 +7,13 @@ export interface DashboardType {
   updatedAt: string
   createdByMe: true
 }
+
+export interface UserType {
+  createdAt: string
+  email: string
+  id: number
+  nickname: string
+  profileImageUrl: string | null
+  updatedAt: string
+}
+
