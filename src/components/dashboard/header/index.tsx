@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 
 import AXIOS from '@/lib/axios'
@@ -14,23 +15,6 @@ import tempCircle6 from '@/public/icons/temp-circle-6.svg'
 import { UserType } from '@/src/types/mydashboard'
 
 import S from './DashboardHeader.module.scss'
-
-const BUTTONS = [
-  {
-    tag: 'settingIcon',
-    className: `${S.btn} ${S.settingBtn}`,
-    size: 22,
-    src: settingIcon,
-    text: '관리',
-  },
-  {
-    tag: 'addBoxIcon',
-    className: `${S.btn} ${S.inviteBtn}`,
-    size: 20,
-    src: addBoxIcon,
-    text: '초대하기',
-  },
-]
 
 const MEMBERS = [
   {
@@ -85,6 +69,29 @@ interface DashboardHeaderProps {
 
 function DashboardHeader({ pathname }: DashboardHeaderProps) {
   const [myUserData, setMyUserData] = useState<UserType>()
+  const {
+    query: { id },
+  } = useRouter()
+  const router = useRouter()
+
+  const BUTTONS = [
+    {
+      tag: 'settingIcon',
+      className: `${S.btn} ${S.settingBtn}`,
+      size: 22,
+      src: settingIcon,
+      text: '관리',
+      onClick: () => router.push(`/dashboard/${id}/edit`),
+    },
+    {
+      tag: 'addBoxIcon',
+      className: `${S.btn} ${S.inviteBtn}`,
+      size: 20,
+      src: addBoxIcon,
+      text: '초대하기',
+      onClick: () => {}, //생성 모달
+    },
+  ]
 
   const getUserData = async () => {
     const token = localStorage.getItem('accessToken')
@@ -121,7 +128,11 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
           <>
             <div className={S.btnBox}>
               {BUTTONS.map((btn) => (
-                <button key={btn.tag} className={btn.className}>
+                <button
+                  key={btn.tag}
+                  className={btn.className}
+                  onClick={btn.onClick}
+                >
                   <Image
                     className={S.btnImg}
                     width={btn.size}
