@@ -11,8 +11,18 @@ interface InviteListMemberProps {
 }
 //<InviteListMember type="member" dashboardId={dashboardId} />
 function InviteListMember({ type, dashboardId }: InviteListMemberProps) {
-  const { currPage, pageData, lastPage, onClickPrevPage, onClickNextPage } =
-    usePagenation<InvitedMemberType>(4, 'member', dashboardId)
+  const {
+    currPage,
+    pageData,
+    setPageData,
+    lastPage,
+    onClickPrevPage,
+    onClickNextPage,
+  } = usePagenation<InvitedMemberType>(4, 'member', dashboardId)
+
+  const handleChange = (id: number) => {
+    setPageData((prev) => prev.filter((prev) => prev.id !== id))
+  }
 
   return (
     <div className={S.container}>
@@ -30,9 +40,11 @@ function InviteListMember({ type, dashboardId }: InviteListMemberProps) {
         <InvitedListCard
           type={type}
           key={data.id}
+          id={data.id}
           nickname={data.nickname}
           userId={data.userId}
           profileImageUrl={data.profileImageUrl}
+          handleChange={handleChange}
         />
       ))}
     </div>

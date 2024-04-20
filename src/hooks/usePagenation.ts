@@ -107,6 +107,7 @@ export function usePagenation<T>(
   return {
     currPage,
     pageData,
+    setPageData,
     lastPage,
     onClickPrevPage,
     onClickNextPage,

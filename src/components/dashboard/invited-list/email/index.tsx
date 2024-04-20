@@ -16,8 +16,18 @@ interface InviteListEmailProps {
 ///dashboard/[id]/edit
 //<InviteListEmail type="email" dashboardId={dashboardId} />
 function InviteListEmail({ type, dashboardId }: InviteListEmailProps) {
-  const { currPage, pageData, lastPage, onClickPrevPage, onClickNextPage } =
-    usePagenation<InvitedListEmailType>(5, 'email', dashboardId)
+  const {
+    currPage,
+    pageData,
+    setPageData,
+    lastPage,
+    onClickPrevPage,
+    onClickNextPage,
+  } = usePagenation<InvitedListEmailType>(5, 'email', dashboardId)
+
+  const handleChange = (id: number) => {
+    setPageData((prev) => prev.filter((prev) => prev.id !== id))
+  }
 
   return (
     <div className={S.container}>
@@ -40,7 +50,13 @@ function InviteListEmail({ type, dashboardId }: InviteListEmailProps) {
       </div>
       <div className={S.tag}>이메일</div>
       {pageData.map((data) => (
-        <InvitedListCard type={type} key={data.id} email={data.invitee.email} />
+        <InvitedListCard
+          type={type}
+          key={data.id}
+          id={data.id}
+          email={data.invitee.email}
+          handleChange={handleChange}
+        />
       ))}
     </div>
   )
