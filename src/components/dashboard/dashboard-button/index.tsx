@@ -15,13 +15,22 @@ type DashboardButtonType =
   | 'moveDashboard'
   | 'deleteDashboard'
 
+//TODO 타입 확장해서 적용하기
 interface DashboardButtonProps {
   type: DashboardButtonType
   dashboard?: DashboardType
   id?: number
+  color?: string
+  createdByMe?: boolean
 }
 
-function DashboardButton({ dashboard, type, id }: DashboardButtonProps) {
+function DashboardButton({
+  dashboard,
+  type,
+  id,
+  color,
+  createdByMe,
+}: DashboardButtonProps) {
   const router = useRouter()
 
   const BUTTON = {
@@ -74,9 +83,11 @@ function DashboardButton({ dashboard, type, id }: DashboardButtonProps) {
       children: (
         <>
           <div className={S.infoBox}>
-            <span>img1</span>
+            <div className={S.colorChip} style={{ backgroundColor: color }} />
             <p>{dashboard && dashboard.title}</p>
-            <Image width={20} height={16} src={crownIcon} alt="왕관" />
+            {createdByMe && (
+              <Image width={20} height={16} src={crownIcon} alt="왕관" />
+            )}
           </div>
           <Image width={18} height={18} src={rightArrow} alt="rightArrow" />
         </>

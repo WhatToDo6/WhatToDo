@@ -26,8 +26,10 @@ function DashboardButtonContainer({
         <DashboardButton
           key={dashboard.id}
           id={dashboard.id}
+          color={dashboard.color}
           type="moveDashboard"
           dashboard={dashboard}
+          createdByMe={dashboard.createdByMe}
         />
       ))}
       <PagenationButton
