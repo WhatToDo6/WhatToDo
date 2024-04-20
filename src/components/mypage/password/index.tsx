@@ -2,13 +2,13 @@ import { useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
+import BorderButton from '@/src/components/common/button/border'
+import Input from '@/src/components/common/input'
+import Modal from '@/src/components/common/modal'
+import ModalAlert from '@/src/components/common/modal/modal-alert'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './Password.module.scss'
-import BorderButton from '../../common/button/border'
-import Input from '../../common/input'
-import Modal from '../../common/modal'
-import ModalAlert from '../../common/modal/modal-alert'
 
 const Password = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
