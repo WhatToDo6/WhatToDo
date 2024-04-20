@@ -28,8 +28,8 @@ function DashboardButtonContainer({
           id={dashboard.id}
           color={dashboard.color}
           type="moveDashboard"
-          dashboard={dashboard}
           createdByMe={dashboard.createdByMe}
+          title={dashboard.title}
         />
       ))}
       <PagenationButton
