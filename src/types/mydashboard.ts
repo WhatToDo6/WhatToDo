@@ -17,3 +17,13 @@ export interface UserType {
   updatedAt: string
 }
 
+export interface InvitedListDashboardType {
+  createdAt: string
+  dashboard: { id: number; title: string }
+  id: number
+  inviteAccepted: null
+  invitee: { id: number; email: string; nickname: string }
+  inviter: { id: number; email: string; nickname: string }
+  teamId: string
+  updatedAt: string
+}

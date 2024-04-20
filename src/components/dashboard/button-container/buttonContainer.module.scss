@@ -2,9 +2,9 @@
 
 .container {
   width: 100%;
-  display: flex;
-  overflow: hidden;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: space-between;
   gap: 1.2rem;
+  margin-bottom: 1.2rem;
 }
