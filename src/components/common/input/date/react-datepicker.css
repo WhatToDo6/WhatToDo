@@ -25,6 +25,7 @@ input {
   display: inline-block;
   padding: 0;
   border: 0;
+  gap: 1rem;
 }
 
 .react-datepicker {
@@ -37,6 +38,7 @@ input {
   display: inline-block;
   position: relative;
   line-height: initial;
+  left: -1rem;
 }
 
 .react-datepicker--time-only .react-datepicker__time-container {
@@ -60,6 +62,8 @@ input {
   color: #f0f0f0;
 }
 .react-datepicker-popper[data-placement^='top'] .react-datepicker__triangle {
+  position: relative;
+  left: 1rem;
   fill: #fff;
   color: #fff;
 }

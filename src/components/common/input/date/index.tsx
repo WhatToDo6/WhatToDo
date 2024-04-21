@@ -48,10 +48,12 @@ const InputDate = ({
               <ReactDatePicker
                 selected={value}
                 onChange={onChange}
-                onBlur={onBlur}
+                onBlur={() => {
+                  console.log('blur')
+                }}
                 showTimeSelect
                 dateFormat="yyyy-MM-dd HH:mm"
-                placeholderText="날짜를 입력해주세요"
+                placeholderText={placeholder}
                 minDate={new Date()}
                 locale="ko"
                 timeCaption="시간"
