@@ -10,6 +10,10 @@ const InputTag = ({ placeholder, setValue }: InputProps) => {
 
   const makeTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      e.preventDefault()
+      if (e.nativeEvent.isComposing) {
+        return
+      }
       const inputElement = e.target as HTMLInputElement
       setTags([...tags, inputElement.value.trim()])
       inputElement.value = ''
