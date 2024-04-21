@@ -52,11 +52,9 @@ const Column = ({ id: columnId, title }: ColumnDataType) => {
         ))}
       </div>
       {hasMore && (
-        <div className={S.loadMoreWrapper}>
-          <button className={S.loadMoreButton} onClick={() => fetchTaskCards()}>
-            더보기
-          </button>
-        </div>
+        <button className={S.getMoreCards} onClick={() => fetchTaskCards()}>
+          더보기
+        </button>
       )}
     </div>
   )
