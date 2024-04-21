@@ -1,12 +1,16 @@
+import { useContext } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { InputFormValues } from '@/src/types/input'
 
 import S from './ModalTodo.module.scss'
+import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
 
 const ModalTodo = () => {
+  const modalStaus = useContext(ModalContext)
+
   const {
     register,
     handleSubmit,
@@ -75,6 +79,7 @@ const ModalTodo = () => {
           rightColor="purple"
           leftText="취소"
           rightText="생성"
+          onLeftClick={() => modalStaus.setIsOpen.call(null, false)}
           onRightClick={handleSubmit(onSubmit)}
         />
       </div>
