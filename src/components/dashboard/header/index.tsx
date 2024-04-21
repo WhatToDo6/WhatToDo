@@ -67,16 +67,25 @@ const MEMBERS = [
   },
 ]
 
-interface DashboardHeaderProps {
-  id?: string | string[]
+// TODO: 타입좁히기
+// type PathName = '/dashboard' | '/mypage' | '/dashboard/[id]'
+
+const TITLE: Record<string, string> = {
+  '/dashboard': '내 대시보드',
+  '/mypage': '계정관리',
+  '/dashboard/[id]': '나',
 }
 
-function DashboardHeader({ id }: DashboardHeaderProps) {
+interface DashboardHeaderProps {
+  pathname: string
+}
+
+function DashboardHeader({ pathname }: DashboardHeaderProps) {
   return (
     <div className={S.container}>
-      <div className={S.title}>내 대시보드</div>
+      <div className={S.title}>{TITLE[pathname]}</div>
       <div className={S.rightBox}>
-        {id && (
+        {pathname.includes('id') && (
           <>
             <div className={S.btnBox}>
               {BUTTONS.map((btn) => (
@@ -109,7 +118,7 @@ function DashboardHeader({ id }: DashboardHeaderProps) {
                 </div>
               )}
             </div>
-            <Image src={barIcon} alt="bar" />
+            <Image width={0} height={38} src={barIcon} alt="bar" />
           </>
         )}
         <div className={S.loginInfoBox}>

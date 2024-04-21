@@ -1,0 +1,9 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+
+  @include tablet {
+    flex-direction: column;
+  }
+}

@@ -1,13 +1,14 @@
 @import '@/src/styles/global.scss';
 
 .container {
+  width: 102rem;
   display: flex;
   flex-direction: column;
   margin-top: 3rem;
   margin-left: 3rem;
-}
 
-.invitedDashboard {
-  width: 102rem;
-  height: 60rem;
+  .invitedDashboard {
+    margin-top: 3rem;
+    height: 60rem;
+  }
 }

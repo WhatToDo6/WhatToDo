@@ -1,15 +1,12 @@
+@use '../InvitedList.module.scss' as InvitedList;
 @import '@/src/styles/global.scss';
 
 .container {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  background-color: $color-white;
-  border-radius: 0.8rem;
+  @include InvitedList.container;
 }
 
 .title {
-  @include font-style(2.4rem, 700, normal);
+  @include InvitedList.title;
   padding-top: 3.2rem;
   padding-left: 2.8rem;
 }
@@ -18,7 +15,7 @@
   display: flex;
   align-items: center;
   height: 4rem;
-  margin: 1.5rem 2.8rem 1.5rem 2.8rem;
+  margin: 2.4rem 2.8rem 2.4rem 2.8rem;
   border: 0.1rem solid $color-gray-200;
   border-radius: 0.6rem;
   background-color: $color-white;
@@ -55,6 +52,7 @@
     .invite_info {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
+      margin-bottom: 1.5rem;
 
       div {
         @include font-style(1.6rem, 400, normal);

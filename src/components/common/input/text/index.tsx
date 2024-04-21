@@ -3,10 +3,9 @@ import { InputProps } from '@/src/types/input'
 import S from './Text.module.scss'
 
 interface InputTextProps extends InputProps {
-  textType: 'nickname' | 'title' // 다른 input이 필요하면 추가
+  textType: 'nickname' | 'newNickname' | 'title' // 다른 input이 필요하면 추가
   size: string
-  disabled: boolean
-  required: boolean
+  currentNickname?: string
 }
 
 /**
@@ -25,15 +24,22 @@ const InputText = ({
   error,
   register,
   textType,
+  currentNickname,
   size,
-  disabled,
-  required,
 }: InputTextProps) => {
   const VALIDATION_MAP = {
     nickname: {
-      required: required ? '닉네임을 입력해주세요.' : undefined,
+      required: '닉네임을 입력해주세요.',
       validate: (value: string) => {
-        return value.length < 10 || '10자 이하로 작성해주세요.'
+        return value.length <= 10 || '10자 이하로 작성해주세요.'
+      },
+    },
+    newNickname: {
+      validate: {
+        validate: (value: string) =>
+          value.length <= 10 || '10자 이하로 작성해주세요.',
+        notSameAsOld: (value: string) =>
+          value !== currentNickname || '기존 닉네임과 동일합니다.',
       },
     },
     title: {
@@ -47,7 +53,6 @@ const InputText = ({
       className={`${S.container} ${error && S.error} ${S[size]}`}
       type="text"
       placeholder={placeholder}
-      disabled={disabled}
       {...register(textType, VALIDATION_MAP[textType])}
     />
   )

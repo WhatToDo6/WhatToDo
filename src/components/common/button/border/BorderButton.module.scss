@@ -1,4 +1,4 @@
-@import '../../../../styles/global.scss';
+@import '@/src/styles/global.scss';
 
 .button {
   display: flex;
@@ -54,6 +54,16 @@
     width: 13.8rem;
     padding: 1.2rem 5.6rem;
     @include font-style(1.4rem, 500, normal);
+  }
+}
+
+.extra {
+  width: 10.5rem;
+  @include font-style(1.4rem, 500, normal);
+
+  @include mobile {
+    width: 8.6rem;
+    @include font-style(1.2rem, 500, normal);
   }
 }
 
