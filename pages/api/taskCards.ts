@@ -1,21 +1,25 @@
 import AXIOS from '@/lib/axios'
-import { TaskCardDataType } from '@/src/types/dashboard.interface'
+import { GetTaskCards } from '@/src/types/dashboard.interface'
 
-export async function getTaskCards(
-  size = 3,
-  columnId: number | undefined,
-): Promise<TaskCardDataType[]> {
-  try {
-    const accessToken = localStorage.getItem('accessToken')
-    const query = `size=${size}&columnId=${columnId}`
-    const response = await AXIOS.get(`/cards?${query}`, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-    return response.data.cards
-  } catch (error) {
-    console.error(error)
-    throw new Error('Failed to fetch columns.')
-  }
+export const getTaskCards = async (
+  columnId: number,
+  cursorId: number | null,
+  firstFetch: boolean = false,
+): Promise<GetTaskCards> => {
+  const token = localStorage.getItem('accessToken')
+  const path = `/cards?size=3&columnId=${columnId}${
+    !firstFetch && cursorId ? `&cursorId=${cursorId}` : ''
+  }`
+
+  const response = await AXIOS.get(path, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+
+  const {
+    data: { cards, cursorId: nextCursorId, totalCount },
+  } = response
+
+  return { data: cards, nextCursorId, totalCount }
 }

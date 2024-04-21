@@ -15,3 +15,11 @@ export interface TaskCardDataType {
 export type TaskCardDateType = {
   dueDate: string
 }
+
+export interface PaginationResponse<T> {
+  data: T[]
+  nextCursorId: number
+  totalCount: number
+}
+
+export type GetTaskCards = PaginationResponse<TaskCardDataType>
