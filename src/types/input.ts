@@ -1,4 +1,9 @@
-import { FieldError, UseFormRegister } from 'react-hook-form'
+import {
+  FieldError,
+  FieldValues,
+  UseFormRegister,
+  Control,
+} from 'react-hook-form'
 
 export interface InputInterface {
   inputType:
@@ -22,6 +27,7 @@ export interface InputInterface {
   disabled?: boolean // input을 비활성하기 위해 필요
   required?: boolean // required가 필요하지 않은 경우를 위해 필요
   control?: any // react-hook-form의 control 객체
+  setValue?: any // react-hook-form의 setValue 함수
 }
 export interface InputFormValues {
   email: string
@@ -40,4 +46,6 @@ export interface InputProps {
   placeholder: string
   error: FieldError | undefined
   register: UseFormRegister<InputFormValues>
+  control?: any
+  setValue?: any
 }

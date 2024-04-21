@@ -7,6 +7,7 @@ import InputNewPassword from './new-password'
 import InputNewPasswordCheck from './new-password-check'
 import InputPassword from './password'
 import InputPasswordCheck from './password-check'
+import InputTag from './tag'
 import InputText from './text'
 import TextArea from './textarea'
 
@@ -22,6 +23,8 @@ import TextArea from './textarea'
  * @param size - (optional) input 사이즈 (small | medium | large)
  * @param disabled - (optional) input 비활성화 여부
  * @param required - (optional) required가 필요하지 않은 경우를 위해 필요
+ * @param control - (optional) react-hook-form의 control 객체 (외부 라이브러리 연동 시 필요)
+ * @param setValue - (optional) react-hook-form의 setValue 함수 (직접 값 제어 시 필요)
  */
 const Input = ({
   inputType,
@@ -35,6 +38,7 @@ const Input = ({
   disabled,
   required = true,
   control,
+  setValue,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
@@ -104,7 +108,14 @@ const Input = ({
         control={control}
       />
     ),
-    tag: <input type="tag" />, // TODO: tag input
+    tag: (
+      <InputTag
+        placeholder={placeholder}
+        error={error}
+        register={register}
+        setValue={setValue}
+      />
+    ),
     textarea: (
       <TextArea placeholder={placeholder} error={error} register={register} />
     ),

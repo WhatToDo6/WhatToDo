@@ -1,0 +1,61 @@
+@use '../Input.module.scss' as Input;
+@import '@/src/styles/global.scss';
+
+.container {
+  @include Input.input;
+  //   display: inline;ㄴㄴ
+  display: flex;
+  //   flex-direction: row;
+  //   flex-wrap: wrap;
+  //   gap: 0.6rem;
+}
+
+.input {
+  width: auto;
+}
+
+.tagList {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+@mixin tag {
+  display: inline-flex;
+  padding: 0.4rem 0.6rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 0.4rem;
+
+  @include font-style(1.2rem, 400, normal);
+
+  @include mobile {
+    @include font-style(1rem, 400, normal);
+  }
+}
+
+.orange {
+  @include tag;
+  color: #d58d49;
+  background-color: #f9eee3;
+}
+
+.green {
+  @include tag;
+  color: #86d549;
+  background-color: #e7f7db;
+}
+
+.pink {
+  @include tag;
+  color: #d549b6;
+  background-color: #f7dbf0;
+}
+
+.blue {
+  @include tag;
+  color: #4981d5;
+  background-color: #dbe6f7;
+}

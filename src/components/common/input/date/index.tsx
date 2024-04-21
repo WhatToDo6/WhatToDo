@@ -9,10 +9,6 @@ import { InputProps } from '@/src/types/input'
 
 import S from './Date.module.scss'
 
-interface InputDateProps extends InputProps {
-  control: any
-}
-
 /**
  *
  * @description textarea 타입의 input 컴포넌트
@@ -22,20 +18,15 @@ interface InputDateProps extends InputProps {
  * @ref [react-datepicker](https://www.npmjs.com/package/react-datepicker)
  */
 
-const InputDate = ({
-  placeholder,
-  error,
-  register,
-  control,
-}: InputDateProps) => {
+const InputDate = ({ placeholder, control }: InputProps) => {
   registerLocale('ko', ko)
 
   return (
-    <div className={`${S.container} ${error && S.error}`}>
+    <div className={S.container}>
       <Controller
         name="date"
         control={control}
-        render={({ field: { onChange, onBlur, value } }) => {
+        render={({ field: { onChange, value } }) => {
           return (
             <>
               <div className={S.icon}>
@@ -48,9 +39,6 @@ const InputDate = ({
               <ReactDatePicker
                 selected={value}
                 onChange={onChange}
-                onBlur={() => {
-                  console.log('blur')
-                }}
                 showTimeSelect
                 dateFormat="yyyy-MM-dd HH:mm"
                 placeholderText={placeholder}
