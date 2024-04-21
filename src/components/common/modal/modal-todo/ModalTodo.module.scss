@@ -37,3 +37,11 @@
     color: $color-violet-200;
   }
 }
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-bottom: 2.8rem;
+}

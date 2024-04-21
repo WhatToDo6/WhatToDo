@@ -3,6 +3,8 @@
 
 .container {
   @include Input.input;
+  display: flex;
+  flex-direction: row;
 }
 
 .input {

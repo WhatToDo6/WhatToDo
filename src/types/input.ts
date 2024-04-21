@@ -18,8 +18,9 @@ export interface InputInterface {
     | 'date'
     | 'tag'
     | 'textarea'
-  placeholder: string
-  error: FieldError | undefined
+    | 'image'
+  placeholder?: string
+  error?: FieldError | undefined
   register: UseFormRegister<InputFormValues>
   password?: string // passwordCheck에서 password를 비교하기 위해 필요
   currentPassword?: string // password와 newPassword를 비교하기 위해 필요

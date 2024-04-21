@@ -2,6 +2,7 @@ import { InputInterface } from '@/src/types/input'
 
 import InputDate from './date'
 import InputEmail from './email'
+import InputImageUpload from './image-upload'
 import S from './Input.module.scss'
 import InputNewPassword from './new-password'
 import InputNewPasswordCheck from './new-password-check'
@@ -43,11 +44,15 @@ const Input = ({
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
-      <InputEmail placeholder={placeholder} error={error} register={register} />
+      <InputEmail
+        placeholder={placeholder || ''}
+        error={error}
+        register={register}
+      />
     ),
     password: (
       <InputPassword
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         size={size || ''}
@@ -55,7 +60,7 @@ const Input = ({
     ),
     passwordCheck: (
       <InputPasswordCheck
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         password={password || ''}
@@ -63,7 +68,7 @@ const Input = ({
     ),
     newPassword: (
       <InputNewPassword
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         currentPassword={currentPassword || ''}
@@ -72,7 +77,7 @@ const Input = ({
     ),
     newPasswordCheck: (
       <InputNewPasswordCheck
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         newPassword={newPassword || ''}
@@ -81,7 +86,7 @@ const Input = ({
     ),
     nickname: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="nickname"
@@ -90,7 +95,7 @@ const Input = ({
     ),
     newNickname: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="newNickname"
@@ -100,7 +105,7 @@ const Input = ({
     ),
     title: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="title"
@@ -109,7 +114,7 @@ const Input = ({
     ),
     date: (
       <InputDate
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         control={control}
@@ -117,22 +122,27 @@ const Input = ({
     ),
     tag: (
       <InputTag
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         setValue={setValue}
       />
     ),
     textarea: (
-      <TextArea placeholder={placeholder} error={error} register={register} />
+      <TextArea
+        placeholder={placeholder || ''}
+        error={error}
+        register={register}
+      />
     ),
+    image: <InputImageUpload handleImageChange={() => console.log('임시')} />, //TODO: handleImageChange 함수 연결
   }
 
   return (
-    <>
+    <div className={S.container}>
       {INPUT_MAP[inputType]}
       <span className={S.errorText}>{error?.message}</span>
-    </>
+    </div>
   )
 }
 

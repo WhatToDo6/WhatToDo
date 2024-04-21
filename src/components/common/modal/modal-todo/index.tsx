@@ -67,14 +67,17 @@ const ModalTodo = () => {
       <label className={S.label} htmlFor="image">
         이미지
       </label>
-      <OptionButton
-        size="large"
-        leftColor="white"
-        rightColor="purple"
-        leftText="취소"
-        rightText="생성"
-        onRightClick={handleSubmit(onSubmit)}
-      />
+      <Input inputType="image" register={register} setValue={setValue} />
+      <div className={S.button}>
+        <OptionButton
+          size="large"
+          leftColor="white"
+          rightColor="purple"
+          leftText="취소"
+          rightText="생성"
+          onRightClick={handleSubmit(onSubmit)}
+        />
+      </div>
     </div>
   )
 }
