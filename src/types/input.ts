@@ -23,6 +23,7 @@ export interface InputInterface {
     | 'textarea'
     | 'image'
     | 'manager'
+    | 'progress'
   placeholder?: string
   error?: FieldError | undefined
   register: UseFormRegister<InputFormValues>
@@ -56,9 +57,9 @@ export interface InputFormValues {
 }
 
 export interface InputProps {
-  placeholder: string
+  placeholder?: string
   error?: FieldError | undefined
-  register: UseFormRegister<InputFormValues>
+  register?: UseFormRegister<InputFormValues>
   control?: any
   setValue?: any
 }
