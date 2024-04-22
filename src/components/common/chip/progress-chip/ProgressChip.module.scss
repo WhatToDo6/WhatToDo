@@ -1,0 +1,26 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  height: 2.2rem;
+  padding: 0.4rem 0.8rem;
+  align-items: center;
+  gap: 0.6rem;
+
+  border-radius: 1.1rem;
+  background: $color-violet-100;
+
+  @include mobile {
+    height: 2rem;
+  }
+}
+
+.text {
+  color: $color-violet-200;
+  text-align: center;
+  @include font-style(1.2rem, 400, normal);
+
+  @include mobile {
+    @include font-style(1rem, 400, normal);
+  }
+}

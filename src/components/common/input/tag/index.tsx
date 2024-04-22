@@ -7,7 +7,6 @@ import TagChip from '../../chip/tag-chip'
 
 const InputTag = ({ placeholder, setValue }: InputProps) => {
   const [tags, setTags] = useState<string[]>([])
-  const tagColors = ['orange', 'green', 'pink', 'blue']
 
   const makeTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {

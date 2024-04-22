@@ -31,6 +31,12 @@ const ModalTodo = () => {
         <label className={S.label} htmlFor="keeper">
           담당자
         </label>
+        <Input
+          inputType="manager"
+          placeholder="이름을 입력해주세요"
+          register={register}
+          setValue={setValue}
+        />
         <label className={S.label} htmlFor="title">
           제목<span className={S.required}>*</span>
         </label>
@@ -65,7 +71,6 @@ const ModalTodo = () => {
         <Input
           inputType="tag"
           placeholder="입력 후 Enter"
-          error={errors.tag}
           register={register}
           setValue={setValue}
         />
