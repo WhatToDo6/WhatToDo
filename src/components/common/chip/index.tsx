@@ -1,21 +1,28 @@
 import Image from 'next/image'
-import { useContext } from 'react'
 
 import CHECK_IMG from '@/public/icons/check.svg'
 
 import S from './ColorChip.module.scss'
-import { ColorChipContext } from '../modal/modal-newdash'
 
 const chipColor = ['#7AC555', '#760DDE', '#FFA500', '#76A5EA', '#E876EA']
 
+interface ColorChipProps {
+  showSelectedOnly?: boolean
+  selectedColor?: string
+  setSelectedColor?: any
+}
+
 /**
- *
+ * @param selectedColor - 상위에서 넘겨줄 colorChip state
+ * @param setSelectedColor - colorChip setState 함수
  * @param selectedChipOnly - 선택된 chip만을 보여줄 때 사용
  * @returns
  */
-const ColorChip = ({ showSelectedOnly = false }) => {
-  const { selectedColor, setSelectedColor } = useContext(ColorChipContext)
-
+const ColorChip = ({
+  showSelectedOnly = false,
+  selectedColor,
+  setSelectedColor,
+}: ColorChipProps) => {
   const handleSelectChip = (color: string) => {
     setSelectedColor(color)
   }
