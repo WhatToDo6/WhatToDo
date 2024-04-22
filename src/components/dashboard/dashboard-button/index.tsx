@@ -1,10 +1,10 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
-import { DashboardType } from '@/pages/mydashboard'
 import addBoardBtn from '@/public/icons/add-board-btn.svg'
 import crownIcon from '@/public/icons/crown-icon.svg'
 import rightArrow from '@/public/icons/right-arrow.svg'
+import { DashboardType } from '@/src/types/mydashboard'
 
 import S from './dashboardButton.module.scss'
 
@@ -15,21 +15,20 @@ type DashboardButtonType =
   | 'moveDashboard'
   | 'deleteDashboard'
 
-//TODO 타입 확장해서 적용하기
-interface DashboardButtonProps {
+type PartialDashboardButtonType = {
+  [key in keyof DashboardType]?: DashboardType[key]
+}
+
+interface DashboardButtonProps extends PartialDashboardButtonType {
   type: DashboardButtonType
-  dashboard?: DashboardType
-  id?: number
-  color?: string
-  createdByMe?: boolean
 }
 
 function DashboardButton({
-  dashboard,
   type,
   id,
   color,
   createdByMe,
+  title,
 }: DashboardButtonProps) {
   const router = useRouter()
 
@@ -78,13 +77,13 @@ function DashboardButton({
     },
     moveDashboard: {
       onClick: () => {
-        router.push(`/dashboard/${id}`)
+        router.push(`/dashboards/${id}`)
       },
       children: (
         <>
           <div className={S.infoBox}>
             <div className={S.colorChip} style={{ backgroundColor: color }} />
-            <p>{dashboard && dashboard.title}</p>
+            <p>{title}</p>
             {createdByMe && (
               <Image width={20} height={16} src={crownIcon} alt="왕관" />
             )}
