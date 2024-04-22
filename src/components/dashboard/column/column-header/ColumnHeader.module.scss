@@ -1,0 +1,43 @@
+@import '@/src/styles/global.scss';
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.columnHeading {
+  display: flex;
+  align-items: center;
+}
+
+.ellipse {
+  flex-shrink: 0;
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 10rem;
+  background-color: $color-violet-200;
+}
+
+.columnTitle {
+  margin: 0 1.2rem 0 0.8rem;
+  color: $color-black-200;
+  @include font-style(1.8rem, 700, normal);
+}
+
+.cardCount {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0.6rem 0.3rem;
+  border-radius: 0.4rem;
+  color: $color-gray-500;
+  background-color: $color-gray-200;
+  @include font-style(1.2rem, 500, normal);
+}
+
+.setting {
+  cursor: pointer;
+}

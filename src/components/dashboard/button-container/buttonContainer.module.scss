@@ -1,0 +1,10 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  width: 100%;
+  display: flex;
+  overflow: hidden;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 1.2rem;
+}

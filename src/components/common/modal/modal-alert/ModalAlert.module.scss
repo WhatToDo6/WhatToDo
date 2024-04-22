@@ -1,0 +1,35 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  position: relative;
+  width: 48.4rem;
+  height: 19.4rem;
+
+  display: flex;
+  justify-content: center;
+  padding-top: 8rem;
+
+  @include mobile {
+    width: 27.1rem;
+    height: 16.4rem;
+    padding-top: 5.3rem;
+  }
+}
+
+.content {
+  color: $color-black-200;
+  @include font-style(1.8rem, 500, normal);
+  @include mobile {
+    @include font-style(1.6rem, 500, normal);
+  }
+}
+
+.button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+
+  @include mobile {
+    left: 6.6rem;
+  }
+}

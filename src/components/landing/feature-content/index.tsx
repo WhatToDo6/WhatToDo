@@ -1,9 +1,10 @@
 import Image from 'next/image'
 
+import CONTENT_IMG1 from '@/public/images/landing-img1.png'
+import CONTENT_IMG2 from '@/public/images/landing-img2.png'
+
 import S from './FeatureContent.module.scss'
 
-import CONTENT_IMG1 from '/public/images/landing-img1.png'
-import CONTENT_IMG2 from '/public/images/landing-img2.png'
 const FeatureContent = () => {
   return (
     <article className={S.container}>

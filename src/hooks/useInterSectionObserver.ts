@@ -1,10 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 
-type Ref = HTMLElement | null
-
-type UseIntersectionObserver = [(element: Ref) => void, boolean]
-
-export default function useIntersectionObserver(): UseIntersectionObserver {
+export default function useIntersectionObserver() {
   const [isScrolled, setIsScrolled] = useState(false)
   const observer = useRef<IntersectionObserver | null>(null)
 
@@ -26,11 +22,11 @@ export default function useIntersectionObserver(): UseIntersectionObserver {
     }
   }, [])
 
-  const observe = (element: Ref) => {
+  const observe = (element: HTMLElement) => {
     if (observer.current && element) {
       observer.current.observe(element)
     }
   }
 
-  return [observe, isScrolled]
+  return { observe, isScrolled }
 }

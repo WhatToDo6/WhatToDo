@@ -11,16 +11,14 @@ type LayoutProps = {
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  const {
-    query: { id },
-  } = useRouter()
+  const { pathname } = useRouter()
 
   return (
     <div className={S.container}>
       <SideMenu />
       <div className={S.rightSideContainer}>
         <nav>
-          <DashboardHeader id={id} />
+          <DashboardHeader pathname={pathname} />
         </nav>
         <main>{children}</main>
       </div>
