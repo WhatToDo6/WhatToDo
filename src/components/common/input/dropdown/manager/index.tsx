@@ -62,7 +62,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
       {isOpen && (
         <div className={S.dropdown}>
           {userId !== 0 && (
-            <div className={S.member}>
+            <div className={S.member} onClick={() => setIsOpen(false)}>
               <Image src={CHECK_ICON} alt="선택됨" width={20} height={20} />
               {/* TODO: 담당자 공통 UI 컴포넌트로 교체 */}
               <p className={S.name}>{nickname}</p>
@@ -72,19 +72,18 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
             .filter((elem) => elem.id !== userId)
             .map((elem) => {
               return (
-                <div key={elem.id} className={`${S.member} ${S.unselected}`}>
+                <div
+                  key={elem.id}
+                  className={`${S.member} ${S.unselected}`}
+                  onClick={() => {
+                    setUserId(elem.userId)
+                    setNickname(elem.nickname)
+                    setInputValue(elem.nickname)
+                    setIsOpen(false)
+                  }}
+                >
                   {/* TODO: 담당자 공통 UI 컴포넌트로 교체 */}
-                  <p
-                    className={S.name}
-                    onClick={() => {
-                      setUserId(elem.userId)
-                      setNickname(elem.nickname)
-                      setInputValue(elem.nickname)
-                      setIsOpen(false)
-                    }}
-                  >
-                    {elem.nickname}
-                  </p>
+                  <p className={S.name}>{elem.nickname}</p>
                 </div>
               )
             })}
