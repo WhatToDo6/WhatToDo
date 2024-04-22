@@ -38,8 +38,6 @@ const Input = ({
   currentNickname,
   currentColumn,
   size,
-  disabled,
-  required = true,
   control,
   setValue,
 }: InputInterface) => {
@@ -107,7 +105,7 @@ const Input = ({
     ),
     newColumn: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="newColumn"
@@ -117,7 +115,7 @@ const Input = ({
     ),
     columnName: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="columnName"
@@ -126,7 +124,7 @@ const Input = ({
     ),
     newDash: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="newDash"
