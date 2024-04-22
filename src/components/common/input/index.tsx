@@ -37,9 +37,8 @@ const Input = ({
   newPassword,
   currentPassword,
   currentNickname,
+  currentColumn,
   size,
-  disabled,
-  required = true,
   control,
   setValue,
 }: InputInterface) => {
@@ -49,6 +48,7 @@ const Input = ({
         placeholder={placeholder || ''}
         error={error}
         register={register}
+        size={size || ''}
       />
     ),
     password: (
@@ -101,6 +101,34 @@ const Input = ({
         register={register}
         textType="newNickname"
         currentNickname={currentNickname}
+        size={size || ''}
+      />
+    ),
+    newColumn: (
+      <InputText
+        placeholder={placeholder || ''}
+        error={error}
+        register={register}
+        textType="newColumn"
+        currentColumn={currentColumn}
+        size={size || ''}
+      />
+    ),
+    columnName: (
+      <InputText
+        placeholder={placeholder || ''}
+        error={error}
+        register={register}
+        textType="columnName"
+        size={size || ''}
+      />
+    ),
+    newDash: (
+      <InputText
+        placeholder={placeholder || ''}
+        error={error}
+        register={register}
+        textType="newDash"
         size={size || ''}
       />
     ),

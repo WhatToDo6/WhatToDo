@@ -1,4 +1,4 @@
-import { DashboardType } from '@/pages/mydashboard'
+import { DashboardType } from '@/src/types/mydashboard'
 
 import S from './buttonContainer.module.scss'
 import DashboardButton from '../dashboard-button'
@@ -20,25 +20,27 @@ function DashboardButtonContainer({
   onClickNextPage,
 }: DashboardButtonContainerProps) {
   return (
-    <div className={S.container}>
-      <DashboardButton type="addDashboard" />
-      {dashboards.map((dashboard) => (
-        <DashboardButton
-          key={dashboard.id}
-          id={dashboard.id}
-          color={dashboard.color}
-          type="moveDashboard"
-          dashboard={dashboard}
-          createdByMe={dashboard.createdByMe}
-        />
-      ))}
+    <>
+      <div className={S.container}>
+        <DashboardButton type="addDashboard" />
+        {dashboards.map((dashboard) => (
+          <DashboardButton
+            key={dashboard.id}
+            id={dashboard.id}
+            color={dashboard.color}
+            type="moveDashboard"
+            createdByMe={dashboard.createdByMe}
+            title={dashboard.title}
+          />
+        ))}
+      </div>
       <PagenationButton
         currPage={currPage}
         lastPage={lastPage}
         onClickLeft={onClickPrevPage}
         onClickRight={onClickNextPage}
       />
-    </div>
+    </>
   )
 }
 

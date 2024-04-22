@@ -3,10 +3,14 @@ import { validateEmail } from '@/src/utils/validation'
 
 import S from './Email.module.scss'
 
-const InputEmail = ({ placeholder, error, register }: InputProps) => {
+interface EmailProps extends InputProps {
+  size: string
+}
+
+const InputEmail = ({ placeholder, error, register, size }: EmailProps) => {
   return (
     <input
-      className={`${S.container} ${error && S.error}`}
+      className={`${S.container} ${error && S.error} ${S[size]}`}
       type="email"
       placeholder={placeholder}
       {...register('email', {

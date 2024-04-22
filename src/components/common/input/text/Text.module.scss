@@ -24,3 +24,12 @@
     margin-bottom: 0.6rem;
   }
 }
+
+.large {
+  width: 48.4rem;
+  border-radius: 0.6rem;
+
+  @include mobile {
+    width: 28.7rem;
+  }
+}

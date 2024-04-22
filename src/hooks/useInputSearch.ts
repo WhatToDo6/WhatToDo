@@ -1,23 +1,18 @@
 import { useState, ChangeEvent } from 'react'
 
-type Data = {
-  [key: string]: string
-}
+import { InvitedListDashboardType } from '@/src/types/mydashboard'
 
-type UseInputSearch = [
-  string,
-  (e: ChangeEvent<HTMLInputElement>) => void,
-  Data[],
-]
-
-export function useInputSearch(list: Data[]): UseInputSearch {
+export function useInputSearch(list: InvitedListDashboardType[]) {
   const [searchWord, setSearchWord] = useState('')
 
   const handleWordChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSearchWord(e.target.value)
   }
 
-  const searchedData = list.filter((item) => item.name.includes(searchWord))
+  const searchedData = list.filter((item) => {
+    const title = item.dashboard.title
+    return title.includes(searchWord)
+  })
 
-  return [searchWord, handleWordChange, searchedData]
+  return { searchWord, handleWordChange, searchedData }
 }
