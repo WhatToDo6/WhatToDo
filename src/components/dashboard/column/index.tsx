@@ -15,7 +15,7 @@ import S from './Column.module.scss'
 const Column = ({ id: columnId, title }: ColumnDataType) => {
   const [taskCards, setTaskCards] = useState<TaskCardDataType[]>([])
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
-  const [hasMore, setHasMore] = useState(true)
+  const [getMore, setGetMore] = useState(true)
 
   const fetchTaskCards = async (firstFetch: boolean = false) => {
     if (columnId) {
@@ -31,9 +31,9 @@ const Column = ({ id: columnId, title }: ColumnDataType) => {
         )
         setTaskCards((prev) => (firstFetch ? data : [...prev, ...data]))
         setNextCursorId(fetchNextCursorId)
-        setHasMore(taskCards.length + data.length < totalCount)
-      } catch (err) {
-        console.error(err)
+        setGetMore(taskCards.length + data.length < totalCount)
+      } catch (error) {
+        console.error('카드를 불러오는 데 실패했습니다.:', error)
       }
     }
   }
@@ -51,7 +51,7 @@ const Column = ({ id: columnId, title }: ColumnDataType) => {
           <TaskCard key={taskCard.id} {...taskCard} />
         ))}
       </div>
-      {hasMore && (
+      {getMore && (
         <button className={S.getMoreCards} onClick={() => fetchTaskCards()}>
           더보기
         </button>

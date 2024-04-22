@@ -5,12 +5,13 @@
   flex-direction: column;
   gap: 2.5rem;
   width: 35.4rem;
-  min-height: fit-content;
+  min-height: 100vh;
   padding: 2.8rem 2rem;
   border-right: 0.1rem solid $color-gray-300;
 
   @include tablet {
     width: 100%;
+    min-height: fit-content;
     border-right: none;
     border-bottom: 0.1rem solid $color-gray-300;
   }

@@ -71,9 +71,9 @@ const MEMBERS = [
 // type PathName = '/dashboard' | '/mypage' | '/dashboard/[id]'
 
 const TITLE: Record<string, string> = {
-  '/dashboard': '내 대시보드',
+  '/dashboards': '내 대시보드',
   '/mypage': '계정관리',
-  '/dashboard/[id]': '나',
+  '/dashboards/[id]': '나',
 }
 
 interface DashboardHeaderProps {
