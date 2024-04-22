@@ -16,7 +16,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
 
   const [isOpen, setIsOpen] = useState(false)
   const [inputValue, setInputValue] = useState('')
-  const [userId, setUserId] = useState(0)
+  const [userId, setUserId] = useState<number | null>(null)
   const [nickname, setNickname] = useState('')
   const [displayList, setDisplayList] = useState(memberData)
 
@@ -45,6 +45,8 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
   useEffect(() => {
     setValue('manager', userId)
   }, [userId, setValue])
+
+  console.log(userId, nickname)
 
   return (
     <div className={S.container}>
