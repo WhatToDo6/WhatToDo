@@ -28,5 +28,11 @@ export function useUserData() {
     }
   }, [])
 
-  return userData
+  const { email, nickname, profileImageUrl } = userData || {
+    email: '',
+    nickname: '',
+    profileImageUrl: '',
+  }
+
+  return { email, nickname, profileImageUrl }
 }

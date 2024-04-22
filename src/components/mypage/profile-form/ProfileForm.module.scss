@@ -20,6 +20,16 @@
   }
 }
 
+.imgContainer {
+  width: 18.2rem;
+  height: 18.2rem;
+
+  @include mobile {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+
 .text-container {
   display: flex;
   flex-direction: column;

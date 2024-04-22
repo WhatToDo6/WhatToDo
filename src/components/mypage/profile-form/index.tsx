@@ -1,4 +1,4 @@
-import { useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
@@ -8,11 +8,20 @@ import { useUserData } from '@/src/hooks/useUserData'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './ProfileForm.module.scss'
-import InputImageUpload from '../../common/input/image-upload'
+import InputProfileImage from '../../common/input/profile-image'
+
+interface ProfileUpdateProps {
+  nickname?: string
+  profileImageUrl?: string
+}
 
 const ProfileForm = () => {
-  const userData = useUserData()
+  const { profileImageUrl, nickname, email } = useUserData()
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
+
+  useEffect(() => {
+    setUploadedImageUrl(profileImageUrl)
+  }, [profileImageUrl])
 
   const {
     register,
@@ -45,39 +54,44 @@ const ProfileForm = () => {
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
-      AXIOS.put(
-        '/users/me',
-        {
-          nickname: data.newNickname ? data.newNickname : userData?.nickname,
-          profileImageUrl: uploadedImageUrl
-            ? uploadedImageUrl
-            : userData?.profileImageUrl,
-        },
-        {
+      const changes: ProfileUpdateProps = {}
+      if (data.newNickname && data.newNickname !== nickname) {
+        changes.nickname = data.newNickname
+      }
+      if (uploadedImageUrl !== profileImageUrl) {
+        changes.profileImageUrl = uploadedImageUrl
+      }
+
+      if (Object.keys(changes).length > 0) {
+        AXIOS.put('/users/me', changes, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        },
-      ).catch((err) => {
-        console.error(err.response.data.message)
-      })
+        }).catch((err) => {
+          console.error(err.response.data.message)
+        })
+      }
     }
     reset({
       nickname: '',
-      profileImageUrl: undefined,
     })
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={S.container}>
       <div className={S.content}>
-        <InputImageUpload handleImageChange={handleImageChange} />
+        <div className={S.imgContainer}>
+          <InputProfileImage
+            profileImageUrl={uploadedImageUrl}
+            handleImageChange={handleImageChange}
+          />
+        </div>
         <div className={S['text-container']}>
           <label className={S.title}>이메일</label>
           <input
             type="text"
             disabled={true}
-            placeholder={userData?.email}
+            placeholder={email}
             className={`${S['text-input']} ${S['first-input']}`}
           />
           <label className={S.title}>닉네임</label>
@@ -86,7 +100,7 @@ const ProfileForm = () => {
             placeholder=""
             error={errors.newNickname}
             register={register}
-            currentNickname={userData?.nickname}
+            currentNickname={nickname}
             size="small"
           />
         </div>
