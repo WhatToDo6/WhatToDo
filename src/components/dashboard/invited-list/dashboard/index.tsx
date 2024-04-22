@@ -29,9 +29,9 @@ function InviteListDashboard() {
     setMyInvitedListData((prev) => prev.filter((data) => data.id !== id))
   }
 
-  const getInvitedListDashbaord = async () => {
+  const getInvitedListDashbaord = async (firstFetch: boolean = false) => {
     const token = localStorage.getItem('accessToken')
-    const path = `/invitations?size=6&cursorId=${cursorId}`
+    const path = `/invitations?size=6${firstFetch ? '' : `&cursorId=${cursorId}`}`
     try {
       const response = await AXIOS.get(path, {
         headers: {
@@ -41,26 +41,9 @@ function InviteListDashboard() {
       const {
         data: { invitations, cursorId },
       } = response
-      setMyInvitedListData((prev) => [...prev, ...invitations])
-      setCursorId(cursorId)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  const getFisrtInvitedListDashbaord = async () => {
-    const token = localStorage.getItem('accessToken')
-    const path = `/invitations?size=6`
-    try {
-      const response = await AXIOS.get(path, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      const {
-        data: { invitations, cursorId },
-      } = response
-      setMyInvitedListData(invitations)
+      setMyInvitedListData((prev) =>
+        firstFetch ? invitations : [...prev, ...invitations],
+      )
       setCursorId(cursorId)
     } catch (err) {
       console.error(err)
@@ -68,7 +51,7 @@ function InviteListDashboard() {
   }
 
   useEffect(() => {
-    getFisrtInvitedListDashbaord()
+    getInvitedListDashbaord(true)
   }, [])
 
   useEffect(() => {
