@@ -170,9 +170,10 @@ const Input = ({
         placeholder={placeholder || ''}
         register={register}
         setValue={setValue}
+        error={error}
       />
     ),
-    progress: <DropdownProgress setValue={setValue} />,
+    progress: <DropdownProgress register={register} setValue={setValue} />,
   }
 
   return (

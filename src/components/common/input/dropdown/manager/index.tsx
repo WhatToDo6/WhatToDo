@@ -67,6 +67,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
               value={inputValue}
               onChange={(e) => searchManager(e.target.value)}
               onFocus={() => setIsFocus(true)}
+              onBlur={() => setIsFocus(false)}
             />
           )}
         </div>

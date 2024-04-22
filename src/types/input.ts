@@ -1,9 +1,4 @@
-import {
-  FieldError,
-  FieldValues,
-  UseFormRegister,
-  Control,
-} from 'react-hook-form'
+import { FieldError, UseFormRegister } from 'react-hook-form'
 
 export interface InputInterface {
   inputType:
@@ -54,12 +49,13 @@ export interface InputFormValues {
   tag: string
   textarea: string
   profileImageUrl: FileList
+  manager: number // 담당자 userId
 }
 
 export interface InputProps {
   placeholder?: string
   error?: FieldError | undefined
-  register?: UseFormRegister<InputFormValues>
+  register: UseFormRegister<InputFormValues>
   control?: any
   setValue?: any
 }
