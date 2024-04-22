@@ -21,14 +21,14 @@
     top: 6rem;
     z-index: 20;
     @include mobile {
-      width: 27rem;
+      width: 28.7rem;
       top: 5rem;
     }
   }
 }
 
 .inputContainer {
-  @include Input.input(21.7rem, 27rem);
+  @include Input.input(21.7rem, 28.7rem);
   display: flex;
   flex-direction: row;
   justify-content: space-between;

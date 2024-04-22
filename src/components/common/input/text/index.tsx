@@ -66,16 +66,18 @@ const InputText = ({
     },
   }
 
-  return (
-    <div className={`${S.container}  ${S[textType]}`}>
-      <input
-        className={`${error && S.error} ${S[size]}`}
-        type="text"
-        placeholder={placeholder}
-        {...register(textType, VALIDATION_MAP[textType])}
-      />
-    </div>
-  )
+  if (register) {
+    return (
+      <div className={`${S.container}  ${S[textType]}`}>
+        <input
+          className={`${error && S.error} ${S[size]}`}
+          type="text"
+          placeholder={placeholder}
+          {...register(textType, VALIDATION_MAP[textType])}
+        />
+      </div>
+    )
+  }
 }
 
 export default InputText

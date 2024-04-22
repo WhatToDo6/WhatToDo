@@ -1,6 +1,8 @@
+@use '.././Modal.module.scss' as Modal;
 @import '@/src/styles/global.scss';
 
 .container {
+  @include Modal.modal(54rem, 25rem, 32.7rem, 22rem);
   position: relative;
   width: 48.4rem;
   height: 19.4rem;
@@ -26,10 +28,9 @@
 
 .button {
   position: absolute;
-  bottom: 0;
-  right: 0;
-
+  bottom: 2.8rem;
+  right: 2.8rem;
   @include mobile {
-    left: 0;
+    left: 2.8rem;
   }
 }

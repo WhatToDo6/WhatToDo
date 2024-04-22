@@ -2,9 +2,7 @@
 @import '@/src/styles/global.scss';
 
 .modal {
-  @include Modal.modal(50.6rem, 32.7rem, 90vh);
-  display: flex;
-  flex-direction: column;
+  @include Modal.modal(50.6rem, 90vh, 32.7rem, 90vh);
 }
 
 .container {
@@ -27,8 +25,6 @@
   justify-content: space-between;
   align-items: center;
   @include mobile {
-    overflow-x: hidden;
-    overflow-y: scroll;
     grid-template-columns: repeat(1, 1fr);
   }
 
@@ -66,8 +62,6 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  // padding-bottom: 2.8rem;
-
   position: relative;
   top: 10px;
 

@@ -1,8 +1,8 @@
+@use '.././Modal.module.scss' as Modal;
 @import '@/src/styles/global.scss';
 
 .modal {
-  display: flex;
-  flex-direction: column;
+  @include Modal.modal(50.6rem, 90vh, 32.7rem, 90vh);
 }
 
 .container {
