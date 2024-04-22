@@ -1,18 +1,39 @@
 import Image from 'next/image'
+import { useState } from 'react'
+
+import { putColumns } from '@/pages/api/columns'
+import Modal from '@/src/components/common/modal'
+import ModalDashBoard from '@/src/components/common/modal/modal-dashboard'
+import { ColumnHeaderType } from '@/src/types/dashboard.interface'
 
 import S from './ColumnHeader.module.scss'
 import { SETTING } from '../constants'
 
-//TODO: columnTitle 데이터
-//TODO: cardCount 데이터
-//TODO: setting 기능
+const ColumnHeader = ({
+  title: initialTitle,
+  taskCount,
+  columnId,
+}: ColumnHeaderType) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [title, setTitle] = useState(initialTitle) // State to manage the title
 
-type titleType = {
-  title: string
-  taskCount: number | undefined
-}
+  const handleClick = () => {
+    setIsModalOpen(true)
+  }
 
-const ColumnHeader = ({ title, taskCount }: titleType) => {
+  const handleAPI = async (data: any) => {
+    try {
+      const requestData = {
+        title: data.columnName,
+      }
+      await putColumns(columnId, requestData)
+      setTitle(data.columnName) // Update title state on successful API call
+      setIsModalOpen(false)
+    } catch (error) {
+      console.error('컬럼 데이터를 업데이트하는 데 실패했습니다:', error)
+    }
+  }
+
   return (
     <header className={S.wrapper}>
       <div className={S.columnHeading}>
@@ -20,13 +41,29 @@ const ColumnHeader = ({ title, taskCount }: titleType) => {
         <div className={S.columnTitle}>{title}</div>
         <div className={S.cardCount}>{taskCount}</div>
       </div>
-      <Image
-        className={S.setting}
-        src={SETTING}
-        width={24}
-        height={24}
-        alt="설정"
-      />
+      <div onClick={handleClick}>
+        <Image
+          className={S.setting}
+          src={SETTING}
+          width={24}
+          height={24}
+          alt="설정"
+        />
+      </div>
+      {isModalOpen && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalDashBoard
+            title="컬럼 관리"
+            inputTitle="이름"
+            inputType="columnName"
+            placeholder="Done"
+            leftButtonText="취소"
+            rightButtonText="변경"
+            showDeleteButton={true}
+            onSubmit={handleAPI}
+          />
+        </Modal>
+      )}
     </header>
   )
 }

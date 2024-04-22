@@ -19,7 +19,7 @@ interface ModalDashBoardProps {
   moveTo?: string
   currentColumn?: string
   showDeleteButton?: boolean
-  onSubmit: () => void
+  onSubmit: (data: InputFormValues) => void
 }
 
 /**
@@ -62,10 +62,10 @@ const ModalDashBoard = ({
     moveTo && router.push(moveTo)
   }
 
-  const handleFormSubmit: SubmitHandler<InputFormValues> = () => {
+  const handleFormSubmit: SubmitHandler<InputFormValues> = (data) => {
     modalStatus.setIsOpen.call(null, false)
     moveTo && router.push(moveTo)
-    onSubmit()
+    onSubmit(data)
   }
 
   const handleDeleteClick = () => {

@@ -3,6 +3,12 @@ export interface ColumnDataType {
   title: string
 }
 
+export interface ColumnHeaderType {
+  title: string
+  taskCount: number | undefined
+  columnId: number | undefined
+}
+
 export interface TaskCardDataType {
   id: number
   title: string
