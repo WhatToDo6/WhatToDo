@@ -40,7 +40,7 @@ const DashboardIdPage = () => {
 
   return (
     <Layout>
-      <ColumnLayout>
+      <ColumnLayout columns={columns} setColumns={setColumns}>
         {columns.map((column) => (
           <Column key={column.id} {...column} />
         ))}

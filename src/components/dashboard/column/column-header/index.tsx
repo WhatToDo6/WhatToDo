@@ -56,6 +56,7 @@ const ColumnHeader = ({
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
           <ModalDashBoard
+            columnId={columnId}
             title="컬럼 관리"
             inputTitle="이름"
             inputType="columnName"

@@ -40,3 +40,22 @@ export async function putColumns(
     throw new Error('칼럼 데이터를 수정하는 데 실패했습니다.')
   }
 }
+
+export async function deleteColumns(
+  id: number | undefined,
+): Promise<ColumnDataType[]> {
+  if (!id) {
+    throw new Error('칼럼id가 필요합니다.')
+  }
+  try {
+    const accessToken = localStorage.getItem('accessToken')
+    const response = await AXIOS.delete(`/columns/${id}`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    return response.data.data
+  } catch (error) {
+    throw new Error('칼럼 데이터를 수정하는 데 실패했습니다.')
+  }
+}

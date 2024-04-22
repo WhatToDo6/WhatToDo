@@ -1,15 +1,17 @@
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { InputFormValues } from '@/src/types/input'
 
 import S from './ModalColumn.module.scss'
-import { ModalContext } from '..'
+import Modal, { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
+import ModalDeleteColumn from '../modal-deletecolumn'
 
 interface ModalDashBoardProps {
+  columnId: number | undefined
   title: string
   inputTitle: string
   inputType: 'newColumn' | 'columnName' | 'email'
@@ -23,7 +25,7 @@ interface ModalDashBoardProps {
 }
 
 /**
- *
+ * @param columnId - 컬럼id
  * @param title - 모달 제목
  * @param inputTitle - input 제목
  * @param inputType - input type
@@ -37,6 +39,7 @@ interface ModalDashBoardProps {
  * @returns
  */
 const ModalDashBoard = ({
+  columnId,
   title,
   inputTitle,
   inputType,
@@ -50,6 +53,7 @@ const ModalDashBoard = ({
 }: ModalDashBoardProps) => {
   const router = useRouter()
   const modalStatus = useContext(ModalContext)
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const {
     register,
@@ -65,14 +69,13 @@ const ModalDashBoard = ({
   const handleFormSubmit: SubmitHandler<InputFormValues> = (data) => {
     modalStatus.setIsOpen.call(null, false)
     moveTo && router.push(moveTo)
-    console.log('Received columnName:', data)
     onSubmit(data)
   }
 
   const handleDeleteClick = () => {
-    modalStatus.setIsOpen.call(null, false)
-    // TODO 칼럼 삭제하기 기능 추가 해야 합니다 !
+    setIsModalOpen(true)
   }
+
   return (
     <form
       className={`${S.container} ${errors[inputType] ? S.error : ''} ${showDeleteButton && S.delete}`}
@@ -103,6 +106,16 @@ const ModalDashBoard = ({
           onLeftClick={handleLeftClick}
         />
       </div>
+      {isModalOpen && (
+        <Modal setIsOpen={modalStatus.setIsOpen}>
+          <ModalDeleteColumn
+            columnId={columnId}
+            content="칼럼의 모든 카드가 삭제됩니다."
+            leftButtonText="취소"
+            rightButtonText="삭제"
+          />
+        </Modal>
+      )}
     </form>
   )
 }
