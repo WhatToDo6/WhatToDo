@@ -11,7 +11,7 @@ import Input from '../../input'
 import ModalDeleteColumn from '../modal-deletecolumn'
 
 interface ModalDashBoardProps {
-  columnId: number | undefined
+  columnId?: number | undefined
   title: string
   inputTitle: string
   inputType: 'newColumn' | 'columnName' | 'email'

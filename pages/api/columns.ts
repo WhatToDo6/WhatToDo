@@ -56,6 +56,29 @@ export async function deleteColumns(
     })
     return response.data.data
   } catch (error) {
-    throw new Error('칼럼 데이터를 수정하는 데 실패했습니다.')
+    throw new Error('칼럼 데이터를 삭제하는 데 실패했습니다.')
+  }
+}
+
+export async function postColumns(
+  data: { title: string | undefined },
+  dashboardId: number | undefined,
+): Promise<ColumnDataType> {
+  try {
+    const accessToken = localStorage.getItem('accessToken')
+    const fullData = {
+      ...data,
+      dashboardId: dashboardId,
+    }
+    const response = await AXIOS.post(`/columns`, fullData, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'application/json',
+      },
+    })
+    return response.data
+  } catch (error) {
+    console.error('칼럼 데이터를 추가하는 데 실패했습니다:', error)
+    throw new Error('칼럼 데이터를 추가하는 데 실패했습니다.')
   }
 }

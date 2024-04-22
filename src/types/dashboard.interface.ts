@@ -1,5 +1,6 @@
 export interface ColumnTitleType {
-  columnName: string
+  columnName?: string
+  newColumn?: string
 }
 
 export interface ColumnDataType {
