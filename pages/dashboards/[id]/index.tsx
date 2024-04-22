@@ -35,7 +35,7 @@ const DashboardIdPage = () => {
   }, [id])
 
   if (isLoading) {
-    return <div>Loading columns...</div>
+    return <div>칼럼을 로딩 중입니다</div>
   }
 
   return (
