@@ -67,12 +67,14 @@ const InputText = ({
   }
 
   return (
-    <input
-      className={`${S.container} ${error && S.error} ${S[size]} ${S[textType]}`}
-      type="text"
-      placeholder={placeholder}
-      {...register(textType, VALIDATION_MAP[textType])}
-    />
+    <div className={`${S.container}  ${S[textType]}`}>
+      <input
+        className={`${error && S.error} ${S[size]}`}
+        type="text"
+        placeholder={placeholder}
+        {...register(textType, VALIDATION_MAP[textType])}
+      />
+    </div>
   )
 }
 

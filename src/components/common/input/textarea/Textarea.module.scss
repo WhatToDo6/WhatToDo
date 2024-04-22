@@ -2,6 +2,11 @@
 @import '@/src/styles/global.scss';
 
 .container {
+  display: flex;
+  @include Input.textarea;
+}
+
+.textarea {
   @include Input.input(52rem, 27rem);
   height: 9.6rem;
   resize: none;
