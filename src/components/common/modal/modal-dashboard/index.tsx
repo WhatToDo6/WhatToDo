@@ -65,6 +65,7 @@ const ModalDashBoard = ({
   const handleFormSubmit: SubmitHandler<InputFormValues> = (data) => {
     modalStatus.setIsOpen.call(null, false)
     moveTo && router.push(moveTo)
+    console.log('Received columnName:', data)
     onSubmit(data)
   }
 

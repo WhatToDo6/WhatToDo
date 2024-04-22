@@ -26,11 +26,11 @@ const ColumnHeader = ({
 
   const handleAPI = async (data: ColumnTitleType) => {
     try {
-      const requestData = {
-        title: data.title,
+      const requestData: { title: string } = {
+        title: data.columnName,
       }
       await putColumns(columnId, requestData)
-      setTitle(data.title)
+      setTitle(data.columnName)
       setIsModalOpen(false)
     } catch (error) {
       console.error('컬럼 데이터를 업데이트하는 데 실패했습니다:', error)

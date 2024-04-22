@@ -1,8 +1,5 @@
 import AXIOS from '@/lib/axios'
-import {
-  ColumnDataType,
-  ColumnTitleType,
-} from '@/src/types/dashboard.interface'
+import { ColumnDataType } from '@/src/types/dashboard.interface'
 
 export async function getColumns(
   id: number | undefined,
@@ -25,7 +22,7 @@ export async function getColumns(
 
 export async function putColumns(
   id: number | undefined,
-  data: ColumnTitleType,
+  data: { title: string },
 ): Promise<ColumnDataType[]> {
   if (!id) {
     throw new Error('칼럼id가 필요합니다.')
