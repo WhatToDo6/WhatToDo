@@ -4,6 +4,27 @@
 .container {
   display: flex;
   flex-direction: column;
+  position: relative;
+
+  .dropdown {
+    padding: 1.3rem;
+    width: 21.7rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+    border-radius: 0.6rem;
+    border: 0.1rem solid $color-gray-300;
+    background: $color-white;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
+
+    position: absolute;
+    top: 6rem;
+    z-index: 20;
+    @include mobile {
+      width: 27rem;
+      top: 5rem;
+    }
+  }
 }
 
 .inputContainer {
@@ -23,26 +44,6 @@
 
 .icon {
   cursor: pointer;
-}
-
-.dropdown {
-  padding: 1.3rem;
-  width: 21.7rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1.3rem;
-  border-radius: 0.6rem;
-  border: 0.1rem solid $color-gray-300;
-  background: $color-white;
-  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
-
-  position: absolute;
-  top: 26rem;
-  z-index: 10;
-  @include mobile {
-    width: 27rem;
-    top: 25rem;
-  }
 }
 
 .member {
