@@ -29,19 +29,29 @@ const ModalEdittodo = () => {
     <div className={S.modal}>
       <div className={S.container}>
         <h1 className={S.title}>할 일 수정</h1>
-        <label className={S.label} htmlFor="status">
-          상태
-        </label>
-        <Input inputType="progress" register={register} setValue={setValue} />
-        <label className={S.label} htmlFor="keeper">
-          담당자
-        </label>
-        <Input
-          inputType="manager"
-          placeholder="이름을 입력해주세요"
-          register={register}
-          setValue={setValue}
-        />
+        <div className={S.row}>
+          <div className={S.box}>
+            <label className={S.label} htmlFor="status">
+              상태
+            </label>
+            <Input
+              inputType="progress"
+              register={register}
+              setValue={setValue}
+            />
+          </div>
+          <div className={S.box}>
+            <label className={S.label} htmlFor="keeper">
+              담당자
+            </label>
+            <Input
+              inputType="manager"
+              placeholder="이름을 입력해주세요"
+              register={register}
+              setValue={setValue}
+            />
+          </div>
+        </div>
         <label className={S.label} htmlFor="title">
           제목<span className={S.required}>*</span>
         </label>

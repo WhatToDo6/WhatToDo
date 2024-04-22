@@ -18,6 +18,26 @@
   }
 }
 
+.row {
+  width: 100%;
+  display: grid;
+  gap: 3.2rem;
+  grid-template-columns: repeat(2, 1fr);
+  justify-content: space-between;
+  align-items: center;
+  @include mobile {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    grid-template-columns: repeat(1, 1fr);
+  }
+
+  .box {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+  }
+}
+
 .title {
   color: $color-black-200;
   @include font-style(2.4rem, 700, normal);
