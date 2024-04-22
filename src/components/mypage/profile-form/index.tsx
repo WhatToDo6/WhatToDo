@@ -86,13 +86,13 @@ const ProfileForm = () => {
             handleImageChange={handleImageChange}
           />
         </div>
-        <div className={S['text-container']}>
+        <div className={S.textContainer}>
           <label className={S.title}>이메일</label>
           <input
             type="text"
             disabled={true}
             placeholder={email}
-            className={`${S['text-input']} ${S['first-input']}`}
+            className={S.textInput}
           />
           <label className={S.title}>닉네임</label>
           <Input

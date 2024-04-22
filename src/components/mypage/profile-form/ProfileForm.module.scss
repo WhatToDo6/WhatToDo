@@ -30,7 +30,7 @@
   }
 }
 
-.text-container {
+.textContainer {
   display: flex;
   flex-direction: column;
   gap: 1rem;
@@ -45,7 +45,7 @@
   }
 }
 
-.text-input {
+.textInput {
   box-sizing: border-box;
   width: 36.6rem;
   padding: 1.5rem;
@@ -59,10 +59,6 @@
     border-color: $color-violet-200;
   }
 
-  &.error {
-    border-color: $color-red;
-  }
-
   @include tablet {
     width: 29rem;
   }
@@ -71,19 +67,6 @@
     width: 24.4rem;
     @include font-style(1.4rem, 500, normal);
   }
-}
-
-.first-input {
-  margin-bottom: 1rem;
-
-  @include mobile {
-    margin-bottom: 0.6rem;
-  }
-}
-
-.errormessage {
-  color: $color-red;
-  @include font-style(1.4rem, 400, normal);
 }
 
 .button {
