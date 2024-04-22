@@ -1,18 +1,11 @@
 import Image from 'next/image'
 
+import { ColumnHeaderType } from '@/src/types/dashboard.interface'
+
 import S from './ColumnHeader.module.scss'
 import { SETTING } from '../constants'
 
-//TODO: columnTitle 데이터
-//TODO: cardCount 데이터
-//TODO: setting 기능
-
-type titleType = {
-  title: string
-  taskCount: number | undefined
-}
-
-const ColumnHeader = ({ title, taskCount }: titleType) => {
+const ColumnHeader = ({ title, taskCount }: ColumnHeaderType) => {
   return (
     <header className={S.wrapper}>
       <div className={S.columnHeading}>
