@@ -1,8 +1,8 @@
 @import '@/src/styles/global.scss';
 
-@mixin input {
+@mixin input($width: 52rem) {
   display: flex;
-  width: 52rem;
+  width: $width;
   box-sizing: border-box;
   padding: 1.8rem 1.5rem;
   align-items: center;

@@ -1,0 +1,61 @@
+@use '../../Input.module.scss' as Input;
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputContainer {
+  @include Input.input(21.7rem);
+  @include mobile {
+    width: 28.7rem;
+  }
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.input {
+  @include font-style(1.6rem, 400, normal);
+  @include mobile {
+    @include font-style(1.4rem, 400, normal);
+  }
+}
+
+.icon {
+  cursor: pointer;
+}
+
+.dropdown {
+  padding: 1.3rem;
+  width: 21.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.3rem;
+  border-radius: 0.6rem;
+  border: 0.1rem solid $color-gray-300;
+  background: $color-white;
+  box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
+  @include mobile {
+    width: 28.7rem;
+  }
+}
+
+.member {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.result {
+  @include font-style(1.6rem, 400, normal);
+  @include mobile {
+    @include font-style(1.4rem, 400, normal);
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}
