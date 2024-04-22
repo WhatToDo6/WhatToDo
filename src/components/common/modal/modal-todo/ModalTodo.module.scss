@@ -1,9 +1,11 @@
 @import '@/src/styles/global.scss';
 
-.container {
-  width: 50.6rem;
-  height: 90.7rem;
+.modal {
+  display: flex;
+  flex-direction: column;
+}
 
+.container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -11,8 +13,8 @@
   gap: 3.2rem;
 
   @include mobile {
-    width: 32.7rem;
-    height: 76.6rem;
+    overflow-x: hidden;
+    overflow-y: scroll;
   }
 }
 
@@ -43,5 +45,12 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  padding-bottom: 2.8rem;
+  // padding-bottom: 2.8rem;
+
+  position: relative;
+  top: 10px;
+
+  @include mobile {
+    justify-content: center;
+  }
 }

@@ -76,24 +76,6 @@
   }
 }
 
-.loginInfoBox {
-  display: flex;
-  align-items: center;
-  gap: 1.2rem;
-
-  .imageBox {
-    width: 3.8rem;
-    height: 3.8rem;
-    border-radius: 50%;
-    background-color: $color-green;
-  }
-
-  span {
-    @include font-style(1.6rem, 500, normal);
-    color: $color-black-200;
-  }
-}
-
 .memberImgBox {
   display: flex;
 }
