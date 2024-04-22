@@ -8,6 +8,6 @@
 
 .textarea {
   @include Input.input(45rem, 28.7rem);
-  height: 9.6rem;
+  height: 9.6rem !important; //TODO: Input css refactor
   resize: none;
 }
