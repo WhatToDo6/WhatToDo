@@ -4,7 +4,6 @@ input {
   border: none;
   outline: none;
   cursor: pointer;
-  width: 24rem;
 }
 
 .react-datepicker__year-read-view--down-arrow,

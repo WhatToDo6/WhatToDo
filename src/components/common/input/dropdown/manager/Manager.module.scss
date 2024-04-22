@@ -7,11 +7,7 @@
 }
 
 .inputContainer {
-  @include Input.input(21.7rem);
-  @include mobile {
-    width: 28.7rem;
-  }
-
+  @include Input.input(21.7rem, 27rem);
   display: flex;
   flex-direction: row;
   justify-content: space-between;

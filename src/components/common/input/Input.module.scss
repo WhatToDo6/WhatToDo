@@ -1,8 +1,8 @@
 @import '@/src/styles/global.scss';
 
-@mixin input($width: 52rem) {
+@mixin input($desktop-width: 52rem, $tablet-width: 35.1rem) {
   display: flex;
-  width: $width;
+  width: $desktop-width;
   box-sizing: border-box;
   padding: 1.8rem 1.5rem;
   align-items: center;
@@ -24,7 +24,7 @@
   }
 
   @include mobile {
-    width: 35.1rem;
+    width: $tablet-width;
     padding: 1.5rem 1.6rem;
   }
 }
