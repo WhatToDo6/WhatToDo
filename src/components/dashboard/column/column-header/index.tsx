@@ -4,7 +4,10 @@ import { useState } from 'react'
 import { putColumns } from '@/pages/api/columns'
 import Modal from '@/src/components/common/modal'
 import ModalDashBoard from '@/src/components/common/modal/modal-dashboard'
-import { ColumnHeaderType } from '@/src/types/dashboard.interface'
+import {
+  ColumnHeaderType,
+  ColumnTitleType,
+} from '@/src/types/dashboard.interface'
 
 import S from './ColumnHeader.module.scss'
 import { SETTING } from '../constants'
@@ -15,19 +18,19 @@ const ColumnHeader = ({
   columnId,
 }: ColumnHeaderType) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [title, setTitle] = useState(initialTitle) // State to manage the title
+  const [title, setTitle] = useState(initialTitle)
 
   const handleClick = () => {
     setIsModalOpen(true)
   }
 
-  const handleAPI = async (data: any) => {
+  const handleAPI = async (data: ColumnTitleType) => {
     try {
       const requestData = {
-        title: data.columnName,
+        title: data.title,
       }
       await putColumns(columnId, requestData)
-      setTitle(data.columnName) // Update title state on successful API call
+      setTitle(data.title)
       setIsModalOpen(false)
     } catch (error) {
       console.error('컬럼 데이터를 업데이트하는 데 실패했습니다:', error)

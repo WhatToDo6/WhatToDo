@@ -1,3 +1,7 @@
+export interface ColumnTitleType {
+  title: string
+}
+
 export interface ColumnDataType {
   id?: number
   title: string
