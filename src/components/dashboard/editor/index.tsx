@@ -6,7 +6,7 @@ import { InputFormValues } from '@/src/types/input'
 
 import S from './DashboardEditor.module.scss'
 import BorderButton from '../../common/button/border'
-import ColorChip from '../../common/chip'
+import ColorChip from '../../common/chip/color-chip'
 import Input from '../../common/input'
 
 interface editDahsboardParam {
