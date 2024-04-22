@@ -59,7 +59,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
       size: 22,
       src: settingIcon,
       text: '관리',
-      onClick: () => router.push(`/dashboard/${id}/edit`),
+      onClick: () => router.push(`/dashboards/${id}/edit`),
     },
     {
       tag: 'addBoxIcon',
