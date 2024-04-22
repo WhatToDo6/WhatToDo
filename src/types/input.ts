@@ -14,6 +14,9 @@ export interface InputInterface {
     | 'newPasswordCheck'
     | 'nickname'
     | 'newNickname'
+    | 'newColumn'
+    | 'columnName'
+    | 'newDash'
     | 'title'
     | 'date'
     | 'tag'
@@ -31,6 +34,7 @@ export interface InputInterface {
   control?: any // react-hook-form의 control 객체
   setValue?: any // react-hook-form의 setValue 함수
   currentNickname?: string // 기존 닉네임과 새 닉네임을 비교하기 위해 필요
+  currentColumn?: string // 기존 컬럼 이름과 새로운 칼럼 이름을 비교하기 위해 필요
 }
 export interface InputFormValues {
   email: string
@@ -40,6 +44,9 @@ export interface InputFormValues {
   newPasswordCheck: string
   nickname: string
   newNickname: string
+  newColumn: string
+  newDash: string
+  columnName: string
   title: string
   date: string
   tag: string
