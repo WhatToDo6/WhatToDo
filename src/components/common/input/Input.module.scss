@@ -5,9 +5,7 @@
   width: 52rem;
   box-sizing: border-box;
   padding: 1.8rem 1.5rem;
-  justify-content: center;
   align-items: center;
-
   border-radius: 0.8rem;
   border: 0.1rem solid $color-gray-300;
   background-color: $color-white;
@@ -29,6 +27,12 @@
     width: 35.1rem;
     padding: 1.5rem 1.6rem;
   }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
 .errorText {

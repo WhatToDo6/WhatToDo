@@ -18,4 +18,11 @@
   border-radius: 0.8rem;
   background: $color-white;
   padding: 2.8rem;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding-bottom: 2.8rem;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
