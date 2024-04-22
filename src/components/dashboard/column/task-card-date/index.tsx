@@ -9,7 +9,7 @@ const TaskCardDate = ({ dueDate }: TaskCardDateType) => {
   return (
     <div className={S.container}>
       <Image src={CALENDAR} width={18} height={18} alt="달력" />
-      <div className={S.date}>{dueDate}1</div>
+      <div className={S.date}>{dueDate}</div>
     </div>
   )
 }
