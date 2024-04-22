@@ -7,6 +7,7 @@ import TagChip from '../../chip/tag-chip'
 
 const InputTag = ({ placeholder, setValue }: InputProps) => {
   const [tags, setTags] = useState<string[]>([])
+  const [isFocus, setIsFocus] = useState(false)
 
   const makeTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -24,10 +25,14 @@ const InputTag = ({ placeholder, setValue }: InputProps) => {
 
   useEffect(() => {
     setValue('tag', tags)
+    setIsFocus(false)
   }, [tags, setValue])
 
   return (
-    <div className={S.container}>
+    <div
+      className={`${S.container} ${isFocus === true && S.focus}`}
+      onClick={() => setIsFocus(true)}
+    >
       <div className={S.tagList}>
         {tags.map((tag, index) => (
           <TagChip key={index} index={index} text={tag} />

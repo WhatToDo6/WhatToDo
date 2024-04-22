@@ -7,6 +7,10 @@
   flex-direction: row;
 }
 
+.focus {
+  border: 0.1rem solid $color-violet-200;
+}
+
 .input {
   width: auto;
 }
