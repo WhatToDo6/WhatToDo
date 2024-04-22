@@ -14,11 +14,12 @@
   z-index: 99;
 }
 
-.modal {
+@mixin modal($desktop-width: 52rem, $mobile-width: 32.7rem, $height: 90vh) {
   border-radius: 0.8rem;
   background: $color-white;
   padding: 2.8rem;
-  height: 90vh;
+  width: $desktop-width;
+  height: $height;
   overflow-x: hidden;
   overflow-y: scroll;
   padding-bottom: 2.8rem;
@@ -28,6 +29,6 @@
   }
 
   @include mobile {
-    width: 32.7rem;
+    width: $mobile-width;
   }
 }
