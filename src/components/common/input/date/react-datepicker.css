@@ -4,7 +4,6 @@ input {
   border: none;
   outline: none;
   cursor: pointer;
-  width: 24rem;
 }
 
 .react-datepicker__year-read-view--down-arrow,
@@ -658,7 +657,8 @@ input {
 .react-datepicker__input-container {
   position: relative;
   display: inline-block;
-  width: 100%;
+  width: 15rem;
+  padding: 0;
   border: none !important;
 }
 .react-datepicker__input-container .react-datepicker__calendar-icon {

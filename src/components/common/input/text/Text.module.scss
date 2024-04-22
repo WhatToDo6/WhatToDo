@@ -3,6 +3,10 @@
 
 .container {
   @include Input.input;
+
+  &.title {
+    @include Input.input(52rem, 27rem);
+  }
 }
 
 .small {
