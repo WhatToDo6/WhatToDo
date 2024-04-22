@@ -8,6 +8,7 @@ import { MemberProps } from '@/src/types/member'
 
 import dummyData from './dummyData'
 import S from './Manager.module.scss'
+import ManagerProfile from '../../../manager-profile'
 
 // TODO: 초대받은 인원 api 연결
 const DropDownManager = ({ placeholder, setValue }: InputProps) => {
@@ -64,8 +65,11 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
           {userId !== 0 && (
             <div className={S.member} onClick={() => setIsOpen(false)}>
               <Image src={CHECK_ICON} alt="선택됨" width={20} height={20} />
-              {/* TODO: 담당자 공통 UI 컴포넌트로 교체 */}
-              <p className={S.name}>{nickname}</p>
+              <ManagerProfile
+                profileImageUrl={null}
+                nickname={nickname}
+                type="dropdown"
+              />
             </div>
           )}
           {displayList
@@ -82,8 +86,11 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
                     setIsOpen(false)
                   }}
                 >
-                  {/* TODO: 담당자 공통 UI 컴포넌트로 교체 */}
-                  <p className={S.name}>{elem.nickname}</p>
+                  <ManagerProfile
+                    profileImageUrl={null}
+                    nickname={elem.nickname}
+                    type="dropdown"
+                  />
                 </div>
               )
             })}
