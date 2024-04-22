@@ -7,7 +7,7 @@ import { InputFormValues } from '@/src/types/input'
 import S from './ModalNewDash.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
-import ColorChip from '../../chip'
+import ColorChip from '../../chip/color-chip'
 import Input from '../../input'
 
 interface ModalNewDashProps {
