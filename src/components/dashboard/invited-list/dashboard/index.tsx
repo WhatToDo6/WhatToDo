@@ -1,59 +1,72 @@
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
+import AXIOS from '@/lib/axios'
 import magnifyingGlassIcon from '@/public/icons/magnifying-glass-icon.svg'
 import emptyBoardImg from '@/public/images/empty-board-img.png'
 import { useInputSearch } from '@/src/hooks/useInputSearch'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
+import { InvitedListDashboardType } from '@/src/types/mydashboard'
 
 import S from './InviteListDashboard.module.scss'
 import InvitedListCard from '../card'
 
-type MockData = {
-  [key: string]: string
-}
-
-interface InviteListDashboardProps {
-  inviteData: MockData[]
-  type: 'dashboard'
-}
-
-const MOCK_DATA2: MockData[] = [
-  { name: '유닛I', person: '안귀영' },
-  { name: '유닛J', person: '장혁' },
-  { name: '유닛K', person: '강나무' },
-  { name: '유닛L', person: '안귀영' },
-  { name: '유닛M', person: '장혁' },
-  { name: '유닛N', person: '강나무' },
-  { name: '유닛O', person: '강나무' },
-  { name: '유닛P', person: '강나무' },
-  { name: '최원석', person: '강나무' },
-]
-
-function InviteListDashboard({ inviteData, type }: InviteListDashboardProps) {
+function InviteListDashboard() {
   const observeRef = useRef<HTMLDivElement>(null)
-  const [myInviteData, setMyInviteData] = useState<MockData[]>(inviteData)
+  const [cursorId, setCursorId] = useState(0)
   const { observe, isScrolled } = useIntersectionObserver()
-  const [searchWord, handleWordChange, searchedData] =
-    useInputSearch(myInviteData)
+  const [myInvitedListData, setMyInvitedListData] = useState<
+    InvitedListDashboardType[]
+  >([])
+  const { searchWord, handleWordChange, searchedData } =
+    useInputSearch(myInvitedListData)
 
   const contentsClassName = `${S.contents} ${
-    inviteData ? S.withInviteData : S.withoutInviteData
+    myInvitedListData.length ? S.withInviteData : S.withoutInviteData
   }`
 
+  const handleChange = (id: number) => {
+    setMyInvitedListData((prev) => prev.filter((data) => data.id !== id))
+  }
+
+  const getInvitedListDashbaord = async (firstFetch: boolean = false) => {
+    const token = localStorage.getItem('accessToken')
+    const path = `/invitations?size=6${firstFetch ? '' : `&cursorId=${cursorId}`}`
+    try {
+      const response = await AXIOS.get(path, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      const {
+        data: { invitations, cursorId },
+      } = response
+      setMyInvitedListData((prev) =>
+        firstFetch ? invitations : [...prev, ...invitations],
+      )
+      setCursorId(cursorId)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   useEffect(() => {
-    if (inviteData.length >= 6 && observeRef.current) {
+    getInvitedListDashbaord(true)
+  }, [])
+
+  useEffect(() => {
+    if (myInvitedListData.length >= 6 && observeRef.current) {
       observe(observeRef.current)
     }
   }, [observe])
 
   useEffect(() => {
-    if (isScrolled) {
-      setMyInviteData((prev) => [...prev, ...MOCK_DATA2])
+    if (isScrolled && cursorId) {
+      getInvitedListDashbaord()
     }
   }, [isScrolled])
 
-  if (!inviteData) {
+  if (!myInvitedListData.length) {
     return (
       <div className={S.container}>
         <div className={S.title}>초대받은 대시보드</div>
@@ -61,6 +74,7 @@ function InviteListDashboard({ inviteData, type }: InviteListDashboardProps) {
           <Image
             width={100}
             height={100}
+            priority
             src={emptyBoardImg}
             alt="emptyBoardImg"
           />
@@ -93,15 +107,16 @@ function InviteListDashboard({ inviteData, type }: InviteListDashboardProps) {
           <div>초대자</div>
           <div>수락 여부</div>
         </div>
-        {searchedData &&
-          searchedData.map((invite) => (
-            <InvitedListCard
-              type={type}
-              key={invite.name}
-              name={invite.name}
-              person={invite.person}
-            />
-          ))}
+        {searchedData.map((inviteList) => (
+          <InvitedListCard
+            type="dashboard"
+            key={inviteList.id}
+            id={inviteList.id}
+            title={inviteList.dashboard.title}
+            nickname={inviteList.inviter.nickname}
+            handleChange={handleChange}
+          />
+        ))}
         {!searchWord && <div ref={observeRef} />}
       </div>
     </div>

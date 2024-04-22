@@ -1,5 +1,8 @@
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 
+import AXIOS from '@/lib/axios'
 import addBoxIcon from '@/public/icons/add-box-icon.svg'
 import barIcon from '@/public/icons/bar.svg'
 import settingIcon from '@/public/icons/setting-icon.svg'
@@ -9,25 +12,9 @@ import tempCircle3 from '@/public/icons/temp-circle-3.svg'
 import tempCircle4 from '@/public/icons/temp-circle-4.svg'
 import tempCircle5 from '@/public/icons/temp-circle-5.svg'
 import tempCircle6 from '@/public/icons/temp-circle-6.svg'
+import { UserType } from '@/src/types/mydashboard'
 
 import S from './DashboardHeader.module.scss'
-
-const BUTTONS = [
-  {
-    tag: 'settingIcon',
-    className: `${S.btn} ${S.settingBtn}`,
-    size: 22,
-    src: settingIcon,
-    text: '관리',
-  },
-  {
-    tag: 'addBoxIcon',
-    className: `${S.btn} ${S.inviteBtn}`,
-    size: 20,
-    src: addBoxIcon,
-    text: '초대하기',
-  },
-]
 
 const MEMBERS = [
   {
@@ -68,10 +55,10 @@ const MEMBERS = [
 ]
 
 // TODO: 타입좁히기
-// type PathName = '/dashboard' | '/mypage' | '/dashboard/[id]'
+// type PathName = '/mydashboard' | '/mypage' | '/dashboard/[id]'
 
 const TITLE: Record<string, string> = {
-  '/dashboards': '내 대시보드',
+  '/mydashboard': '내 대시보드',
   '/mypage': '계정관리',
   '/dashboards/[id]': '나',
 }
@@ -81,6 +68,58 @@ interface DashboardHeaderProps {
 }
 
 function DashboardHeader({ pathname }: DashboardHeaderProps) {
+  const [myUserData, setMyUserData] = useState<UserType>()
+  const {
+    query: { id },
+  } = useRouter()
+  const router = useRouter()
+
+  const BUTTONS = [
+    {
+      tag: 'settingIcon',
+      className: `${S.btn} ${S.settingBtn}`,
+      size: 22,
+      src: settingIcon,
+      text: '관리',
+      onClick: () => router.push(`/dashboard/${id}/edit`),
+    },
+    {
+      tag: 'addBoxIcon',
+      className: `${S.btn} ${S.inviteBtn}`,
+      size: 20,
+      src: addBoxIcon,
+      text: '초대하기',
+      onClick: () => {}, //생성 모달
+    },
+  ]
+
+  const getUserData = async () => {
+    const token = localStorage.getItem('accessToken')
+    try {
+      const response = await AXIOS.get('/users/me', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      const { data } = response
+      setMyUserData(data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  useEffect(() => {
+    getUserData()
+  }, [])
+
+  // TODO: 로딩 구현
+  if (!myUserData)
+    return (
+      <div className={S.container}>
+        <div className={S.title}>{TITLE[pathname]}</div>
+      </div>
+    )
+
   return (
     <div className={S.container}>
       <div className={S.title}>{TITLE[pathname]}</div>
@@ -89,7 +128,11 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
           <>
             <div className={S.btnBox}>
               {BUTTONS.map((btn) => (
-                <button key={btn.tag} className={btn.className}>
+                <button
+                  key={btn.tag}
+                  className={btn.className}
+                  onClick={btn.onClick}
+                >
                   <Image
                     className={S.btnImg}
                     width={btn.size}
@@ -122,8 +165,17 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
           </>
         )}
         <div className={S.loginInfoBox}>
-          <Image width={38} height={38} src={tempCircle6} alt="myImg" />
-          <span>배유철</span>
+          <Image
+            width={38}
+            height={38}
+            src={
+              myUserData.profileImageUrl
+                ? myUserData.profileImageUrl
+                : tempCircle6
+            }
+            alt="myImg"
+          />
+          <span>{myUserData.nickname}</span>
         </div>
       </div>
     </div>
