@@ -5,7 +5,7 @@
   @include Input.input;
 
   &.title {
-    @include Input.input(52rem, 27rem);
+    @include Input.input(45rem, 27rem);
   }
 
   input {

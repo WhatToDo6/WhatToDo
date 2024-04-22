@@ -1,6 +1,8 @@
+@use '.././Modal.module.scss' as Modal;
 @import '@/src/styles/global.scss';
 
 .modal {
+  @include Modal.modal(50.6rem, 32.7rem, 90vh);
   display: flex;
   flex-direction: column;
 }
@@ -19,9 +21,8 @@
 }
 
 .row {
-  width: 100%;
   display: grid;
-  gap: 3.2rem;
+  gap: 1.6rem;
   grid-template-columns: repeat(2, 1fr);
   justify-content: space-between;
   align-items: center;
