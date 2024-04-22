@@ -1,0 +1,34 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  align-items: center;
+
+  &.dropdown {
+    gap: 0.6rem;
+
+    span {
+      @include font-style(1.6rem, 400, normal);
+    }
+  }
+
+  &.dashboardHeader {
+    gap: 1.2rem;
+
+    span {
+      @include font-style(1.6rem, 500, normal);
+    }
+  }
+
+  &.card {
+    gap: 0.8rem;
+
+    span {
+      @include font-style(1.4rem, 400, normal);
+    }
+  }
+
+  span {
+    color: $color-black-200;
+  }
+}

@@ -3,23 +3,30 @@ import Image from 'next/image'
 import addBoxIcon from '@/public/icons/add-box-icon-white.svg'
 import BorderButton from '@/src/components/common/button/border'
 import { usePagenation } from '@/src/hooks/usePagenation'
+import { InvitedListEmailType } from '@/src/types/mydashboard'
 
 import S from './InviteListEmail.module.scss'
 import PagenationButton from '../../pagenation-button'
 import InvitedListCard from '../card'
 
-type MockData = {
-  [key: string]: string
-}
-
 interface InviteListEmailProps {
-  inviteData: MockData[]
-  type: 'email'
+  dashboardId: number
 }
+///dashboard/[id]/edit
+//<InviteListEmail type="email" dashboardId={dashboardId} />
+function InviteListEmail({ dashboardId }: InviteListEmailProps) {
+  const {
+    currPage,
+    pageData,
+    setPageData,
+    lastPage,
+    onClickPrevPage,
+    onClickNextPage,
+  } = usePagenation<InvitedListEmailType>(5, 'email', dashboardId)
 
-function InviteListEmail({ inviteData, type }: InviteListEmailProps) {
-  const { currPage, lastPage, currPageData, onClickPrevPage, onClickNextPage } =
-    usePagenation(inviteData, 5)
+  const handleChange = (id: number) => {
+    setPageData((prev) => prev.filter((prev) => prev.id !== id))
+  }
 
   return (
     <div className={S.container}>
@@ -41,12 +48,13 @@ function InviteListEmail({ inviteData, type }: InviteListEmailProps) {
         </div>
       </div>
       <div className={S.tag}>이메일</div>
-      {currPageData.map((invite) => (
+      {pageData.map((data) => (
         <InvitedListCard
-          type={type}
-          key={invite.name}
-          name={invite.name}
-          person={invite.person}
+          type="email"
+          key={data.id}
+          id={data.id}
+          email={data.invitee.email}
+          handleChange={handleChange}
         />
       ))}
     </div>
