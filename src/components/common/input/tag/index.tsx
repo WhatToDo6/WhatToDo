@@ -32,6 +32,7 @@ const InputTag = ({ placeholder, setValue }: InputProps) => {
     <div
       className={`${S.container} ${isFocus === true && S.focus}`}
       onClick={() => setIsFocus(true)}
+      onMouseLeave={() => setIsFocus(false)}
     >
       <div className={S.tagList}>
         {tags.map((tag, index) => (

@@ -24,7 +24,10 @@ const InputDate = ({ placeholder, control }: InputProps) => {
   registerLocale('ko', ko)
 
   return (
-    <div className={`${S.container} ${isFocus === true && S.focus}`}>
+    <div
+      className={`${S.container} ${isFocus === true && S.focus}`}
+      onMouseLeave={() => setIsFocus(false)}
+    >
       <Controller
         name="date"
         control={control}
