@@ -5,62 +5,36 @@ import { useEffect, useState } from 'react'
 import AXIOS from '@/lib/axios'
 import addBoxIcon from '@/public/icons/add-box-icon.svg'
 import barIcon from '@/public/icons/bar.svg'
+import crownIcon from '@/public/icons/crown-icon.svg'
 import settingIcon from '@/public/icons/setting-icon.svg'
 import tempCircle1 from '@/public/icons/temp-circle-1.svg'
 import tempCircle2 from '@/public/icons/temp-circle-2.svg'
 import tempCircle3 from '@/public/icons/temp-circle-3.svg'
 import tempCircle4 from '@/public/icons/temp-circle-4.svg'
 import tempCircle5 from '@/public/icons/temp-circle-5.svg'
-import { UserType } from '@/src/types/mydashboard'
+import {
+  UserType,
+  InvitedMemberType,
+  DashboardType,
+} from '@/src/types/mydashboard'
 
 import S from './DashboardHeader.module.scss'
 import ManagerProfile from '../../common/manager-profile'
 
-const MEMBERS = [
-  {
-    id: 0,
-    name: 'choi',
-    profileImageUrl: tempCircle1,
-  },
-  {
-    id: 2,
-    name: 'choi',
-    profileImageUrl: tempCircle2,
-  },
-  {
-    id: 3,
-    name: 'choi',
-    profileImageUrl: tempCircle3,
-  },
-  {
-    id: 4,
-    name: 'choi',
-    profileImageUrl: tempCircle4,
-  },
-  {
-    id: 5,
-    name: 'choi',
-    profileImageUrl: tempCircle5,
-  },
-  {
-    id: 6,
-    name: 'choi',
-    profileImageUrl: tempCircle5,
-  },
-  {
-    id: 7,
-    name: 'choi',
-    profileImageUrl: tempCircle5,
-  },
+const EMPTY_IMG = [
+  tempCircle1,
+  tempCircle2,
+  tempCircle3,
+  tempCircle4,
+  tempCircle5,
 ]
 
 // TODO: 타입좁히기
-// type PathName = '/mydashboard' | '/mypage' | '/dashboard/[id]'
+// type PathName = '/mydashboard' | '/mypage' | '/dashboard/[id]' /'dashboard/[id]/edit'
 
 const TITLE: Record<string, string> = {
   '/mydashboard': '내 대시보드',
   '/mypage': '계정관리',
-  '/dashboards/[id]': '나',
 }
 
 interface DashboardHeaderProps {
@@ -69,6 +43,10 @@ interface DashboardHeaderProps {
 
 function DashboardHeader({ pathname }: DashboardHeaderProps) {
   const [myUserData, setMyUserData] = useState<UserType>()
+  const [dashboardMembers, setDashboardMembers] = useState<InvitedMemberType[]>(
+    [],
+  )
+  const [dashboardData, setDashboardData] = useState<DashboardType>()
   const {
     query: { id },
   } = useRouter()
@@ -108,9 +86,51 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
     }
   }
 
+  const getMembersData = async () => {
+    const token = localStorage.getItem('accessToken')
+    try {
+      const response = await AXIOS.get(
+        `/members?page=1&size=20&dashboardId=${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      const {
+        data: { members },
+      } = response
+      setDashboardMembers(members)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const getDashboardData = async () => {
+    const token = localStorage.getItem('accessToken')
+    try {
+      const response = await AXIOS.get(`/dashboards/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      const { data } = response
+      setDashboardData(data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   useEffect(() => {
     getUserData()
   }, [])
+
+  useEffect(() => {
+    if (id) {
+      getMembersData()
+      getDashboardData()
+    }
+  }, [id])
 
   // TODO: 로딩 구현
   if (!myUserData)
@@ -122,7 +142,14 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
 
   return (
     <div className={S.container}>
-      <div className={S.title}>{TITLE[pathname]}</div>
+      {dashboardData ? (
+        <div className={S.dashboardTitle}>
+          <p>{dashboardData.title}</p>
+          <Image width={20} height={16} src={crownIcon} alt="왕관" />
+        </div>
+      ) : (
+        <div className={S.title}>{TITLE[pathname]}</div>
+      )}
       <div className={S.rightBox}>
         {pathname.includes('id') && (
           <>
@@ -145,19 +172,25 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
               ))}
             </div>
             <div className={S.memberImgBox}>
-              {MEMBERS.filter((_, idx) => idx < 4).map((member) => (
-                <Image
-                  className={`${S.memberImg}`}
-                  width={38}
-                  height={38}
-                  key={member.id}
-                  src={member.profileImageUrl}
-                  alt={`${member.name}의 이미지`}
-                />
-              ))}
-              {MEMBERS.length > 4 && (
+              {dashboardMembers
+                .filter((_, idx) => idx < 4)
+                .map((member, idx) => (
+                  <Image
+                    className={`${S.memberImg}`}
+                    width={38}
+                    height={38}
+                    key={member.id}
+                    src={
+                      member.profileImageUrl
+                        ? member.profileImageUrl
+                        : EMPTY_IMG[idx]
+                    }
+                    alt={`${member.nickname}의 이미지`}
+                  />
+                ))}
+              {dashboardMembers.length > 4 && (
                 <div className={S.overImg}>
-                  <span>+{+MEMBERS.length - 4}</span>
+                  <span>+{+dashboardMembers.length - 4}</span>
                 </div>
               )}
             </div>
