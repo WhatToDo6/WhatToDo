@@ -3,7 +3,7 @@ import { GetStaticPropsContext } from 'next'
 import { useRouter } from 'next/router'
 
 import AXIOS from '@/lib/axios'
-import BackButton from '@/src/components/common/back-button/Backbutton'
+import BackButton from '@/src/components/common/back-button/BackButton'
 import Layout from '@/src/components/common/layout'
 import DashboardButton from '@/src/components/dashboard/dashboard-button'
 import DashboardEditor from '@/src/components/dashboard/editor'
