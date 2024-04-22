@@ -36,11 +36,11 @@
   box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
 
   position: absolute;
-  top: 21.5rem;
+  top: 26rem;
   z-index: 10;
   @include mobile {
-    width: 28.7rem;
-    top: 20rem;
+    width: 27rem;
+    top: 25rem;
   }
 }
 
