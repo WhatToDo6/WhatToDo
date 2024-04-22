@@ -33,6 +33,7 @@ interface InvitedCardProps extends UnionPartialType {
   type: InvitedListType
   id: number
   handleChange: (id: number) => void
+  dashboardId?: number
 }
 
 function isDashboardType(type: InvitedListType): type is 'dashboard' {
@@ -46,6 +47,7 @@ function InvitedListCard({
   nickname,
   profileImageUrl,
   id,
+  dashboardId,
   handleChange,
 }: InvitedCardProps) {
   const className = `${S.container} ${isDashboardType(type) ? S.dashboard : ''}`
@@ -64,6 +66,35 @@ function InvitedListCard({
           },
         },
       )
+      handleChange(id)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleClickCancelIniviteEmail = async () => {
+    const token = localStorage.getItem('accessToken')
+    try {
+      await AXIOS.delete(`/dashboards/${dashboardId}/invitations/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+
+      handleChange(id)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const handleClickDeleteDashboardMember = async () => {
+    const token = localStorage.getItem('accessToken')
+    try {
+      await AXIOS.delete(`/members/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
       handleChange(id)
     } catch (err) {
       console.error(err)
@@ -97,7 +128,11 @@ function InvitedListCard({
           />
           <p>{nickname}</p>
         </div>
-        <BorderButton size="small" color="white">
+        <BorderButton
+          size="small"
+          color="white"
+          onClick={handleClickDeleteDashboardMember}
+        >
           삭제
         </BorderButton>
       </>
@@ -105,7 +140,11 @@ function InvitedListCard({
     email: (
       <>
         <p>{email}</p>
-        <BorderButton size="small" color="white">
+        <BorderButton
+          size="small"
+          color="white"
+          onClick={handleClickCancelIniviteEmail}
+        >
           취소
         </BorderButton>
       </>
