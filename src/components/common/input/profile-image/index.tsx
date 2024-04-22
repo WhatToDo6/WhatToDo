@@ -9,10 +9,16 @@ import { InputFormValues } from '@/src/types/input'
 import S from './ProfileImage.module.scss'
 
 interface InputProfileImageProps {
+  profileImageUrl?: string
   handleImageChange: (e: ChangeEvent<HTMLInputElement>) => void
-  profileImageUrl: string
 }
 
+/**
+ *
+ * @param profileImageUrl - (optional) 유저의 profileImageUrl
+ * @param handleImageChange - 이미지 POST 요청을 보내는 함수
+ * @returns
+ */
 const InputProfileImage = ({
   profileImageUrl,
   handleImageChange,
