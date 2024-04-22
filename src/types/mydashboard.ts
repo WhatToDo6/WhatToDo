@@ -23,9 +23,9 @@ interface InviteeType {
   nickname: string
 }
 
-interface InviterType extends InviteeType {}
+export interface InviterType extends InviteeType {}
 
-interface PartialDashboardType {
+export interface PartialDashboardType {
   id: number
   title: string
 }
