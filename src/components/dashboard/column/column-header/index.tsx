@@ -38,8 +38,7 @@ const ColumnHeader = ({
     <header className={S.wrapper}>
       <div className={S.columnHeading}>
         <div className={S.ellipse} />
-        <div className={S.columnTitle}>{title}</div>{' '}
-        {/* Use title state here */}
+        <div className={S.columnTitle}>{title}</div>
         <div className={S.cardCount}>{taskCount}</div>
       </div>
       <div onClick={handleClick}>
