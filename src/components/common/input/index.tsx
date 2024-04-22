@@ -1,13 +1,32 @@
 import { InputInterface } from '@/src/types/input'
 
+import InputDate from './date'
 import InputEmail from './email'
+import InputImageUpload from './image-upload'
 import S from './Input.module.scss'
 import InputNewPassword from './new-password'
 import InputNewPasswordCheck from './new-password-check'
 import InputPassword from './password'
 import InputPasswordCheck from './password-check'
+import InputTag from './tag'
 import InputText from './text'
+import TextArea from './textarea'
 
+/**
+ *
+ * @param inputType - input 타입 (email | password | passwordCheck | newPassword | newPasswordCheck | nickname | title | date | tag | textarea)
+ * @param placeholder - input placeholder
+ * @param error - react-hook-form의 에러 객체
+ * @param register - react-hook-form의 register 함수
+ * @param password - (optional) passwordCheck에서 password를 비교하기 위해 필요
+ * @param currentPassword - (optional) password와 newPassword를 비교하기 위해 필요
+ * @param newPassword - (optional) newPasswordCheck에서 newPassword를 비교하기 위해 필요
+ * @param size - (optional) input 사이즈 (small | medium | large)
+ * @param disabled - (optional) input 비활성화 여부
+ * @param required - (optional) required가 필요하지 않은 경우를 위해 필요
+ * @param control - (optional) react-hook-form의 control 객체 (외부 라이브러리 연동 시 필요)
+ * @param setValue - (optional) react-hook-form의 setValue 함수 (직접 값 제어 시 필요)
+ */
 const Input = ({
   inputType,
   placeholder,
@@ -19,11 +38,13 @@ const Input = ({
   currentNickname,
   currentColumn,
   size,
+  control,
+  setValue,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
       <InputEmail
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         size={size || ''}
@@ -31,7 +52,7 @@ const Input = ({
     ),
     password: (
       <InputPassword
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         size={size || ''}
@@ -39,7 +60,7 @@ const Input = ({
     ),
     passwordCheck: (
       <InputPasswordCheck
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         password={password || ''}
@@ -47,7 +68,7 @@ const Input = ({
     ),
     newPassword: (
       <InputNewPassword
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         currentPassword={currentPassword || ''}
@@ -56,7 +77,7 @@ const Input = ({
     ),
     newPasswordCheck: (
       <InputNewPasswordCheck
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         newPassword={newPassword || ''}
@@ -65,7 +86,7 @@ const Input = ({
     ),
     nickname: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="nickname"
@@ -74,7 +95,7 @@ const Input = ({
     ),
     newNickname: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="newNickname"
@@ -84,7 +105,7 @@ const Input = ({
     ),
     newColumn: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="newColumn"
@@ -94,7 +115,7 @@ const Input = ({
     ),
     columnName: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="columnName"
@@ -103,7 +124,7 @@ const Input = ({
     ),
     newDash: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="newDash"
@@ -112,23 +133,44 @@ const Input = ({
     ),
     title: (
       <InputText
-        placeholder={placeholder}
+        placeholder={placeholder || ''}
         error={error}
         register={register}
         textType="title"
         size={size || ''}
       />
     ),
-    date: <input type="date" />, // TODO: date input
-    tag: <input type="tag" />, // TODO: tag input
-    textarea: <textarea />, // TODO: textarea input
+    date: (
+      <InputDate
+        placeholder={placeholder || ''}
+        error={error}
+        register={register}
+        control={control}
+      />
+    ),
+    tag: (
+      <InputTag
+        placeholder={placeholder || ''}
+        error={error}
+        register={register}
+        setValue={setValue}
+      />
+    ),
+    textarea: (
+      <TextArea
+        placeholder={placeholder || ''}
+        error={error}
+        register={register}
+      />
+    ),
+    image: <InputImageUpload handleImageChange={() => console.log('임시')} />, //TODO: handleImageChange 함수 연결
   }
 
   return (
-    <>
+    <div className={S.container}>
       {INPUT_MAP[inputType]}
       <span className={S.errorText}>{error?.message}</span>
-    </>
+    </div>
   )
 }
 
