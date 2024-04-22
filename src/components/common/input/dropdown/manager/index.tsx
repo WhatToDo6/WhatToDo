@@ -1,35 +1,49 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ARROW_ICON from '@/public/icons/arrow-dropdown.svg'
 import CHECK_ICON from '@/public/icons/check-gray.svg'
+import { MemberProps } from '@/src/types/member'
 
+import dummyData from './dummyData'
 import S from './Manager.module.scss'
-
-const mockData = [
-  {
-    id: 1,
-    name: '박찬호',
-  },
-  {
-    id: 2,
-    name: '김도영',
-  },
-  {
-    id: 3,
-    name: '이우성',
-  },
-]
 
 // TODO: 초대받은 인원 api 연결
 const DropDownManager = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const memberData: MemberProps[] = dummyData[0].members
 
-  // TODO: 검색 로직
+  const [isOpen, setIsOpen] = useState(false)
+  const [inputValue, setInputValue] = useState('')
+  const [selectedId, setSelectedId] = useState(0)
+  const [selectedName, setSelectedName] = useState('')
+  const [displayList, setDisplayList] = useState(memberData)
+
+  const searchManager = (value: string) => {
+    setInputValue(value)
+    setDisplayList(
+      memberData.filter((member) => {
+        if (member.nickname.includes(value) && value !== '') {
+          return member
+        }
+      }),
+    )
+  }
+
+  useEffect(() => {
+    displayList.length < memberData.length && setIsOpen(true)
+    displayList.length === memberData.length && setIsOpen(false)
+    displayList.length === 0 && setDisplayList(memberData)
+  }, [displayList])
+
   return (
     <div className={S.container}>
       <div className={S.inputContainer}>
-        <input type="text" className={S.input} />
+        <input
+          type="text"
+          className={S.input}
+          value={inputValue}
+          onChange={(e) => searchManager(e.target.value)}
+        />
         <Image
           src={ARROW_ICON}
           alt="열기"
@@ -41,21 +55,33 @@ const DropDownManager = () => {
       </div>
       {isOpen && (
         <div className={S.dropdown}>
-          {mockData.map((elem, idx) => {
-            return (
-              //TODO: 담당자 공통 UI 컴포넌트로 교체
-              <div key={elem.id} className={S.member}>
-                <Image
-                  src={CHECK_ICON}
-                  alt="선택됨"
-                  width={26}
-                  height={26}
-                  className={idx === 0 ? '' : S.hidden}
-                />
-                <p className={S.result}>{elem.name}</p>
-              </div>
-            )
-          })}
+          {selectedId !== 0 && (
+            <div className={S.member}>
+              <Image src={CHECK_ICON} alt="선택됨" width={20} height={20} />
+              {/* TODO: 담당자 공통 UI 컴포넌트로 교체 */}
+              <p className={S.name}>{selectedName}</p>
+            </div>
+          )}
+          {displayList
+            .filter((elem) => elem.id !== selectedId)
+            .map((elem) => {
+              return (
+                <div key={elem.id} className={`${S.member} ${S.unselected}`}>
+                  {/* TODO: 담당자 공통 UI 컴포넌트로 교체 */}
+                  <p
+                    className={S.name}
+                    onClick={() => {
+                      setSelectedId(elem.userId)
+                      setSelectedName(elem.nickname)
+                      setInputValue(elem.nickname)
+                      setIsOpen(false)
+                    }}
+                  >
+                    {elem.nickname}
+                  </p>
+                </div>
+              )
+            })}
         </div>
       )}
     </div>
