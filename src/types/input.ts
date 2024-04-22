@@ -19,6 +19,7 @@ export interface InputInterface {
     | 'tag'
     | 'textarea'
     | 'image'
+    | 'manager'
   placeholder?: string
   error?: FieldError | undefined
   register: UseFormRegister<InputFormValues>
@@ -49,7 +50,7 @@ export interface InputFormValues {
 
 export interface InputProps {
   placeholder: string
-  error: FieldError | undefined
+  error?: FieldError | undefined
   register: UseFormRegister<InputFormValues>
   control?: any
   setValue?: any

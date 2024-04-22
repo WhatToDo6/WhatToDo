@@ -1,6 +1,7 @@
 import { InputInterface } from '@/src/types/input'
 
 import InputDate from './date'
+import DropDownManager from './dropdown/manager'
 import InputEmail from './email'
 import InputImageUpload from './image-upload'
 import S from './Input.module.scss'
@@ -123,7 +124,6 @@ const Input = ({
     tag: (
       <InputTag
         placeholder={placeholder || ''}
-        error={error}
         register={register}
         setValue={setValue}
       />
@@ -136,6 +136,13 @@ const Input = ({
       />
     ),
     image: <InputImageUpload handleImageChange={() => console.log('임시')} />, //TODO: handleImageChange 함수 연결
+    manager: (
+      <DropDownManager
+        placeholder={placeholder || ''}
+        register={register}
+        setValue={setValue}
+      />
+    ),
   }
 
   return (
