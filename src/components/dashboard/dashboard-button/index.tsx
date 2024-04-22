@@ -77,7 +77,7 @@ function DashboardButton({
     },
     moveDashboard: {
       onClick: () => {
-        router.push(`/dashboard/${id}`)
+        router.push(`/dashboards/${id}`)
       },
       children: (
         <>

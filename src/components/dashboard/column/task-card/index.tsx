@@ -1,7 +1,8 @@
 import Image from 'next/image'
 
+import { TaskCardDataType } from '@/src/types/dashboard.interface'
+
 import S from './TaskCard.module.scss'
-import { TASK_CARD_IMG } from '../constants'
 import TaskCardDate from '../task-card-date'
 import TaskCardTag from '../task-card-tag'
 
@@ -10,13 +11,13 @@ import TaskCardTag from '../task-card-tag'
 //TODO: 아이콘 navbar에서 받을 것
 //TODO: 이미지 데이터
 
-const TaskCard = () => {
+const TaskCard = ({ title, dueDate, imageUrl, tags }: TaskCardDataType) => {
   return (
     <div className={S.container}>
       <div className={S.imageWrapper}>
         <Image
           className={S.cardImage}
-          src={TASK_CARD_IMG}
+          src={imageUrl}
           width={274}
           height={160}
           layout="responsive"
@@ -24,11 +25,11 @@ const TaskCard = () => {
         />
       </div>
       <div className={S.content}>
-        <h2 className={S.cardHeading}>새로운 일정 관리 Taskify</h2>
+        <h2 className={S.cardTitle}>{title}</h2>
         <div className={S.wrapper}>
           <TaskCardTag tagType="프로젝트" />
           <div className={S.cardBottom}>
-            <TaskCardDate />
+            <TaskCardDate dueDate={dueDate} />
             <div>아이콘</div>
           </div>
         </div>

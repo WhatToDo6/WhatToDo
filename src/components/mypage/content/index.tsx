@@ -1,11 +1,11 @@
-import { useRouter } from 'next/router'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+
+import LEFT_ARROW from '@/public/icons/left-arrow.svg'
 
 import S from './Content.module.scss'
 import Password from '../password'
 import Profile from '../profile'
-
-import LEFT_ARROW from '/public/icons/left-arrow.svg'
 
 const Content = () => {
   const router = useRouter()

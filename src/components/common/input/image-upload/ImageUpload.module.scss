@@ -1,0 +1,47 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 18.2rem;
+  height: 18.2rem;
+  background-color: #f5f5f5;
+  border-radius: 0.6rem;
+
+  @include mobile {
+    width: 10rem;
+    height: 10rem;
+  }
+}
+
+.small {
+  width: 7.6rem;
+  height: 7.6rem;
+
+  @include mobile {
+    width: 5.8rem;
+    height: 5.8rem;
+  }
+}
+
+.img {
+  @include mobile {
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+.smallImg {
+  width: 2.8rem;
+  height: 2.8rem;
+
+  @include mobile {
+    width: 2.1rem;
+    height: 2.1rem;
+  }
+}
+
+.input {
+  display: none;
+}

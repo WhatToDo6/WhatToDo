@@ -1,17 +1,14 @@
-import Image from 'next/image'
 import { useState, ChangeEvent } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
+import BorderButton from '@/src/components/common/button/border'
+import Input from '@/src/components/common/input'
 import { useUserData } from '@/src/hooks/useUserData'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './ProfileForm.module.scss'
-import BorderButton from '../../common/button/border'
-
-import ADD_IMG from '/public/icons/add-img.svg'
-
-import Input from '../../common/input'
+import InputImageUpload from '../../common/input/image-upload'
 
 const ProfileForm = () => {
   const userData = useUserData()
@@ -74,18 +71,7 @@ const ProfileForm = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={S.container}>
       <div className={S.content}>
-        <div className={S['img-container']}>
-          <label htmlFor="profileImageUpload" className={S.img}>
-            <Image src={ADD_IMG} alt="" width={30} height={30} />
-          </label>
-          <input
-            id="profileImageUpload"
-            type="file"
-            {...register('profileImageUrl')}
-            onChange={handleImageChange}
-            className={S['img-input']}
-          />
-        </div>
+        <InputImageUpload handleImageChange={handleImageChange} />
         <div className={S['text-container']}>
           <label className={S.title}>이메일</label>
           <input

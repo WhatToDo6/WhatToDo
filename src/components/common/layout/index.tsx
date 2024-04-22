@@ -20,7 +20,7 @@ const Layout = ({ children }: LayoutProps) => {
         <nav>
           <DashboardHeader pathname={pathname} />
         </nav>
-        <main>{children}</main>
+        <main className={S.children}>{children}</main>
       </div>
     </div>
   )

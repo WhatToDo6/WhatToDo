@@ -60,7 +60,7 @@ const MEMBERS = [
 const TITLE: Record<string, string> = {
   '/mydashboard': '내 대시보드',
   '/mypage': '계정관리',
-  '/dashboard/[id]': '나',
+  '/dashboards/[id]': '나',
 }
 
 interface DashboardHeaderProps {

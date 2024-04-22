@@ -1,11 +1,10 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
 
+import HEADER_IMG from '@/public/images/header-img.png'
+import BasicButton from '@/src/components/common/button/basic'
+
 import S from './Header.module.scss'
-
-import HEADER_IMG from '/public/images/header-img.png'
-
-import BasicButton from '../../common/button/basic'
 
 const Header = () => {
   const router = useRouter()
