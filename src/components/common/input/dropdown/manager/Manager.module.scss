@@ -34,6 +34,10 @@
   justify-content: space-between;
 }
 
+.focus {
+  border: 0.1rem solid $color-violet-200;
+}
+
 .input {
   @include font-style(1.6rem, 400, normal);
   @include mobile {

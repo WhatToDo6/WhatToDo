@@ -15,9 +15,10 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
   const memberData: MemberProps[] = dummyData[0].members
 
   const [isOpen, setIsOpen] = useState(false)
+  const [isFocus, setIsFocus] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [userId, setUserId] = useState<number | null>(null)
-  const [nickname, setNickname] = useState('')
+  const [nickname, setNickname] = useState<string | null>(null)
   const [displayList, setDisplayList] = useState(memberData)
 
   const searchManager = (value: string) => {
@@ -32,8 +33,8 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
   }
 
   const undo = () => {
-    setNickname('')
-    setUserId(0)
+    setNickname(null)
+    setUserId(null)
   }
 
   useEffect(() => {
@@ -46,13 +47,13 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
     setValue('manager', userId)
   }, [userId, setValue])
 
-  console.log(userId, nickname)
-
   return (
     <div className={S.container}>
-      <div className={S.inputContainer}>
+      <div
+        className={`${S.inputContainer} ${isOpen === true || (isFocus === true && S.focus)}`}
+      >
         <div onClick={undo}>
-          {nickname ? (
+          {nickname !== null ? (
             <ManagerProfile
               profileImageUrl={null}
               nickname={nickname}
@@ -65,6 +66,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
               className={S.input}
               value={inputValue}
               onChange={(e) => searchManager(e.target.value)}
+              onFocus={() => setIsFocus(true)}
             />
           )}
         </div>
@@ -79,7 +81,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
       </div>
       {isOpen && (
         <div className={S.dropdown}>
-          {userId !== 0 && (
+          {nickname !== null && (
             <div
               className={S.member}
               onClick={() => {
@@ -106,6 +108,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
                     setNickname(elem.nickname)
                     setInputValue(elem.nickname)
                     setIsOpen(false)
+                    setIsFocus(false)
                   }}
                 >
                   <ManagerProfile
