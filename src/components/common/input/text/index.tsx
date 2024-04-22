@@ -3,9 +3,16 @@ import { InputProps } from '@/src/types/input'
 import S from './Text.module.scss'
 
 interface InputTextProps extends InputProps {
-  textType: 'nickname' | 'newNickname' | 'title' // 다른 input이 필요하면 추가
+  textType:
+    | 'nickname'
+    | 'newNickname'
+    | 'newColumn'
+    | 'columnName'
+    | 'newDash'
+    | 'title' // 다른 input이 필요하면 추가
   size: string
   currentNickname?: string
+  currentColumn?: string
 }
 
 /**
@@ -25,6 +32,7 @@ const InputText = ({
   register,
   textType,
   currentNickname,
+  currentColumn,
   size,
 }: InputTextProps) => {
   const VALIDATION_MAP = {
@@ -42,8 +50,18 @@ const InputText = ({
           value !== currentNickname || '기존 닉네임과 동일합니다.',
       },
     },
+    newColumn: {
+      validate: (value: string) => {
+        return value !== currentColumn || '중복된 칼럼 이름입니다.'
+      },
+    },
+    columnName: {
+      // TODO : 유효성 검사 로직
+    },
+    newDash: {
+      // TODO : 유효성 검사 로직
+    },
     title: {
-      required: '제목을 입력해주세요.',
       // TODO: 제목 유효성 검사 로직
     },
   }
