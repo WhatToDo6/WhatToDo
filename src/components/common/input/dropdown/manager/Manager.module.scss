@@ -38,6 +38,13 @@
   border: 0.1rem solid $color-violet-200;
 }
 
+.selected {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  cursor: pointer;
+}
+
 .input {
   @include font-style(1.6rem, 400, normal);
   @include mobile {

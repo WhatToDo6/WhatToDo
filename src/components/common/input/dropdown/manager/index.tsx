@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import ARROW_ICON from '@/public/icons/arrow-dropdown.svg'
 import CHECK_ICON from '@/public/icons/check-gray.svg'
+import DELETE_ICON from '@/public/icons/delete.svg'
 import { InputProps } from '@/src/types/input'
 import { MemberProps } from '@/src/types/member'
 
@@ -35,6 +36,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
   const undo = () => {
     setNickname(null)
     setUserId(null)
+    setInputValue('')
   }
 
   useEffect(() => {
@@ -43,6 +45,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
     displayList.length === 0 && setDisplayList(memberData)
   }, [displayList])
 
+  const error = userId === null && inputValue !== ''
   useEffect(() => {
     setValue('manager', userId)
   }, [userId, setValue])
@@ -50,15 +53,18 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
   return (
     <div className={S.container}>
       <div
-        className={`${S.inputContainer} ${isOpen === true || (isFocus === true && S.focus)}`}
+        className={`${S.inputContainer} ${(isOpen === true || isFocus === true) && S.focus} ${error === true && S.error}`}
       >
-        <div onClick={undo}>
-          {nickname !== null ? (
-            <ManagerProfile
-              profileImageUrl={null}
-              nickname={nickname}
-              type="dropdown"
-            />
+        <div>
+          {nickname ? (
+            <div className={S.selected} onClick={undo}>
+              <ManagerProfile
+                profileImageUrl={null}
+                nickname={nickname}
+                type="dropdown"
+              />
+              <Image src={DELETE_ICON} alt="삭제" width={20} height={20} />
+            </div>
           ) : (
             <input
               type="text"
@@ -67,7 +73,10 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
               value={inputValue}
               onChange={(e) => searchManager(e.target.value)}
               onFocus={() => setIsFocus(true)}
-              onBlur={() => setIsFocus(false)}
+              onBlur={() => {
+                setIsFocus(false)
+                setIsOpen(false)
+              }}
             />
           )}
         </div>
@@ -80,9 +89,10 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
           className={S.icon}
         />
       </div>
+      {error && <div className={S.errorText}>존재하지 않는 유저입니다</div>}
       {isOpen && (
         <div className={S.dropdown}>
-          {nickname !== null && (
+          {nickname && (
             <div
               className={S.member}
               onClick={() => {
