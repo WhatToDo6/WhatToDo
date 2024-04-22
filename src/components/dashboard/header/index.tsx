@@ -140,63 +140,73 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
       </div>
     )
 
+  if (['/mydashboard', '/mypage'].includes(pathname))
+    return (
+      <div className={S.container}>
+        <div className={S.title}>{TITLE[pathname]}</div>
+        <div className={S.rightBox}>
+          <ManagerProfile
+            profileImageUrl={myUserData.profileImageUrl}
+            nickname={myUserData.nickname}
+            type="dashboardHeader"
+          />
+        </div>
+      </div>
+    )
+
   return (
     <div className={S.container}>
-      {dashboardData ? (
+      {dashboardData && (
         <div className={S.dashboardTitle}>
           <p>{dashboardData.title}</p>
           <Image width={20} height={16} src={crownIcon} alt="왕관" />
         </div>
-      ) : (
-        <div className={S.title}>{TITLE[pathname]}</div>
       )}
       <div className={S.rightBox}>
-        {pathname.includes('id') && (
-          <>
-            <div className={S.btnBox}>
-              {BUTTONS.map((btn) => (
-                <button
-                  key={btn.tag}
-                  className={btn.className}
-                  onClick={btn.onClick}
-                >
-                  <Image
-                    className={S.btnImg}
-                    width={btn.size}
-                    height={btn.size}
-                    src={btn.src}
-                    alt={btn.tag}
-                  />
-                  <span>{btn.text}</span>
-                </button>
-              ))}
-            </div>
-            <div className={S.memberImgBox}>
-              {dashboardMembers
-                .filter((_, idx) => idx < 4)
-                .map((member, idx) => (
-                  <Image
-                    className={`${S.memberImg}`}
-                    width={38}
-                    height={38}
-                    key={member.id}
-                    src={
-                      member.profileImageUrl
-                        ? member.profileImageUrl
-                        : EMPTY_IMG[idx]
-                    }
-                    alt={`${member.nickname}의 이미지`}
-                  />
-                ))}
-              {dashboardMembers.length > 4 && (
-                <div className={S.overImg}>
-                  <span>+{+dashboardMembers.length - 4}</span>
-                </div>
-              )}
-            </div>
-            <Image width={0} height={38} src={barIcon} alt="bar" />
-          </>
+        {dashboardData?.createdByMe && (
+          <div className={S.btnBox}>
+            {BUTTONS.map((btn) => (
+              <button
+                key={btn.tag}
+                className={btn.className}
+                onClick={btn.onClick}
+              >
+                <Image
+                  className={S.btnImg}
+                  width={btn.size}
+                  height={btn.size}
+                  src={btn.src}
+                  alt={btn.tag}
+                />
+                <span>{btn.text}</span>
+              </button>
+            ))}
+          </div>
         )}
+        <div className={S.memberImgBox}>
+          {dashboardMembers
+            .filter((_, idx) => idx < 4)
+            .map((member, idx) => (
+              <Image
+                className={`${S.memberImg}`}
+                width={38}
+                height={38}
+                key={member.id}
+                src={
+                  member.profileImageUrl
+                    ? member.profileImageUrl
+                    : EMPTY_IMG[idx]
+                }
+                alt={`${member.nickname}의 이미지`}
+              />
+            ))}
+          {dashboardMembers.length > 4 && (
+            <div className={S.overImg}>
+              <span>+{+dashboardMembers.length - 4}</span>
+            </div>
+          )}
+        </div>
+        <Image width={0} height={38} src={barIcon} alt="bar" />
         <ManagerProfile
           profileImageUrl={myUserData.profileImageUrl}
           nickname={myUserData.nickname}
