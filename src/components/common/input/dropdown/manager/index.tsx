@@ -31,6 +31,11 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
     )
   }
 
+  const undo = () => {
+    setNickname('')
+    setUserId(0)
+  }
+
   useEffect(() => {
     displayList.length < memberData.length && setIsOpen(true)
     displayList.length === memberData.length && setIsOpen(false)
@@ -44,13 +49,23 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
   return (
     <div className={S.container}>
       <div className={S.inputContainer}>
-        <input
-          type="text"
-          placeholder={placeholder}
-          className={S.input}
-          value={inputValue}
-          onChange={(e) => searchManager(e.target.value)}
-        />
+        <div onClick={undo}>
+          {nickname ? (
+            <ManagerProfile
+              profileImageUrl={null}
+              nickname={nickname}
+              type="dropdown"
+            />
+          ) : (
+            <input
+              type="text"
+              placeholder={placeholder}
+              className={S.input}
+              value={inputValue}
+              onChange={(e) => searchManager(e.target.value)}
+            />
+          )}
+        </div>
         <Image
           src={ARROW_ICON}
           alt="열기"
@@ -63,7 +78,12 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
       {isOpen && (
         <div className={S.dropdown}>
           {userId !== 0 && (
-            <div className={S.member} onClick={() => setIsOpen(false)}>
+            <div
+              className={S.member}
+              onClick={() => {
+                setIsOpen(false)
+              }}
+            >
               <Image src={CHECK_ICON} alt="선택됨" width={20} height={20} />
               <ManagerProfile
                 profileImageUrl={null}
