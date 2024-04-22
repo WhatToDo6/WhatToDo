@@ -47,3 +47,8 @@ export interface InvitedMemberType extends UserType {
   isOwner: boolean
   userId: number
 }
+
+export interface GetPagenationType<T> {
+  data: T[]
+  totalCount: number
+}

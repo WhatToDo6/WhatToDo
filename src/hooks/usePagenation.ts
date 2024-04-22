@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import {
-  fetchGetDashboardMembers,
   fetchGetDashboards,
   fetchGetInviteeEmails,
 } from '@/pages/api/dashboards'
+import { fetchGetDashboardMembers } from '@/pages/api/members'
 
 type PagenationType = 'dashboard' | 'email' | 'member'
 
