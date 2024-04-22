@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { InputProps } from '@/src/types/input'
 
 import S from './Tag.module.scss'
+import TagChip from '../../chip/tag-chip'
 
 const InputTag = ({ placeholder, setValue }: InputProps) => {
   const [tags, setTags] = useState<string[]>([])
@@ -30,9 +31,7 @@ const InputTag = ({ placeholder, setValue }: InputProps) => {
     <div className={S.container}>
       <div className={S.tagList}>
         {tags.map((tag, index) => (
-          <div key={index} className={S[tagColors[index % 4]]}>
-            {tag}
-          </div>
+          <TagChip key={index} index={index} text={tag} />
         ))}
         <input
           className={S.input}

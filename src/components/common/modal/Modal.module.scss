@@ -18,11 +18,16 @@
   border-radius: 0.8rem;
   background: $color-white;
   padding: 2.8rem;
+  height: inherit;
   overflow-x: hidden;
   overflow-y: scroll;
   padding-bottom: 2.8rem;
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @include mobile {
+    width: 32.7rem;
   }
 }
