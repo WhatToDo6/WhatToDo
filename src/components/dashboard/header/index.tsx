@@ -11,10 +11,10 @@ import tempCircle2 from '@/public/icons/temp-circle-2.svg'
 import tempCircle3 from '@/public/icons/temp-circle-3.svg'
 import tempCircle4 from '@/public/icons/temp-circle-4.svg'
 import tempCircle5 from '@/public/icons/temp-circle-5.svg'
-import tempCircle6 from '@/public/icons/temp-circle-6.svg'
 import { UserType } from '@/src/types/mydashboard'
 
 import S from './DashboardHeader.module.scss'
+import ManagerProfile from '../../common/manager-profile'
 
 const MEMBERS = [
   {
@@ -164,19 +164,11 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
             <Image width={0} height={38} src={barIcon} alt="bar" />
           </>
         )}
-        <div className={S.loginInfoBox}>
-          <Image
-            width={38}
-            height={38}
-            src={
-              myUserData.profileImageUrl
-                ? myUserData.profileImageUrl
-                : tempCircle6
-            }
-            alt="myImg"
-          />
-          <span>{myUserData.nickname}</span>
-        </div>
+        <ManagerProfile
+          profileImageUrl={myUserData.profileImageUrl}
+          nickname={myUserData.nickname}
+          type="dashboardHeader"
+        />
       </div>
     </div>
   )
