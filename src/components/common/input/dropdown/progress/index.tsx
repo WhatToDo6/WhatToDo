@@ -24,7 +24,10 @@ const DropdownProgress = ({ setValue }: InputProps) => {
 
   return (
     <div className={S.container}>
-      <div className={S.inputContainer} onClick={() => setIsOpen(!isOpen)}>
+      <div
+        className={`${S.inputContainer} ${isOpen === true && S.focus}`}
+        onClick={() => setIsOpen(!isOpen)}
+      >
         <ProgressChip progress={status} />
         <Image
           src={ARROW_ICON}
