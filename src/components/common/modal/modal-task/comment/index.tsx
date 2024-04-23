@@ -3,6 +3,7 @@ import Image from 'next/image'
 import S from './Comment.module.scss'
 
 interface CommentProps {
+  id: number
   content: string
   createdAt: string
   author: {
@@ -11,9 +12,10 @@ interface CommentProps {
   }
 }
 
-const Comment = ({ content, createdAt, author }: CommentProps) => {
+const Comment = ({ id, content, createdAt, author }: CommentProps) => {
   const handleEdit = () => {
     //TODO 댓글 수정 기능을 구현해야 합니다.
+    console.log(id)
   }
 
   const handleDelete = () => {
