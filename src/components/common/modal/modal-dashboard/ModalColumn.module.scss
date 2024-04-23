@@ -8,14 +8,14 @@
   flex-direction: column;
 
   &.error {
-    height: 24.5rem;
+    height: 30.1rem;
     @include mobile {
-      height: 21rem;
+      height: 26.6rem;
     }
   }
 
   &.delete {
-    height: 21.8rem;
+    height: 27.6rem;
   }
 }
 
@@ -45,19 +45,20 @@
   bottom: 2.8rem;
   right: 2.8rem;
   @include mobile {
-    left: 2.8rem;
+    left: 2rem;
   }
 }
 
 .deleteButton {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  bottom: 2.8rem;
+  left: 2.8rem;
   color: $color-gray-400;
   @include font-style(1.4rem, 400, normal);
   text-decoration-line: underline;
 
   @include mobile {
-    bottom: 5.8rem;
+    bottom: 8.6rem;
+    left: 2rem;
   }
 }
