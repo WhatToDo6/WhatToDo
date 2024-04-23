@@ -136,8 +136,8 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
 
   useEffect(() => {
     if (dashboardId) {
-      getMembersData(+dashboardId)
-      getDashboardData(+dashboardId)
+      getMembersData(dashboardId)
+      getDashboardData(dashboardId)
     }
   }, [dashboardId])
 
