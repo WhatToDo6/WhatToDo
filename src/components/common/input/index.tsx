@@ -164,7 +164,8 @@ const Input = ({
         register={register}
       />
     ),
-    image: <InputProfileImage handleImageChange={() => console.log('임시')} />, // TODO: 함수 연결
+    // image: <InputProfileImage handleImageChange={() => console.log('임시')} />, // TODO: 함수 연결
+    image: <input type="file" />,
     manager: (
       <DropDownManager
         placeholder={placeholder || ''}
