@@ -77,7 +77,9 @@ const ModalTodo = () => {
         <label className={S.label} htmlFor="image">
           이미지
         </label>
-        <Input inputType="image" register={register} setValue={setValue} />
+        <div className={S.imageContainer}>
+          <Input inputType="image" register={register} setValue={setValue} />
+        </div>
       </div>
       <div className={S.button}>
         <OptionButton
