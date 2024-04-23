@@ -33,19 +33,7 @@ const apiCall = async (
     const response = await AXIOS(options)
     return response.data
   } catch (error) {
-    if (error.response) {
-      // 서버에서 반환된 에러 정보를 문자열로 변환하여 출력
-      console.error(
-        `Server responded with a ${error.response.status}:`,
-        JSON.stringify(error.response.data, null, 2),
-      )
-    } else if (error.request) {
-      // 요청이 서버에 전송됐으나 응답을 받지 못한 경우
-      console.error('Request was sent but no response was received')
-    } else {
-      // 요청 설정 과정에서 문제 발생
-      console.error('Error setting up the request:', error.message)
-    }
+    console.error(`API 호출 에러 (${method} ${url}):`, error)
     throw new Error('API 처리 중 에러가 발생했습니다.')
   }
 }
@@ -95,7 +83,7 @@ export const postTaskCards = async ({
 }: {
   assigneeUserId: number
   dashboardId: number
-  columnId: number
+  columnId: number | undefined
   title: string
   description: string
   dueDate: string

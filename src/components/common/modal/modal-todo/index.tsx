@@ -2,7 +2,9 @@ import { useContext } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { postTaskCards } from '@/pages/api/taskCards'
+import { TaskCardDataType } from '@/src/types/dashboard.interface'
 import { InputFormValues } from '@/src/types/input'
+import { formatDate } from '@/src/utils/formatDate'
 
 import S from './ModalTodo.module.scss'
 import { ModalContext } from '..'
@@ -10,15 +12,15 @@ import OptionButton from '../../button/option'
 import Input from '../../input'
 
 interface ModalTodoProps {
-  columnId: number
+  columnId: number | undefined
   dashboardId: number
-  onTaskCardCreated: (newTaskCard: TaskCardDataType) => void
+  onCreateTaskCard: (newTaskCard: TaskCardDataType) => void
 }
 
 const ModalTodo = ({
   columnId,
   dashboardId,
-  onTaskCardCreated,
+  onCreateTaskCard: onTaskCardCreated,
 }: ModalTodoProps) => {
   const modalStatus = useContext(ModalContext)
 
@@ -32,11 +34,8 @@ const ModalTodo = ({
 
   const onSubmit: SubmitHandler<InputFormValues> = async (data) => {
     try {
-      const assigneeUserId = 1709 //임시 id
-      const parsedDate = new Date(data.date)
-      const formattedDate = parsedDate.toISOString().slice(0, 10)
-      const formattedTime = parsedDate.toTimeString().slice(0, 5)
-      const dueDate = `${formattedDate} ${formattedTime}`
+      const assigneeUserId = 1709
+      const dueDate = formatDate(data.date)
 
       const response = await postTaskCards({
         assigneeUserId,
@@ -48,7 +47,7 @@ const ModalTodo = ({
         tags: data.tags?.split(',').map((tag) => tag.trim()),
         imageUrl:
           'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/3-7_20345_1713591497409.png',
-      })
+      }) // 임시 이미지 url
       onTaskCardCreated(response)
       modalStatus.setIsOpen(false)
     } catch (error) {
@@ -120,7 +119,7 @@ const ModalTodo = ({
           rightColor="purple"
           leftText="취소"
           rightText="생성"
-          onLeftClick={() => modalStaus.setIsOpen.call(null, false)}
+          onLeftClick={() => modalStatus.setIsOpen.call(null, false)}
           onRightClick={handleSubmit(onSubmit)}
         />
       </div>

@@ -24,7 +24,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
     setIsModalOpen(true)
   }
 
-  const addNewTaskCard = (newTaskCard) => {
+  const addNewTaskCard = (newTaskCard: TaskCardDataType) => {
     setTaskCards((prevTaskCards) => [...prevTaskCards, newTaskCard])
   }
 
@@ -76,7 +76,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
           <ModalTodo
             columnId={columnId}
             dashboardId={dashboardId}
-            onTaskCardCreated={addNewTaskCard}
+            onCreateTaskCard={addNewTaskCard}
           />
         </Modal>
       )}

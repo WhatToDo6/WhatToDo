@@ -46,7 +46,7 @@ export interface InputFormValues {
   columnName: string
   title: string
   date: string
-  tag: string
+  tags: string
   textarea: string
   profileImageUrl: FileList
   manager: number // 담당자 userId
