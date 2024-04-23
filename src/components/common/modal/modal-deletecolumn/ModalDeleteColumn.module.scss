@@ -4,16 +4,12 @@
 .container {
   @include Modal.modal(54rem, 25rem, 32.7rem, 22rem);
   position: relative;
-  width: 48.4rem;
-  height: 19.4rem;
 
   display: flex;
   justify-content: center;
   padding-top: 8rem;
 
   @include mobile {
-    width: 28.6rem;
-    height: 16.4rem;
     padding-top: 5.3rem;
   }
 }
