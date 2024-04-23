@@ -37,7 +37,7 @@ function DashboardButtonContainer({
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleModalClick = () => {
-    setIsModalOpen(!isModalOpen)
+    setIsModalOpen(true)
   }
 
   const makeNewDashboard = async (data: DashboardEditMakeParamType) => {
