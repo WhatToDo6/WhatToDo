@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { InputFormValues } from '@/src/types/input'
@@ -54,12 +54,17 @@ const ModalDashBoard = ({
   const router = useRouter()
   const modalStatus = useContext(ModalContext)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
+
+  const ButtonDisabledCond =
+    watch('email') || watch('newColumn') || watch('columnName')
 
   const handleLeftClick = () => {
     modalStatus.setIsOpen.call(null, false)
@@ -75,6 +80,10 @@ const ModalDashBoard = ({
   const handleDeleteClick = () => {
     setIsModalOpen(true)
   }
+
+  useEffect(() => {
+    setIsDisabled(!ButtonDisabledCond)
+  }, [ButtonDisabledCond])
 
   return (
     <form
@@ -104,6 +113,7 @@ const ModalDashBoard = ({
           leftText={leftButtonText}
           rightText={rightButtonText}
           onLeftClick={handleLeftClick}
+          isDisabled={isDisabled}
         />
       </div>
       {isModalOpen && (
