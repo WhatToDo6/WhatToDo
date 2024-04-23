@@ -34,7 +34,7 @@ const ModalTodo = ({
 
   const onSubmit: SubmitHandler<InputFormValues> = async (data) => {
     try {
-      const assigneeUserId = 1709
+      const assigneeUserId = 1709 // TODO: userId 받아와야합니다
       const dueDate = formatDate(data.date)
 
       const response = await postTaskCards({
