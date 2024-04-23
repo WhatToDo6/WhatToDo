@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
 
 import {
-  fetchGetDashboards,
-  fetchGetInviteeEmails,
+  fetchGetDashboardList,
+  fetchGetInviteeEmailList,
 } from '@/pages/api/dashboards'
-import { fetchGetDashboardMembers } from '@/pages/api/members'
+import { fetchGetDashboardMemberList } from '@/pages/api/members'
 
 type PagenationType = 'dashboard' | 'email' | 'member'
 
@@ -19,7 +19,7 @@ export function usePagenation<T>(
 
   const getDashboards = async (page: number) => {
     try {
-      const response = await fetchGetDashboards<T>(page, visibleDataNum)
+      const response = await fetchGetDashboardList<T>(page, visibleDataNum)
       const { data: dashboards, totalCount } = response
       setPageData(dashboards)
       const lastPage = Math.ceil(totalCount / visibleDataNum)
@@ -31,7 +31,7 @@ export function usePagenation<T>(
   const getEmails = async (page: number) => {
     if (dashboardId)
       try {
-        const response = await fetchGetInviteeEmails<T>(
+        const response = await fetchGetInviteeEmailList<T>(
           page,
           dashboardId,
           visibleDataNum,
@@ -47,7 +47,7 @@ export function usePagenation<T>(
   const getMembers = async (page: number) => {
     if (dashboardId)
       try {
-        const response = await fetchGetDashboardMembers<T>(
+        const response = await fetchGetDashboardMemberList<T>(
           page,
           dashboardId,
           visibleDataNum,

@@ -5,7 +5,7 @@ import {
   InviteDashboardParamType,
 } from '@/src/types/mydashboard'
 
-export const fetchGetDashboards = async <U>(
+export const fetchGetDashboardList = async <U>(
   page: number,
   visibleDataNum: number,
 ): Promise<GetPagenationType<U>> => {
@@ -24,7 +24,7 @@ export const fetchGetDashboards = async <U>(
   return { data: dashboards, totalCount }
 }
 
-export const fetchGetInviteeEmails = async <U>(
+export const fetchGetInviteeEmailList = async <U>(
   page: number,
   dashboardId: number,
   visibleDataNum: number,
