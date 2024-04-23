@@ -1,5 +1,6 @@
 import { ko } from 'date-fns/locale/ko'
 import Image from 'next/image'
+import { useState } from 'react'
 import ReactDatePicker, { registerLocale } from 'react-datepicker'
 import { Controller } from 'react-hook-form'
 
@@ -19,10 +20,14 @@ import S from './Date.module.scss'
  */
 
 const InputDate = ({ placeholder, control }: InputProps) => {
+  const [isFocus, setIsFocus] = useState(false)
   registerLocale('ko', ko)
 
   return (
-    <div className={S.container}>
+    <div
+      className={`${S.container} ${isFocus === true && S.focus}`}
+      onMouseLeave={() => setIsFocus(false)}
+    >
       <Controller
         name="date"
         control={control}
@@ -38,7 +43,11 @@ const InputDate = ({ placeholder, control }: InputProps) => {
               </div>
               <ReactDatePicker
                 selected={value}
-                onChange={onChange}
+                onInputClick={() => setIsFocus(true)}
+                onChange={(e) => {
+                  onChange(e)
+                  setIsFocus(false)
+                }}
                 showTimeSelect
                 dateFormat="yyyy-MM-dd HH:mm"
                 placeholderText={placeholder}

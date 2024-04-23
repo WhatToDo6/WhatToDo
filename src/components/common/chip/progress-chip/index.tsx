@@ -4,7 +4,7 @@ import S from './ProgressChip.module.scss'
 import CIRCLE_ICON from '@/public/icons/circle-purple.svg'
 
 interface ProgressChipProps {
-  progress: 0 | 1 | 2
+  progress: number
 }
 
 enum ProgressListEnum {

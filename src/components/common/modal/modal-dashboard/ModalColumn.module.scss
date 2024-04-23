@@ -1,10 +1,9 @@
+@use '.././Modal.module.scss' as Modal;
 @import '@/src/styles/global.scss';
 
 .container {
+  @include Modal.modal(54rem, 27.6rem, 32.7rem, 24.1rem);
   position: relative;
-  width: 48.4rem;
-  height: 22rem;
-
   display: flex;
   flex-direction: column;
 
@@ -17,10 +16,6 @@
 
   &.delete {
     height: 21.8rem;
-  }
-  @include mobile {
-    width: 28.6rem;
-    height: 18.5rem;
   }
 }
 
@@ -47,8 +42,11 @@
 
 .button {
   position: absolute;
-  bottom: 0;
-  right: 0;
+  bottom: 2.8rem;
+  right: 2.8rem;
+  @include mobile {
+    left: 2.8rem;
+  }
 }
 
 .deleteButton {

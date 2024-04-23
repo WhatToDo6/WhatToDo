@@ -14,20 +14,27 @@
   z-index: 99;
 }
 
-.modal {
+@mixin modal(
+  $desktop-width: 52rem,
+  $desktop-height: 90vh,
+  $mobile-width: 32.7rem,
+  $mobile-height: 90vh
+) {
   border-radius: 0.8rem;
   background: $color-white;
   padding: 2.8rem;
-  height: 90vh;
+  width: $desktop-width;
+  height: $desktop-height;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding-bottom: 2.8rem;
 
   &::-webkit-scrollbar {
     display: none;
   }
 
   @include mobile {
-    width: 32.7rem;
+    width: $mobile-width;
+    height: $mobile-height;
+    padding: 2rem;
   }
 }
