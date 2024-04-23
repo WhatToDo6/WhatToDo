@@ -25,6 +25,7 @@
 }
 
 .small {
+  @include Input.input;
   width: 36.6rem;
   padding: 1.5rem;
   border-radius: 0.6rem;
@@ -45,6 +46,7 @@
 }
 
 .large {
+  @include Input.input;
   width: 48.4rem;
   border-radius: 0.6rem;
 
