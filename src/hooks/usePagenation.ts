@@ -1,6 +1,10 @@
 import { useEffect, useState } from 'react'
 
-import AXIOS from '@/lib/axios'
+import {
+  fetchGetDashboards,
+  fetchGetInviteeEmails,
+} from '@/pages/api/dashboards'
+import { fetchGetDashboardMembers } from '@/pages/api/members'
 
 type PagenationType = 'dashboard' | 'email' | 'member'
 
@@ -14,18 +18,9 @@ export function usePagenation<T>(
   const [pageData, setPageData] = useState<T[]>([])
 
   const getDashboards = async (page: number) => {
-    const token = localStorage.getItem('accessToken')
     try {
-      const response = await AXIOS.get(
-        `/dashboards?navigationMethod=pagination&cursorId=1&page=${page}&size=${visibleDataNum}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      const { data } = response
-      const { dashboards, totalCount } = data
+      const response = await fetchGetDashboards<T>(page, visibleDataNum)
+      const { data: dashboards, totalCount } = response
       setPageData(dashboards)
       const lastPage = Math.ceil(totalCount / visibleDataNum)
       setLastpage(lastPage === 0 ? 1 : lastPage)
@@ -34,44 +29,36 @@ export function usePagenation<T>(
     }
   }
   const getEmails = async (page: number) => {
-    const token = localStorage.getItem('accessToken')
-    try {
-      const response = await AXIOS.get(
-        `/dashboards/${dashboardId}/invitations?&page=${page}&size=${visibleDataNum}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      const { data } = response
-      const { invitations, totalCount } = data
-      setPageData(invitations)
-      const lastPage = Math.ceil(totalCount / visibleDataNum)
-      setLastpage(lastPage === 0 ? 1 : lastPage)
-    } catch (err) {
-      console.error(err)
-    }
+    if (dashboardId)
+      try {
+        const response = await fetchGetInviteeEmails<T>(
+          page,
+          dashboardId,
+          visibleDataNum,
+        )
+        const { data: invitations, totalCount } = response
+        setPageData(invitations)
+        const lastPage = Math.ceil(totalCount / visibleDataNum)
+        setLastpage(lastPage === 0 ? 1 : lastPage)
+      } catch (err) {
+        console.error(err)
+      }
   }
   const getMembers = async (page: number) => {
-    const token = localStorage.getItem('accessToken')
-    try {
-      const response = await AXIOS.get(
-        `/members?page=${page}&size=${visibleDataNum}&dashboardId=${dashboardId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      const { data } = response
-      const { members, totalCount } = data
-      setPageData(members)
-      const lastPage = Math.ceil(totalCount / visibleDataNum)
-      setLastpage(lastPage === 0 ? 1 : lastPage)
-    } catch (err) {
-      console.error(err)
-    }
+    if (dashboardId)
+      try {
+        const response = await fetchGetDashboardMembers<T>(
+          page,
+          dashboardId,
+          visibleDataNum,
+        )
+        const { data: members, totalCount } = response
+        setPageData(members)
+        const lastPage = Math.ceil(totalCount / visibleDataNum)
+        setLastpage(lastPage === 0 ? 1 : lastPage)
+      } catch (err) {
+        console.error(err)
+      }
   }
 
   const GET_DATA = {
@@ -100,13 +87,18 @@ export function usePagenation<T>(
     }
   }
 
+  const updateData = (page: number) => {
+    GET_DATA[type](page)
+  }
+
   useEffect(() => {
-    GET_DATA[type](1)
+    updateData(1)
   }, [])
 
   return {
     currPage,
     pageData,
+    updateData,
     setPageData,
     lastPage,
     onClickPrevPage,

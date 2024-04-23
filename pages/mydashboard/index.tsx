@@ -7,8 +7,14 @@ import { DashboardType } from '@/src/types/mydashboard'
 import S from './MyDashboard.module.scss'
 
 const MyDashboard = () => {
-  const { pageData, currPage, lastPage, onClickPrevPage, onClickNextPage } =
-    usePagenation<DashboardType>(5, 'dashboard')
+  const {
+    pageData,
+    currPage,
+    lastPage,
+    onClickPrevPage,
+    onClickNextPage,
+    updateData,
+  } = usePagenation<DashboardType>(5, 'dashboard')
 
   return (
     <Layout>
@@ -21,7 +27,7 @@ const MyDashboard = () => {
           onClickNextPage={onClickNextPage}
         />
         <div className={S.invitedDashboard}>
-          <InviteListDashboard />
+          <InviteListDashboard updateData={() => updateData(currPage)} />
         </div>
       </div>
     </Layout>

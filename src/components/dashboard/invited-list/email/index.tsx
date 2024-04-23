@@ -54,6 +54,7 @@ function InviteListEmail({ dashboardId }: InviteListEmailProps) {
           key={data.id}
           id={data.id}
           email={data.invitee.email}
+          dashboardId={dashboardId}
           handleChange={handleChange}
         />
       ))}
