@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { createContext, useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { InputFormValues } from '@/src/types/input'
@@ -7,23 +7,13 @@ import { InputFormValues } from '@/src/types/input'
 import S from './ModalNewDash.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
-import ColorChip from '../../chip'
+import ColorChip from '../../chip/color-chip'
 import Input from '../../input'
 
 interface ModalNewDashProps {
   moveTo?: string
   onSubmit: () => void
 }
-
-interface ColorChipContextType {
-  selectedColor: string
-  setSelectedColor: (value: string) => void
-}
-
-export const ColorChipContext = createContext<ColorChipContextType>({
-  selectedColor: '#7AC555',
-  setSelectedColor: () => {},
-})
 
 /**
  *
@@ -65,9 +55,10 @@ const ModalNewDash = ({ moveTo, onSubmit }: ModalNewDashProps) => {
         size="large"
       />
       <div className={S.colorChip}>
-        <ColorChipContext.Provider value={{ selectedColor, setSelectedColor }}>
-          <ColorChip />
-        </ColorChipContext.Provider>
+        <ColorChip
+          selectedColor={selectedColor}
+          setSelectedColor={setSelectedColor}
+        />
       </div>
       <div className={S.button}>
         <OptionButton
