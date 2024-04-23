@@ -2,6 +2,7 @@ import AXIOS from '@/lib/axios'
 import {
   GetPagenationType,
   DashboardEditMakeParamType,
+  InviteDashboardParamType,
 } from '@/src/types/mydashboard'
 
 export const fetchGetDashboards = async <U>(
@@ -48,6 +49,18 @@ export const fetchPostMakeDashboard = async (
 ) => {
   const token = localStorage.getItem('accessToken')
   await AXIOS.post('/dashboards', data, {
+    headers: {
+      Authorization: `bearer ${token}`,
+    },
+  })
+}
+
+export const fetchPostInviteDashboard = async (
+  data: InviteDashboardParamType,
+  dashboardId: number,
+) => {
+  const token = localStorage.getItem('accessToken')
+  await AXIOS.post(`/dashboards/${dashboardId}/invitations`, data, {
     headers: {
       Authorization: `bearer ${token}`,
     },

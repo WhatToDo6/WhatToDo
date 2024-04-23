@@ -57,3 +57,7 @@ export interface DashboardEditMakeParamType {
   title: string
   color: string
 }
+
+export interface InviteDashboardParamType {
+  email: string
+}
