@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import ColorChip from '@/src/components/common/chip/color-chip'
@@ -26,11 +26,13 @@ const ModalNewDash = ({ moveTo, onSubmit }: ModalNewDashProps) => {
   const router = useRouter()
   const modalStatus = useContext(ModalContext)
   const [selectedColor, setSelectedColor] = useState('#7AC555')
+  const [isDisabled, setIsDisabled] = useState(false)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
   const handleLeftClick = () => {
@@ -45,6 +47,10 @@ const ModalNewDash = ({ moveTo, onSubmit }: ModalNewDashProps) => {
     const newData = { title: title, color: selectedColor }
     onSubmit(newData)
   }
+
+  useEffect(() => {
+    setIsDisabled(!watch('newDash'))
+  }, [watch('newDash')])
 
   return (
     <form className={S.container} onSubmit={handleSubmit(handleFormSubmit)}>
@@ -70,6 +76,7 @@ const ModalNewDash = ({ moveTo, onSubmit }: ModalNewDashProps) => {
           rightColor="purple"
           leftText="취소"
           rightText="생성"
+          isDisabled={isDisabled}
           onLeftClick={handleLeftClick}
         />
       </div>
