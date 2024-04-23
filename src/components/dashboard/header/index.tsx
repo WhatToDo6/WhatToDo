@@ -159,7 +159,9 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
       {dashboardData && (
         <div className={S.dashboardTitle}>
           <p>{dashboardData.title}</p>
-          <Image width={20} height={16} src={crownIcon} alt="왕관" />
+          {dashboardData.createdByMe && (
+            <Image width={20} height={16} src={crownIcon} alt="왕관" />
+          )}
         </div>
       )}
       <div className={S.rightBox}>
