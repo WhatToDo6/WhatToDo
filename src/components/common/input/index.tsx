@@ -4,12 +4,12 @@ import InputDate from './date'
 import DropDownManager from './dropdown/manager'
 import DropdownProgress from './dropdown/progress'
 import InputEmail from './email'
-import InputImageUpload from './image-upload'
 import S from './Input.module.scss'
 import InputNewPassword from './new-password'
 import InputNewPasswordCheck from './new-password-check'
 import InputPassword from './password'
 import InputPasswordCheck from './password-check'
+import InputProfileImage from './profile-image'
 import InputTag from './tag'
 import InputText from './text'
 import TextArea from './textarea'
@@ -164,7 +164,7 @@ const Input = ({
         register={register}
       />
     ),
-    image: <InputImageUpload handleImageChange={() => console.log('임시')} />, //TODO: handleImageChange 함수 연결
+    image: <InputProfileImage handleImageChange={() => console.log('임시')} />, // TODO: 함수 연결
     manager: (
       <DropDownManager
         placeholder={placeholder || ''}
