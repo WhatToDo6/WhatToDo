@@ -2,12 +2,12 @@ import { useRouter } from 'next/router'
 import { createContext, useContext, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import ColorChip from '@/src/components/common/chip/color-chip'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './ModalNewDash.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
-import ColorChip from '../../chip'
 import Input from '../../input'
 
 interface ModalNewDashProps {
@@ -54,30 +54,34 @@ const ModalNewDash = ({ moveTo, onSubmit }: ModalNewDashProps) => {
   }
 
   return (
-    <form className={S.container} onSubmit={handleSubmit(handleFormSubmit)}>
-      <span className={S.title}>새로운 대시보드</span>
-      <label className={S.inputTitle}>대시보드 이름</label>
-      <Input
-        inputType="newDash"
-        placeholder="뉴프로젝트"
-        register={register}
-        error={errors.newDash}
-        size="large"
-      />
-      <div className={S.colorChip}>
-        <ColorChipContext.Provider value={{ selectedColor, setSelectedColor }}>
-          <ColorChip />
-        </ColorChipContext.Provider>
-      </div>
-      <div className={S.button}>
-        <OptionButton
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <div className={S.container}>
+        <span className={S.title}>새로운 대시보드</span>
+        <label className={S.inputTitle}>대시보드 이름</label>
+        <Input
+          inputType="newDash"
+          placeholder="뉴프로젝트"
+          register={register}
+          error={errors.newDash}
           size="large"
-          leftColor="white"
-          rightColor="purple"
-          leftText="취소"
-          rightText="생성"
-          onLeftClick={handleLeftClick}
         />
+        <div className={S.colorChip}>
+          <ColorChipContext.Provider
+            value={{ selectedColor, setSelectedColor }}
+          >
+            <ColorChip />
+          </ColorChipContext.Provider>
+        </div>
+        <div className={S.button}>
+          <OptionButton
+            size="large"
+            leftColor="white"
+            rightColor="purple"
+            leftText="취소"
+            rightText="생성"
+            onLeftClick={handleLeftClick}
+          />
+        </div>
       </div>
     </form>
   )

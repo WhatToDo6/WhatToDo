@@ -11,13 +11,15 @@ import S from './Textarea.module.scss'
  */
 const TextArea = ({ placeholder, error, register }: InputProps) => {
   return (
-    <textarea
-      className={`${S.container} ${error && S.error}`}
-      placeholder={placeholder}
-      {...register('textarea', {
-        required: '내용을 입력해주세요.',
-      })}
-    />
+    <div className={S.container}>
+      <textarea
+        className={`${S.textarea} ${error && S.error}`}
+        placeholder={placeholder}
+        {...register('textarea', {
+          required: '내용을 입력해주세요.',
+        })}
+      />
+    </div>
   )
 }
 

@@ -4,7 +4,7 @@ import { useContext } from 'react'
 import CHECK_IMG from '@/public/icons/check.svg'
 
 import S from './ColorChip.module.scss'
-import { ColorChipContext } from '../modal/modal-newdash'
+import { ColorChipContext } from '../../modal/modal-newdash'
 
 const chipColor = ['#7AC555', '#760DDE', '#FFA500', '#76A5EA', '#E876EA']
 
