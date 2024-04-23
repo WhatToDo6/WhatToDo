@@ -45,12 +45,21 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  // padding-bottom: 2.8rem;
 
   position: relative;
   top: 10px;
 
   @include mobile {
     justify-content: center;
+  }
+}
+
+.imageContainer {
+  width: 7.6rem;
+  height: 7.6rem;
+
+  @include mobile {
+    width: 5.8rem;
+    height: 5.8rem;
   }
 }

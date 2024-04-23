@@ -7,6 +7,7 @@ import S from './ModalEdittodo.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
+import InputProfileImage from '../../input/profile-image'
 
 // TODO: API 연결 필요
 const ModalEdittodo = () => {
@@ -92,7 +93,11 @@ const ModalEdittodo = () => {
         <label className={S.label} htmlFor="image">
           이미지
         </label>
-        <Input inputType="image" register={register} setValue={setValue} />
+        <div className={S.imageContainer}>
+          <InputProfileImage
+            handleImageChange={() => console.log('로직 연결 필요')}
+          />
+        </div>
       </div>
       <div className={S.button}>
         <OptionButton
