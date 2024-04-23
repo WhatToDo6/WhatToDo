@@ -4,7 +4,7 @@ import S from './BorderButton.module.scss'
 
 interface BorderButtonProps {
   children: ReactNode
-  size: 'xsmall' | 'small' | 'medium' | 'large' | 'extra'
+  size: 'xsmall' | 'small' | 'medium' | 'large' | 'extra' | 'change'
   color: 'white' | 'purple'
   onClick?: MouseEventHandler<HTMLButtonElement>
   isDisabled?: boolean
