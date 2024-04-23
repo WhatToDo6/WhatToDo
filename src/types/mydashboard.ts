@@ -53,7 +53,7 @@ export interface GetPagenationType<T> {
   totalCount: number
 }
 
-export interface dashboardEditMakeParamType {
+export interface DashboardEditMakeParamType {
   title: string
   color: string
 }

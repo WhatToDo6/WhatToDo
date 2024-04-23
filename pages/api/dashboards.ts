@@ -1,7 +1,7 @@
 import AXIOS from '@/lib/axios'
 import {
   GetPagenationType,
-  dashboardEditMakeParamType,
+  DashboardEditMakeParamType,
 } from '@/src/types/mydashboard'
 
 export const fetchGetDashboards = async <U>(
@@ -44,7 +44,7 @@ export const fetchGetInviteeEmails = async <U>(
 }
 
 export const fetchPostMakeDashboard = async (
-  data: dashboardEditMakeParamType,
+  data: DashboardEditMakeParamType,
 ) => {
   const token = localStorage.getItem('accessToken')
   await AXIOS.post('/dashboards', data, {

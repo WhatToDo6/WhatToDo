@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { fetchPostMakeDashboard } from '@/pages/api/dashboards'
 import {
   DashboardType,
-  dashboardEditMakeParamType,
+  DashboardEditMakeParamType,
 } from '@/src/types/mydashboard'
 
 import S from './buttonContainer.module.scss'
@@ -40,7 +40,7 @@ function DashboardButtonContainer({
     setIsModalOpen(!isModalOpen)
   }
 
-  const makeNewDashboard = async (data: dashboardEditMakeParamType) => {
+  const makeNewDashboard = async (data: DashboardEditMakeParamType) => {
     try {
       await fetchPostMakeDashboard(data)
     } catch (err) {
