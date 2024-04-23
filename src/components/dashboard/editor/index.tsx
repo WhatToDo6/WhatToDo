@@ -18,13 +18,16 @@ interface DashboardEditorProps {
   dashboardId: number
 }
 
+const initialColor = '#7AC555'
+
 function DashboardEditor({ dashboardId }: DashboardEditorProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
-  const [selectedColor, setSelectedColor] = useState('#7AC555')
+  const [selectedColor, setSelectedColor] = useState(initialColor)
 
   const editDashboard = async (data: editDahsboardParam) => {
     const token = localStorage.getItem('accessToken')
@@ -34,6 +37,8 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
           Authorization: `Bearer ${token}`,
         },
       })
+      reset({ newDash: '' })
+      setSelectedColor(initialColor)
     } catch (err) {
       console.error(err)
     }
