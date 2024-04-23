@@ -11,11 +11,22 @@ import {
 } from '@/src/types/dashboard.interface'
 
 import S from './Column.module.scss'
+import Modal from '../../common/modal'
+import ModalTodo from '../../common/modal/modal-todo'
 
-const Column = ({ id: columnId, title }: ColumnDataType) => {
+const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
   const [taskCards, setTaskCards] = useState<TaskCardDataType[]>([])
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const [getMore, setGetMore] = useState(true)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleClick = () => {
+    setIsModalOpen(true)
+  }
+
+  const addNewTaskCard = (newTaskCard) => {
+    setTaskCards((prevTaskCards) => [...prevTaskCards, newTaskCard])
+  }
 
   const fetchTaskCards = async (firstFetch: boolean = false) => {
     if (columnId) {
@@ -50,7 +61,7 @@ const Column = ({ id: columnId, title }: ColumnDataType) => {
         columnId={columnId}
       />
       <div className={S.taskWrapper}>
-        <DashboardButton type="add" />
+        <DashboardButton type="add" onClick={handleClick} />
         {taskCards.map((taskCard) => (
           <TaskCard key={taskCard.id} {...taskCard} />
         ))}
@@ -59,6 +70,15 @@ const Column = ({ id: columnId, title }: ColumnDataType) => {
         <button className={S.getMoreCards} onClick={() => fetchTaskCards()}>
           더보기
         </button>
+      )}
+      {isModalOpen && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalTodo
+            columnId={columnId}
+            dashboardId={dashboardId}
+            onTaskCardCreated={addNewTaskCard}
+          />
+        </Modal>
       )}
     </div>
   )

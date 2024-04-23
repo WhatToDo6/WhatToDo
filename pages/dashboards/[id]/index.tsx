@@ -69,7 +69,7 @@ const DashboardIdPage = () => {
     <Layout>
       <ColumnLayout columns={columns} setColumns={setColumns}>
         {columns.map((column) => (
-          <Column key={column.id} {...column} />
+          <Column key={column.id} {...column} dashboardId={Number(id)} />
         ))}
         <div className={S.addWrapper} onClick={handleClick}>
           <DashboardButton type="addColumn" />
