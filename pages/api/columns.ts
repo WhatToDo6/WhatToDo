@@ -59,7 +59,7 @@ export const getColumns = async (
  */
 export const putColumns = async (
   id: number | undefined,
-  data: { title: string },
+  data: { title: string | undefined },
 ): Promise<ColumnDataType[]> => {
   if (!id) throw new Error('칼럼 ID가 필요합니다.')
   return await apiCall('put', `/columns/${id}`, data)

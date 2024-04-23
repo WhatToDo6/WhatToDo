@@ -1,15 +1,28 @@
 import { useContext } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { postTaskCards } from '@/pages/api/taskCards'
+import { TaskCardDataType } from '@/src/types/dashboard.interface'
 import { InputFormValues } from '@/src/types/input'
+import { formatDate } from '@/src/utils/formatDate'
 
 import S from './ModalTodo.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
 
-const ModalTodo = () => {
-  const modalStaus = useContext(ModalContext)
+interface ModalTodoProps {
+  columnId: number | undefined
+  dashboardId: number
+  onCreateTaskCard: (newTaskCard: TaskCardDataType) => void
+}
+
+const ModalTodo = ({
+  columnId,
+  dashboardId,
+  onCreateTaskCard: onTaskCardCreated,
+}: ModalTodoProps) => {
+  const modalStatus = useContext(ModalContext)
 
   const {
     register,
@@ -19,9 +32,27 @@ const ModalTodo = () => {
     setValue,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
-  const onSubmit: SubmitHandler<InputFormValues> = (data) => {
-    // TODO: 할 일 생성 로직
-    console.log(data)
+  const onSubmit: SubmitHandler<InputFormValues> = async (data) => {
+    try {
+      const assigneeUserId = 1709 // TODO: userId 받아와야합니다
+      const dueDate = formatDate(data.date)
+
+      const response = await postTaskCards({
+        assigneeUserId,
+        dashboardId,
+        columnId,
+        title: data.title,
+        description: data.textarea,
+        dueDate: dueDate,
+        tags: data.tags?.split(',').map((tag) => tag.trim()),
+        imageUrl:
+          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/3-7_20345_1713591497409.png',
+      }) // 임시 이미지 url
+      onTaskCardCreated(response)
+      modalStatus.setIsOpen(false)
+    } catch (error) {
+      console.error('Failed to create card:', error)
+    }
   }
 
   return (
@@ -88,7 +119,7 @@ const ModalTodo = () => {
           rightColor="purple"
           leftText="취소"
           rightText="생성"
-          onLeftClick={() => modalStaus.setIsOpen.call(null, false)}
+          onLeftClick={() => modalStatus.setIsOpen.call(null, false)}
           onRightClick={handleSubmit(onSubmit)}
         />
       </div>

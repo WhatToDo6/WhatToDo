@@ -6,6 +6,7 @@ export interface ColumnTitleType {
 export interface ColumnDataType {
   id?: number
   title: string
+  dashboardId: number
 }
 
 export interface ColumnHeaderType {
