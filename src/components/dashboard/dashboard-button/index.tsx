@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 
 import addBoardBtn from '@/public/icons/add-board-btn.svg'
 import crownIcon from '@/public/icons/crown-icon.svg'
@@ -21,20 +20,18 @@ type PartialDashboardButtonType = {
 
 interface DashboardButtonProps extends PartialDashboardButtonType {
   type: DashboardButtonType
+  onClick?: () => void
 }
 
 function DashboardButton({
   type,
-  id,
   color,
   createdByMe,
   title,
+  onClick,
 }: DashboardButtonProps) {
-  const router = useRouter()
-
   const BUTTON = {
     add: {
-      onClick: () => {},
       children: (
         <Image
           width={22}
@@ -46,7 +43,6 @@ function DashboardButton({
       ),
     },
     addColumn: {
-      onClick: () => {},
       children: (
         <>
           <div>새로운 칼럼 추가하기</div>
@@ -61,7 +57,6 @@ function DashboardButton({
       ),
     },
     addDashboard: {
-      onClick: () => {},
       children: (
         <>
           <div>새로운 대시보드</div>
@@ -76,9 +71,6 @@ function DashboardButton({
       ),
     },
     moveDashboard: {
-      onClick: () => {
-        router.push(`/dashboards/${id}`)
-      },
       children: (
         <>
           <div className={S.infoBox}>
@@ -93,13 +85,12 @@ function DashboardButton({
       ),
     },
     deleteDashboard: {
-      onClick: () => {},
       children: <div>대시보드 삭제하기</div>,
     },
   }
 
   return (
-    <button className={`${S.btn} ${S[type]}`} onClick={BUTTON[type].onClick}>
+    <button className={`${S.btn} ${S[type]}`} onClick={onClick}>
       {BUTTON[type].children}
     </button>
   )

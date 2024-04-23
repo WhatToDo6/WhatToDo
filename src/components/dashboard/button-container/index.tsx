@@ -1,3 +1,5 @@
+import { useRouter } from 'next/router'
+
 import { DashboardType } from '@/src/types/mydashboard'
 
 import S from './buttonContainer.module.scss'
@@ -19,6 +21,12 @@ function DashboardButtonContainer({
   onClickPrevPage,
   onClickNextPage,
 }: DashboardButtonContainerProps) {
+  const router = useRouter()
+
+  const handleClickButton = (id: number) => {
+    router.push(`/dashboards/${id}`)
+  }
+
   return (
     <>
       <div className={S.container}>
@@ -26,11 +34,11 @@ function DashboardButtonContainer({
         {dashboards.map((dashboard) => (
           <DashboardButton
             key={dashboard.id}
-            id={dashboard.id}
             color={dashboard.color}
             type="moveDashboard"
             createdByMe={dashboard.createdByMe}
             title={dashboard.title}
+            onClick={() => handleClickButton(dashboard.id)}
           />
         ))}
       </div>

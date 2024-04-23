@@ -11,7 +11,11 @@ import { InvitedListDashboardType } from '@/src/types/mydashboard'
 import S from './InviteListDashboard.module.scss'
 import InvitedListCard from '../card'
 
-function InviteListDashboard() {
+interface InviteListDashboardProps {
+  updateData: () => void
+}
+
+function InviteListDashboard({ updateData }: InviteListDashboardProps) {
   const observeRef = useRef<HTMLDivElement>(null)
   const [cursorId, setCursorId] = useState(0)
   const { observe, isScrolled } = useIntersectionObserver()
@@ -27,6 +31,7 @@ function InviteListDashboard() {
 
   const handleChange = (id: number) => {
     setMyInvitedListData((prev) => prev.filter((data) => data.id !== id))
+    updateData()
   }
 
   const getInvitedListDashbaord = async (firstFetch: boolean = false) => {

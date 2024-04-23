@@ -23,9 +23,9 @@ interface InviteeType {
   nickname: string
 }
 
-interface InviterType extends InviteeType {}
+export interface InviterType extends InviteeType {}
 
-interface PartialDashboardType {
+export interface PartialDashboardType {
   id: number
   title: string
 }
@@ -46,4 +46,9 @@ export interface InvitedListEmailType extends InvitedListDashboardType {}
 export interface InvitedMemberType extends UserType {
   isOwner: boolean
   userId: number
+}
+
+export interface GetPagenationType<T> {
+  data: T[]
+  totalCount: number
 }

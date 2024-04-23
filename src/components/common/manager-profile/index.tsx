@@ -35,6 +35,7 @@ function ManagerProfile({
         height={SIZE[type]}
         src={profileImageUrl ? profileImageUrl : basicImg}
         alt="profileImg"
+        className={S.img}
       />
       <span>{nickname}</span>
     </div>
