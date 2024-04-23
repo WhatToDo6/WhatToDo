@@ -5,6 +5,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  input {
+    @include Input.input;
+    width: 100%;
+    text-align: left;
+  }
+
   &.title {
     @include Input.input(45rem, 28.7rem);
   }
@@ -13,10 +20,12 @@
     @include Input.input(48.4rem, 28.7rem);
   }
 
-  input {
-    @include Input.input;
-    width: 100%;
-    text-align: left;
+  &::placeholder {
+    color: $color-gray-400;
+    @include font-style(1.6rem, 400, normal);
+    @include mobile {
+      @include font-style(1.4rem, 400, normal);
+    }
   }
 }
 
@@ -25,6 +34,7 @@
 }
 
 .small {
+  @include Input.input;
   width: 36.6rem;
   padding: 1.5rem;
   border-radius: 0.6rem;
@@ -45,6 +55,7 @@
 }
 
 .large {
+  @include Input.input;
   width: 48.4rem;
   border-radius: 0.6rem;
 

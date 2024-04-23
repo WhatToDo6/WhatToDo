@@ -89,7 +89,7 @@ const Password = () => {
               size="large"
             />
           </div>
-          <div className={S['button-container']}>
+          <div className={S.buttonContainer}>
             <BorderButton
               size="small"
               color="purple"

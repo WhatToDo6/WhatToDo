@@ -39,6 +39,7 @@ const DashboardIdPage = () => {
         setIsModalOpen(false)
       }
     } catch (error) {
+      alert('컬럼은 최대 10개까지 생성가능합니다.')
       console.error('컬럼 데이터를 업데이트하는 데 실패했습니다:', error)
     }
   }
@@ -68,7 +69,7 @@ const DashboardIdPage = () => {
     <Layout>
       <ColumnLayout columns={columns} setColumns={setColumns}>
         {columns.map((column) => (
-          <Column key={column.id} {...column} />
+          <Column key={column.id} {...column} dashboardId={Number(id)} />
         ))}
         <div className={S.addWrapper} onClick={handleClick}>
           <DashboardButton type="addColumn" />

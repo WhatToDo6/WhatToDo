@@ -33,7 +33,7 @@ const InputPassword = ({
             validatePassword(value) || '8자 이상 입력해 주세요.',
         })}
       />
-      <div className={S.eyeContainer}>
+      <div className={`${S.eyeContainer} ${S[`${size}Eye`]}`}>
         <Image
           className={S.eye}
           src={isPwVisible ? EYE_ON : EYE_OFF}

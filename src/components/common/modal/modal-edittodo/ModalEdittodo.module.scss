@@ -69,3 +69,13 @@
     justify-content: center;
   }
 }
+
+.imageContainer {
+  width: 7.6rem;
+  height: 7.6rem;
+
+  @include mobile {
+    width: 5.8rem;
+    height: 5.8rem;
+  }
+}
