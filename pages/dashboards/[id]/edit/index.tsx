@@ -47,7 +47,7 @@ const DashboardIdEdit = ({ id }: DashboardIdEditProps) => {
     }
   }
 
-  const handleButtonCLick = () => {
+  const handleButtonClick = () => {
     deleteDashboard()
     router.push('/mydashboard')
   }
@@ -60,7 +60,7 @@ const DashboardIdEdit = ({ id }: DashboardIdEditProps) => {
         <InviteListEmail dashboardId={id} />
         <InviteListMember dashboardId={id} />
         <div className={S.buttonBox}>
-          <DashboardButton type="deleteDashboard" onClick={handleButtonCLick} />
+          <DashboardButton type="deleteDashboard" onClick={handleButtonClick} />
         </div>
       </div>
     </Layout>
