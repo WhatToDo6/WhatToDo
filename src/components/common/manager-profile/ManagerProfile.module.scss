@@ -23,12 +23,27 @@
   &.card {
     gap: 0.8rem;
 
+    .img {
+      @include mobile {
+        width: 2.6rem;
+        height: 2.6rem;
+      }
+    }
+
     span {
       @include font-style(1.4rem, 400, normal);
+
+      @include mobile {
+        @include font-style(1.2rem, 400, normal);
+      }
     }
   }
 
   span {
     color: $color-black-200;
   }
+}
+
+.img {
+  border-radius: 100%;
 }

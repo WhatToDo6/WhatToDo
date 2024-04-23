@@ -2,11 +2,26 @@
 @import '@/src/styles/global.scss';
 
 .container {
-  @include Input.input;
-
+  display: flex;
+  justify-content: center;
+  align-items: center;
   &.title {
-    @include Input.input(52rem, 27rem);
+    @include Input.input(45rem, 28.7rem);
   }
+
+  &.newDash {
+    @include Input.input(48.4rem, 28.7rem);
+  }
+
+  input {
+    @include Input.input;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+.focus {
+  border: 0.1rem solid $color-violet-200 !important;
 }
 
 .small {
@@ -15,8 +30,8 @@
   border-radius: 0.6rem;
   border: 0.1rem solid $color-gray-300;
   color: $color-black-200;
-  @include font-style(1.6rem, 500, normal);
   margin-bottom: 1rem;
+  @include font-style(1.6rem, 500, normal);
 
   @include tablet {
     width: 29rem;

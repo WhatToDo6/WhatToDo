@@ -2,12 +2,12 @@ import { useRouter } from 'next/router'
 import { useContext, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import ColorChip from '@/src/components/common/chip/color-chip'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './ModalNewDash.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
-import ColorChip from '../../chip/color-chip'
 import Input from '../../input'
 
 interface ModalNewDashProps {

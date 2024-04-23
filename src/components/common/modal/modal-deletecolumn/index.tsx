@@ -1,11 +1,15 @@
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
 
+import { deleteColumns } from '@/pages/api/columns'
+import { useColumnsContext } from '@/src/components/dashboard/column/column-layout'
+
 import S from './ModalDeleteColumn.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 
 interface ModalDeleteColumn {
+  columnId: number | undefined
   content: string
   leftButtonText: string
   rightButtonText: string
@@ -13,7 +17,7 @@ interface ModalDeleteColumn {
 }
 
 /**
- *
+ * @param columnId - 컬럼id
  * @param content - 모달 내부 내용
  * @param leftButtonText - 왼쪽 버튼 텍스트
  * @param leftButtonText - 오른쪽 버튼 텍스트
@@ -21,23 +25,33 @@ interface ModalDeleteColumn {
  * @returns
  */
 const ModalDeleteColumn = ({
+  columnId,
   content,
   leftButtonText,
   rightButtonText,
   moveTo,
 }: ModalDeleteColumn) => {
   const router = useRouter()
-  const modalStaus = useContext(ModalContext)
+  const modalStatus = useContext(ModalContext)
+  const { setColumns } = useColumnsContext()
 
   const handleLeftClick = () => {
-    modalStaus.setIsOpen.call(null, false)
+    modalStatus.setIsOpen.call(null, false)
     moveTo && router.push(moveTo)
   }
 
-  const handleRigthClick = () => {
-    modalStaus.setIsOpen.call(null, false)
-    moveTo && router.push(moveTo)
-    // TO DO 삭제 버튼 클릭 시 수행해야할 부분 작성해주세요 !
+  const handleRightClick = async () => {
+    try {
+      await deleteColumns(columnId)
+      setColumns((prevColumns) =>
+        prevColumns.filter((column) => column.id !== columnId),
+      )
+      modalStatus.setIsOpen(false)
+      moveTo && router.push(moveTo)
+    } catch (error) {
+      console.error('Failed to delete column:', error)
+      modalStatus.setIsOpen(false)
+    }
   }
 
   return (
@@ -51,7 +65,7 @@ const ModalDeleteColumn = ({
           leftText={leftButtonText}
           rightText={rightButtonText}
           onLeftClick={handleLeftClick}
-          onRightClick={handleRigthClick}
+          onRightClick={handleRightClick}
         />
       </div>
     </div>

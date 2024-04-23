@@ -62,18 +62,20 @@ const InputText = ({
       // TODO : 유효성 검사 로직
     },
     title: {
-      // TODO: 제목 유효성 검사 로직
+      required: '제목을 입력해주세요.',
     },
   }
 
-  return (
-    <input
-      className={`${S.container} ${error && S.error} ${S[size]} ${S[textType]}`}
-      type="text"
-      placeholder={placeholder}
-      {...register(textType, VALIDATION_MAP[textType])}
-    />
-  )
+  if (register) {
+    return (
+      <input
+        className={`${S.container}  ${error && S.error} ${S[size]} ${S[textType]}`}
+        type="text"
+        placeholder={placeholder}
+        {...register(textType, VALIDATION_MAP[textType])}
+      />
+    )
+  }
 }
 
 export default InputText

@@ -2,6 +2,7 @@ import { InputInterface } from '@/src/types/input'
 
 import InputDate from './date'
 import DropDownManager from './dropdown/manager'
+import DropdownProgress from './dropdown/progress'
 import InputEmail from './email'
 import InputImageUpload from './image-upload'
 import S from './Input.module.scss'
@@ -169,8 +170,10 @@ const Input = ({
         placeholder={placeholder || ''}
         register={register}
         setValue={setValue}
+        error={error}
       />
     ),
+    progress: <DropdownProgress register={register} setValue={setValue} />,
   }
 
   return (

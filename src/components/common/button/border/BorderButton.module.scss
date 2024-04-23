@@ -67,6 +67,17 @@
   }
 }
 
+.change {
+  width: 7.7rem;
+  padding: 0.9rem 0;
+  @include font-style(1.2rem, 500, normal);
+
+  @include mobile {
+    width: 8.4rem;
+    @include font-style(1rem, 500, normal);
+  }
+}
+
 .white {
   background-color: $color-white;
   color: $color-violet-200;
