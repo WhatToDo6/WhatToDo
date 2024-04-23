@@ -1,18 +1,14 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import AXIOS from '@/lib/axios'
+import { fetchPutDashboardEdit } from '@/pages/api/dashboards'
 import { InputFormValues } from '@/src/types/input'
+import { EditDahsboardParamType } from '@/src/types/mydashboard'
 
 import S from './DashboardEditor.module.scss'
 import BorderButton from '../../common/button/border'
 import ColorChip from '../../common/chip/color-chip'
 import Input from '../../common/input'
-
-interface editDahsboardParam {
-  title: string
-  color: string
-}
 
 interface DashboardEditorProps {
   dashboardId: number
@@ -29,14 +25,9 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
   } = useForm<InputFormValues>({ mode: 'onBlur' })
   const [selectedColor, setSelectedColor] = useState(initialColor)
 
-  const editDashboard = async (data: editDahsboardParam) => {
-    const token = localStorage.getItem('accessToken')
+  const editDashboard = async (data: EditDahsboardParamType) => {
     try {
-      AXIOS.put(`/dashboards/${dashboardId}`, data, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await fetchPutDashboardEdit(data, dashboardId)
       reset({ newDash: '' })
       setSelectedColor(initialColor)
     } catch (err) {
