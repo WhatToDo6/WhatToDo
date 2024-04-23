@@ -1,7 +1,11 @@
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-import { DashboardType } from '@/src/types/mydashboard'
+import { fetchPostMakeDashboard } from '@/pages/api/dashboards'
+import {
+  DashboardType,
+  dashboardEditMakeParamType,
+} from '@/src/types/mydashboard'
 
 import S from './buttonContainer.module.scss'
 import Modal from '../../common/modal'
@@ -36,11 +40,19 @@ function DashboardButtonContainer({
     setIsModalOpen(!isModalOpen)
   }
 
+  const makeNewDashboard = async (data: dashboardEditMakeParamType) => {
+    try {
+      await fetchPostMakeDashboard(data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <>
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
-          <ModalNewDash onSubmit={() => console.log('hi')} />
+          <ModalNewDash onSubmit={makeNewDashboard} />
         </Modal>
       )}
       <div className={S.container}>

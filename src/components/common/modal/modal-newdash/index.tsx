@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import ColorChip from '@/src/components/common/chip/color-chip'
 import { InputFormValues } from '@/src/types/input'
+import { dashboardEditMakeParamType } from '@/src/types/mydashboard'
 
 import S from './ModalNewDash.module.scss'
 import { ModalContext } from '..'
@@ -12,7 +13,7 @@ import Input from '../../input'
 
 interface ModalNewDashProps {
   moveTo?: string
-  onSubmit: () => void
+  onSubmit: (data: dashboardEditMakeParamType) => void
 }
 
 /**
@@ -37,10 +38,12 @@ const ModalNewDash = ({ moveTo, onSubmit }: ModalNewDashProps) => {
     moveTo && router.push(moveTo)
   }
 
-  const handleFormSubmit: SubmitHandler<InputFormValues> = () => {
+  const handleFormSubmit: SubmitHandler<InputFormValues> = (data) => {
     modalStatus.setIsOpen.call(null, false)
     moveTo && router.push(moveTo)
-    onSubmit()
+    const { newDash: title } = data
+    const newData = { title: title, color: selectedColor }
+    onSubmit(newData)
   }
 
   return (
