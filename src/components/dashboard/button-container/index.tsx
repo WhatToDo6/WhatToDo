@@ -1,8 +1,15 @@
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
-import { DashboardType } from '@/src/types/mydashboard'
+import { fetchPostMakeDashboard } from '@/pages/api/dashboards'
+import {
+  DashboardType,
+  DashboardEditMakeParamType,
+} from '@/src/types/mydashboard'
 
 import S from './buttonContainer.module.scss'
+import Modal from '../../common/modal'
+import ModalNewDash from '../../common/modal/modal-newdash'
 import DashboardButton from '../dashboard-button'
 import PagenationButton from '../pagenation-button'
 
@@ -27,10 +34,29 @@ function DashboardButtonContainer({
     router.push(`/dashboards/${id}`)
   }
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const handleModalClick = () => {
+    setIsModalOpen(!isModalOpen)
+  }
+
+  const makeNewDashboard = async (data: DashboardEditMakeParamType) => {
+    try {
+      await fetchPostMakeDashboard(data)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <>
+      {isModalOpen && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalNewDash onSubmit={makeNewDashboard} />
+        </Modal>
+      )}
       <div className={S.container}>
-        <DashboardButton type="addDashboard" />
+        <DashboardButton type="addDashboard" onClick={handleModalClick} />
         {dashboards.map((dashboard) => (
           <DashboardButton
             key={dashboard.id}

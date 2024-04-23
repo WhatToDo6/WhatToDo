@@ -52,3 +52,8 @@ export interface GetPagenationType<T> {
   data: T[]
   totalCount: number
 }
+
+export interface DashboardEditMakeParamType {
+  title: string
+  color: string
+}
