@@ -15,6 +15,7 @@ import TaskCardTag from '../task-card-tag'
 //TODO: 이미지 데이터
 
 const TaskCard = ({
+  id,
   title,
   description,
   tags,
@@ -55,6 +56,7 @@ const TaskCard = ({
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
           <ModalTask
+            cardId={id}
             title={title}
             dueDate={dueDate}
             assignee={assignee}

@@ -15,7 +15,6 @@ interface CommentProps {
 const Comment = ({ id, content, createdAt, author }: CommentProps) => {
   const handleEdit = () => {
     //TODO 댓글 수정 기능을 구현해야 합니다.
-    console.log(id)
   }
 
   const handleDelete = () => {
@@ -25,7 +24,8 @@ const Comment = ({ id, content, createdAt, author }: CommentProps) => {
   return (
     <div className={S.container}>
       <Image
-        src={author.profileImageUrl}
+        //임시 url
+        src="https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/3-7_20345_1713591497409.png"
         alt="댓글 프로필"
         width={34}
         height={34}
