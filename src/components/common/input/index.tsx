@@ -42,6 +42,7 @@ const Input = ({
   size,
   control,
   setValue,
+  defaultValue,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
@@ -140,6 +141,7 @@ const Input = ({
         register={register}
         textType="title"
         size={size || ''}
+        defaultValue={defaultValue}
       />
     ),
     date: (
@@ -148,6 +150,7 @@ const Input = ({
         error={error}
         register={register}
         control={control}
+        defaultValue={defaultValue}
       />
     ),
     tag: (
@@ -155,6 +158,7 @@ const Input = ({
         placeholder={placeholder || ''}
         register={register}
         setValue={setValue}
+        defaultValue={defaultValue}
       />
     ),
     textarea: (
@@ -162,6 +166,7 @@ const Input = ({
         placeholder={placeholder || ''}
         error={error}
         register={register}
+        defaultValue={defaultValue}
       />
     ),
     image: <InputProfileImage handleImageChange={() => console.log('임시')} />, // TODO: 함수 연결

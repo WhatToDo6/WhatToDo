@@ -1,5 +1,8 @@
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
+import Modal from '@/src/components/common/modal'
+import ModalEdittodo from '@/src/components/common/modal/modal-edittodo'
 import { TaskCardDataType } from '@/src/types/dashboard.interface'
 
 import S from './TaskCard.module.scss'
@@ -11,13 +14,30 @@ import TaskCardTag from '../task-card-tag'
 //TODO: 아이콘 navbar에서 받을 것
 //TODO: 이미지 데이터
 
-const TaskCard = ({ title, dueDate, imageUrl, tags }: TaskCardDataType) => {
+interface TaskCardProps {
+  columnId: number | undefined
+  taskCard: any //TODO: type 교체
+}
+
+const TaskCard = ({ columnId, taskCard }: TaskCardProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [cardData, setCardData] = useState(taskCard)
+
   return (
-    <div className={S.container}>
+    <div className={S.container} onClick={() => setIsModalOpen(true)}>
+      {isModalOpen && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalEdittodo
+            columnId={columnId}
+            cardData={cardData}
+            setCardData={setCardData}
+          />
+        </Modal>
+      )}
       <div className={S.imageWrapper}>
         <Image
           className={S.cardImage}
-          src={imageUrl}
+          src={cardData.imageUrl}
           width={274}
           height={160}
           layout="responsive"
@@ -25,11 +45,11 @@ const TaskCard = ({ title, dueDate, imageUrl, tags }: TaskCardDataType) => {
         />
       </div>
       <div className={S.content}>
-        <h2 className={S.cardTitle}>{title}</h2>
+        <h2 className={S.cardTitle}>{cardData.title}</h2>
         <div className={S.wrapper}>
           <TaskCardTag tagType="프로젝트" />
           <div className={S.cardBottom}>
-            <TaskCardDate dueDate={dueDate} />
+            <TaskCardDate dueDate={cardData.dueDate} />
             <div>아이콘</div>
           </div>
         </div>
