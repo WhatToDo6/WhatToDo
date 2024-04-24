@@ -138,6 +138,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
             profileImageUrl={userData.profileImageUrl}
             nickname={userData.nickname}
             type="dashboardHeader"
+            showPopover={true}
           />
         </div>
       </div>
