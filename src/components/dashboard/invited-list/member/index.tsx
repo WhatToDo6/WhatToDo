@@ -6,7 +6,6 @@ import S from './InviteListMember.module.scss'
 import PagenationButton from '../../pagenation-button'
 import InvitedListCard from '../card'
 
-//<InviteListMember type="member" dashboardId={dashboardId} />
 function InviteListMember() {
   const {
     currPage,
@@ -16,10 +15,6 @@ function InviteListMember() {
     onClickNextPage,
     handleDelete,
   } = useContext(MembersContext)
-
-  // const handleChange = (id: number) => {
-  //   setPageData((prev) => prev.filter((prev) => prev.id !== id))
-  // }
 
   return (
     <div className={S.container}>
@@ -33,9 +28,10 @@ function InviteListMember() {
         />
       </div>
       <div className={S.tag}>이름</div>
-      {pageData.map((data) => (
+      {pageData.map((data, idx) => (
         <InvitedListCard
           type="member"
+          idx={idx}
           key={data.id}
           id={data.id}
           nickname={data.nickname}
