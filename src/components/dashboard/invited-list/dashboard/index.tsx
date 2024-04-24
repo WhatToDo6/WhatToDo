@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useEffect, useRef, useState } from 'react'
 
-import AXIOS from '@/lib/axios'
+import { fetchGetInvitedDashboardList } from '@/pages/api/invitations'
 import magnifyingGlassIcon from '@/public/icons/magnifying-glass-icon.svg'
 import emptyBoardImg from '@/public/images/empty-board-img.png'
 import { useInputSearch } from '@/src/hooks/useInputSearch'
@@ -35,17 +35,9 @@ function InviteListDashboard({ updateData }: InviteListDashboardProps) {
   }
 
   const getInvitedListDashbaord = async (firstFetch: boolean = false) => {
-    const token = localStorage.getItem('accessToken')
     const path = `/invitations?size=6${firstFetch ? '' : `&cursorId=${cursorId}`}`
     try {
-      const response = await AXIOS.get(path, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      const {
-        data: { invitations, cursorId },
-      } = response
+      const { invitations, cursorId } = await fetchGetInvitedDashboardList(path)
       setMyInvitedListData((prev) =>
         firstFetch ? invitations : [...prev, ...invitations],
       )

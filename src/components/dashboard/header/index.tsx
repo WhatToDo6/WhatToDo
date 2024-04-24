@@ -1,8 +1,13 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 
 import AXIOS from '@/lib/axios'
+import {
+  fetchGetDashboardDetail,
+  fetchPostInviteDashboard,
+} from '@/pages/api/dashboards'
+import { fetchGetDashboardMemberList } from '@/pages/api/members'
 import addBoxIcon from '@/public/icons/add-box-icon.svg'
 import barIcon from '@/public/icons/bar.svg'
 import crownIcon from '@/public/icons/crown-icon.svg'
@@ -16,10 +21,13 @@ import {
   UserType,
   InvitedMemberType,
   DashboardType,
+  InviteDashboardParamType,
 } from '@/src/types/mydashboard'
 
 import S from './DashboardHeader.module.scss'
 import ManagerProfile from '../../common/manager-profile'
+import Modal from '../../common/modal'
+import ModalDashBoard from '../../common/modal/modal-dashboard'
 
 const EMPTY_IMG = [
   tempCircle1,
@@ -50,26 +58,31 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
   const {
     query: { id },
   } = useRouter()
+  const dashboardId = id && +id
   const router = useRouter()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const BUTTONS = [
-    {
-      tag: 'settingIcon',
-      className: `${S.btn} ${S.settingBtn}`,
-      size: 22,
-      src: settingIcon,
-      text: '관리',
-      onClick: () => router.push(`/dashboards/${id}/edit`),
-    },
-    {
-      tag: 'addBoxIcon',
-      className: `${S.btn} ${S.inviteBtn}`,
-      size: 20,
-      src: addBoxIcon,
-      text: '초대하기',
-      onClick: () => {}, //생성 모달
-    },
-  ]
+  const BUTTONS = useMemo(
+    () => [
+      {
+        tag: 'settingIcon',
+        className: `${S.btn} ${S.settingBtn}`,
+        size: 22,
+        src: settingIcon,
+        text: '관리',
+        onClick: () => router.push(`/dashboards/${dashboardId}/edit`),
+      },
+      {
+        tag: 'addBoxIcon',
+        className: `${S.btn} ${S.inviteBtn}`,
+        size: 20,
+        src: addBoxIcon,
+        text: '초대하기',
+        onClick: () => setIsModalOpen(true),
+      },
+    ],
+    [dashboardId],
+  )
 
   const getUserData = async () => {
     const token = localStorage.getItem('accessToken')
@@ -86,36 +99,32 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
     }
   }
 
-  const getMembersData = async () => {
-    const token = localStorage.getItem('accessToken')
+  const getMembersData = async (dashboardId: number) => {
     try {
-      const response = await AXIOS.get(
-        `/members?page=1&size=20&dashboardId=${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
+      const response = await fetchGetDashboardMemberList<InvitedMemberType>(
+        1,
+        dashboardId,
+        20,
       )
-      const {
-        data: { members },
-      } = response
+      const { data: members } = response
       setDashboardMembers(members)
     } catch (err) {
       console.error(err)
     }
   }
 
-  const getDashboardData = async () => {
-    const token = localStorage.getItem('accessToken')
+  const getDashboardData = async (dashboardId: number) => {
     try {
-      const response = await AXIOS.get(`/dashboards/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      const { data } = response
-      setDashboardData(data)
+      const dashboard = await fetchGetDashboardDetail(dashboardId)
+      setDashboardData(dashboard)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const InviteDashboard = async (data: InviteDashboardParamType) => {
+    try {
+      if (dashboardId) await fetchPostInviteDashboard(data, +dashboardId)
     } catch (err) {
       console.error(err)
     }
@@ -126,11 +135,11 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
   }, [])
 
   useEffect(() => {
-    if (id) {
-      getMembersData()
-      getDashboardData()
+    if (dashboardId) {
+      getMembersData(dashboardId)
+      getDashboardData(dashboardId)
     }
-  }, [id])
+  }, [dashboardId])
 
   // TODO: 로딩 구현
   if (!myUserData)
@@ -155,67 +164,82 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
     )
 
   return (
-    <div className={S.container}>
-      {dashboardData && (
-        <div className={S.dashboardTitle}>
-          <p>{dashboardData.title}</p>
-          {dashboardData.createdByMe && (
-            <Image width={20} height={16} src={crownIcon} alt="왕관" />
-          )}
-        </div>
+    <>
+      {isModalOpen && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalDashBoard
+            title="초대하기"
+            inputTitle="이메일"
+            inputType="email"
+            placeholder="이메일"
+            leftButtonText="취소"
+            rightButtonText="초대"
+            onSubmit={InviteDashboard}
+          />
+        </Modal>
       )}
-      <div className={S.rightBox}>
-        {dashboardData?.createdByMe && (
-          <div className={S.btnBox}>
-            {BUTTONS.map((btn) => (
-              <button
-                key={btn.tag}
-                className={btn.className}
-                onClick={btn.onClick}
-              >
-                <Image
-                  className={S.btnImg}
-                  width={btn.size}
-                  height={btn.size}
-                  src={btn.src}
-                  alt={btn.tag}
-                />
-                <span>{btn.text}</span>
-              </button>
-            ))}
+      <div className={S.container}>
+        {dashboardData && (
+          <div className={S.dashboardTitle}>
+            <p>{dashboardData.title}</p>
+            {dashboardData.createdByMe && (
+              <Image width={20} height={16} src={crownIcon} alt="왕관" />
+            )}
           </div>
         )}
-        <div className={S.memberImgBox}>
-          {dashboardMembers
-            .filter((_, idx) => idx < 4)
-            .map((member, idx) => (
-              <Image
-                className={`${S.memberImg}`}
-                width={38}
-                height={38}
-                key={member.id}
-                src={
-                  member.profileImageUrl
-                    ? member.profileImageUrl
-                    : EMPTY_IMG[idx]
-                }
-                alt={`${member.nickname}의 이미지`}
-              />
-            ))}
-          {dashboardMembers.length > 4 && (
-            <div className={S.overImg}>
-              <span>+{+dashboardMembers.length - 4}</span>
+        <div className={S.rightBox}>
+          {dashboardData?.createdByMe && (
+            <div className={S.btnBox}>
+              {BUTTONS.map((btn) => (
+                <button
+                  key={btn.tag}
+                  className={btn.className}
+                  onClick={btn.onClick}
+                >
+                  <Image
+                    className={S.btnImg}
+                    width={btn.size}
+                    height={btn.size}
+                    src={btn.src}
+                    alt={btn.tag}
+                  />
+                  <span>{btn.text}</span>
+                </button>
+              ))}
             </div>
           )}
+          <div className={S.memberImgBox}>
+            {dashboardMembers
+              .filter((_, idx) => idx < 4)
+              .map((member, idx) => (
+                <Image
+                  className={`${S.memberImg}`}
+                  width={38}
+                  height={38}
+                  key={member.id}
+                  src={
+                    member.profileImageUrl
+                      ? member.profileImageUrl
+                      : EMPTY_IMG[idx]
+                  }
+                  alt={`${member.nickname}의 이미지`}
+                />
+              ))}
+            {dashboardMembers.length > 4 && (
+              <div className={S.overImg}>
+                <span>+{+dashboardMembers.length - 4}</span>
+              </div>
+            )}
+          </div>
+          <Image width={0} height={38} src={barIcon} alt="bar" />
+          <ManagerProfile
+            profileImageUrl={myUserData.profileImageUrl}
+            nickname={myUserData.nickname}
+            type="dashboardHeader"
+          />
         </div>
-        <Image width={0} height={38} src={barIcon} alt="bar" />
-        <ManagerProfile
-          profileImageUrl={myUserData.profileImageUrl}
-          nickname={myUserData.nickname}
-          type="dashboardHeader"
-        />
       </div>
-    </div>
+    </>
   )
 }
 

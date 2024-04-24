@@ -2,7 +2,7 @@ import { GetStaticPropsContext } from 'next'
 
 import { useRouter } from 'next/router'
 
-import AXIOS from '@/lib/axios'
+import { fetchDeleteDashboard } from '@/pages/api/dashboards'
 import BackButton from '@/src/components/common/back-button/BackButton'
 import Layout from '@/src/components/common/layout'
 import DashboardButton from '@/src/components/dashboard/dashboard-button'
@@ -35,19 +35,14 @@ const DashboardIdEdit = ({ id }: DashboardIdEditProps) => {
   const router = useRouter()
 
   const deleteDashboard = async () => {
-    const token = localStorage.getItem('accessToken')
     try {
-      AXIOS.delete(`/dashboards/${id}`, {
-        headers: {
-          Authorization: `bearer ${token}`,
-        },
-      })
+      await fetchDeleteDashboard(id)
     } catch (err) {
       console.error(err)
     }
   }
 
-  const handleButtonCLick = () => {
+  const handleButtonClick = () => {
     deleteDashboard()
     router.push('/mydashboard')
   }
@@ -57,10 +52,10 @@ const DashboardIdEdit = ({ id }: DashboardIdEditProps) => {
       <div className={S.container}>
         <BackButton />
         <DashboardEditor dashboardId={id} />
-        <InviteListEmail dashboardId={id} />
         <InviteListMember dashboardId={id} />
+        <InviteListEmail dashboardId={id} />
         <div className={S.buttonBox}>
-          <DashboardButton type="deleteDashboard" onClick={handleButtonCLick} />
+          <DashboardButton type="deleteDashboard" onClick={handleButtonClick} />
         </div>
       </div>
     </Layout>

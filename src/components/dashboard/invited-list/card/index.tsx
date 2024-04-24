@@ -1,6 +1,8 @@
 import Image from 'next/image'
 
 import AXIOS from '@/lib/axios'
+import { fetchDeleteCancelInviteDashboard } from '@/pages/api/dashboards'
+import { fetchPutAnswerInvitation } from '@/pages/api/invitations'
 import basicImg from '@/public/icons/temp-circle-6.svg'
 import BorderButton from '@/src/components/common/button/border'
 import OptionButton from '@/src/components/common/button/option'
@@ -52,20 +54,9 @@ function InvitedListCard({
 }: InvitedCardProps) {
   const className = `${S.container} ${isDashboardType(type) ? S.dashboard : ''}`
 
-  const handleClickanswerInviteDashboard = async (answer: boolean) => {
-    const token = localStorage.getItem('accessToken')
+  const handleClickAnswerInvitation = async (answer: boolean) => {
     try {
-      await AXIOS.put(
-        `/invitations/${id}`,
-        {
-          inviteAccepted: answer,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
+      await fetchPutAnswerInvitation(id, answer)
       handleChange(id)
     } catch (err) {
       console.error(err)
@@ -73,20 +64,14 @@ function InvitedListCard({
   }
 
   const handleClickCancelIniviteEmail = async () => {
-    const token = localStorage.getItem('accessToken')
     try {
-      await AXIOS.delete(`/dashboards/${dashboardId}/invitations/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-
+      if (dashboardId) await fetchDeleteCancelInviteDashboard(dashboardId, id)
       handleChange(id)
     } catch (err) {
       console.error(err)
     }
   }
-
+  //TODO: member api 정리
   const handleClickDeleteDashboardMember = async () => {
     const token = localStorage.getItem('accessToken')
     try {
@@ -112,8 +97,8 @@ function InvitedListCard({
           rightColor="white"
           leftText="수락"
           rightText="거절"
-          onLeftClick={() => handleClickanswerInviteDashboard(true)}
-          onRightClick={() => handleClickanswerInviteDashboard(false)}
+          onLeftClick={() => handleClickAnswerInvitation(true)}
+          onRightClick={() => handleClickAnswerInvitation(false)}
         />
       </>
     ),

@@ -17,7 +17,7 @@ export interface UserType {
   updatedAt: string
 }
 
-interface InviteeType {
+export interface InviteeType {
   id: number
   email: string
   nickname: string
@@ -56,4 +56,18 @@ export interface GetPagenationType<T> {
 export interface DashboardEditMakeParamType {
   title: string
   color: string
+}
+
+export interface InviteDashboardParamType {
+  email: string
+}
+
+export interface EditDahsboardParamType {
+  title: string
+  color: string
+}
+
+export interface GetInivtedDashboardListParamType {
+  invitations: InvitedListDashboardType[]
+  cursorId: number
 }

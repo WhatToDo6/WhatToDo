@@ -1,7 +1,7 @@
 import AXIOS from '@/lib/axios'
 import { GetPagenationType } from '@/src/types/mydashboard'
 
-export const fetchGetDashboardMembers = async <U>(
+export const fetchGetDashboardMemberList = async <U>(
   page: number,
   dashboardId: number,
   visibleDataNum: number,
