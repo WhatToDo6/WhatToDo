@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 
 import Modal from '@/src/components/common/modal'
 import ModalEdittodo from '@/src/components/common/modal/modal-edittodo'
+import { EMPTY_DUEDATE } from '@/src/constants/date'
 import { TaskCardDataType } from '@/src/types/dashboard.interface'
 
 import S from './TaskCard.module.scss'
@@ -49,11 +50,7 @@ const TaskCard = ({ columnId, taskCard }: TaskCardProps) => {
         <div className={S.wrapper}>
           <TaskCardTag tagType="프로젝트" />
           <div className={S.cardBottom}>
-            <div
-              className={
-                cardData.dueDate === '2100-12-31 23:59' ? S.hidden : ''
-              }
-            >
+            <div className={cardData.dueDate === EMPTY_DUEDATE ? S.hidden : ''}>
               <TaskCardDate dueDate={cardData.dueDate} />
             </div>
             <div>아이콘</div>

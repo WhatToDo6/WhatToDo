@@ -3,6 +3,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { putTaskCards } from '@/pages/api/taskCards'
 import { fetchGetUser } from '@/pages/api/users'
+import { EMPTY_DUEDATE } from '@/src/constants/date'
 import { TaskCardDataType } from '@/src/types/dashboard.interface'
 import { InputFormValues } from '@/src/types/input'
 import { formatDate } from '@/src/utils/formatDate'
@@ -52,7 +53,7 @@ const ModalEdittodo = ({
 
     try {
       const assigneeUserId = userId
-      const dueDate = data.date ? formatDate(data.date) : '2100-12-31 23:59'
+      const dueDate = data.date ? formatDate(data.date) : EMPTY_DUEDATE
 
       const response = await putTaskCards({
         cardId: id,
