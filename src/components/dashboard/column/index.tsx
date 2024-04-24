@@ -63,7 +63,12 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
       <div className={S.taskWrapper}>
         <DashboardButton type="add" onClick={handleClick} />
         {taskCards.map((taskCard) => (
-          <TaskCard key={taskCard.id} taskCard={taskCard} columnId={columnId} />
+          <TaskCard
+            key={taskCard.id}
+            taskCard={taskCard}
+            columnId={columnId}
+            columnTitle={title}
+          />
         ))}
       </div>
       {getMore && (

@@ -9,7 +9,7 @@ export interface CommentsType {
   id: number
   createdAt: string
   updatedAt: string
-  onDelete: (commentId: number) => void
+  onDelete?: (commentId: number) => void
 }
 
 export interface ColumnTitleType {
