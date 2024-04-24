@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import {
@@ -15,9 +16,10 @@ export function usePagination<T>(
   setPageData: Dispatch<SetStateAction<T[]>>,
   dashboardId?: number,
 ) {
+  const { pathname } = useRouter()
+
   const [currPage, setCurrPage] = useState(1)
   const [lastPage, setLastPage] = useState(1)
-  //   const [pageData, setPageData] = useState<T[]>([])
 
   const getDashboards = async (page: number) => {
     try {
@@ -94,7 +96,13 @@ export function usePagination<T>(
   }
 
   useEffect(() => {
-    updateData(1)
+    if (type === 'dashboard' || type === 'member') updateData(1)
+  }, [])
+
+  useEffect(() => {
+    if (pathname === '/dashboards/[id]/edit' && type === 'email') {
+      updateData(1)
+    }
   }, [])
 
   return {
