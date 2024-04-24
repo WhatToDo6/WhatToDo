@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { fetchPostUser } from '@/pages/api/users'
@@ -11,6 +12,7 @@ import { InputFormValues } from '@/src/types/input'
 import S from '../Form.module.scss'
 
 const SignUpForm = () => {
+  const router = useRouter()
   const [isChecked, setIsChecked] = useState(false)
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
@@ -33,6 +35,14 @@ const SignUpForm = () => {
         setIsErrorModalOpen(true)
       })
   }
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken')
+
+    if (accessToken) {
+      router.push('/mydashboard')
+    }
+  }, [])
 
   return (
     <>

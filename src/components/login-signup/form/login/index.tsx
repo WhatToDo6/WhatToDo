@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { fetchPostLogin } from '@/pages/api/auth'
@@ -34,6 +34,14 @@ const LogInForm = () => {
         setIsModalOpen(true)
       })
   }
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken')
+
+    if (accessToken) {
+      router.push('/mydashboard')
+    }
+  }, [])
 
   return (
     <>
