@@ -151,7 +151,7 @@ const ModalEdittodo = ({
           leftColor="white"
           rightColor="purple"
           leftText="취소"
-          rightText="생성"
+          rightText="수정"
           onLeftClick={() => modalStatus.setIsOpen.call(null, false)}
           onRightClick={handleSubmit(onSubmit)}
         />
