@@ -1,11 +1,10 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import Modal from '@/src/components/common/modal'
 import ModalEdittodo from '@/src/components/common/modal/modal-edittodo'
 import ModalTask from '@/src/components/common/modal/modal-task'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
-import { TaskCardDataType } from '@/src/types/dashboard.interface'
 
 import S from './TaskCard.module.scss'
 import TaskCardDate from '../task-card-date'
@@ -25,10 +24,6 @@ const TaskCard = ({ columnId, taskCard }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [cardData, setCardData] = useState(taskCard)
 
-  const handleClick = () => {
-    setIsModalOpen(true)
-  }
-
   return (
     <div className={S.container} onClick={() => setIsModalOpen(true)}>
       {isModalOpen && (
@@ -37,6 +32,19 @@ const TaskCard = ({ columnId, taskCard }: TaskCardProps) => {
             columnId={columnId}
             cardData={cardData}
             setCardData={setCardData}
+          />
+        </Modal>
+      )}
+      {isModalOpen && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalTask
+            cardId={cardData.id}
+            title={cardData.title}
+            dueDate={cardData.dueDate}
+            assignee={cardData.assignee}
+            imageUrl={cardData.imageUrl}
+            tags={cardData.tags}
+            description={cardData.description}
           />
         </Modal>
       )}
