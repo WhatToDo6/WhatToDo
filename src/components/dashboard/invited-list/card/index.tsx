@@ -36,6 +36,7 @@ interface InvitedCardProps extends UnionPartialType {
   id: number
   handleChange: (id: number) => void
   dashboardId?: number
+  idx?: number
 }
 
 function isDashboardType(type: InvitedListType): type is 'dashboard' {
@@ -49,6 +50,7 @@ function InvitedListCard({
   nickname,
   profileImageUrl,
   id,
+  idx,
   dashboardId,
   handleChange,
 }: InvitedCardProps) {
@@ -115,10 +117,11 @@ function InvitedListCard({
         </div>
         <BorderButton
           size="small"
-          color="white"
+          color={idx === 0 ? 'purple' : 'white'}
           onClick={handleClickDeleteDashboardMember}
+          isDisabled={idx === 0 ? true : false}
         >
-          삭제
+          {idx === 0 ? '나' : '삭제'}
         </BorderButton>
       </>
     ),
