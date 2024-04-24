@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-import AXIOS from '@/lib/axios'
+import { fetchPostUser } from '@/pages/api/users'
 import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
 import Modal from '@/src/components/common/modal'
@@ -27,11 +27,7 @@ const SignUpForm = () => {
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     if (!isChecked || Object.keys(errors).length > 0) return
 
-    AXIOS.post('/users', {
-      email: data.email,
-      nickname: data.nickname,
-      password: data.password,
-    })
+    fetchPostUser(data.email, data.nickname, data.password)
       .then(() => {
         setIsSuccessModalOpen(true)
       })
@@ -39,6 +35,14 @@ const SignUpForm = () => {
         setIsErrorModalOpen(true)
       })
   }
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken')
+
+    if (accessToken) {
+      router.push('/mydashboard')
+    }
+  }, [])
 
   return (
     <>
@@ -73,6 +77,7 @@ const SignUpForm = () => {
           placeholder="닉네임을 입력해 주세요"
           error={errors.nickname}
           register={register}
+          size="large"
         />
         <label className={S.label}>비밀번호</label>
         <Input
