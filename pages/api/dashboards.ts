@@ -5,6 +5,7 @@ import {
   InviteDashboardParamType,
   DashboardType,
   EditDahsboardParamType,
+  GetInfiniteDashboardListType,
 } from '@/src/types/mydashboard'
 
 //대시보드 생성
@@ -39,6 +40,24 @@ export const fetchGetDashboardList = async <U>(
     data: { dashboards, totalCount },
   } = response
   return { data: dashboards, totalCount }
+}
+
+//대시보드 목록 조회 - 인피니티 스크롤
+export const fetchGetDashboardListInfinite = async (
+  visibleDataNum: number,
+  lastCursorId?: number,
+): Promise<GetInfiniteDashboardListType> => {
+  const token = localStorage.getItem('accessToken')
+  const path = `/dashboards?navigationMethod=infiniteScroll&${lastCursorId !== 0 ? `cursorId=${lastCursorId}&` : ''}size=${visibleDataNum}`
+  const response = await AXIOS.get(path, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  const {
+    data: { dashboards, cursorId },
+  } = response
+  return { data: dashboards, cursorId }
 }
 
 //대시보드 상세 조회
