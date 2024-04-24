@@ -67,6 +67,7 @@ const SignUpForm = () => {
           placeholder="닉네임을 입력해 주세요"
           error={errors.nickname}
           register={register}
+          size="large"
         />
         <label className={S.label}>비밀번호</label>
         <Input
