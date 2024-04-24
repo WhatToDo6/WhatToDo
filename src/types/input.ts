@@ -45,7 +45,7 @@ export interface InputFormValues {
   newDash: string
   columnName: string
   title: string
-  date: string
+  date: string | object | null
   tags: string
   textarea: string
   profileImageUrl: FileList

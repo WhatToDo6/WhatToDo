@@ -44,7 +44,7 @@ const ModalTodo = ({
 
     try {
       const assigneeUserId = userId
-      const dueDate = data.date ? formatDate(data.date) : EMPTY_DUEDATE
+      const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
 
       const response = await postTaskCards({
         assigneeUserId,
