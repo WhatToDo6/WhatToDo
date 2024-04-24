@@ -62,7 +62,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
       />
       <div className={S.taskWrapper}>
         <DashboardButton type="add" onClick={handleClick} />
-        {taskCards.map((taskCard) => (
+        {taskCards?.map((taskCard) => (
           <TaskCard key={taskCard.id} {...taskCard} />
         ))}
       </div>

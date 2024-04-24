@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useState } from 'react'
 
 import S from './Comment.module.scss'
 
@@ -13,8 +14,21 @@ interface CommentProps {
 }
 
 const Comment = ({ id, content, createdAt, author }: CommentProps) => {
+  const [isEditing, setIsEditing] = useState(false)
+  const [editedContent, setEditedContent] = useState(content)
+
   const handleEdit = () => {
+    setIsEditing(true)
+  }
+
+  const handleSave = () => {
     //TODO 댓글 수정 기능을 구현해야 합니다.
+    setIsEditing(false)
+  }
+
+  const handleCancel = () => {
+    setIsEditing(false)
+    setEditedContent(content)
   }
 
   const handleDelete = () => {
@@ -36,14 +50,35 @@ const Comment = ({ id, content, createdAt, author }: CommentProps) => {
           <span className={S.people}>{author.nickname}</span>
           <p className={S.createdAt}>{createdAt}</p>
         </div>
-        <p className={S.description}>{content}</p>
+        {isEditing ? (
+          <textarea
+            className={S.editTextarea}
+            value={editedContent}
+            onChange={(e) => setEditedContent(e.target.value)}
+          />
+        ) : (
+          <p className={S.description}>{content}</p>
+        )}
         <div className={S.option}>
-          <p className={S.optionText} onClick={handleEdit}>
-            수정
-          </p>
-          <p className={S.optionText} onClick={handleDelete}>
-            삭제
-          </p>
+          {isEditing ? (
+            <>
+              <p className={S.optionText} onClick={handleSave}>
+                저장
+              </p>
+              <p className={S.optionText} onClick={handleCancel}>
+                취소
+              </p>
+            </>
+          ) : (
+            <>
+              <p className={S.optionText} onClick={handleEdit}>
+                수정
+              </p>
+              <p className={S.optionText} onClick={handleDelete}>
+                삭제
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>
