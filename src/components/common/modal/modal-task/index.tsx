@@ -9,7 +9,7 @@ import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 import { CommentsType, TaskCardDataType } from '@/src/types/dashboard.interface'
 
 import Comment from './comment'
-import CommentForm from './comment-form/input'
+import CommentForm from './comment-form/index'
 import S from './ModalTask.module.scss'
 import Modal, { ModalContext } from '..'
 import ProgressChip from '../../chip/progress-chip'
@@ -192,7 +192,11 @@ const ModalTask = ({
           </div>
         </div>
       </div>
-      <CommentForm />
+      <CommentForm
+        cardId={cardId}
+        columnId={columnId}
+        setComments={setComments}
+      />
       {comments?.map((comment) => (
         <Comment key={comment.id} {...comment} onDelete={DeleteComments} />
       ))}

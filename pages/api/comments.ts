@@ -54,3 +54,18 @@ export const deleteComment = async (
   if (!id) throw new Error('댓글 ID가 필요합니다.')
   return await apiCall('delete', `/comments/${id}`)
 }
+
+export const postComments = async (
+  content: string,
+  cardId: number,
+  columnId: number | undefined,
+  dashboardId: number,
+): Promise<CommentsType> => {
+  const fullData = {
+    content: content,
+    cardId: cardId,
+    columnId: columnId,
+    dashboardId: dashboardId,
+  }
+  return await apiCall('post', `/comments`, fullData)
+}
