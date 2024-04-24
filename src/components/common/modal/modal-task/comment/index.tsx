@@ -1,6 +1,8 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
+import { putComments } from '@/pages/api/comments'
+
 import S from './Comment.module.scss'
 
 interface CommentProps {
@@ -13,22 +15,36 @@ interface CommentProps {
   }
 }
 
-const Comment = ({ id, content, createdAt, author }: CommentProps) => {
+const Comment = ({
+  id: commentId,
+  content: initialContent,
+  createdAt,
+  author,
+}: CommentProps) => {
   const [isEditing, setIsEditing] = useState(false)
-  const [editedContent, setEditedContent] = useState(content)
+  const [editContent, setEditContent] = useState(initialContent)
+  const [content, setContent] = useState(initialContent)
 
   const handleEdit = () => {
     setIsEditing(true)
   }
 
-  const handleSave = () => {
-    //TODO 댓글 수정 기능을 구현해야 합니다.
-    setIsEditing(false)
+  const handleSave = async () => {
+    try {
+      const requestData: { content: string } = {
+        content: editContent,
+      }
+      await putComments(commentId, requestData)
+      setIsEditing(false)
+      setContent(editContent)
+    } catch (error) {
+      console.error('댓글 데이터를 업데이트하는 데 실패했습니다:', error)
+    }
   }
 
   const handleCancel = () => {
     setIsEditing(false)
-    setEditedContent(content)
+    setEditContent(content)
   }
 
   const handleDelete = () => {
@@ -53,8 +69,8 @@ const Comment = ({ id, content, createdAt, author }: CommentProps) => {
         {isEditing ? (
           <textarea
             className={S.editTextarea}
-            value={editedContent}
-            onChange={(e) => setEditedContent(e.target.value)}
+            value={editContent}
+            onChange={(e) => setEditContent(e.target.value)}
           />
         ) : (
           <p className={S.description}>{content}</p>

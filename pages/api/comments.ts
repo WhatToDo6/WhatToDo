@@ -38,3 +38,11 @@ export const getComments = async (
     nextCursorId: response.cursorId,
   }
 }
+
+export const putComments = async (
+  id: number | undefined,
+  data: { title: string | undefined },
+): Promise<ColumnDataType[]> => {
+  if (!id) throw new Error('칼럼 ID가 필요합니다.')
+  return await apiCall('put', `/comments/${id}`, data)
+}
