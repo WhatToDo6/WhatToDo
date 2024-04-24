@@ -10,10 +10,6 @@ import { InputProps } from '@/src/types/input'
 
 import S from './Date.module.scss'
 
-interface InputDateProps extends InputProps {
-  defaultValue?: string
-}
-
 /**
  *
  * @description textarea 타입의 input 컴포넌트
@@ -23,7 +19,7 @@ interface InputDateProps extends InputProps {
  * @ref [react-datepicker](https://www.npmjs.com/package/react-datepicker)
  */
 
-const InputDate = ({ placeholder, control, defaultValue }: InputDateProps) => {
+const InputDate = ({ placeholder, control }: InputProps) => {
   const [isFocus, setIsFocus] = useState(false)
   registerLocale('ko', ko)
 

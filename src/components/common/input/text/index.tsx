@@ -13,7 +13,6 @@ interface InputTextProps extends InputProps {
   size: string
   currentNickname?: string
   currentColumn?: string
-  defaultValue?: string
 }
 
 /**
@@ -35,7 +34,6 @@ const InputText = ({
   currentNickname,
   currentColumn,
   size,
-  defaultValue,
 }: InputTextProps) => {
   const VALIDATION_MAP = {
     nickname: {
@@ -75,7 +73,6 @@ const InputText = ({
         type="text"
         placeholder={placeholder}
         {...register(textType, VALIDATION_MAP[textType])}
-        defaultValue={defaultValue}
       />
     )
   }

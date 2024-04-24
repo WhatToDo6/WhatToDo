@@ -5,7 +5,7 @@ import { InputProps } from '@/src/types/input'
 import S from './Tag.module.scss'
 import TagChip from '../../chip/tag-chip'
 
-const InputTag = ({ placeholder, setValue, defaultValue }: InputProps) => {
+const InputTag = ({ placeholder, setValue }: InputProps) => {
   const [tags, setTags] = useState<string[]>([])
   const [isFocus, setIsFocus] = useState(false)
 

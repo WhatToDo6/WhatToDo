@@ -126,7 +126,6 @@ const ModalEdittodo = ({
           error={errors.date}
           register={register}
           control={control}
-          defaultValue={dueDate}
         />
         <label className={S.label} htmlFor="tag">
           태그
