@@ -1,12 +1,26 @@
-import { createContext, useState } from 'react'
+import { useRouter } from 'next/router'
+import {
+  Dispatch,
+  SetStateAction,
+  createContext,
+  useEffect,
+  useState,
+} from 'react'
+
+import { fetchGetDashboardDetail } from '@/pages/api/dashboards'
 
 import { usePagination } from '../hooks/usePagination'
 import { ChildrenProps } from '../types/commonType'
 import { DashboardType } from '../types/mydashboard'
 import { PaginationContextType } from '../types/mydashboard'
 
+interface DashboardContextType<T> extends PaginationContextType<T> {
+  dashboardDetail: DashboardType | null
+  setDashboardDetail: Dispatch<SetStateAction<DashboardType | null>>
+}
+
 export const DashboardsContext = createContext<
-  PaginationContextType<DashboardType>
+  DashboardContextType<DashboardType>
 >({
   pageData: [],
   currPage: 1,
@@ -14,10 +28,29 @@ export const DashboardsContext = createContext<
   onClickPrevPage: () => {},
   onClickNextPage: () => {},
   updateData: () => {},
+  dashboardDetail: null,
+  setDashboardDetail: () => {},
 })
 
 function DashboardsProvider({ children }: ChildrenProps) {
+  const {
+    query: { id },
+  } = useRouter()
+  const dashboardId = typeof id === 'string' ? +id : 0
+
   const [dashboards, setDashboards] = useState<DashboardType[]>([])
+  const [dashboardDetail, setDashboardDetail] = useState<DashboardType | null>(
+    null,
+  )
+
+  const getDashboardTitle = async (dashboardId: number) => {
+    try {
+      const dashboard = await fetchGetDashboardDetail(dashboardId)
+      setDashboardDetail(dashboard)
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   const {
     pageData,
@@ -28,6 +61,12 @@ function DashboardsProvider({ children }: ChildrenProps) {
     updateData,
   } = usePagination<DashboardType>(5, 'dashboard', dashboards, setDashboards)
 
+  useEffect(() => {
+    if (dashboardId) {
+      getDashboardTitle(dashboardId)
+    }
+  }, [id])
+
   return (
     <DashboardsContext.Provider
       value={{
@@ -37,6 +76,8 @@ function DashboardsProvider({ children }: ChildrenProps) {
         onClickPrevPage,
         onClickNextPage,
         updateData,
+        dashboardDetail,
+        setDashboardDetail,
       }}
     >
       {children}
