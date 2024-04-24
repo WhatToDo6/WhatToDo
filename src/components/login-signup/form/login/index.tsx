@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-import AXIOS from '@/lib/axios'
+import { fetchPostLogin } from '@/pages/api/auth'
 import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
 import Modal from '@/src/components/common/modal'
@@ -25,12 +25,9 @@ const LogInForm = () => {
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     if (data.email === '' || data.password === '') return
 
-    AXIOS.post('/auth/login', {
-      email: data.email,
-      password: data.password,
-    })
-      .then((res) => {
-        localStorage.setItem('accessToken', res.data.accessToken)
+    fetchPostLogin(data.email, data.password)
+      .then((accessToken) => {
+        localStorage.setItem('accessToken', accessToken)
         router.push('/mydashboard')
       })
       .catch(() => {

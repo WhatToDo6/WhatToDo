@@ -1,8 +1,7 @@
-import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
-import AXIOS from '@/lib/axios'
+import { fetchPostUser } from '@/pages/api/users'
 import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
 import Modal from '@/src/components/common/modal'
@@ -12,7 +11,6 @@ import { InputFormValues } from '@/src/types/input'
 import S from '../Form.module.scss'
 
 const SignUpForm = () => {
-  const router = useRouter()
   const [isChecked, setIsChecked] = useState(false)
   const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false)
   const [isErrorModalOpen, setIsErrorModalOpen] = useState(false)
@@ -27,11 +25,7 @@ const SignUpForm = () => {
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     if (!isChecked || Object.keys(errors).length > 0) return
 
-    AXIOS.post('/users', {
-      email: data.email,
-      nickname: data.nickname,
-      password: data.password,
-    })
+    fetchPostUser(data.email, data.nickname, data.password)
       .then(() => {
         setIsSuccessModalOpen(true)
       })
