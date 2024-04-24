@@ -1,7 +1,8 @@
-import { useState, ChangeEvent, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
+import { handleImageChange } from '@/pages/api/imageUpload'
 import BorderButton from '@/src/components/common/button/border'
 import Input from '@/src/components/common/input'
 import { useUser } from '@/src/context/users'
@@ -29,27 +30,6 @@ const ProfileForm = () => {
     reset,
     formState: { errors },
   } = useForm<InputFormValues>({ mode: 'onBlur' })
-
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const accessToken = localStorage.getItem('accessToken')
-    const files = event.target.files
-    if (files && files[0] && accessToken) {
-      const formData = new FormData()
-      formData.append('image', files[0])
-
-      AXIOS.post('/users/me/image', formData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-        .then((res) => {
-          setUploadedImageUrl(res.data.profileImageUrl)
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-    }
-  }
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     const accessToken = localStorage.getItem('accessToken')
@@ -94,7 +74,9 @@ const ProfileForm = () => {
         <div className={S.imgContainer}>
           <InputProfileImage
             profileImageUrl={uploadedImageUrl}
-            handleImageChange={handleImageChange}
+            handleImageChange={(event) =>
+              handleImageChange(event, setUploadedImageUrl)
+            }
           />
         </div>
         <div className={S.textContainer}>
