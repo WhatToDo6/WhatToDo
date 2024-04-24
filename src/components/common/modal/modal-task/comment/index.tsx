@@ -2,18 +2,9 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import { putComments } from '@/pages/api/comments'
+import { CommentsType } from '@/src/types/dashboard.interface'
 
 import S from './Comment.module.scss'
-
-interface CommentProps {
-  id: number
-  content: string
-  createdAt: string
-  author: {
-    profileImageUrl: string
-    nickname: string
-  }
-}
 
 const Comment = ({
   id: commentId,
@@ -21,7 +12,7 @@ const Comment = ({
   createdAt,
   author,
   onDelete,
-}: CommentProps) => {
+}: CommentsType) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editContent, setEditContent] = useState(initialContent)
   const [content, setContent] = useState(initialContent)

@@ -1,4 +1,5 @@
 import AXIOS from '@/lib/axios'
+import { CommentsType } from '@/src/types/dashboard.interface'
 
 const getAuthHeaders = (): Record<string, string> => ({
   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -41,15 +42,15 @@ export const getComments = async (
 
 export const putComments = async (
   id: number | undefined,
-  data: { title: string | undefined },
-): Promise<ColumnDataType[]> => {
+  data: { content: string },
+): Promise<CommentsType[]> => {
   if (!id) throw new Error('댓글 ID가 필요합니다.')
   return await apiCall('put', `/comments/${id}`, data)
 }
 
 export const deleteComment = async (
   id: number | undefined,
-): Promise<ColumnDataType[]> => {
+): Promise<CommentsType[]> => {
   if (!id) throw new Error('댓글 ID가 필요합니다.')
   return await apiCall('delete', `/comments/${id}`)
 }

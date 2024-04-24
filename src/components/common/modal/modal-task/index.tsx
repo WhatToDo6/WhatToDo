@@ -6,7 +6,7 @@ import BAR_ICON from '@/public/icons/bar.svg'
 import CLOSE_ICON from '@/public/icons/close.svg'
 import POPOVER_ICON from '@/public/icons/popover.svg'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
-import { GetTaskCards } from '@/src/types/dashboard.interface'
+import { CommentsType } from '@/src/types/dashboard.interface'
 
 import Comment from './comment'
 import CommentForm from './comment-form/input'
@@ -42,7 +42,7 @@ const ModalTask = ({
   const modalStatus = useContext(ModalContext)
   const observeRef = useRef<HTMLDivElement>(null)
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
-  const [comments, setComments] = useState<TaskCardDataType[]>([])
+  const [comments, setComments] = useState<CommentsType[]>([])
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const { observe, isScrolled } = useIntersectionObserver()
 
@@ -52,14 +52,12 @@ const ModalTask = ({
   const fetchComments = async (firstFetch: boolean = false) => {
     if (cardId) {
       try {
-        const {
-          data: comments,
-          nextCursorId: fetchNextCursorId,
-        }: GetTaskCards = await getComments(
-          cardId,
-          firstFetch ? null : nextCursorId,
-          firstFetch,
-        )
+        const { data: comments, nextCursorId: fetchNextCursorId } =
+          await getComments(
+            cardId,
+            firstFetch ? null : nextCursorId,
+            firstFetch,
+          )
         setComments((prev) => (firstFetch ? comments : [...prev, ...comments]))
         setNextCursorId(fetchNextCursorId)
       } catch (error) {
@@ -68,7 +66,7 @@ const ModalTask = ({
     }
   }
 
-  const DeleteComments = async (commentId) => {
+  const DeleteComments = async (commentId: number) => {
     try {
       await deleteComment(commentId)
       setComments((prevComments) =>

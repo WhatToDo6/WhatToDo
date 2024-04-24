@@ -1,3 +1,17 @@
+export interface CommentsType {
+  author: {
+    id: number
+    nickname: string
+    profileImageUrl: string | null
+  }
+  cardId: number
+  content: string
+  id: number
+  createdAt: string
+  updatedAt: string
+  onDelete: (commentId: number) => void
+}
+
 export interface ColumnTitleType {
   columnName?: string
   newColumn?: string
