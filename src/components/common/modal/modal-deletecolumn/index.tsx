@@ -49,7 +49,7 @@ const ModalDeleteColumn = ({
       modalStatus.setIsOpen(false)
       moveTo && router.push(moveTo)
     } catch (error) {
-      console.error('Failed to delete column:', error)
+      console.error('컬럼을 삭제하는 데 실패했습니다.:', error)
       modalStatus.setIsOpen(false)
     }
   }

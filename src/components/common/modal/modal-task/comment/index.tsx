@@ -20,6 +20,7 @@ const Comment = ({
   content: initialContent,
   createdAt,
   author,
+  onDelete,
 }: CommentProps) => {
   const [isEditing, setIsEditing] = useState(false)
   const [editContent, setEditContent] = useState(initialContent)
@@ -48,7 +49,7 @@ const Comment = ({
   }
 
   const handleDelete = () => {
-    //TODO 댓글 삭제 기능을 구현해야 합니다.
+    onDelete(commentId)
   }
 
   return (

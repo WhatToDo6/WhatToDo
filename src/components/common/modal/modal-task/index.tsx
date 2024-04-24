@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import { useContext, useEffect, useRef, useState } from 'react'
 
-import { getComments } from '@/pages/api/comments'
+import { deleteComment, getComments } from '@/pages/api/comments'
 import BAR_ICON from '@/public/icons/bar.svg'
 import CLOSE_ICON from '@/public/icons/close.svg'
 import POPOVER_ICON from '@/public/icons/popover.svg'
@@ -65,6 +65,17 @@ const ModalTask = ({
       } catch (error) {
         console.error('댓글을 불러오는 데 실패했습니다.:', error)
       }
+    }
+  }
+
+  const DeleteComments = async (commentId) => {
+    try {
+      await deleteComment(commentId)
+      setComments((prevComments) =>
+        prevComments.filter((comment) => comment.id !== commentId),
+      )
+    } catch (error) {
+      console.error('댓글을 삭제하는 데 실패했습니다:', error)
     }
   }
 
@@ -166,7 +177,9 @@ const ModalTask = ({
         </div>
       </div>
       <CommentForm />
-      {comments?.map((comment) => <Comment key={comment.id} {...comment} />)}
+      {comments?.map((comment) => (
+        <Comment key={comment.id} {...comment} onDelete={DeleteComments} />
+      ))}
       <div ref={observeRef} />
     </div>
   )
