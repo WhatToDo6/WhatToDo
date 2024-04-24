@@ -4,7 +4,7 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import AXIOS from '@/lib/axios'
 import BorderButton from '@/src/components/common/button/border'
 import Input from '@/src/components/common/input'
-import { useUserData } from '@/src/hooks/useUserData'
+import { useUser } from '@/src/context/users'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './ProfileForm.module.scss'
@@ -16,12 +16,12 @@ interface ProfileUpdateProps {
 }
 
 const ProfileForm = () => {
-  const { profileImageUrl, nickname, email } = useUserData()
+  const { userData, setUserData } = useUser()
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
 
   useEffect(() => {
-    setUploadedImageUrl(profileImageUrl)
-  }, [profileImageUrl])
+    setUploadedImageUrl(userData?.profileImageUrl ?? '')
+  }, [userData?.profileImageUrl])
 
   const {
     register,
@@ -55,10 +55,10 @@ const ProfileForm = () => {
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
       const changes: ProfileUpdateProps = {}
-      if (data.newNickname && data.newNickname !== nickname) {
+      if (data.newNickname && data.newNickname !== userData?.nickname) {
         changes.nickname = data.newNickname
       }
-      if (uploadedImageUrl !== profileImageUrl) {
+      if (uploadedImageUrl !== userData?.profileImageUrl) {
         changes.profileImageUrl = uploadedImageUrl
       }
 
@@ -67,9 +67,20 @@ const ProfileForm = () => {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }).catch((err) => {
-          console.error(err.response.data.message)
         })
+          .then((res) => {
+            setUserData((prevUserData) => {
+              if (prevUserData === null) return null
+              return {
+                ...prevUserData,
+                profileImageUrl: res.data.profileImageUrl,
+                nickname: res.data.nickname,
+              }
+            })
+          })
+          .catch((err) => {
+            console.error(err.response.data.message)
+          })
       }
     }
     reset({
@@ -91,7 +102,7 @@ const ProfileForm = () => {
           <input
             type="text"
             disabled={true}
-            placeholder={email}
+            placeholder={userData?.email}
             className={S.textInput}
           />
           <label className={S.title}>닉네임</label>
@@ -100,7 +111,7 @@ const ProfileForm = () => {
             placeholder=""
             error={errors.newNickname}
             register={register}
-            currentNickname={nickname}
+            currentNickname={userData?.nickname}
             size="small"
           />
         </div>
