@@ -7,7 +7,10 @@ import {
   useState,
 } from 'react'
 
-import { fetchGetDashboardDetail } from '@/pages/api/dashboards'
+import {
+  fetchGetDashboardDetail,
+  fetchGetDashboardListInfinite,
+} from '@/pages/api/dashboards'
 
 import { usePagination } from '../hooks/usePagination'
 import { ChildrenProps } from '../types/commonType'
@@ -17,6 +20,11 @@ import { PaginationContextType } from '../types/mydashboard'
 interface DashboardContextType<T> extends PaginationContextType<T> {
   dashboardDetail: DashboardType | null
   setDashboardDetail: Dispatch<SetStateAction<DashboardType | null>>
+  sideMenuDashboards: DashboardType[]
+  getSideMenuDashboards: (firstFetch?: boolean) => Promise<void>
+  editSideMenuDashboards: (dashboard: DashboardType) => void
+  selectedDashboard: string
+  setSelectedDashboard: Dispatch<SetStateAction<string>>
 }
 
 export const DashboardsContext = createContext<
@@ -30,6 +38,11 @@ export const DashboardsContext = createContext<
   updateData: () => {},
   dashboardDetail: null,
   setDashboardDetail: () => {},
+  sideMenuDashboards: [],
+  getSideMenuDashboards: async (firstFetch?: boolean): Promise<void> => {},
+  editSideMenuDashboards: () => {},
+  selectedDashboard: '',
+  setSelectedDashboard: () => {},
 })
 
 function DashboardsProvider({ children }: ChildrenProps) {
@@ -42,14 +55,43 @@ function DashboardsProvider({ children }: ChildrenProps) {
   const [dashboardDetail, setDashboardDetail] = useState<DashboardType | null>(
     null,
   )
+  const [sideMenuDashboards, setSideMenuDashboards] = useState<DashboardType[]>(
+    [],
+  )
+  const [selectedDashboard, setSelectedDashboard] = useState('')
 
-  const getDashboardTitle = async (dashboardId: number) => {
+  const [currCursorId, setCurrCursorId] = useState(0)
+
+  const getDashboardDetail = async (dashboardId: number) => {
     try {
       const dashboard = await fetchGetDashboardDetail(dashboardId)
       setDashboardDetail(dashboard)
     } catch (err) {
       console.error(err)
     }
+  }
+
+  const getSideMenuDashboards = async (firstFetch: boolean = false) => {
+    try {
+      const { data: dashboards, cursorId } =
+        await fetchGetDashboardListInfinite(15, currCursorId)
+      setSideMenuDashboards((prev) =>
+        firstFetch ? dashboards : [...prev, ...dashboards],
+      )
+      setCurrCursorId(cursorId)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const editSideMenuDashboards = (dashboard: DashboardType) => {
+    const id = dashboard.id
+    let newState: DashboardType[]
+    newState = sideMenuDashboards.map((el) => {
+      if (el.id === id) return (el = dashboard)
+      return el
+    })
+    setSideMenuDashboards(newState)
   }
 
   const {
@@ -59,13 +101,23 @@ function DashboardsProvider({ children }: ChildrenProps) {
     onClickPrevPage,
     onClickNextPage,
     updateData,
-  } = usePagination<DashboardType>(5, 'dashboard', dashboards, setDashboards)
+  } = usePagination<DashboardType>(
+    5,
+    'dashboard',
+    dashboards,
+    setDashboards,
+    dashboardId,
+  )
 
   useEffect(() => {
     if (dashboardId) {
-      getDashboardTitle(dashboardId)
+      getDashboardDetail(dashboardId)
     }
   }, [id])
+
+  useEffect(() => {
+    getSideMenuDashboards(true)
+  }, [])
 
   return (
     <DashboardsContext.Provider
@@ -78,6 +130,11 @@ function DashboardsProvider({ children }: ChildrenProps) {
         updateData,
         dashboardDetail,
         setDashboardDetail,
+        sideMenuDashboards,
+        getSideMenuDashboards,
+        editSideMenuDashboards,
+        selectedDashboard,
+        setSelectedDashboard,
       }}
     >
       {children}

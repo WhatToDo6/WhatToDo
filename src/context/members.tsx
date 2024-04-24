@@ -78,7 +78,7 @@ function MembersProvider({ children }: ChildrenProps) {
   }
 
   useEffect(() => {
-    getHeaderMembersData(dashboardId)
+    if (dashboardId) getHeaderMembersData(dashboardId)
   }, [])
 
   useEffect(() => {
