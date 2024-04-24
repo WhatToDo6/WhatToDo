@@ -26,7 +26,8 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
   } = useForm<InputFormValues>({ mode: 'onBlur' })
   const [selectedColor, setSelectedColor] = useState(initialColor)
 
-  const { setDashboardDetail } = useContext(DashboardsContext)
+  const { dashboardDetail, setDashboardDetail, editSideMenuDashboards } =
+    useContext(DashboardsContext)
 
   const editDashboard = async (data: EditDahsboardParamType) => {
     try {
@@ -34,6 +35,7 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
       reset({ newDash: '' })
       setSelectedColor(initialColor)
       setDashboardDetail(dashboard)
+      editSideMenuDashboards(dashboard)
     } catch (err) {
       console.error(err)
     }
@@ -48,7 +50,7 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
       })}
     >
       <div className={S.header}>
-        <span>비브리지</span>
+        <span>{dashboardDetail && dashboardDetail.title}</span>
         <ColorChip
           selectedColor={selectedColor}
           setSelectedColor={setSelectedColor}
