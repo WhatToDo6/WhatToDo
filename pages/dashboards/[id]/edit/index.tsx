@@ -52,7 +52,7 @@ const DashboardIdEdit = ({ id }: DashboardIdEditProps) => {
       <div className={S.container}>
         <BackButton />
         <DashboardEditor dashboardId={id} />
-        <InviteListMember dashboardId={id} />
+        <InviteListMember />
         <InviteListEmail dashboardId={id} />
         <div className={S.buttonBox}>
           <DashboardButton type="deleteDashboard" onClick={handleButtonClick} />

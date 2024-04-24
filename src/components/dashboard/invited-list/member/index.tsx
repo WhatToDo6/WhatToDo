@@ -1,27 +1,25 @@
-import { usePagenation } from '@/src/hooks/usePagenation'
-import { InvitedMemberType } from '@/src/types/mydashboard'
+import { useContext } from 'react'
+
+import { MembersContext } from '@/src/context/members'
 
 import S from './InviteListMember.module.scss'
 import PagenationButton from '../../pagenation-button'
 import InvitedListCard from '../card'
 
-interface InviteListMemberProps {
-  dashboardId: number
-}
 //<InviteListMember type="member" dashboardId={dashboardId} />
-function InviteListMember({ dashboardId }: InviteListMemberProps) {
+function InviteListMember() {
   const {
     currPage,
     pageData,
-    setPageData,
     lastPage,
     onClickPrevPage,
     onClickNextPage,
-  } = usePagenation<InvitedMemberType>(4, 'member', dashboardId)
+    handleDelete,
+  } = useContext(MembersContext)
 
-  const handleChange = (id: number) => {
-    setPageData((prev) => prev.filter((prev) => prev.id !== id))
-  }
+  // const handleChange = (id: number) => {
+  //   setPageData((prev) => prev.filter((prev) => prev.id !== id))
+  // }
 
   return (
     <div className={S.container}>
@@ -43,7 +41,7 @@ function InviteListMember({ dashboardId }: InviteListMemberProps) {
           nickname={data.nickname}
           userId={data.userId}
           profileImageUrl={data.profileImageUrl}
-          handleChange={handleChange}
+          handleChange={handleDelete}
         />
       ))}
     </div>
