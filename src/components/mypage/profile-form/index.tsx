@@ -3,8 +3,8 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
 import BorderButton from '@/src/components/common/button/border'
-import { useUser } from '@/src/components/common/context/users'
 import Input from '@/src/components/common/input'
+import { useUser } from '@/src/context/users'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './ProfileForm.module.scss'

@@ -2,10 +2,10 @@ import { useRouter } from 'next/router'
 import { ReactNode } from 'react'
 
 import SideMenu from '@/src/components/dashboard/side-menu'
+import UserProvider from '@/src/context/users'
 
 import S from './Layout.module.scss'
 import DashboardHeader from '../../dashboard/header'
-import UserProvider from '../context/users'
 
 type LayoutProps = {
   children: ReactNode

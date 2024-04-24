@@ -16,6 +16,7 @@ import tempCircle2 from '@/public/icons/temp-circle-2.svg'
 import tempCircle3 from '@/public/icons/temp-circle-3.svg'
 import tempCircle4 from '@/public/icons/temp-circle-4.svg'
 import tempCircle5 from '@/public/icons/temp-circle-5.svg'
+import { useUser } from '@/src/context/users'
 import {
   InvitedMemberType,
   DashboardType,
@@ -23,7 +24,6 @@ import {
 } from '@/src/types/mydashboard'
 
 import S from './DashboardHeader.module.scss'
-import { useUser } from '../../common/context/users'
 import ManagerProfile from '../../common/manager-profile'
 import Modal from '../../common/modal'
 import ModalDashBoard from '../../common/modal/modal-dashboard'
