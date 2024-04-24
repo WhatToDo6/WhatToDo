@@ -1,7 +1,9 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { postTaskCards } from '@/pages/api/taskCards'
+import { fetchGetUser } from '@/pages/api/users'
+import { EMPTY_DUEDATE } from '@/src/constants/date'
 import { TaskCardDataType } from '@/src/types/dashboard.interface'
 import { InputFormValues } from '@/src/types/input'
 import { formatDate } from '@/src/utils/formatDate'
@@ -23,6 +25,7 @@ const ModalTodo = ({
   onCreateTaskCard: onTaskCardCreated,
 }: ModalTodoProps) => {
   const modalStatus = useContext(ModalContext)
+  const [userId, setUserId] = useState()
 
   const {
     register,
@@ -32,10 +35,16 @@ const ModalTodo = ({
     setValue,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
+  useEffect(() => {
+    fetchGetUser().then((data) => setUserId(data.id))
+  }, [])
+
   const onSubmit: SubmitHandler<InputFormValues> = async (data) => {
+    if (userId === undefined) return
+
     try {
-      const assigneeUserId = 1709 // TODO: userId 받아와야합니다
-      const dueDate = formatDate(data.date)
+      const assigneeUserId = userId
+      const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
 
       const response = await postTaskCards({
         assigneeUserId,

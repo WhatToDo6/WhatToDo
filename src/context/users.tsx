@@ -1,7 +1,6 @@
-// UserContext 설정 예시
 import { createContext, useContext, useState, useEffect } from 'react'
 
-import AXIOS from '@/lib/axios'
+import { fetchGetUser } from '@/pages/api/users'
 import { ChildrenProps } from '@/src/types/commonType'
 import { UserType } from '@/src/types/mydashboard'
 
@@ -22,12 +21,11 @@ export const UserProvider = ({ children }: ChildrenProps) => {
 
   useEffect(() => {
     const fetchUserData = async () => {
-      const accessToken = localStorage.getItem('accessToken')
-      if (accessToken) {
-        const response = await AXIOS.get('/users/me', {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        setUserData(response.data)
+      try {
+        const user = await fetchGetUser()
+        setUserData(user)
+      } catch (error) {
+        console.error('유저의 정보를 불러오지 못했습니다.', error)
       }
     }
 
