@@ -26,7 +26,7 @@ const TaskCard = ({ columnId, taskCard }: TaskCardProps) => {
 
   return (
     <div className={S.container} onClick={() => setIsModalOpen(true)}>
-      {isModalOpen && (
+      {/* {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
           <ModalEdittodo
             columnId={columnId}
@@ -34,7 +34,7 @@ const TaskCard = ({ columnId, taskCard }: TaskCardProps) => {
             setCardData={setCardData}
           />
         </Modal>
-      )}
+      )} */}
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
           <ModalTask
