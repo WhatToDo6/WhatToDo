@@ -43,7 +43,7 @@ const ModalTodo = ({
 
     try {
       const assigneeUserId = userId
-      const dueDate = formatDate(data.date)
+      const dueDate = data.date ? formatDate(data.date) : '2100-12-31 23:59'
 
       const response = await postTaskCards({
         assigneeUserId,

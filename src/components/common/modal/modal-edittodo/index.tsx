@@ -52,7 +52,7 @@ const ModalEdittodo = ({
 
     try {
       const assigneeUserId = userId
-      const dueDate = formatDate(data.date)
+      const dueDate = data.date ? formatDate(data.date) : '2100-12-31 23:59'
 
       const response = await putTaskCards({
         cardId: id,
@@ -118,7 +118,7 @@ const ModalEdittodo = ({
           register={register}
         />
         <label className={S.label} htmlFor="due">
-          마감일
+          마감일<span className={S.required}>*</span>
         </label>
         <Input
           inputType="date"
