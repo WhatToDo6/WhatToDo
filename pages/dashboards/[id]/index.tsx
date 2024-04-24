@@ -67,7 +67,11 @@ const DashboardIdPage = () => {
 
   return (
     <Layout>
-      <ColumnLayout columns={columns} setColumns={setColumns}>
+      <ColumnLayout
+        columns={columns}
+        setColumns={setColumns}
+        dashboardId={Number(id)}
+      >
         {columns.map((column) => (
           <Column key={column.id} {...column} dashboardId={Number(id)} />
         ))}
