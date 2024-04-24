@@ -1,7 +1,12 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { putTaskCards } from '@/pages/api/taskCards'
+import { fetchGetUser } from '@/pages/api/users'
+import { EMPTY_DUEDATE } from '@/src/constants/date'
+import { TaskCardDataType } from '@/src/types/dashboard.interface'
 import { InputFormValues } from '@/src/types/input'
+import { formatDate } from '@/src/utils/formatDate'
 
 import S from './ModalEdittodo.module.scss'
 import { ModalContext } from '..'
@@ -9,9 +14,19 @@ import OptionButton from '../../button/option'
 import Input from '../../input'
 import InputProfileImage from '../../input/profile-image'
 
-// TODO: API 연결 필요
-const ModalEdittodo = () => {
-  const modalStaus = useContext(ModalContext)
+interface ModalEdittodoProps {
+  columnId: number | undefined
+  cardData: TaskCardDataType
+  setCardData: React.Dispatch<React.SetStateAction<any>> //TODO: 타입 명시
+}
+
+const ModalEdittodo = ({
+  columnId,
+  cardData: { id, title, description, dueDate, imageUrl, tags },
+  setCardData,
+}: ModalEdittodoProps) => {
+  const modalStatus = useContext(ModalContext)
+  const [userId, setUserId] = useState()
 
   const {
     register,
@@ -21,9 +36,41 @@ const ModalEdittodo = () => {
     setValue,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
-  const onSubmit: SubmitHandler<InputFormValues> = (data) => {
-    // TODO: 할 일 생성 로직
-    console.log(data)
+  useEffect(() => {
+    fetchGetUser().then((data) => setUserId(data.id))
+  }, [])
+
+  // 기본 값 설정
+  useEffect(() => {
+    setValue('title', title)
+    setValue('textarea', description)
+    // setValue('date', dueDate)
+    // setValue('tags', tags.join(', '))
+  }, [])
+
+  const onSubmit: SubmitHandler<InputFormValues> = async (data) => {
+    if (userId === undefined || columnId === undefined) return
+
+    try {
+      const assigneeUserId = userId
+      const dueDate = data.date ? formatDate(data.date) : EMPTY_DUEDATE
+
+      const response = await putTaskCards({
+        cardId: id,
+        columnId,
+        assigneeUserId,
+        title: data.title,
+        description: data.textarea,
+        dueDate: dueDate, // TODO: 날짜 수정 데이터 연결
+        tags: data.tags?.split(',').map((tag) => tag.trim()), // TODO: 태그 수정 데이터 연결
+        imageUrl:
+          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/3-7_20345_1713591497409.png',
+      }) // TODO: 이미지 수정 데이터 연결
+      setCardData(response)
+      modalStatus.setIsOpen(false)
+    } catch (error) {
+      console.error('Failed to create card:', error)
+    }
   }
 
   return (
@@ -72,7 +119,7 @@ const ModalEdittodo = () => {
           register={register}
         />
         <label className={S.label} htmlFor="due">
-          마감일
+          마감일<span className={S.required}>*</span>
         </label>
         <Input
           inputType="date"
@@ -105,8 +152,8 @@ const ModalEdittodo = () => {
           leftColor="white"
           rightColor="purple"
           leftText="취소"
-          rightText="생성"
-          onLeftClick={() => modalStaus.setIsOpen.call(null, false)}
+          rightText="수정"
+          onLeftClick={() => modalStatus.setIsOpen.call(null, false)}
           onRightClick={handleSubmit(onSubmit)}
         />
       </div>

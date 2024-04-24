@@ -103,3 +103,38 @@ export const postTaskCards = async ({
   }
   return await apiCall('post', url, data)
 }
+
+/**
+ * @description 카드 수정
+ */
+export const putTaskCards = async ({
+  cardId,
+  columnId,
+  assigneeUserId,
+  title,
+  description,
+  dueDate,
+  tags,
+  imageUrl,
+}: {
+  cardId: number
+  columnId: number
+  assigneeUserId: number
+  title: string
+  description: string
+  dueDate: string
+  tags: string[]
+  imageUrl: string
+}): Promise<any> => {
+  const url = `https://sp-taskify-api.vercel.app/4-6/cards/${cardId}`
+  const data = {
+    columnId,
+    assigneeUserId,
+    title,
+    description,
+    dueDate,
+    tags,
+    imageUrl,
+  }
+  return await apiCall('put', url, data)
+}
