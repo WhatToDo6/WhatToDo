@@ -47,10 +47,16 @@ export interface InvitedMemberType extends UserType {
   isOwner: boolean
   userId: number
 }
-
+//이름변경하기, 수정하기
 export interface GetPagenationType<T> {
   data: T[]
   totalCount: number
+  cursorId?: number
+}
+
+export interface GetInfiniteDashboardListType {
+  data: DashboardType[]
+  cursorId: number
 }
 
 export interface DashboardEditMakeParamType {
