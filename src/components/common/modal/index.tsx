@@ -14,7 +14,7 @@ const Modal = ({ setIsOpen, children }: ModalProps) => {
   return (
     <ModalPortal>
       <ModalContext.Provider value={{ setIsOpen }}>
-        <div className={S.background}>
+        <div className={S.background} onClick={() => setIsOpen(false)}>
           <div className={S.modal}>{children}</div>
         </div>
       </ModalContext.Provider>
