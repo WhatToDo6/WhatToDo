@@ -2,7 +2,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState, useMemo } from 'react'
 
-import AXIOS from '@/lib/axios'
 import {
   fetchGetDashboardDetail,
   fetchPostInviteDashboard,
@@ -18,13 +17,13 @@ import tempCircle3 from '@/public/icons/temp-circle-3.svg'
 import tempCircle4 from '@/public/icons/temp-circle-4.svg'
 import tempCircle5 from '@/public/icons/temp-circle-5.svg'
 import {
-  UserType,
   InvitedMemberType,
   DashboardType,
   InviteDashboardParamType,
 } from '@/src/types/mydashboard'
 
 import S from './DashboardHeader.module.scss'
+import { useUser } from '../../common/context/users'
 import ManagerProfile from '../../common/manager-profile'
 import Modal from '../../common/modal'
 import ModalDashBoard from '../../common/modal/modal-dashboard'
@@ -50,7 +49,7 @@ interface DashboardHeaderProps {
 }
 
 function DashboardHeader({ pathname }: DashboardHeaderProps) {
-  const [myUserData, setMyUserData] = useState<UserType>()
+  const { userData } = useUser()
   const [dashboardMembers, setDashboardMembers] = useState<InvitedMemberType[]>(
     [],
   )
@@ -84,21 +83,6 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
     [dashboardId],
   )
 
-  const getUserData = async () => {
-    const token = localStorage.getItem('accessToken')
-    try {
-      const response = await AXIOS.get('/users/me', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      const { data } = response
-      setMyUserData(data)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
   const getMembersData = async (dashboardId: number) => {
     try {
       const response = await fetchGetDashboardMemberList<InvitedMemberType>(
@@ -131,10 +115,6 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
   }
 
   useEffect(() => {
-    getUserData()
-  }, [])
-
-  useEffect(() => {
     if (dashboardId) {
       getMembersData(dashboardId)
       getDashboardData(dashboardId)
@@ -142,7 +122,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
   }, [dashboardId])
 
   // TODO: 로딩 구현
-  if (!myUserData)
+  if (!userData)
     return (
       <div className={S.container}>
         <div className={S.title}>{TITLE[pathname]}</div>
@@ -155,8 +135,8 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
         <div className={S.title}>{TITLE[pathname]}</div>
         <div className={S.rightBox}>
           <ManagerProfile
-            profileImageUrl={myUserData.profileImageUrl}
-            nickname={myUserData.nickname}
+            profileImageUrl={userData.profileImageUrl}
+            nickname={userData.nickname}
             type="dashboardHeader"
           />
         </div>
@@ -233,8 +213,8 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
           </div>
           <Image width={0} height={38} src={barIcon} alt="bar" />
           <ManagerProfile
-            profileImageUrl={myUserData.profileImageUrl}
-            nickname={myUserData.nickname}
+            profileImageUrl={userData.profileImageUrl}
+            nickname={userData.nickname}
             type="dashboardHeader"
           />
         </div>
