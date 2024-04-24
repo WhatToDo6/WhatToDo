@@ -13,6 +13,7 @@ import PagenationButton from '../pagenation-button'
 
 function DashboardButtonContainer() {
   const router = useRouter()
+  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const { pageData, currPage, lastPage, onClickPrevPage, onClickNextPage } =
     useContext(DashboardsContext)
@@ -20,8 +21,6 @@ function DashboardButtonContainer() {
   const handleClickButton = (id: number) => {
     router.push(`/dashboards/${id}`)
   }
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const handleModalClick = () => {
     setIsModalOpen(true)
