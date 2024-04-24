@@ -49,7 +49,13 @@ const TaskCard = ({ columnId, taskCard }: TaskCardProps) => {
         <div className={S.wrapper}>
           <TaskCardTag tagType="프로젝트" />
           <div className={S.cardBottom}>
-            <TaskCardDate dueDate={cardData.dueDate} />
+            <div
+              className={
+                cardData.dueDate === '2100-12-31 23:59' ? S.hidden : ''
+              }
+            >
+              <TaskCardDate dueDate={cardData.dueDate} />
+            </div>
             <div>아이콘</div>
           </div>
         </div>
