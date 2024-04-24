@@ -21,7 +21,12 @@ export interface TaskCardDataType {
   description: string
   dueDate: string
   imageUrl: string
-  tags?: string[]
+  tags: string[]
+  assignee: {
+    profileImageUrl: string
+    nickname: string
+    id: number
+  }
 }
 
 export type TaskCardDateType = {
