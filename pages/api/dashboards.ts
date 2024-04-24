@@ -10,13 +10,15 @@ import {
 //대시보드 생성
 export const fetchPostMakeDashboard = async (
   data: DashboardEditMakeParamType,
-) => {
+): Promise<DashboardType> => {
   const token = localStorage.getItem('accessToken')
-  await AXIOS.post('/dashboards', data, {
+  const response = await AXIOS.post('/dashboards', data, {
     headers: {
       Authorization: `bearer ${token}`,
     },
   })
+  const { data: dashboard } = response
+  return dashboard
 }
 
 //대시보드 목록 조회

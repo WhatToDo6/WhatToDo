@@ -42,7 +42,9 @@ function DashboardButtonContainer({
 
   const makeNewDashboard = async (data: DashboardEditMakeParamType) => {
     try {
-      await fetchPostMakeDashboard(data)
+      const dashboard = await fetchPostMakeDashboard(data)
+      const { id } = dashboard
+      router.push(`/dashboards/${id}`)
     } catch (err) {
       console.error(err)
     }
