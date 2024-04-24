@@ -79,6 +79,7 @@
   color: $color-gray-400;
   @include font-style(1.2rem, 400, normal);
   text-decoration-line: underline;
+  cursor: pointer;
 
   @include mobile {
     @include font-style(1rem, 400, normal);
