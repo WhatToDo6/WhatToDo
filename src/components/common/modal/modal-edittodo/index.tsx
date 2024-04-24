@@ -7,6 +7,7 @@ import { EMPTY_DUEDATE } from '@/src/constants/date'
 import { TaskCardDataType } from '@/src/types/dashboard.interface'
 import { InputFormValues } from '@/src/types/input'
 import { formatDate } from '@/src/utils/formatDate'
+import { formatLocalDate } from '@/src/utils/formatLocalDate'
 
 import S from './ModalEdittodo.module.scss'
 import { ModalContext } from '..'
@@ -44,7 +45,10 @@ const ModalEdittodo = ({
   useEffect(() => {
     setValue('title', title)
     setValue('textarea', description)
-    // setValue('date', dueDate)
+
+    dueDate === EMPTY_DUEDATE
+      ? setValue('date', null)
+      : setValue('date', formatLocalDate(dueDate))
     // setValue('tags', tags.join(', '))
   }, [])
 
@@ -53,7 +57,7 @@ const ModalEdittodo = ({
 
     try {
       const assigneeUserId = userId
-      const dueDate = data.date ? formatDate(data.date) : EMPTY_DUEDATE
+      const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
 
       const response = await putTaskCards({
         cardId: id,
@@ -61,7 +65,7 @@ const ModalEdittodo = ({
         assigneeUserId,
         title: data.title,
         description: data.textarea,
-        dueDate: dueDate, // TODO: 날짜 수정 데이터 연결
+        dueDate: dueDate,
         tags: data.tags?.split(',').map((tag) => tag.trim()), // TODO: 태그 수정 데이터 연결
         imageUrl:
           'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/3-7_20345_1713591497409.png',
