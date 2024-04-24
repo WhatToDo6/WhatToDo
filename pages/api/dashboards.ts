@@ -59,13 +59,15 @@ export const fetchGetDashboardDetail = async (
 export const fetchPutDashboardEdit = async (
   data: EditDahsboardParamType,
   dashboardId: number,
-) => {
+): Promise<DashboardType> => {
   const token = localStorage.getItem('accessToken')
-  await AXIOS.put(`/dashboards/${dashboardId}`, data, {
+  const response = await AXIOS.put(`/dashboards/${dashboardId}`, data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   })
+  const { data: dashboard } = response
+  return dashboard
 }
 
 //대시보드 삭제하기
