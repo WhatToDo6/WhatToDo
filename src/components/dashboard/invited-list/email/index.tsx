@@ -1,16 +1,13 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { fetchPostInviteDashboard } from '@/pages/api/dashboards'
 import addBoxIcon from '@/public/icons/add-box-icon-white.svg'
 import BorderButton from '@/src/components/common/button/border'
 import Modal from '@/src/components/common/modal'
 import ModalDashBoard from '@/src/components/common/modal/modal-dashboard'
-import { usePagenation } from '@/src/hooks/usePagenation'
-import {
-  InviteDashboardParamType,
-  InvitedListEmailType,
-} from '@/src/types/mydashboard'
+import { InviteeEmailContext } from '@/src/context/inviteeEmail'
+import { InviteDashboardParamType } from '@/src/types/mydashboard'
 
 import S from './InviteListEmail.module.scss'
 import PagenationButton from '../../pagenation-button'
@@ -24,11 +21,12 @@ function InviteListEmail({ dashboardId }: InviteListEmailProps) {
   const {
     currPage,
     pageData,
-    setPageData,
     lastPage,
     onClickPrevPage,
     onClickNextPage,
-  } = usePagenation<InvitedListEmailType>(5, 'email', dashboardId)
+    handleDelete,
+    handleCreate,
+  } = useContext(InviteeEmailContext)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -36,13 +34,10 @@ function InviteListEmail({ dashboardId }: InviteListEmailProps) {
     setIsModalOpen(true)
   }
 
-  const handleChange = (id: number) => {
-    setPageData((prev) => prev.filter((prev) => prev.id !== id))
-  }
-
   const InviteDashboard = async (data: InviteDashboardParamType) => {
     try {
       await fetchPostInviteDashboard(data, dashboardId)
+      handleCreate()
     } catch (err) {
       console.error(err)
     }
@@ -93,7 +88,7 @@ function InviteListEmail({ dashboardId }: InviteListEmailProps) {
             id={data.id}
             email={data.invitee.email}
             dashboardId={dashboardId}
-            handleChange={handleChange}
+            handleChange={handleDelete}
           />
         ))}
       </div>

@@ -1,11 +1,9 @@
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { fetchPostMakeDashboard } from '@/pages/api/dashboards'
-import {
-  DashboardType,
-  DashboardEditMakeParamType,
-} from '@/src/types/mydashboard'
+import { DashboardsContext } from '@/src/context/dashboards'
+import { DashboardEditMakeParamType } from '@/src/types/mydashboard'
 
 import S from './buttonContainer.module.scss'
 import Modal from '../../common/modal'
@@ -13,22 +11,11 @@ import ModalNewDash from '../../common/modal/modal-newdash'
 import DashboardButton from '../dashboard-button'
 import PagenationButton from '../pagenation-button'
 
-interface DashboardButtonContainerProps {
-  dashboards: DashboardType[]
-  currPage: number
-  lastPage: number
-  onClickPrevPage: () => void
-  onClickNextPage: () => void
-}
-
-function DashboardButtonContainer({
-  dashboards,
-  currPage,
-  lastPage,
-  onClickPrevPage,
-  onClickNextPage,
-}: DashboardButtonContainerProps) {
+function DashboardButtonContainer() {
   const router = useRouter()
+
+  const { pageData, currPage, lastPage, onClickPrevPage, onClickNextPage } =
+    useContext(DashboardsContext)
 
   const handleClickButton = (id: number) => {
     router.push(`/dashboards/${id}`)
@@ -59,7 +46,7 @@ function DashboardButtonContainer({
       )}
       <div className={S.container}>
         <DashboardButton type="addDashboard" onClick={handleModalClick} />
-        {dashboards.map((dashboard) => (
+        {pageData.map((dashboard) => (
           <DashboardButton
             key={dashboard.id}
             color={dashboard.color}
