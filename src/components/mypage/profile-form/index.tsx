@@ -76,7 +76,7 @@ const ProfileForm = () => {
       <div className={S.content}>
         <div className={S.imgContainer}>
           <InputProfileImage
-            profileImageUrl=""
+            profileImageUrl={uploadedImageUrl}
             handleImageChange={(event) =>
               handleImageChange(event, setUploadedImageUrl)
             }
