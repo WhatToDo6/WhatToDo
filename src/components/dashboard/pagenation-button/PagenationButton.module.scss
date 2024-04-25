@@ -9,6 +9,10 @@
 
   p {
     @include font-style(1.4rem, 400, normal);
+
+    @include mobile {
+      @include font-style(1.2rem, 400, normal);
+    }
   }
 }
 

@@ -10,4 +10,8 @@
 
 @mixin title {
   @include font-style(2.4rem, 700, normal);
+
+  @include mobile {
+    @include font-style(2rem, 700, normal);
+  }
 }

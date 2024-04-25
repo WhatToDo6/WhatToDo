@@ -17,6 +17,10 @@
 
     span {
       @include font-style(1.6rem, 500, normal);
+
+      @include mobile {
+        display: none;
+      }
     }
   }
 
