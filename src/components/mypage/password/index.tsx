@@ -94,11 +94,11 @@ const Password = () => {
               size="small"
               color="purple"
               isDisabled={
-                watch('password') === '' ||
-                watch('newPassword') === '' ||
-                watch('newPasswordCheck') === ''
-                  ? true
-                  : false
+                watch('password') !== '' &&
+                watch('newPassword') !== '' &&
+                watch('newPasswordCheck') !== ''
+                  ? false
+                  : true
               }
             >
               변경
