@@ -18,7 +18,7 @@ interface TaskCardProps {
 
 const TaskCard = ({ columnId, taskCard, columnTitle }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [cardData, setCardData] = useState(taskCard)
+  const [cardData, setCardData] = useState<TaskCardDataType>(taskCard)
 
   return (
     <>

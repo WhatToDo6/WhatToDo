@@ -1,3 +1,5 @@
+import { ChangeEvent } from 'react'
+
 import { postCardImage } from '@/pages/api/cardImage'
 import { InputInterface } from '@/src/types/input'
 
@@ -51,7 +53,7 @@ const Input = ({
     if (file) {
       postCardImage(columnId, file)
         .then((newImageUrl) => {
-          setImageUrl(newImageUrl)
+          setImageUrl?.(newImageUrl)
         })
         .catch((error) => {
           console.error('Error during image upload:', error)

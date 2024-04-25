@@ -26,7 +26,7 @@ const ModalTodo = ({
 }: ModalTodoProps) => {
   const modalStatus = useContext(ModalContext)
   const [userId, setUserId] = useState()
-  const [imageUrl, setImageUrl] = useState()
+  const [imageUrl, setImageUrl] = useState<string | undefined>()
 
   const {
     register,
@@ -56,7 +56,7 @@ const ModalTodo = ({
         dueDate: dueDate,
         tags: data.tags,
         imageUrl: imageUrl,
-      }) // 임시 이미지 url
+      })
       onTaskCardCreated(response)
       modalStatus.setIsOpen(false)
     } catch (error) {

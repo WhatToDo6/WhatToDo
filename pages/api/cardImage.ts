@@ -5,7 +5,7 @@ const getAuthHeaders = (): Record<string, string> => ({
 })
 
 export const postCardImage = async (
-  columnId: number,
+  columnId: number | undefined,
   imageFile: File,
 ): Promise<string> => {
   const formData = new FormData()
