@@ -33,7 +33,6 @@ export interface InputInterface {
   currentNickname?: string // 기존 닉네임과 새 닉네임을 비교하기 위해 필요
   currentColumn?: string // 기존 컬럼 이름과 새로운 칼럼 이름을 비교하기 위해 필요
   columnId?: number | undefined
-  setImageUrl: (url: string) => void
 }
 export interface InputFormValues {
   email: string

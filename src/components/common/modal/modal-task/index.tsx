@@ -7,7 +7,7 @@ import BAR_ICON from '@/public/icons/bar.svg'
 import CLOSE_ICON from '@/public/icons/close.svg'
 import POPOVER_ICON from '@/public/icons/popover.svg'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
-import { CommentsType, TaskCardDataType } from '@/src/types/dashboard.interface'
+import { CommentsType, TaskCardTagType } from '@/src/types/dashboard.interface'
 
 import Comment from './comment'
 import CommentForm from './comment-form/index'
@@ -32,8 +32,8 @@ interface ModalTaskProps {
   imageUrl: string
   columnId: number | undefined
   columnTitle: string
-  cardData: TaskCardDataType
-  setCardData: React.Dispatch<React.SetStateAction<TaskCardDataType>>
+  cardData: TaskCardTagType
+  setCardData: React.Dispatch<React.SetStateAction<TaskCardTagType>>
 }
 
 const ModalTask = ({

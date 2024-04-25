@@ -29,7 +29,7 @@ export interface ColumnHeaderType {
   columnId: number | undefined
 }
 
-export interface TaskCardDataType {
+export interface TaskCardTagType {
   assignee: {
     profileImageUrl: string
     nickname: string
@@ -38,7 +38,7 @@ export interface TaskCardDataType {
   colorIndex: number
 }
 
-export type TaskCardDateType = {
+export type TaskCardDataType = {
   columnId: number
   createdAt: string
   dashboardId: number
@@ -58,4 +58,4 @@ export interface PaginationResponse<T> {
   totalCount: number
 }
 
-export type GetTaskCards = PaginationResponse<TaskCardDataType>
+export type GetTaskCards = PaginationResponse<TaskCardTagType>
