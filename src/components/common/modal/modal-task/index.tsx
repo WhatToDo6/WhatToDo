@@ -117,6 +117,10 @@ const ModalTask = ({
     //TODO 팝오버에서 삭제하기 기능 구현
   }
 
+  useEffect(() => {
+    isModalOpen === false && setIsPopoverOpen(false)
+  }, [isModalOpen])
+
   return (
     <div className={S.container}>
       {isModalOpen && (
