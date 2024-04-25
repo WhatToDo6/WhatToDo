@@ -1,0 +1,83 @@
+@import '@/src/styles/global.scss';
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+.toastContainer {
+  position: fixed;
+  top: 10rem;
+  right: 3rem;
+  z-index: 1000;
+}
+
+.toast {
+  width: 50rem;
+  height: 8rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 1rem;
+  padding: 3rem 2rem;
+  border-radius: 0.8rem;
+  box-shadow: 0 0.4rem 2rem 0 rgba(0, 0, 0, 0.08);
+  background-color: $color-white;
+  animation: slideInRight 0.5s ease-out forwards;
+}
+
+.text {
+  color: $color-black-200;
+  @include font-style(2rem, 500, normal);
+}
+
+.imgSuccess {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: $color-green;
+  border-radius: 100%;
+}
+
+.imgError {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2rem;
+  height: 2rem;
+  background-color: $color-red;
+  border-radius: 100%;
+  color: $color-white;
+  @include font-style(1.5rem, normal, normal);
+}
+
+.toastHide {
+  animation: slideOutRight 0.5s ease-out forwards;
+}
+
+.toast-success {
+  border: 0.1rem solid $color-green;
+}
+
+.toast-error {
+  border: 0.1rem solid $color-red;
+}
