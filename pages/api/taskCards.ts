@@ -97,9 +97,11 @@ export const putTaskCards = async ({
   return await apiCall('put', url, data)
 }
 
-export const deleteTaskCards = async (id: number | undefined): Promise<any> => {
-  if (!id) throw new Error('댓글 ID가 필요합니다.')
-  return await apiCall('delete', `/comments/${id}`)
+export const deleteTaskCards = async (
+  cardId: number | undefined,
+): Promise<TaskCardsPromise> => {
+  if (!cardId) throw new Error('카드 ID가 필요합니다.')
+  return await apiCall('delete', `/cards/${cardId}`)
 }
 
 /**

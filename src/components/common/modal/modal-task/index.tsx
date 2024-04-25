@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { useContext, useEffect, useRef, useState } from 'react'
 
 import { deleteComment, getComments } from '@/pages/api/comments'
+import { deleteTaskCards } from '@/pages/api/taskCards'
 import { ColumnContext } from '@/pages/dashboards/[id]'
 import BAR_ICON from '@/public/icons/bar.svg'
 import CLOSE_ICON from '@/public/icons/close.svg'
@@ -45,7 +46,8 @@ const ModalTask = ({
   dueDate,
   assignee,
   imageUrl,
-  cardData,
+  taskCard,
+  setTaskCards,
 }: ModalTaskProps) => {
   const modalStatus = useContext(ModalContext)
   const columnStatus = useContext(ColumnContext)
@@ -56,8 +58,6 @@ const ModalTask = ({
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { observe, isScrolled } = useIntersectionObserver()
-
-  const [newCardData, setNewCardData] = useState(cardData)
 
   const handleClose = () => {
     modalStatus.setIsOpen.call(null, false)
@@ -111,8 +111,15 @@ const ModalTask = ({
     setIsPopoverOpen((prev) => !prev)
   }
 
-  const handlePopoverDelete = () => {
-    //TODO 팝오버에서 삭제하기 기능 구현
+  const handlePopoverDelete = async () => {
+    try {
+      await deleteTaskCards(cardId)
+      setTaskCards((prevCard: TaskCardDataType) => {
+        return prevCard.filter((card) => card.id !== cardId)
+      })
+    } catch (error) {
+      console.error('카드를 삭제하는 데 실패했습니다:', error)
+    }
   }
 
   useEffect(() => {
@@ -123,7 +130,7 @@ const ModalTask = ({
     <div className={S.container}>
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
-          <ModalEdittodo cardData={newCardData} setCardData={setNewCardData} />
+          <ModalEdittodo cardData={taskCard} setCardData={setTaskCards} />
         </Modal>
       )}
       <div className={S.titleContainer}>
@@ -161,7 +168,7 @@ const ModalTask = ({
       <div className={S.contentContainer}>
         <div className={S.content}>
           <div className={S.chips}>
-            <ProgressChip progress={columnStatus[newCardData.columnId]} />
+            <ProgressChip progress={columnStatus[taskCard.columnId]} />
             <Image src={BAR_ICON} alt="구분선" width={0} height={20} />
             <div className={S.tags}>
               {tags.map((tag, index) => (

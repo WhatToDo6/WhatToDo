@@ -40,7 +40,9 @@ const Comment = ({
   }
 
   const handleDelete = () => {
-    onDelete(commentId)
+    if (onDelete) {
+      onDelete(commentId)
+    }
   }
 
   return (

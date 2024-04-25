@@ -66,6 +66,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
           <TaskCard
             key={taskCard.id}
             taskCard={taskCard}
+            setTaskCards={setTaskCards}
             columnId={columnId}
             columnTitle={title}
           />
