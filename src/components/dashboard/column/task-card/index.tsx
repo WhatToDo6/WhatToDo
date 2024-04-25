@@ -18,11 +18,7 @@ interface TaskCardProps {
 
 const TaskCard = ({ columnId, taskCard, columnTitle }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [cardData, setCardData] = useState(() => {
-    const tagColorsLength = 4
-    const colorIndex = Math.floor(Math.random() * tagColorsLength)
-    return { ...taskCard, colorIndex }
-  })
+  const [cardData, setCardData] = useState(taskCard)
 
   return (
     <>
@@ -40,7 +36,11 @@ const TaskCard = ({ columnId, taskCard, columnTitle }: TaskCardProps) => {
         <div className={S.content}>
           <h2 className={S.cardTitle}>{cardData.title}</h2>
           <div className={S.wrapper}>
-            <TagChip index={cardData.colorIndex} text={cardData.tags[0]} />
+            <div className={S.tag}>
+              {cardData.tags.map((tag, index) => (
+                <TagChip key={index} index={index} text={tag} />
+              ))}
+            </div>
             <div className={S.cardBottom}>
               <div
                 className={cardData.dueDate === EMPTY_DUEDATE ? S.hidden : ''}

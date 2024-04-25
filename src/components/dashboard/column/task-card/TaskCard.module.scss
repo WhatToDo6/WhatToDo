@@ -66,6 +66,11 @@
   }
 }
 
+.tag {
+  display: flex;
+  gap: 0.6rem;
+}
+
 .cardBottom {
   display: flex;
   flex: 1;
