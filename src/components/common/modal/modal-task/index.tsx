@@ -117,6 +117,8 @@ const ModalTask = ({
     //TODO 팝오버에서 삭제하기 기능 구현
   }
 
+  console.log(newCardData)
+
   useEffect(() => {
     isModalOpen === false && setIsPopoverOpen(false)
   }, [isModalOpen])
@@ -125,7 +127,7 @@ const ModalTask = ({
     <div className={S.container}>
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
-          <ModalEdittodo cardData={cardData} setCardData={setNewCardData} />
+          <ModalEdittodo cardData={newCardData} setCardData={setNewCardData} />
         </Modal>
       )}
       <div className={S.titleContainer}>
