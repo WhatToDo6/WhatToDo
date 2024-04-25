@@ -30,21 +30,22 @@ export interface ColumnHeaderType {
 }
 
 export interface TaskCardDataType {
-  id: number
-  title: string
-  description: string
-  dueDate: string
-  imageUrl: string
-  tags: string[]
   assignee: {
     profileImageUrl: string
     nickname: string
     id: number
   }
-}
-
-export type TaskCardDateType = {
+  columnId: number
+  createdAt: string
+  dashboardId: number
+  description: string
   dueDate: string
+  id: number
+  imageUrl: string
+  tags: string[]
+  teamId: number
+  title: string
+  updatedAt: string
 }
 
 export interface PaginationResponse<T> {
