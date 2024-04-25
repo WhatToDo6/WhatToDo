@@ -107,7 +107,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
             </div>
           )}
           {displayList
-            .filter((elem) => elem.id !== userId)
+            .filter((elem) => elem.userId !== userId)
             .map((elem) => {
               return (
                 <div
