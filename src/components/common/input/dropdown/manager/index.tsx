@@ -1,19 +1,18 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import ARROW_ICON from '@/public/icons/arrow-dropdown.svg'
 import CHECK_ICON from '@/public/icons/check-gray.svg'
 import DELETE_ICON from '@/public/icons/delete.svg'
+import { MembersContext } from '@/src/context/members'
 import { InputProps } from '@/src/types/input'
-import { MemberProps } from '@/src/types/member'
 
-import dummyData from './dummyData'
 import S from './Manager.module.scss'
 import ManagerProfile from '../../../manager-profile'
 
-// TODO: 초대받은 인원 api 연결
 const DropDownManager = ({ placeholder, setValue }: InputProps) => {
-  const memberData: MemberProps[] = dummyData[0].members
+  const { headerMembers } = useContext(MembersContext)
+  const memberData = headerMembers
 
   const [isOpen, setIsOpen] = useState(false)
   const [isFocus, setIsFocus] = useState(false)
