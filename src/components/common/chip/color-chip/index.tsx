@@ -20,12 +20,15 @@ interface ColorChipProps {
  */
 const ColorChip = ({
   showSelectedOnly = false,
-  selectedColor,
+  selectedColor: selectedColorinProps,
   setSelectedColor,
 }: ColorChipProps) => {
   const handleSelectChip = (color: string) => {
     setSelectedColor(color)
   }
+
+  const selectedColor =
+    selectedColorinProps && selectedColorinProps.toUpperCase()
 
   return (
     <div className={S.container}>
