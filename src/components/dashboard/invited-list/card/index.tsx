@@ -112,12 +112,14 @@ function InvitedListCard({
     member: (
       <>
         <div className={S.userBox}>
-          <Image
-            src={profileImageUrl ? profileImageUrl : basicImg}
-            alt="프로필이미지"
-            width={38}
-            height={38}
-          />
+          <div className={S.userImgDiv}>
+            <Image
+              className={S.userImg}
+              src={profileImageUrl ? profileImageUrl : basicImg}
+              alt="프로필이미지"
+              fill
+            />
+          </div>
           <span>{nickname}</span>
         </div>
         <BorderButton

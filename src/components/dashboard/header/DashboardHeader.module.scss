@@ -103,14 +103,22 @@
   display: flex;
 }
 
-.memberImg {
+.memberImgDiv {
+  position: relative;
   margin-right: -1rem;
+  width: 3.8rem;
+  height: 3.8rem;
+}
+
+.memberImg {
+  border: 0.15rem solid $color-white;
+  border-radius: 100%;
 }
 
 .overImg {
   width: 3.8rem;
   height: 3.8rem;
-  border-radius: 50%;
+  border-radius: 100%;
   background-color: #f4d7da;
   display: flex;
   align-items: center;

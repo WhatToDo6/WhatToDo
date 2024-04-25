@@ -46,6 +46,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
   const { userData } = useUser()
   const { headerMembers } = useContext(MembersContext)
   const { dashboardDetail } = useContext(DashboardsContext)
+  const visibleMemberNum = 4
 
   const {
     query: { id },
@@ -154,24 +155,25 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
           )}
           <div className={S.memberImgBox}>
             {headerMembers
-              .filter((_, idx) => idx < 4)
+              .filter((_, idx) => idx < visibleMemberNum)
               .map((member, idx) => (
-                <Image
-                  className={`${S.memberImg}`}
-                  width={38}
-                  height={38}
-                  key={member.id}
-                  src={
-                    member.profileImageUrl
-                      ? member.profileImageUrl
-                      : EMPTY_IMG[idx]
-                  }
-                  alt={`${member.nickname}의 이미지`}
-                />
+                <div key={member.id} className={S.memberImgDiv}>
+                  <Image
+                    className={S.memberImg}
+                    fill
+                    key={member.id}
+                    src={
+                      member.profileImageUrl
+                        ? member.profileImageUrl
+                        : EMPTY_IMG[idx]
+                    }
+                    alt={`${member.nickname}의 이미지`}
+                  />
+                </div>
               ))}
-            {headerMembers.length > 4 && (
+            {headerMembers.length > visibleMemberNum && (
               <div className={S.overImg}>
-                <span>+{+headerMembers.length - 4}</span>
+                <span>+{+headerMembers.length - visibleMemberNum}</span>
               </div>
             )}
           </div>
