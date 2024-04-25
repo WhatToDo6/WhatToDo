@@ -41,6 +41,7 @@ export interface TaskCardDataType {
     nickname: string
     id: number
   }
+  colorIndex: number
 }
 
 export type TaskCardDateType = {

@@ -53,7 +53,7 @@ const ModalTodo = ({
         title: data.title,
         description: data.textarea,
         dueDate: dueDate,
-        tags: data.tags?.split(',').map((tag) => tag.trim()),
+        tags: data.tags,
         imageUrl:
           'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/3-7_20345_1713591497409.png',
       }) // 임시 이미지 url
