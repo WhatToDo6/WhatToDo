@@ -85,12 +85,12 @@ const ProfileForm = () => {
             type="text"
             disabled={true}
             placeholder={userData?.email}
-            className={S.textInput}
+            className={`${S.textInput} ${S.email}`}
           />
           <label className={S.title}>닉네임</label>
           <Input
             inputType="newNickname"
-            placeholder=""
+            placeholder={userData?.nickname}
             error={errors.newNickname}
             register={register}
             currentNickname={userData?.nickname}
