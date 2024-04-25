@@ -1,3 +1,4 @@
+import { handleImageChange } from '@/pages/api/imageUpload'
 import { InputInterface } from '@/src/types/input'
 
 import InputDate from './date'
@@ -42,6 +43,8 @@ const Input = ({
   size,
   control,
   setValue,
+  columnId,
+  setImageUrl,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
@@ -164,7 +167,13 @@ const Input = ({
         register={register}
       />
     ),
-    image: <InputProfileImage handleImageChange={() => console.log('임시')} />, // TODO: 함수 연결
+    image: (
+      <InputProfileImage
+        handleImageChange={(event) =>
+          handleImageChange(event, setImageUrl, columnId)
+        }
+      />
+    ),
     manager: (
       <DropDownManager
         placeholder={placeholder || ''}
