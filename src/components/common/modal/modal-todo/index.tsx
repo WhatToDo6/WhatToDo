@@ -1,10 +1,14 @@
 import { useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { handleImageChange } from '@/pages/api/imageUpload'
 import { postTaskCards } from '@/pages/api/taskCards'
 import { fetchGetUser } from '@/pages/api/users'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
-import { TaskCardDataType } from '@/src/types/dashboard.interface'
+import {
+  TaskCardDataType,
+  TaskCardsPromise,
+} from '@/src/types/dashboard.interface'
 import { InputFormValues } from '@/src/types/input'
 import { formatDate } from '@/src/utils/formatDate'
 
@@ -12,6 +16,7 @@ import S from './ModalTodo.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
+import InputProfileImage from '../../input/profile-image'
 
 interface ModalTodoProps {
   columnId: number | undefined
@@ -26,6 +31,7 @@ const ModalTodo = ({
 }: ModalTodoProps) => {
   const modalStatus = useContext(ModalContext)
   const [userId, setUserId] = useState()
+  const [imageUrl, setImageUrl] = useState<string | undefined>()
 
   const {
     register,
@@ -53,10 +59,9 @@ const ModalTodo = ({
         title: data.title,
         description: data.textarea,
         dueDate: dueDate,
-        tags: data.tags?.split(',').map((tag) => tag.trim()),
-        imageUrl:
-          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/3-7_20345_1713591497409.png',
-      }) // 임시 이미지 url
+        tags: data.tags,
+        imageUrl: imageUrl,
+      })
       onTaskCardCreated(response)
       modalStatus.setIsOpen(false)
     } catch (error) {
@@ -118,7 +123,12 @@ const ModalTodo = ({
           이미지
         </label>
         <div className={S.imageContainer}>
-          <Input inputType="image" register={register} setValue={setValue} />
+          <InputProfileImage
+            profileImageUrl={imageUrl}
+            handleImageChange={(event) => {
+              handleImageChange(event, setImageUrl, columnId)
+            }}
+          />
         </div>
       </div>
       <div className={S.button}>

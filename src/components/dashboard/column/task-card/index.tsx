@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
+import TagChip from '@/src/components/common/chip/tag-chip'
 import Modal from '@/src/components/common/modal'
 import ModalTask from '@/src/components/common/modal/modal-task'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
@@ -8,7 +9,6 @@ import { TaskCardDataType } from '@/src/types/dashboard.interface'
 
 import S from './TaskCard.module.scss'
 import TaskCardDate from '../task-card-date'
-import TaskCardTag from '../task-card-tag'
 
 interface TaskCardProps {
   columnId: number | undefined
@@ -16,9 +16,13 @@ interface TaskCardProps {
   columnTitle: string
 }
 
-const TaskCard = ({ columnId, taskCard, columnTitle }: TaskCardProps) => {
+const TaskCard = ({
+  columnId,
+  taskCard,
+  setTaskCards,
+  columnTitle,
+}: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [cardData, setCardData] = useState(taskCard)
 
   return (
     <>
@@ -26,7 +30,7 @@ const TaskCard = ({ columnId, taskCard, columnTitle }: TaskCardProps) => {
         <div className={S.imageWrapper}>
           <Image
             className={S.cardImage}
-            src={cardData.imageUrl}
+            src={taskCard.imageUrl}
             width={274}
             height={160}
             layout="responsive"
@@ -34,14 +38,18 @@ const TaskCard = ({ columnId, taskCard, columnTitle }: TaskCardProps) => {
           />
         </div>
         <div className={S.content}>
-          <h2 className={S.cardTitle}>{cardData.title}</h2>
+          <h2 className={S.cardTitle}>{taskCard.title}</h2>
           <div className={S.wrapper}>
-            <TaskCardTag tagType="프로젝트" />
+            <div className={S.tag}>
+              {taskCard.tags.map((tag, index) => (
+                <TagChip key={index} index={index} text={tag} />
+              ))}
+            </div>
             <div className={S.cardBottom}>
               <div
-                className={cardData.dueDate === EMPTY_DUEDATE ? S.hidden : ''}
+                className={taskCard.dueDate === EMPTY_DUEDATE ? S.hidden : ''}
               >
-                <TaskCardDate dueDate={cardData.dueDate} />
+                <TaskCardDate dueDate={taskCard.dueDate} />
               </div>
               <div>아이콘</div>
             </div>
@@ -52,16 +60,16 @@ const TaskCard = ({ columnId, taskCard, columnTitle }: TaskCardProps) => {
         <Modal setIsOpen={setIsModalOpen}>
           <ModalTask
             columnId={columnId}
-            cardId={cardData.id}
-            title={cardData.title}
-            dueDate={cardData.dueDate}
-            assignee={cardData.assignee}
-            imageUrl={cardData.imageUrl}
-            tags={cardData.tags}
-            description={cardData.description}
-            cardData={cardData}
-            setCardData={setCardData}
+            cardId={taskCard.id}
+            title={taskCard.title}
+            dueDate={taskCard.dueDate}
+            assignee={taskCard.assignee}
+            imageUrl={taskCard.imageUrl}
+            tags={taskCard.tags}
+            description={taskCard.description}
             columnTitle={columnTitle}
+            taskCard={taskCard}
+            setTaskCards={setTaskCards}
           />
         </Modal>
       )}

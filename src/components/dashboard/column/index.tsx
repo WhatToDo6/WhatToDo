@@ -6,8 +6,8 @@ import TaskCard from '@/src/components/dashboard/column/task-card'
 import DashboardButton from '@/src/components/dashboard/dashboard-button'
 import {
   ColumnDataType,
+  PaginationResponse,
   TaskCardDataType,
-  GetTaskCards,
 } from '@/src/types/dashboard.interface'
 
 import S from './Column.module.scss'
@@ -35,7 +35,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
           data,
           nextCursorId: fetchNextCursorId,
           totalCount,
-        }: GetTaskCards = await getTaskCards(
+        } = await getTaskCards(
           columnId,
           firstFetch ? null : nextCursorId,
           firstFetch,
@@ -66,6 +66,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
           <TaskCard
             key={taskCard.id}
             taskCard={taskCard}
+            setTaskCards={setTaskCards}
             columnId={columnId}
             columnTitle={title}
           />
