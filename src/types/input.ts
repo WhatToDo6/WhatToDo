@@ -18,7 +18,7 @@ export interface InputInterface {
     | 'textarea'
     | 'image'
     | 'manager'
-    | 'progress'
+    | 'status'
   placeholder?: string
   error?: FieldError | undefined
   register: UseFormRegister<InputFormValues>
@@ -50,6 +50,7 @@ export interface InputFormValues {
   textarea: string
   profileImageUrl: FileList
   manager: number // 담당자 userId
+  status: number
 }
 
 export interface InputProps {

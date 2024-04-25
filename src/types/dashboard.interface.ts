@@ -36,6 +36,7 @@ export interface TaskCardDataType {
   dueDate: string
   imageUrl: string
   tags: string[]
+  columnId: number
   assignee: {
     profileImageUrl: string
     nickname: string

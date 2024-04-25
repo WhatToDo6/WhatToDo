@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, createContext } from 'react'
 
 import { getColumns, postColumns } from '@/pages/api/columns'
 import Layout from '@/src/components/common/layout'
@@ -15,6 +15,8 @@ import {
 
 import S from './DashboardId.module.scss'
 
+export const ColumnContext = createContext<Record<number, string>>({})
+
 const DashboardIdPage = () => {
   const {
     query: { id },
@@ -22,6 +24,10 @@ const DashboardIdPage = () => {
   const [columns, setColumns] = useState<ColumnDataType[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const columnList: Record<number, string> = {}
+  columns.map((column) => {
+    columnList[Number(column.id)] = column.title
+  })
 
   const handleClick = () => {
     setIsModalOpen(true)
@@ -72,9 +78,11 @@ const DashboardIdPage = () => {
         setColumns={setColumns}
         dashboardId={Number(id)}
       >
-        {columns.map((column) => (
-          <Column key={column.id} {...column} dashboardId={Number(id)} />
-        ))}
+        <ColumnContext.Provider value={columnList}>
+          {columns.map((column) => (
+            <Column key={column.id} {...column} dashboardId={Number(id)} />
+          ))}
+        </ColumnContext.Provider>
         <div className={S.addWrapper} onClick={handleClick}>
           <DashboardButton type="addColumn" />
         </div>

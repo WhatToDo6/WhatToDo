@@ -1,26 +1,24 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
+import { ColumnContext } from '@/pages/dashboards/[id]'
 import ARROW_ICON from '@/public/icons/arrow-dropdown.svg'
 import CHECK_ICON from '@/public/icons/check-gray.svg'
 import { InputProps } from '@/src/types/input'
 
 import S from './Progress.module.scss'
 import ProgressChip from '../../../chip/progress-chip'
-
-const PROGRESS = [
-  { id: 0, name: 'To Do' },
-  { id: 1, name: 'On Progress' },
-  { id: 2, name: 'Done' },
-]
+import { CardContext } from '../../../modal/modal-edittodo'
 
 const DropdownProgress = ({ setValue }: InputProps) => {
+  const columnStatus = useContext(ColumnContext)
+  const cardStatus = useContext(CardContext)
   const [isOpen, setIsOpen] = useState(false)
-  const [status, setStaus] = useState(0) //TODO: 현재 할 일의 상태 값으로 초기값 교체
+  const [columnId, setColumnId] = useState(cardStatus)
 
   useEffect(() => {
-    setValue('status', status)
-  }, [status, setValue])
+    setValue('status', columnId)
+  }, [columnId, setValue])
 
   return (
     <div className={S.container}>
@@ -28,7 +26,7 @@ const DropdownProgress = ({ setValue }: InputProps) => {
         className={`${S.inputContainer} ${isOpen === true && S.focus}`}
         onClick={() => setIsOpen(!isOpen)}
       >
-        <ProgressChip progress={status} />
+        <ProgressChip progress={columnStatus[columnId]} />
         <Image
           src={ARROW_ICON}
           alt="열기"
@@ -41,22 +39,25 @@ const DropdownProgress = ({ setValue }: InputProps) => {
         <div className={S.dropdown}>
           <div className={S.member} onClick={() => setIsOpen(false)}>
             <Image src={CHECK_ICON} alt="선택됨" width={20} height={20} />
-            <ProgressChip progress={status} />
+            <ProgressChip progress={columnStatus[columnId]} />
           </div>
-          {PROGRESS.filter((elem) => elem.id !== status).map((elem) => {
-            return (
-              <div
-                key={elem.id}
-                className={`${S.member} ${S.unselected}`}
-                onClick={() => {
-                  setIsOpen(false)
-                  setStaus(elem.id)
-                }}
-              >
-                <ProgressChip progress={elem.id} />
-              </div>
-            )
-          })}
+          {Object.entries(columnStatus)
+            .filter(([key, val]) => Number(key) !== columnId)
+            .map((elem) => {
+              const [id, title] = elem
+              return (
+                <div
+                  key={id}
+                  className={`${S.member} ${S.unselected}`}
+                  onClick={() => {
+                    setIsOpen(false)
+                    id && setColumnId(Number(id))
+                  }}
+                >
+                  <ProgressChip progress={title} />
+                </div>
+              )
+            })}
         </div>
       )}
     </div>

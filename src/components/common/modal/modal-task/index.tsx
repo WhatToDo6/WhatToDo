@@ -2,6 +2,7 @@ import Image from 'next/image'
 import { useContext, useEffect, useRef, useState } from 'react'
 
 import { deleteComment, getComments } from '@/pages/api/comments'
+import { ColumnContext } from '@/pages/dashboards/[id]'
 import BAR_ICON from '@/public/icons/bar.svg'
 import CLOSE_ICON from '@/public/icons/close.svg'
 import POPOVER_ICON from '@/public/icons/popover.svg'
@@ -49,12 +50,16 @@ const ModalTask = ({
   columnTitle,
 }: ModalTaskProps) => {
   const modalStatus = useContext(ModalContext)
+  const columnStatus = useContext(ColumnContext)
+
   const observeRef = useRef<HTMLDivElement>(null)
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const [comments, setComments] = useState<CommentsType[]>([])
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { observe, isScrolled } = useIntersectionObserver()
+
+  const [newCardData, setNewCardData] = useState(cardData)
 
   const handleClose = () => {
     modalStatus.setIsOpen.call(null, false)
@@ -116,11 +121,7 @@ const ModalTask = ({
     <div className={S.container}>
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
-          <ModalEdittodo
-            columnId={columnId}
-            cardData={cardData}
-            setCardData={setCardData}
-          />
+          <ModalEdittodo cardData={cardData} setCardData={setNewCardData} />
         </Modal>
       )}
       <div className={S.titleContainer}>
@@ -158,7 +159,7 @@ const ModalTask = ({
       <div className={S.contentContainer}>
         <div className={S.content}>
           <div className={S.chips}>
-            <ProgressChip progress={columnTitle} />
+            <ProgressChip progress={columnStatus[newCardData.columnId]} />
             <Image src={BAR_ICON} alt="구분선" width={0} height={20} />
             <div className={S.tags}>
               {tags.map((tag, index) => (
