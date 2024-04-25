@@ -1,3 +1,4 @@
+import { postCardImage } from '@/pages/api/cardImage'
 import { InputInterface } from '@/src/types/input'
 
 import InputDate from './date'
@@ -42,7 +43,22 @@ const Input = ({
   size,
   control,
   setValue,
+  columnId,
+  setImageUrl,
 }: InputInterface) => {
+  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files && e.target.files[0]
+    if (file) {
+      postCardImage(columnId, file)
+        .then((newImageUrl) => {
+          setImageUrl(newImageUrl)
+        })
+        .catch((error) => {
+          console.error('Error during image upload:', error)
+        })
+    }
+  }
+
   const INPUT_MAP = {
     email: (
       <InputEmail
@@ -164,7 +180,7 @@ const Input = ({
         register={register}
       />
     ),
-    image: <InputProfileImage handleImageChange={() => console.log('임시')} />, // TODO: 함수 연결
+    image: <InputProfileImage handleImageChange={handleImageChange} />,
     manager: (
       <DropDownManager
         placeholder={placeholder || ''}

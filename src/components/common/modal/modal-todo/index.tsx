@@ -26,6 +26,7 @@ const ModalTodo = ({
 }: ModalTodoProps) => {
   const modalStatus = useContext(ModalContext)
   const [userId, setUserId] = useState()
+  const [imageUrl, setImageUrl] = useState()
 
   const {
     register,
@@ -54,8 +55,7 @@ const ModalTodo = ({
         description: data.textarea,
         dueDate: dueDate,
         tags: data.tags,
-        imageUrl:
-          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/3-7_20345_1713591497409.png',
+        imageUrl: imageUrl,
       }) // 임시 이미지 url
       onTaskCardCreated(response)
       modalStatus.setIsOpen(false)
@@ -118,7 +118,13 @@ const ModalTodo = ({
           이미지
         </label>
         <div className={S.imageContainer}>
-          <Input inputType="image" register={register} setValue={setValue} />
+          <Input
+            inputType="image"
+            register={register}
+            setValue={setValue}
+            columnId={columnId}
+            setImageUrl={setImageUrl}
+          />
         </div>
       </div>
       <div className={S.button}>
