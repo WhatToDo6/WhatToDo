@@ -53,7 +53,7 @@ function InvitedListCard({
   handleChange,
   isOwner,
 }: InvitedCardProps) {
-  const className = `${S.container} ${isDashboardType(type) ? S.dashboard : ''}`
+  const className = `${S.container} ${S[type]}`
 
   const handleClickAnswerInvitation = async (answer: boolean) => {
     try {
@@ -90,8 +90,14 @@ function InvitedListCard({
   const INVITED_CARD = {
     dashboard: (
       <>
-        <p>{title}</p>
-        <p>{nickname}</p>
+        <span>
+          <p className={S.mobileTag}>이름</p>
+          {title}
+        </span>
+        <span>
+          <p className={S.mobileTag}>초대자</p>
+          {nickname}
+        </span>
         <OptionButton
           size="medium"
           leftColor="purple"
@@ -112,7 +118,7 @@ function InvitedListCard({
             width={38}
             height={38}
           />
-          <p>{nickname}</p>
+          <span>{nickname}</span>
         </div>
         <BorderButton
           size="small"
@@ -126,7 +132,7 @@ function InvitedListCard({
     ),
     email: (
       <>
-        <p>{email}</p>
+        <span>{email}</span>
         <BorderButton
           size="small"
           color="white"
