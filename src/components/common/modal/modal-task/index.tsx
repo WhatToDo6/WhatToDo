@@ -46,8 +46,6 @@ const ModalTask = ({
   assignee,
   imageUrl,
   cardData,
-  setCardData,
-  columnTitle,
 }: ModalTaskProps) => {
   const modalStatus = useContext(ModalContext)
   const columnStatus = useContext(ColumnContext)
@@ -116,8 +114,6 @@ const ModalTask = ({
   const handlePopoverDelete = () => {
     //TODO 팝오버에서 삭제하기 기능 구현
   }
-
-  console.log(newCardData)
 
   useEffect(() => {
     isModalOpen === false && setIsPopoverOpen(false)

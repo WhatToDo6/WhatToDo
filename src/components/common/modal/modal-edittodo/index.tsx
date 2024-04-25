@@ -3,7 +3,6 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { putTaskCards } from '@/pages/api/taskCards'
 import { fetchGetUser } from '@/pages/api/users'
-import { ColumnContext } from '@/pages/dashboards/[id]'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
 import { TaskCardDataType } from '@/src/types/dashboard.interface'
 import { InputFormValues } from '@/src/types/input'
@@ -17,7 +16,7 @@ import Input from '../../input'
 import InputProfileImage from '../../input/profile-image'
 
 interface ModalEdittodoProps {
-  cardData: any //TODO: 타입 명시
+  cardData: TaskCardDataType
   setCardData: React.Dispatch<React.SetStateAction<any>> //TODO: 타입 명시
 }
 
