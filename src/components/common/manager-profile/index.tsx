@@ -52,14 +52,15 @@ function ManagerProfile({
 
   return (
     <div className={`${S.container} ${S[type]}`}>
-      <Image
-        width={SIZE[type]}
-        height={SIZE[type]}
-        src={profileImageUrl ? profileImageUrl : basicImg}
-        alt="profileImg"
-        className={S.img}
-        onClick={togglePopover}
-      />
+      <div className={`${S.imgDiv} ${S[type]}`}>
+        <Image
+          fill
+          src={profileImageUrl ? profileImageUrl : basicImg}
+          alt="profileImg"
+          className={S.img}
+          onClick={togglePopover}
+        />
+      </div>
       {showPopover && isPopoverOpen && (
         <div className={S.popoverContainer}>
           <button className={S.popoverOption} onClick={handleMyInfoClick}>

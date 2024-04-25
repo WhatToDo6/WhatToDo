@@ -48,6 +48,26 @@
   }
 }
 
+.imgDiv {
+  position: relative;
+  border: 0.1rem solid $color-white;
+
+  &.dropdown {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  &.dashboardHeader {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+
+  &.card {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+}
+
 .img {
   border-radius: 100%;
   cursor: pointer;
