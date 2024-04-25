@@ -12,6 +12,7 @@ interface PagenationMembersType<T> extends PaginationContextType<T> {
   handleDelete: () => void
   handleCreate: () => void
   headerMembers: InvitedMemberType[]
+  getHeaderMembersData: (dashboardId: number) => Promise<void>
 }
 
 export const MembersContext = createContext<
@@ -26,6 +27,7 @@ export const MembersContext = createContext<
   handleDelete: () => {},
   handleCreate: () => {},
   headerMembers: [],
+  getHeaderMembersData: async (): Promise<void> => {},
 })
 
 function MembersProvider({ children }: ChildrenProps) {
@@ -102,6 +104,7 @@ function MembersProvider({ children }: ChildrenProps) {
         handleDelete,
         handleCreate,
         headerMembers,
+        getHeaderMembersData,
       }}
     >
       {children}
