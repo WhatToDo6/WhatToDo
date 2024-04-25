@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { handleImageChange } from '@/pages/api/imageUpload'
 import { postTaskCards } from '@/pages/api/taskCards'
 import { fetchGetUser } from '@/pages/api/users'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
@@ -12,6 +13,7 @@ import S from './ModalTodo.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
+import InputProfileImage from '../../input/profile-image'
 
 interface ModalTodoProps {
   columnId: number | undefined
@@ -118,12 +120,11 @@ const ModalTodo = ({
           이미지
         </label>
         <div className={S.imageContainer}>
-          <Input
-            inputType="image"
-            register={register}
-            setValue={setValue}
-            columnId={columnId}
-            setImageUrl={setImageUrl}
+          <InputProfileImage
+            profileImageUrl=""
+            handleImageChange={(event) => {
+              handleImageChange(event, setImageUrl, columnId)
+            }}
           />
         </div>
       </div>

@@ -1,6 +1,4 @@
-import { ChangeEvent } from 'react'
-
-import { postCardImage } from '@/pages/api/cardImage'
+import { handleImageChange } from '@/pages/api/imageUpload'
 import { InputInterface } from '@/src/types/input'
 
 import InputDate from './date'
@@ -48,19 +46,6 @@ const Input = ({
   columnId,
   setImageUrl,
 }: InputInterface) => {
-  const handleImageChange = async (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files && e.target.files[0]
-    if (file) {
-      postCardImage(columnId, file)
-        .then((newImageUrl) => {
-          setImageUrl?.(newImageUrl)
-        })
-        .catch((error) => {
-          console.error('Error during image upload:', error)
-        })
-    }
-  }
-
   const INPUT_MAP = {
     email: (
       <InputEmail
@@ -182,7 +167,13 @@ const Input = ({
         register={register}
       />
     ),
-    image: <InputProfileImage handleImageChange={handleImageChange} />,
+    image: (
+      <InputProfileImage
+        handleImageChange={(event) =>
+          handleImageChange(event, setImageUrl, columnId)
+        }
+      />
+    ),
     manager: (
       <DropDownManager
         placeholder={placeholder || ''}
