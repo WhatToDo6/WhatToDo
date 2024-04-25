@@ -25,6 +25,7 @@ export const CardContext = createContext<number>(0)
 const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
   const modalStatus = useContext(ModalContext)
   const [userId, setUserId] = useState()
+  const [isDisabled, setIsDisabled] = useState(true)
 
   const {
     register,
@@ -32,6 +33,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
     formState: { errors },
     control,
     setValue,
+    watch,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
   useEffect(() => {
@@ -49,6 +51,14 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
       : setValue('date', formatLocalDate(cardData.dueDate))
     // setValue('tags', tags.join(', '))
   }, [])
+
+  useEffect(() => {
+    if (watch('title') && watch('textarea') && watch('status')) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+  }, [watch('title'), watch('textarea'), watch('status')])
 
   const onSubmit: SubmitHandler<InputFormValues> = async (data) => {
     if (userId === undefined) return
@@ -159,6 +169,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
           rightText="수정"
           onLeftClick={() => modalStatus.setIsOpen.call(null, false)}
           onRightClick={handleSubmit(onSubmit)}
+          isDisabled={isDisabled}
         />
       </div>
     </div>
