@@ -121,7 +121,7 @@ function InvitedListCard({
           onClick={handleClickDeleteDashboardMember}
           isDisabled={idx === 0 ? true : false}
         >
-          {idx === 0 ? '나' : '삭제'}
+          {idx === 0 ? '관리자' : '삭제'}
         </BorderButton>
       </>
     ),
