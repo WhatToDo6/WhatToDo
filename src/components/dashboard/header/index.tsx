@@ -1,12 +1,8 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useEffect, useState, useMemo } from 'react'
+import { useState, useMemo, useContext } from 'react'
 
-import {
-  fetchGetDashboardDetail,
-  fetchPostInviteDashboard,
-} from '@/pages/api/dashboards'
-import { fetchGetDashboardMemberList } from '@/pages/api/members'
+import { fetchPostInviteDashboard } from '@/pages/api/dashboards'
 import addBoxIcon from '@/public/icons/add-box-icon.svg'
 import barIcon from '@/public/icons/bar.svg'
 import crownIcon from '@/public/icons/crown-icon.svg'
@@ -16,12 +12,10 @@ import tempCircle2 from '@/public/icons/temp-circle-2.svg'
 import tempCircle3 from '@/public/icons/temp-circle-3.svg'
 import tempCircle4 from '@/public/icons/temp-circle-4.svg'
 import tempCircle5 from '@/public/icons/temp-circle-5.svg'
+import { DashboardsContext } from '@/src/context/dashboards'
+import { MembersContext } from '@/src/context/members'
 import { useUser } from '@/src/context/users'
-import {
-  InvitedMemberType,
-  DashboardType,
-  InviteDashboardParamType,
-} from '@/src/types/mydashboard'
+import { InviteDashboardParamType } from '@/src/types/mydashboard'
 
 import S from './DashboardHeader.module.scss'
 import ManagerProfile from '../../common/manager-profile'
@@ -50,10 +44,9 @@ interface DashboardHeaderProps {
 
 function DashboardHeader({ pathname }: DashboardHeaderProps) {
   const { userData } = useUser()
-  const [dashboardMembers, setDashboardMembers] = useState<InvitedMemberType[]>(
-    [],
-  )
-  const [dashboardData, setDashboardData] = useState<DashboardType>()
+  const { headerMembers } = useContext(MembersContext)
+  const { dashboardDetail } = useContext(DashboardsContext)
+
   const {
     query: { id },
   } = useRouter()
@@ -83,29 +76,6 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
     [dashboardId],
   )
 
-  const getMembersData = async (dashboardId: number) => {
-    try {
-      const response = await fetchGetDashboardMemberList<InvitedMemberType>(
-        1,
-        dashboardId,
-        20,
-      )
-      const { data: members } = response
-      setDashboardMembers(members)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  const getDashboardData = async (dashboardId: number) => {
-    try {
-      const dashboard = await fetchGetDashboardDetail(dashboardId)
-      setDashboardData(dashboard)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
   const InviteDashboard = async (data: InviteDashboardParamType) => {
     try {
       if (dashboardId) await fetchPostInviteDashboard(data, +dashboardId)
@@ -113,13 +83,6 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
       console.error(err)
     }
   }
-
-  useEffect(() => {
-    if (dashboardId) {
-      getMembersData(dashboardId)
-      getDashboardData(dashboardId)
-    }
-  }, [dashboardId])
 
   // TODO: 로딩 구현
   if (!userData)
@@ -160,16 +123,16 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
         </Modal>
       )}
       <div className={S.container}>
-        {dashboardData && (
+        {dashboardDetail && (
           <div className={S.dashboardTitle}>
-            <p>{dashboardData.title}</p>
-            {dashboardData.createdByMe && (
+            <p>{dashboardDetail.title}</p>
+            {dashboardDetail.createdByMe && (
               <Image width={20} height={16} src={crownIcon} alt="왕관" />
             )}
           </div>
         )}
         <div className={S.rightBox}>
-          {dashboardData?.createdByMe && (
+          {dashboardDetail?.createdByMe && (
             <div className={S.btnBox}>
               {BUTTONS.map((btn) => (
                 <button
@@ -190,7 +153,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
             </div>
           )}
           <div className={S.memberImgBox}>
-            {dashboardMembers
+            {headerMembers
               .filter((_, idx) => idx < 4)
               .map((member, idx) => (
                 <Image
@@ -206,9 +169,9 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
                   alt={`${member.nickname}의 이미지`}
                 />
               ))}
-            {dashboardMembers.length > 4 && (
+            {headerMembers.length > 4 && (
               <div className={S.overImg}>
-                <span>+{+dashboardMembers.length - 4}</span>
+                <span>+{+headerMembers.length - 4}</span>
               </div>
             )}
           </div>

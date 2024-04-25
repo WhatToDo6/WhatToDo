@@ -1,9 +1,10 @@
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
 import { fetchGetInvitedDashboardList } from '@/pages/api/invitations'
 import magnifyingGlassIcon from '@/public/icons/magnifying-glass-icon.svg'
 import emptyBoardImg from '@/public/images/empty-board-img.png'
+import { DashboardsContext } from '@/src/context/dashboards'
 import { useInputSearch } from '@/src/hooks/useInputSearch'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 import { InvitedListDashboardType } from '@/src/types/mydashboard'
@@ -11,11 +12,8 @@ import { InvitedListDashboardType } from '@/src/types/mydashboard'
 import S from './InviteListDashboard.module.scss'
 import InvitedListCard from '../card'
 
-interface InviteListDashboardProps {
-  updateData: () => void
-}
-
-function InviteListDashboard({ updateData }: InviteListDashboardProps) {
+function InviteListDashboard() {
+  const { currPage, updateData } = useContext(DashboardsContext)
   const observeRef = useRef<HTMLDivElement>(null)
   const [cursorId, setCursorId] = useState(0)
   const { observe, isScrolled } = useIntersectionObserver()
@@ -31,7 +29,7 @@ function InviteListDashboard({ updateData }: InviteListDashboardProps) {
 
   const handleChange = (id: number) => {
     setMyInvitedListData((prev) => prev.filter((data) => data.id !== id))
-    updateData()
+    updateData(currPage)
   }
 
   const getInvitedListDashbaord = async (firstFetch: boolean = false) => {

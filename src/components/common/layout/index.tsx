@@ -1,21 +1,40 @@
 import { useRouter } from 'next/router'
-import { ReactNode } from 'react'
+import { createElement, ComponentType } from 'react'
 
 import SideMenu from '@/src/components/dashboard/side-menu'
+import DashboardsProvider from '@/src/context/dashboards'
+import InviteeEmailProvider from '@/src/context/inviteeEmail'
+import MembersProvider from '@/src/context/members'
 import UserProvider from '@/src/context/users'
+import { ChildrenProps } from '@/src/types/commonType'
 
 import S from './Layout.module.scss'
 import DashboardHeader from '../../dashboard/header'
 
-type LayoutProps = {
-  children: ReactNode
+type ContextType = ComponentType<ChildrenProps>
+
+interface AppProviderProps extends ChildrenProps {
+  contexts: ContextType[]
 }
 
-const Layout = ({ children }: LayoutProps) => {
+const AppProvider: React.FC<AppProviderProps> = ({ contexts, children }) =>
+  contexts.reduce(
+    (prev, context) => createElement(context, null, prev),
+    children,
+  )
+
+const Layout = ({ children }: ChildrenProps) => {
   const { pathname } = useRouter()
 
   return (
-    <UserProvider>
+    <AppProvider
+      contexts={[
+        MembersProvider,
+        InviteeEmailProvider,
+        DashboardsProvider,
+        UserProvider,
+      ]}
+    >
       <div className={S.container}>
         <SideMenu />
         <div className={S.rightSideContainer}>
@@ -25,7 +44,7 @@ const Layout = ({ children }: LayoutProps) => {
           <main className={S.children}>{children}</main>
         </div>
       </div>
-    </UserProvider>
+    </AppProvider>
   )
 }
 

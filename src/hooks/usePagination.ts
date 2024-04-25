@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react'
+import { useRouter } from 'next/router'
+import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 
 import {
   fetchGetDashboardList,
@@ -8,14 +9,17 @@ import { fetchGetDashboardMemberList } from '@/pages/api/members'
 
 type PagenationType = 'dashboard' | 'email' | 'member'
 
-export function usePagenation<T>(
+export function usePagination<T>(
   visibleDataNum: number,
   type: PagenationType,
+  pageData: T[],
+  setPageData: Dispatch<SetStateAction<T[]>>,
   dashboardId?: number,
 ) {
+  const { pathname } = useRouter()
+
   const [currPage, setCurrPage] = useState(1)
-  const [lastPage, setLastpage] = useState(1)
-  const [pageData, setPageData] = useState<T[]>([])
+  const [lastPage, setLastPage] = useState(1)
 
   const getDashboards = async (page: number) => {
     try {
@@ -23,7 +27,7 @@ export function usePagenation<T>(
       const { data: dashboards, totalCount } = response
       setPageData(dashboards)
       const lastPage = Math.ceil(totalCount / visibleDataNum)
-      setLastpage(lastPage === 0 ? 1 : lastPage)
+      setLastPage(lastPage === 0 ? 1 : lastPage)
     } catch (err) {
       console.error(err)
     }
@@ -39,7 +43,7 @@ export function usePagenation<T>(
         const { data: invitations, totalCount } = response
         setPageData(invitations)
         const lastPage = Math.ceil(totalCount / visibleDataNum)
-        setLastpage(lastPage === 0 ? 1 : lastPage)
+        setLastPage(lastPage === 0 ? 1 : lastPage)
       } catch (err) {
         console.error(err)
       }
@@ -55,7 +59,7 @@ export function usePagenation<T>(
         const { data: members, totalCount } = response
         setPageData(members)
         const lastPage = Math.ceil(totalCount / visibleDataNum)
-        setLastpage(lastPage === 0 ? 1 : lastPage)
+        setLastPage(lastPage === 0 ? 1 : lastPage)
       } catch (err) {
         console.error(err)
       }
@@ -92,7 +96,13 @@ export function usePagenation<T>(
   }
 
   useEffect(() => {
-    updateData(1)
+    if (type === 'dashboard' || type === 'member') updateData(1)
+  }, [])
+
+  useEffect(() => {
+    if (pathname === '/dashboards/[id]/edit' && type === 'email') {
+      updateData(1)
+    }
   }, [])
 
   return {
@@ -103,5 +113,7 @@ export function usePagenation<T>(
     lastPage,
     onClickPrevPage,
     onClickNextPage,
+    setLastPage,
+    setCurrPage,
   }
 }

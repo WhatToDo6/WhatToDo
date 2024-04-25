@@ -1,40 +1,39 @@
-import { useCallback, useState } from 'react'
+import { useRouter } from 'next/router'
+import { useCallback, useContext, useState } from 'react'
 
 import DashboardList from '@/src/components/dashboard/side-menu/dashboard-list-section/dashboard-list'
 import ListHeader from '@/src/components/dashboard/side-menu/dashboard-list-section/list-header'
+import { DashboardsContext } from '@/src/context/dashboards'
 
 import S from './DashboardListSection.module.scss'
 
-interface MockData {
-  title: string
-  color: string
-}
-
-const mockData: MockData[] = [
-  { title: '비브리지', color: '#7AC555' },
-  { title: '코드잇', color: '#760DDE' },
-  { title: '3분기 계획', color: '#FFA500' },
-  { title: '회의록', color: '#76A5EA' },
-  { title: '중요 문서함', color: '#E876EA' },
-]
-
 const DashboardListSection = () => {
-  const [selectedDashboard, setSelectedDashboard] = useState<string>('')
+  const router = useRouter()
+  const [selectedDashboard, setSelectedDashboard] = useState(0)
+  //TODO: 무한 스크롤
+  const { sideMenuDashboards, getSideMenuDashboards } =
+    useContext(DashboardsContext)
 
-  const handleSelect = useCallback((title: string) => {
-    setSelectedDashboard(title)
+  const handleChange = (id: number) => {
+    setSelectedDashboard(id)
+  }
+
+  const handleSelect = useCallback((id: number) => {
+    setSelectedDashboard(id)
+    router.push(`/dashboards/${id}`)
   }, [])
 
   return (
     <div className={S.container}>
       <ListHeader />
       <div className={S.dashboardWrapper}>
-        {mockData.map((data, idx) => (
+        {sideMenuDashboards.map((dashboard) => (
           <DashboardList
-            key={idx}
-            {...data}
+            key={dashboard.id}
+            {...dashboard}
             selected={selectedDashboard}
-            onSelect={() => handleSelect(data.title)}
+            onSelect={() => handleSelect(dashboard.id)}
+            handleChange={handleChange}
           />
         ))}
       </div>

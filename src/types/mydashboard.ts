@@ -47,10 +47,16 @@ export interface InvitedMemberType extends UserType {
   isOwner: boolean
   userId: number
 }
-
+//이름변경하기, 수정하기
 export interface GetPagenationType<T> {
   data: T[]
   totalCount: number
+  cursorId?: number
+}
+
+export interface GetInfiniteDashboardListType {
+  data: DashboardType[]
+  cursorId: number
 }
 
 export interface DashboardEditMakeParamType {
@@ -62,6 +68,7 @@ export interface InviteDashboardParamType {
   email: string
 }
 
+//없애기
 export interface EditDahsboardParamType {
   title: string
   color: string
@@ -70,4 +77,13 @@ export interface EditDahsboardParamType {
 export interface GetInivtedDashboardListParamType {
   invitations: InvitedListDashboardType[]
   cursorId: number
+}
+
+export interface PaginationContextType<T> {
+  pageData: T[]
+  currPage: number
+  lastPage: number
+  onClickPrevPage: () => void
+  onClickNextPage: () => void
+  updateData: (page: number) => void
 }

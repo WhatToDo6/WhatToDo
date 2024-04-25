@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { fetchPutDashboardEdit } from '@/pages/api/dashboards'
+import { DashboardsContext } from '@/src/context/dashboards'
 import { InputFormValues } from '@/src/types/input'
 import { EditDahsboardParamType } from '@/src/types/mydashboard'
 
@@ -25,11 +26,16 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
   } = useForm<InputFormValues>({ mode: 'onBlur' })
   const [selectedColor, setSelectedColor] = useState(initialColor)
 
+  const { dashboardDetail, setDashboardDetail, editSideMenuDashboards } =
+    useContext(DashboardsContext)
+
   const editDashboard = async (data: EditDahsboardParamType) => {
     try {
-      await fetchPutDashboardEdit(data, dashboardId)
+      const dashboard = await fetchPutDashboardEdit(data, dashboardId)
       reset({ newDash: '' })
       setSelectedColor(initialColor)
+      setDashboardDetail(dashboard)
+      editSideMenuDashboards(dashboard)
     } catch (err) {
       console.error(err)
     }
@@ -44,7 +50,7 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
       })}
     >
       <div className={S.header}>
-        <span>비브리지</span>
+        <span>{dashboardDetail && dashboardDetail.title}</span>
         <ColorChip
           selectedColor={selectedColor}
           setSelectedColor={setSelectedColor}
