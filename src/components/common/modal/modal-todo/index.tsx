@@ -124,7 +124,7 @@ const ModalTodo = ({
         </label>
         <div className={S.imageContainer}>
           <InputProfileImage
-            profileImageUrl=""
+            profileImageUrl={imageUrl}
             handleImageChange={(event) => {
               handleImageChange(event, setImageUrl, columnId)
             }}
