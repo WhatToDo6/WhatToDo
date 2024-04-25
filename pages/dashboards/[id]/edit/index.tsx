@@ -9,6 +9,8 @@ import DashboardButton from '@/src/components/dashboard/dashboard-button'
 import DashboardEditor from '@/src/components/dashboard/editor'
 import InviteListEmail from '@/src/components/dashboard/invited-list/email'
 import InviteListMember from '@/src/components/dashboard/invited-list/member'
+import Toast from '@/src/components/toast'
+import { ToastProvider } from '@/src/context/toast'
 
 import S from './DashboardIdEdit.module.scss'
 
@@ -48,17 +50,23 @@ const DashboardIdEdit = ({ id }: DashboardIdEditProps) => {
   }
 
   return (
-    <Layout>
-      <div className={S.container}>
-        <BackButton />
-        <DashboardEditor dashboardId={id} />
-        <InviteListMember />
-        <InviteListEmail dashboardId={id} />
-        <div className={S.buttonBox}>
-          <DashboardButton type="deleteDashboard" onClick={handleButtonClick} />
+    <ToastProvider>
+      <Layout>
+        <div className={S.container}>
+          <BackButton />
+          <DashboardEditor dashboardId={id} />
+          <InviteListMember />
+          <InviteListEmail dashboardId={id} />
+          <div className={S.buttonBox}>
+            <DashboardButton
+              type="deleteDashboard"
+              onClick={handleButtonClick}
+            />
+          </div>
         </div>
-      </div>
-    </Layout>
+      </Layout>
+      <Toast />
+    </ToastProvider>
   )
 }
 
