@@ -9,7 +9,7 @@ import AXIOS from '@/lib/axios'
  */
 export const handleImageChange = (
   event: React.ChangeEvent<HTMLInputElement>,
-  setUploadedImageUrl: React.Dispatch<React.SetStateAction<string>>,
+  setImageUrl: (url: string) => void,
   columnId?: number,
 ) => {
   const accessToken = localStorage.getItem('accessToken')
@@ -26,13 +26,14 @@ export const handleImageChange = (
     AXIOS.post(imagePath, formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
+        'Content-Type': 'multipart/form-data',
       },
     })
       .then((res) => {
         if (columnId) {
-          setUploadedImageUrl(res.data.imageUrl)
+          setImageUrl(res.data.imageUrl)
         } else {
-          setUploadedImageUrl(res.data.profileImageUrl)
+          setImageUrl(res.data.profileImageUrl)
         }
       })
       .catch((err) => {

@@ -2,11 +2,12 @@ import Image from 'next/image'
 import { useContext, useEffect, useRef, useState } from 'react'
 
 import { deleteComment, getComments } from '@/pages/api/comments'
+import { ColumnContext } from '@/pages/dashboards/[id]'
 import BAR_ICON from '@/public/icons/bar.svg'
 import CLOSE_ICON from '@/public/icons/close.svg'
 import POPOVER_ICON from '@/public/icons/popover.svg'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
-import { CommentsType, TaskCardDataType } from '@/src/types/dashboard.interface'
+import { CommentsType, TaskCardTagType } from '@/src/types/dashboard.interface'
 
 import Comment from './comment'
 import CommentForm from './comment-form/index'
@@ -31,8 +32,8 @@ interface ModalTaskProps {
   imageUrl: string
   columnId: number | undefined
   columnTitle: string
-  cardData: TaskCardDataType
-  setCardData: React.Dispatch<React.SetStateAction<TaskCardDataType>>
+  cardData: TaskCardTagType
+  setCardData: React.Dispatch<React.SetStateAction<TaskCardTagType>>
 }
 
 const ModalTask = ({
@@ -45,16 +46,18 @@ const ModalTask = ({
   assignee,
   imageUrl,
   cardData,
-  setCardData,
-  columnTitle,
 }: ModalTaskProps) => {
   const modalStatus = useContext(ModalContext)
+  const columnStatus = useContext(ColumnContext)
+
   const observeRef = useRef<HTMLDivElement>(null)
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const [comments, setComments] = useState<CommentsType[]>([])
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { observe, isScrolled } = useIntersectionObserver()
+
+  const [newCardData, setNewCardData] = useState(cardData)
 
   const handleClose = () => {
     modalStatus.setIsOpen.call(null, false)
@@ -112,15 +115,15 @@ const ModalTask = ({
     //TODO 팝오버에서 삭제하기 기능 구현
   }
 
+  useEffect(() => {
+    isModalOpen === false && setIsPopoverOpen(false)
+  }, [isModalOpen])
+
   return (
     <div className={S.container}>
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
-          <ModalEdittodo
-            columnId={columnId}
-            cardData={cardData}
-            setCardData={setCardData}
-          />
+          <ModalEdittodo cardData={newCardData} setCardData={setNewCardData} />
         </Modal>
       )}
       <div className={S.titleContainer}>
@@ -158,7 +161,7 @@ const ModalTask = ({
       <div className={S.contentContainer}>
         <div className={S.content}>
           <div className={S.chips}>
-            <ProgressChip progress={columnTitle} />
+            <ProgressChip progress={columnStatus[newCardData.columnId]} />
             <Image src={BAR_ICON} alt="구분선" width={0} height={20} />
             <div className={S.tags}>
               {tags.map((tag, index) => (

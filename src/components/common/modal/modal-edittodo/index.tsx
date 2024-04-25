@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { putTaskCards } from '@/pages/api/taskCards'
@@ -16,18 +16,16 @@ import Input from '../../input'
 import InputProfileImage from '../../input/profile-image'
 
 interface ModalEdittodoProps {
-  columnId: number | undefined
   cardData: TaskCardDataType
   setCardData: React.Dispatch<React.SetStateAction<any>> //TODO: 타입 명시
 }
 
-const ModalEdittodo = ({
-  columnId,
-  cardData: { id, title, description, dueDate, imageUrl, tags },
-  setCardData,
-}: ModalEdittodoProps) => {
+export const CardContext = createContext<number>(0)
+
+const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
   const modalStatus = useContext(ModalContext)
   const [userId, setUserId] = useState()
+  const [isDisabled, setIsDisabled] = useState(true)
 
   const {
     register,
@@ -35,6 +33,7 @@ const ModalEdittodo = ({
     formState: { errors },
     control,
     setValue,
+    watch,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
   useEffect(() => {
@@ -43,25 +42,34 @@ const ModalEdittodo = ({
 
   // 기본 값 설정
   useEffect(() => {
-    setValue('title', title)
-    setValue('textarea', description)
+    setValue('status', cardData.columnId)
+    setValue('title', cardData.title)
+    setValue('textarea', cardData.description)
 
-    dueDate === EMPTY_DUEDATE
+    cardData.dueDate === EMPTY_DUEDATE
       ? setValue('date', null)
-      : setValue('date', formatLocalDate(dueDate))
+      : setValue('date', formatLocalDate(cardData.dueDate))
     // setValue('tags', tags.join(', '))
   }, [])
 
+  useEffect(() => {
+    if (watch('title') && watch('textarea') && watch('status')) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+  }, [watch('title'), watch('textarea'), watch('status')])
+
   const onSubmit: SubmitHandler<InputFormValues> = async (data) => {
-    if (userId === undefined || columnId === undefined) return
+    if (userId === undefined) return
 
     try {
       const assigneeUserId = userId
       const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
 
       const response = await putTaskCards({
-        cardId: id,
-        columnId,
+        cardId: cardData.id,
+        columnId: data.status,
         assigneeUserId,
         title: data.title,
         description: data.textarea,
@@ -86,11 +94,13 @@ const ModalEdittodo = ({
             <label className={S.label} htmlFor="status">
               상태
             </label>
-            <Input
-              inputType="progress"
-              register={register}
-              setValue={setValue}
-            />
+            <CardContext.Provider value={cardData.columnId}>
+              <Input
+                inputType="status"
+                register={register}
+                setValue={setValue}
+              />
+            </CardContext.Provider>
           </div>
           <div className={S.box}>
             <label className={S.label} htmlFor="keeper">
@@ -159,6 +169,7 @@ const ModalEdittodo = ({
           rightText="수정"
           onLeftClick={() => modalStatus.setIsOpen.call(null, false)}
           onRightClick={handleSubmit(onSubmit)}
+          isDisabled={isDisabled}
         />
       </div>
     </div>

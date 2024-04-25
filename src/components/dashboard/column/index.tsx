@@ -6,7 +6,7 @@ import TaskCard from '@/src/components/dashboard/column/task-card'
 import DashboardButton from '@/src/components/dashboard/dashboard-button'
 import {
   ColumnDataType,
-  TaskCardDataType,
+  TaskCardTagType,
   GetTaskCards,
 } from '@/src/types/dashboard.interface'
 
@@ -15,7 +15,7 @@ import Modal from '../../common/modal'
 import ModalTodo from '../../common/modal/modal-todo'
 
 const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
-  const [taskCards, setTaskCards] = useState<TaskCardDataType[]>([])
+  const [taskCards, setTaskCards] = useState<TaskCardTagType[]>([])
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const [getMore, setGetMore] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -24,7 +24,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
     setIsModalOpen(true)
   }
 
-  const addNewTaskCard = (newTaskCard: TaskCardDataType) => {
+  const addNewTaskCard = (newTaskCard: TaskCardTagType) => {
     setTaskCards((prevTaskCards) => [...prevTaskCards, newTaskCard])
   }
 

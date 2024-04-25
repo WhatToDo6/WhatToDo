@@ -1,24 +1,24 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
+import TagChip from '@/src/components/common/chip/tag-chip'
 import Modal from '@/src/components/common/modal'
 import ModalTask from '@/src/components/common/modal/modal-task'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
-import { TaskCardDataType } from '@/src/types/dashboard.interface'
+import { TaskCardTagType } from '@/src/types/dashboard.interface'
 
 import S from './TaskCard.module.scss'
 import TaskCardDate from '../task-card-date'
-import TaskCardTag from '../task-card-tag'
 
 interface TaskCardProps {
   columnId: number | undefined
-  taskCard: TaskCardDataType
+  taskCard: TaskCardTagType
   columnTitle: string
 }
 
 const TaskCard = ({ columnId, taskCard, columnTitle }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [cardData, setCardData] = useState(taskCard)
+  const [cardData, setCardData] = useState<TaskCardTagType>(taskCard)
 
   return (
     <>
@@ -36,7 +36,11 @@ const TaskCard = ({ columnId, taskCard, columnTitle }: TaskCardProps) => {
         <div className={S.content}>
           <h2 className={S.cardTitle}>{cardData.title}</h2>
           <div className={S.wrapper}>
-            <TaskCardTag tagType="프로젝트" />
+            <div className={S.tag}>
+              {cardData.tags.map((tag, index) => (
+                <TagChip key={index} index={index} text={tag} />
+              ))}
+            </div>
             <div className={S.cardBottom}>
               <div
                 className={cardData.dueDate === EMPTY_DUEDATE ? S.hidden : ''}
