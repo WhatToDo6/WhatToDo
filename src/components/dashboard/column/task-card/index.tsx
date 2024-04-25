@@ -1,76 +1,79 @@
 import Image from 'next/image'
 import { useState } from 'react'
 
+import TagChip from '@/src/components/common/chip/tag-chip'
 import Modal from '@/src/components/common/modal'
-import ModalEdittodo from '@/src/components/common/modal/modal-edittodo'
 import ModalTask from '@/src/components/common/modal/modal-task'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
+import { TaskCardDataType } from '@/src/types/dashboard.interface'
 
 import S from './TaskCard.module.scss'
 import TaskCardDate from '../task-card-date'
-import TaskCardTag from '../task-card-tag'
-
-//TODO: TaskCardTag props 데이터
-//TODO: 날짜 데이터
-//TODO: 아이콘 navbar에서 받을 것
-//TODO: 이미지 데이터
 
 interface TaskCardProps {
   columnId: number | undefined
-  taskCard: any //TODO: type 교체
+  taskCard: TaskCardDataType
+  columnTitle: string
 }
 
-const TaskCard = ({ columnId, taskCard }: TaskCardProps) => {
+const TaskCard = ({
+  columnId,
+  taskCard,
+  setTaskCards,
+  columnTitle,
+}: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [cardData, setCardData] = useState(taskCard)
 
   return (
-    <div className={S.container} onClick={() => setIsModalOpen(true)}>
-      {/* {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
-          <ModalEdittodo
-            columnId={columnId}
-            cardData={cardData}
-            setCardData={setCardData}
+    <>
+      <div className={S.container} onClick={() => setIsModalOpen(true)}>
+        <div className={S.imageWrapper}>
+          <Image
+            className={S.cardImage}
+            src={taskCard.imageUrl}
+            width={274}
+            height={160}
+            layout="responsive"
+            alt="카드 이미지"
           />
-        </Modal>
-      )} */}
-      {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
-          <ModalTask
-            cardId={cardData.id}
-            title={cardData.title}
-            dueDate={cardData.dueDate}
-            assignee={cardData.assignee}
-            imageUrl={cardData.imageUrl}
-            tags={cardData.tags}
-            description={cardData.description}
-          />
-        </Modal>
-      )}
-      <div className={S.imageWrapper}>
-        <Image
-          className={S.cardImage}
-          src={cardData.imageUrl}
-          width={274}
-          height={160}
-          layout="responsive"
-          alt="카드 이미지"
-        />
-      </div>
-      <div className={S.content}>
-        <h2 className={S.cardTitle}>{cardData.title}</h2>
-        <div className={S.wrapper}>
-          <TaskCardTag tagType="프로젝트" />
-          <div className={S.cardBottom}>
-            <div className={cardData.dueDate === EMPTY_DUEDATE ? S.hidden : ''}>
-              <TaskCardDate dueDate={cardData.dueDate} />
+        </div>
+        <div className={S.content}>
+          <h2 className={S.cardTitle}>{taskCard.title}</h2>
+          <div className={S.wrapper}>
+            <div className={S.tag}>
+              {taskCard.tags.map((tag, index) => (
+                <TagChip key={index} index={index} text={tag} />
+              ))}
             </div>
-            <div>아이콘</div>
+            <div className={S.cardBottom}>
+              <div
+                className={taskCard.dueDate === EMPTY_DUEDATE ? S.hidden : ''}
+              >
+                <TaskCardDate dueDate={taskCard.dueDate} />
+              </div>
+              <div>아이콘</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      {isModalOpen && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalTask
+            columnId={columnId}
+            cardId={taskCard.id}
+            title={taskCard.title}
+            dueDate={taskCard.dueDate}
+            assignee={taskCard.assignee}
+            imageUrl={taskCard.imageUrl}
+            tags={taskCard.tags}
+            description={taskCard.description}
+            columnTitle={columnTitle}
+            taskCard={taskCard}
+            setTaskCards={setTaskCards}
+          />
+        </Modal>
+      )}
+    </>
   )
 }
 

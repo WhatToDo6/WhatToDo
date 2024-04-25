@@ -2,19 +2,22 @@ import Image from 'next/image'
 import { useContext, useEffect, useRef, useState } from 'react'
 
 import { deleteComment, getComments } from '@/pages/api/comments'
+import { deleteTaskCards } from '@/pages/api/taskCards'
+import { ColumnContext } from '@/pages/dashboards/[id]'
 import BAR_ICON from '@/public/icons/bar.svg'
 import CLOSE_ICON from '@/public/icons/close.svg'
 import POPOVER_ICON from '@/public/icons/popover.svg'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
-import { CommentsType } from '@/src/types/dashboard.interface'
+import { CommentsType, TaskCardDataType } from '@/src/types/dashboard.interface'
 
 import Comment from './comment'
-import CommentForm from './comment-form/input'
+import CommentForm from './comment-form/index'
 import S from './ModalTask.module.scss'
-import { ModalContext } from '..'
+import Modal, { ModalContext } from '..'
 import ProgressChip from '../../chip/progress-chip'
 import TagChip from '../../chip/tag-chip'
 import ManagerProfile from '../../manager-profile'
+import ModalEdittodo from '../modal-edittodo'
 
 interface ModalTaskProps {
   cardId: number
@@ -28,27 +31,38 @@ interface ModalTaskProps {
     id: number
   }
   imageUrl: string
+  columnId: number | undefined
+  columnTitle: string
+  cardData: TaskCardDataType
+  setCardData: React.Dispatch<React.SetStateAction<TaskCardDataType>>
 }
 
 const ModalTask = ({
   cardId,
+  columnId,
   title,
   description,
   tags,
   dueDate,
   assignee,
   imageUrl,
+  taskCard,
+  setTaskCards,
 }: ModalTaskProps) => {
   const modalStatus = useContext(ModalContext)
+  const columnStatus = useContext(ColumnContext)
+
   const observeRef = useRef<HTMLDivElement>(null)
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const [comments, setComments] = useState<CommentsType[]>([])
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const { observe, isScrolled } = useIntersectionObserver()
 
   const handleClose = () => {
     modalStatus.setIsOpen.call(null, false)
   }
+
   const fetchComments = async (firstFetch: boolean = false) => {
     if (cardId) {
       try {
@@ -97,16 +111,28 @@ const ModalTask = ({
     setIsPopoverOpen((prev) => !prev)
   }
 
-  const handlePopoverEdit = () => {
-    //TODO 팝오버에서 수정하기 기능 구현
+  const handlePopoverDelete = async () => {
+    try {
+      await deleteTaskCards(cardId)
+      setTaskCards((prevCard: TaskCardDataType) => {
+        return prevCard.filter((card) => card.id !== cardId)
+      })
+    } catch (error) {
+      console.error('카드를 삭제하는 데 실패했습니다:', error)
+    }
   }
 
-  const handlePopoverDelete = () => {
-    //TODO 팝오버에서 삭제하기 기능 구현
-  }
+  useEffect(() => {
+    isModalOpen === false && setIsPopoverOpen(false)
+  }, [isModalOpen])
 
   return (
     <div className={S.container}>
+      {isModalOpen && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalEdittodo cardData={taskCard} setCardData={setTaskCards} />
+        </Modal>
+      )}
       <div className={S.titleContainer}>
         <span className={S.title}>{title}</span>
         <Image
@@ -119,7 +145,10 @@ const ModalTask = ({
         />
         {isPopoverOpen && (
           <div className={S.popoverContainer}>
-            <button className={S.popoverOption} onClick={handlePopoverEdit}>
+            <button
+              className={S.popoverOption}
+              onClick={() => setIsModalOpen(true)}
+            >
               수정하기
             </button>
             <button className={S.popoverOption} onClick={handlePopoverDelete}>
@@ -139,8 +168,7 @@ const ModalTask = ({
       <div className={S.contentContainer}>
         <div className={S.content}>
           <div className={S.chips}>
-            <ProgressChip progress={0} />
-            {/* progress 값을 줘야 합니다 */}
+            <ProgressChip progress={columnStatus[taskCard.columnId]} />
             <Image src={BAR_ICON} alt="구분선" width={0} height={20} />
             <div className={S.tags}>
               {tags.map((tag, index) => (
@@ -174,7 +202,11 @@ const ModalTask = ({
           </div>
         </div>
       </div>
-      <CommentForm />
+      <CommentForm
+        cardId={cardId}
+        columnId={columnId}
+        setComments={setComments}
+      />
       {comments?.map((comment) => (
         <Comment key={comment.id} {...comment} onDelete={DeleteComments} />
       ))}

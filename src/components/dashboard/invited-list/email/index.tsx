@@ -7,6 +7,7 @@ import BorderButton from '@/src/components/common/button/border'
 import Modal from '@/src/components/common/modal'
 import ModalDashBoard from '@/src/components/common/modal/modal-dashboard'
 import { InviteeEmailContext } from '@/src/context/inviteeEmail'
+import { useToast } from '@/src/context/toast'
 import { InviteDashboardParamType } from '@/src/types/mydashboard'
 
 import S from './InviteListEmail.module.scss'
@@ -29,6 +30,7 @@ function InviteListEmail({ dashboardId }: InviteListEmailProps) {
   } = useContext(InviteeEmailContext)
 
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { addToast } = useToast()
 
   const handleModalClick = () => {
     setIsModalOpen(true)
@@ -38,6 +40,7 @@ function InviteListEmail({ dashboardId }: InviteListEmailProps) {
     try {
       await fetchPostInviteDashboard(data, dashboardId)
       handleCreate()
+      addToast('초대가 완료되었습니다.', 'success')
     } catch (err) {
       console.error(err)
     }

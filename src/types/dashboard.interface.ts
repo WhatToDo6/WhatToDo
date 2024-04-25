@@ -9,7 +9,7 @@ export interface CommentsType {
   id: number
   createdAt: string
   updatedAt: string
-  onDelete: (commentId: number) => void
+  onDelete?: (commentId: number) => void
 }
 
 export interface ColumnTitleType {
@@ -29,28 +29,35 @@ export interface ColumnHeaderType {
   columnId: number | undefined
 }
 
-export interface TaskCardDataType {
-  id: number
-  title: string
-  description: string
+export interface TaskCardDateProps {
   dueDate: string
-  imageUrl: string
-  tags: string[]
-  assignee: {
-    profileImageUrl: string
-    nickname: string
-    id: number
-  }
 }
 
-export type TaskCardDateType = {
+export interface TaskCardAssigneeType {
+  profileImageUrl: string
+  nickname: string
+  id: number
+}
+
+export type TaskCardDataType = {
+  assignee: TaskCardAssigneeType
+  columnId: number
+  createdAt: string
+  dashboardId: number
+  description: string
   dueDate: string
+  id: number
+  imageUrl: string
+  tags: string[]
+  teamId: number
+  title: string
+  updatedAt: string
 }
 
 export interface PaginationResponse<T> {
   data: T[]
-  nextCursorId: number
+  nextCursorId: number | null
   totalCount: number
 }
 
-export type GetTaskCards = PaginationResponse<TaskCardDataType>
+export type TaskCardsPromise = PaginationResponse<TaskCardDataType>

@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { fetchPutDashboardEdit } from '@/pages/api/dashboards'
 import { DashboardsContext } from '@/src/context/dashboards'
+import { useToast } from '@/src/context/toast'
 import { InputFormValues } from '@/src/types/input'
 import { EditDahsboardParamType } from '@/src/types/mydashboard'
 
@@ -22,6 +23,9 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
     formState: { errors },
     reset,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
+
+  const { addToast } = useToast()
+
   const { dashboardDetail, setDashboardDetail, editSideMenuDashboards } =
     useContext(DashboardsContext)
 
@@ -30,7 +34,7 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
       ? dashboardDetail.color
       : ''
 
-  const [selectedColor, setSelectedColor] = useState('')
+  const [selectedColor, setSelectedColor] = useState(initialColor)
 
   const editDashboard = async (data: EditDahsboardParamType) => {
     try {
@@ -39,6 +43,7 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
       setSelectedColor(initialColor)
       setDashboardDetail(dashboard)
       editSideMenuDashboards(dashboard)
+      addToast('대시보드가 성공적으로 업데이트 되었습니다', 'success')
     } catch (err) {
       console.error(err)
     }

@@ -18,7 +18,7 @@ export interface InputInterface {
     | 'textarea'
     | 'image'
     | 'manager'
-    | 'progress'
+    | 'status'
   placeholder?: string
   error?: FieldError | undefined
   register: UseFormRegister<InputFormValues>
@@ -32,6 +32,8 @@ export interface InputInterface {
   setValue?: any // react-hook-form의 setValue 함수
   currentNickname?: string // 기존 닉네임과 새 닉네임을 비교하기 위해 필요
   currentColumn?: string // 기존 컬럼 이름과 새로운 칼럼 이름을 비교하기 위해 필요
+  columnId?: number | undefined
+  setImageUrl?: (url: string) => void
 }
 export interface InputFormValues {
   email: string
@@ -50,6 +52,7 @@ export interface InputFormValues {
   textarea: string
   profileImageUrl: FileList
   manager: number // 담당자 userId
+  status: number
 }
 
 export interface InputProps {

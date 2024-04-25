@@ -9,6 +9,7 @@ import type { ChildrenProps } from '@/src/types/commonType'
 interface ColumnsContextType {
   columns: ColumnDataType[]
   setColumns: React.Dispatch<React.SetStateAction<ColumnDataType[]>>
+  dashboardId: number
 }
 
 const ColumnsContext = createContext<ColumnsContextType | undefined>(undefined)
@@ -24,15 +25,17 @@ export const useColumnsContext = () => {
 interface ColumnsProviderProps extends ChildrenProps {
   columns: ColumnDataType[]
   setColumns: React.Dispatch<React.SetStateAction<ColumnDataType[]>>
+  dashboardId: number
 }
 
 export const ColumnsProvider = ({
   children,
   columns,
   setColumns,
+  dashboardId,
 }: ColumnsProviderProps) => {
   return (
-    <ColumnsContext.Provider value={{ columns, setColumns }}>
+    <ColumnsContext.Provider value={{ columns, setColumns, dashboardId }}>
       <main className={S.container}>{children}</main>
     </ColumnsContext.Provider>
   )
