@@ -15,8 +15,16 @@
   &.dashboardHeader {
     width: 3.8rem;
     height: 3.8rem;
-    margin-right: -1rem;
+    cursor: pointer;
+    .nickname {
+      @include font-style(1.5rem, 500, normal);
+    }
+  }
 
+  &.member {
+    width: 3.8rem;
+    height: 3.8rem;
+    margin-right: -1rem;
     .nickname {
       @include font-style(1.5rem, 500, normal);
     }
@@ -25,6 +33,10 @@
   &.card {
     width: 3.4rem;
     height: 3.4rem;
+
+    .nickname {
+      @include font-style(1.2rem, 500, normal);
+    }
   }
 
   &.member {

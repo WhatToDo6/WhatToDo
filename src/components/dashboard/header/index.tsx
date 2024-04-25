@@ -183,7 +183,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
                     userId={member.id}
                     zIndex={idx}
                     nickname={member.nickname}
-                    type="dashboardHeader"
+                    type="member"
                   />
                 ),
               )}
@@ -199,6 +199,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
             nickname={userData.nickname}
             type="dashboardHeader"
             userId={userData.id}
+            showPopover={true}
           />
         </div>
       </div>

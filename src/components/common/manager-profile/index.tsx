@@ -8,7 +8,7 @@ import S from './ManagerProfile.module.scss'
 import UserDefaultImg from '../user-default-img'
 
 interface ManagerProfileProps {
-  type: 'dropdown' | 'dashboardHeader' | 'card'
+  type: 'dropdown' | 'dashboardHeader' | 'card' | 'member'
   profileImageUrl: string | null
   nickname: string
   showPopover?: boolean
@@ -17,7 +17,7 @@ interface ManagerProfileProps {
 
 /**
  *
- * @param type - 'dropdown' | 'dashboardHeader' | 'card'
+ * @param type - 'dropdown' | 'dashboardHeader' | 'card' | 'member'
  * @param profileImageUrl - string | null
  * @param nickname - string
  * @param showPopover - (optional) 팝오버의 유무를 결정
@@ -61,7 +61,12 @@ function ManagerProfile({
           />
         </div>
       ) : (
-        <UserDefaultImg type={type} nickname={nickname} userId={userId} />
+        <UserDefaultImg
+          type={type}
+          nickname={nickname}
+          userId={userId}
+          onClick={togglePopover}
+        />
       )}
 
       {showPopover && isPopoverOpen && (
