@@ -5,20 +5,20 @@ import TagChip from '@/src/components/common/chip/tag-chip'
 import Modal from '@/src/components/common/modal'
 import ModalTask from '@/src/components/common/modal/modal-task'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
-import { TaskCardTagType } from '@/src/types/dashboard.interface'
+import { TaskCardDataType } from '@/src/types/dashboard.interface'
 
 import S from './TaskCard.module.scss'
 import TaskCardDate from '../task-card-date'
 
 interface TaskCardProps {
   columnId: number | undefined
-  taskCard: TaskCardTagType
+  taskCard: TaskCardDataType
   columnTitle: string
 }
 
 const TaskCard = ({ columnId, taskCard, columnTitle }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [cardData, setCardData] = useState<TaskCardTagType>(taskCard)
+  const [cardData, setCardData] = useState<TaskCardDataType>(taskCard)
 
   return (
     <>
