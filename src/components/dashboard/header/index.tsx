@@ -21,6 +21,7 @@ import S from './DashboardHeader.module.scss'
 import ManagerProfile from '../../common/manager-profile'
 import Modal from '../../common/modal'
 import ModalDashBoard from '../../common/modal/modal-dashboard'
+import UserDefaultImg from '../../common/user-default-img'
 
 const EMPTY_IMG = [
   tempCircle1,
@@ -100,6 +101,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
         <div className={S.rightBox}>
           <ManagerProfile
             profileImageUrl={userData.profileImageUrl}
+            userId={userData.id}
             nickname={userData.nickname}
             type="dashboardHeader"
             showPopover={true}
@@ -156,21 +158,35 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
           <div className={S.memberImgBox}>
             {headerMembers
               .filter((_, idx) => idx < visibleMemberNum)
-              .map((member, idx) => (
-                <div key={member.id} className={S.memberImgDiv}>
-                  <Image
-                    className={S.memberImg}
-                    fill
+              .map((member, idx) =>
+                member.profileImageUrl ? (
+                  <div
                     key={member.id}
-                    src={
-                      member.profileImageUrl
-                        ? member.profileImageUrl
-                        : EMPTY_IMG[idx]
-                    }
-                    alt={`${member.nickname}의 이미지`}
+                    className={S.memberImgDiv}
+                    style={{ zIndex: idx }}
+                  >
+                    <Image
+                      className={S.memberImg}
+                      fill
+                      key={member.id}
+                      src={
+                        member.profileImageUrl
+                          ? member.profileImageUrl
+                          : EMPTY_IMG[idx]
+                      }
+                      alt={`${member.nickname}의 이미지`}
+                    />
+                  </div>
+                ) : (
+                  <UserDefaultImg
+                    key={member.id}
+                    userId={member.id}
+                    zIndex={idx}
+                    nickname={member.nickname}
+                    type="dashboardHeader"
                   />
-                </div>
-              ))}
+                ),
+              )}
             {headerMembers.length > visibleMemberNum && (
               <div className={S.overImg}>
                 <span>+{+headerMembers.length - visibleMemberNum}</span>
@@ -182,6 +198,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
             profileImageUrl={userData.profileImageUrl}
             nickname={userData.nickname}
             type="dashboardHeader"
+            userId={userData.id}
           />
         </div>
       </div>

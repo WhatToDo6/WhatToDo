@@ -7,6 +7,7 @@ import { fetchPutAnswerInvitation } from '@/pages/api/invitations'
 import basicImg from '@/public/icons/temp-circle-6.svg'
 import BorderButton from '@/src/components/common/button/border'
 import OptionButton from '@/src/components/common/button/option'
+import UserDefaultImg from '@/src/components/common/user-default-img'
 import { DashboardsContext } from '@/src/context/dashboards'
 import {
   InvitedListDashboardType,
@@ -17,10 +18,6 @@ import {
 import S from './InviteCard.module.scss'
 
 type InvitedListType = 'dashboard' | 'member' | 'email'
-
-type Partial<T> = {
-  [key in keyof T]?: T[key]
-}
 
 type PartialInvitedListDashboardType = Partial<InvitedListDashboardType>
 type PartialInvitedListEmailType = Partial<InvitedListEmailType>
@@ -40,10 +37,6 @@ interface InvitedCardProps extends UnionPartialType {
   dashboardId?: number
 }
 
-function isDashboardType(type: InvitedListType): type is 'dashboard' {
-  return type === 'dashboard'
-}
-
 function InvitedListCard({
   title,
   type,
@@ -61,7 +54,7 @@ function InvitedListCard({
   const handleClickAnswerInvitation = async (answer: boolean) => {
     try {
       await fetchPutAnswerInvitation(id, answer)
-      await getSideMenuDashboards()
+      getSideMenuDashboards()
       handleChange(id)
     } catch (err) {
       console.error(err)
@@ -116,14 +109,23 @@ function InvitedListCard({
     member: (
       <>
         <div className={S.userBox}>
-          <div className={S.userImgDiv}>
-            <Image
-              className={S.userImg}
-              src={profileImageUrl ? profileImageUrl : basicImg}
-              alt="프로필이미지"
-              fill
+          {profileImageUrl ? (
+            <div className={S.userImgDiv}>
+              <Image
+                className={S.userImg}
+                src={profileImageUrl ? profileImageUrl : basicImg}
+                alt="프로필이미지"
+                fill
+              />
+            </div>
+          ) : (
+            <UserDefaultImg
+              nickname={nickname ? nickname : '없음'}
+              type="member"
+              userId={id}
             />
-          </div>
+          )}
+
           <span>{nickname}</span>
         </div>
         <BorderButton

@@ -5,12 +5,14 @@ import { useState } from 'react'
 import basicImg from '@/public/icons/temp-circle-1.svg'
 
 import S from './ManagerProfile.module.scss'
+import UserDefaultImg from '../user-default-img'
 
 interface ManagerProfileProps {
   type: 'dropdown' | 'dashboardHeader' | 'card'
   profileImageUrl: string | null
   nickname: string
   showPopover?: boolean
+  userId: number | null
 }
 
 /**
@@ -27,12 +29,8 @@ function ManagerProfile({
   nickname,
   type,
   showPopover = false,
+  userId,
 }: ManagerProfileProps) {
-  const SIZE = {
-    dashboardHeader: 38,
-    dropdown: 26,
-    card: 34,
-  }
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const router = useRouter()
 
@@ -52,15 +50,20 @@ function ManagerProfile({
 
   return (
     <div className={`${S.container} ${S[type]}`}>
-      <div className={`${S.imgDiv} ${S[type]}`}>
-        <Image
-          fill
-          src={profileImageUrl ? profileImageUrl : basicImg}
-          alt="profileImg"
-          className={S.img}
-          onClick={togglePopover}
-        />
-      </div>
+      {profileImageUrl ? (
+        <div className={`${S.imgDiv} ${S[type]}`}>
+          <Image
+            fill
+            src={profileImageUrl ? profileImageUrl : basicImg}
+            alt="profileImg"
+            className={S.img}
+            onClick={togglePopover}
+          />
+        </div>
+      ) : (
+        <UserDefaultImg type={type} nickname={nickname} userId={userId} />
+      )}
+
       {showPopover && isPopoverOpen && (
         <div className={S.popoverContainer}>
           <button className={S.popoverOption} onClick={handleMyInfoClick}>
