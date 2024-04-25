@@ -6,8 +6,8 @@ import TaskCard from '@/src/components/dashboard/column/task-card'
 import DashboardButton from '@/src/components/dashboard/dashboard-button'
 import {
   ColumnDataType,
-  TaskCardTagType,
-  GetTaskCards,
+  PaginationResponse,
+  TaskCardDataType,
 } from '@/src/types/dashboard.interface'
 
 import S from './Column.module.scss'
@@ -15,7 +15,7 @@ import Modal from '../../common/modal'
 import ModalTodo from '../../common/modal/modal-todo'
 
 const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
-  const [taskCards, setTaskCards] = useState<TaskCardTagType[]>([])
+  const [taskCards, setTaskCards] = useState<TaskCardDataType[]>([])
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const [getMore, setGetMore] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -24,7 +24,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
     setIsModalOpen(true)
   }
 
-  const addNewTaskCard = (newTaskCard: TaskCardTagType) => {
+  const addNewTaskCard = (newTaskCard: TaskCardDataType) => {
     setTaskCards((prevTaskCards) => [...prevTaskCards, newTaskCard])
   }
 
@@ -35,7 +35,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
           data,
           nextCursorId: fetchNextCursorId,
           totalCount,
-        }: GetTaskCards = await getTaskCards(
+        } = await getTaskCards(
           columnId,
           firstFetch ? null : nextCursorId,
           firstFetch,
@@ -66,6 +66,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
           <TaskCard
             key={taskCard.id}
             taskCard={taskCard}
+            setTaskCards={setTaskCards}
             columnId={columnId}
             columnTitle={title}
           />

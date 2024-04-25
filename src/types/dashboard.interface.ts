@@ -29,16 +29,18 @@ export interface ColumnHeaderType {
   columnId: number | undefined
 }
 
-export interface TaskCardTagType {
-  assignee: {
-    profileImageUrl: string
-    nickname: string
-    id: number
-  }
-  colorIndex: number
+export interface TaskCardDateProps {
+  dueDate: string
+}
+
+export interface TaskCardAssigneeType {
+  profileImageUrl: string
+  nickname: string
+  id: number
 }
 
 export type TaskCardDataType = {
+  assignee: TaskCardAssigneeType
   columnId: number
   createdAt: string
   dashboardId: number
@@ -54,8 +56,8 @@ export type TaskCardDataType = {
 
 export interface PaginationResponse<T> {
   data: T[]
-  nextCursorId: number
+  nextCursorId: number | null
   totalCount: number
 }
 
-export type GetTaskCards = PaginationResponse<TaskCardTagType>
+export type TaskCardsPromise = PaginationResponse<TaskCardDataType>
