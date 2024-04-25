@@ -54,11 +54,6 @@ export interface GetPagenationType<T> {
   cursorId?: number
 }
 
-export interface GetInfiniteDashboardListType {
-  data: DashboardType[]
-  cursorId: number
-}
-
 export interface DashboardEditMakeParamType {
   title: string
   color: string

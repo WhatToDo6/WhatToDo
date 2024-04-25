@@ -11,7 +11,7 @@ import S from './DashboardListSection.module.scss'
 const DashboardListSection = () => {
   const router = useRouter()
   const [selectedDashboard, setSelectedDashboard] = useState(0)
-  //TODO: 무한 스크롤
+  //TODO: 페이지네이션
   const { sideMenuDashboards, getSideMenuDashboards } =
     useContext(DashboardsContext)
 
