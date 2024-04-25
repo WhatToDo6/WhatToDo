@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import { useContext } from 'react'
 
 import AXIOS from '@/lib/axios'
 import { fetchDeleteCancelInviteDashboard } from '@/pages/api/dashboards'
@@ -6,6 +7,7 @@ import { fetchPutAnswerInvitation } from '@/pages/api/invitations'
 import basicImg from '@/public/icons/temp-circle-6.svg'
 import BorderButton from '@/src/components/common/button/border'
 import OptionButton from '@/src/components/common/button/option'
+import { DashboardsContext } from '@/src/context/dashboards'
 import {
   InvitedListDashboardType,
   InvitedListEmailType,
@@ -54,10 +56,12 @@ function InvitedListCard({
   isOwner,
 }: InvitedCardProps) {
   const className = `${S.container} ${S[type]}`
+  const { getSideMenuDashboards } = useContext(DashboardsContext)
 
   const handleClickAnswerInvitation = async (answer: boolean) => {
     try {
       await fetchPutAnswerInvitation(id, answer)
+      await getSideMenuDashboards()
       handleChange(id)
     } catch (err) {
       console.error(err)
