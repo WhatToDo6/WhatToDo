@@ -64,13 +64,12 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
     if (userId === undefined) return
 
     try {
-      const assigneeUserId = userId
       const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
 
       const response = await putTaskCards({
         cardId: cardData.id,
         columnId: data.status,
-        assigneeUserId,
+        assigneeUserId: data.manager,
         title: data.title,
         description: data.textarea,
         dueDate: dueDate,
