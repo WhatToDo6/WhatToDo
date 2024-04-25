@@ -1,4 +1,4 @@
-import { CHIP_COLOR } from '@/src/constants/color'
+import { CHIP_COLOR } from '@/src/constants/colorchip'
 import { changeUserIdToColorIdx } from '@/src/utils/userIdToColorIdx'
 
 import S from './UserDefaultImg.module.scss'
