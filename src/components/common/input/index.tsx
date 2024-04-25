@@ -182,7 +182,7 @@ const Input = ({
         error={error}
       />
     ),
-    progress: <DropdownProgress register={register} setValue={setValue} />,
+    status: <DropdownProgress register={register} setValue={setValue} />,
   }
 
   return (
