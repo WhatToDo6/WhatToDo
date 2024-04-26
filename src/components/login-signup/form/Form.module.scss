@@ -58,3 +58,7 @@
   @include font-style(1.6rem, 400, normal);
   cursor: pointer;
 }
+
+.check {
+  position: absolute;
+}
