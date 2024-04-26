@@ -8,6 +8,17 @@
   align-items: center;
   border-bottom: 0.1rem solid $color-gray-300;
   background-color: $color-white;
+  gap: 3rem;
+
+  @include tablet {
+    display: flex;
+    justify-content: center;
+  }
+
+  @include mobile {
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .title {
@@ -29,7 +40,13 @@
   p {
     @include font-style(2rem, 700, normal);
   }
+
+  @include tablet {
+    display: none;
+  }
+
   @include mobile {
+    display: none;
     @include font-style(1.8rem, 700, normal);
     padding-left: 2.4rem;
   }
@@ -49,6 +66,15 @@
 .btnBox {
   display: flex;
   gap: 1.2rem;
+
+  @include tablet {
+    padding-left: 6.8rem;
+  }
+
+  @include mobile {
+    padding-left: 1.2rem;
+    gap: 0.6rem;
+  }
 
   .btn {
     display: flex;

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useState, useMemo, useContext } from 'react'
+import { useState, useMemo, useContext, useEffect } from 'react'
 
 import { fetchPostInviteDashboard } from '@/pages/api/dashboards'
 import addBoxIcon from '@/public/icons/add-box-icon.svg'
@@ -38,7 +38,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
   const { dashboardDetail } = useContext(DashboardsContext)
   const { handleCreate } = useContext(InviteeEmailContext)
   const { addToast } = useToast()
-  const visibleMemberNum = 4
+  const [visibleMemberNum, setVisibleMemberNum] = useState(4)
 
   const {
     query: { id },
@@ -81,6 +81,27 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
     ],
     [dashboardId],
   )
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 767px)')
+
+    const handleResize = () => {
+      if (mediaQuery.matches) {
+        setVisibleMemberNum(2)
+      } else {
+        setVisibleMemberNum(4)
+      }
+    }
+
+    handleResize()
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
   // TODO: 로딩 구현
   if (!userData)
     return (
