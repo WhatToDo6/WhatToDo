@@ -81,7 +81,7 @@ function MembersProvider({ children }: ChildrenProps) {
 
   useEffect(() => {
     if (dashboardId) getHeaderMembersData(dashboardId)
-  }, [])
+  }, [dashboardId])
 
   useEffect(() => {
     if (members.length === 0 && currPage >= 1 && lastPage >= 1) {
