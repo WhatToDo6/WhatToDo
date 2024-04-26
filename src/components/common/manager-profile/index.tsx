@@ -2,8 +2,6 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-import basicImg from '@/public/icons/temp-circle-1.svg'
-
 import S from './ManagerProfile.module.scss'
 import UserDefaultImg from '../user-default-img'
 
@@ -54,7 +52,7 @@ function ManagerProfile({
         <div className={`${S.imgDiv} ${S[type]}`}>
           <Image
             fill
-            src={profileImageUrl ? profileImageUrl : basicImg}
+            src={profileImageUrl}
             alt="profileImg"
             className={S.img}
             onClick={togglePopover}

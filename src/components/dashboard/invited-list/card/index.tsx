@@ -4,7 +4,6 @@ import { useContext } from 'react'
 import AXIOS from '@/lib/axios'
 import { fetchDeleteCancelInviteDashboard } from '@/pages/api/dashboards'
 import { fetchPutAnswerInvitation } from '@/pages/api/invitations'
-import basicImg from '@/public/icons/temp-circle-6.svg'
 import BorderButton from '@/src/components/common/button/border'
 import OptionButton from '@/src/components/common/button/option'
 import UserDefaultImg from '@/src/components/common/user-default-img'
@@ -116,7 +115,7 @@ function InvitedListCard({
             <div className={S.userImgDiv}>
               <Image
                 className={S.userImg}
-                src={profileImageUrl ? profileImageUrl : basicImg}
+                src={profileImageUrl}
                 alt="프로필이미지"
                 fill
               />
