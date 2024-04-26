@@ -170,7 +170,7 @@ const Input = ({
     image: (
       <InputProfileImage
         handleImageChange={(event) =>
-          handleImageChange(event, setImageUrl, columnId)
+          setImageUrl && handleImageChange(event, setImageUrl, columnId)
         }
       />
     ),

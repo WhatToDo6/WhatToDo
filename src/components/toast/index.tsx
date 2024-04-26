@@ -12,27 +12,24 @@ const Toast = () => {
   const { toasts, removeToast } = useToast()
 
   useEffect(() => {
-    const timeouts: { hide: Timeout; remove: Timeout }[] = toasts.map(
-      (toast) => {
-        const hideTimeout: Timeout = setTimeout(() => {
-          const element = document.getElementById(toast.id.toString())
-          if (element) {
-            element.classList.add(S.toastHide)
-          }
-        }, 2500)
+    const timeouts: Record<string, Timeout> = {}
 
-        const removeTimeout: Timeout = setTimeout(() => {
-          removeToast(toast.id)
-        }, 3000)
+    toasts.forEach((toast) => {
+      setTimeout(() => {
+        const element = document.getElementById(toast.id.toString())
+        if (element) {
+          element.classList.add(S.toastHide)
+        }
+      }, 2500)
 
-        return { hide: hideTimeout, remove: removeTimeout }
-      },
-    )
+      timeouts[toast.id] = setTimeout(() => {
+        removeToast(toast.id)
+      }, 3000)
+    })
 
     return () => {
-      timeouts.forEach((timeout) => {
-        clearTimeout(timeout.hide)
-        clearTimeout(timeout.remove)
+      Object.values(timeouts).forEach((timeout) => {
+        clearTimeout(timeout)
       })
     }
   }, [toasts, removeToast])

@@ -7,13 +7,10 @@ import addBoxIcon from '@/public/icons/add-box-icon.svg'
 import barIcon from '@/public/icons/bar.svg'
 import crownIcon from '@/public/icons/crown-icon.svg'
 import settingIcon from '@/public/icons/setting-icon.svg'
-import tempCircle1 from '@/public/icons/temp-circle-1.svg'
-import tempCircle2 from '@/public/icons/temp-circle-2.svg'
-import tempCircle3 from '@/public/icons/temp-circle-3.svg'
-import tempCircle4 from '@/public/icons/temp-circle-4.svg'
-import tempCircle5 from '@/public/icons/temp-circle-5.svg'
 import { DashboardsContext } from '@/src/context/dashboards'
+import { InviteeEmailContext } from '@/src/context/inviteeEmail'
 import { MembersContext } from '@/src/context/members'
+import { useToast } from '@/src/context/toast'
 import { useUser } from '@/src/context/users'
 import { InviteDashboardParamType } from '@/src/types/mydashboard'
 
@@ -22,14 +19,6 @@ import ManagerProfile from '../../common/manager-profile'
 import Modal from '../../common/modal'
 import ModalDashBoard from '../../common/modal/modal-dashboard'
 import UserDefaultImg from '../../common/user-default-img'
-
-const EMPTY_IMG = [
-  tempCircle1,
-  tempCircle2,
-  tempCircle3,
-  tempCircle4,
-  tempCircle5,
-]
 
 // TODO: 타입좁히기
 // type PathName = '/mydashboard' | '/mypage' | '/dashboard/[id]' /'dashboard/[id]/edit'
@@ -47,14 +36,29 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
   const { userData } = useUser()
   const { headerMembers } = useContext(MembersContext)
   const { dashboardDetail } = useContext(DashboardsContext)
+  const { handleCreate } = useContext(InviteeEmailContext)
+  const { addToast } = useToast()
   const visibleMemberNum = 4
 
   const {
     query: { id },
   } = useRouter()
-  const dashboardId = id && +id
+
+  const dashboardId = typeof id !== 'undefined' ? +id : -1
   const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const InviteDashboard = async (data: InviteDashboardParamType) => {
+    if (dashboardId === -1) return
+    try {
+      await fetchPostInviteDashboard(data, dashboardId)
+      handleCreate()
+      addToast('초대가 완료되었습니다.', 'success')
+    } catch (err) {
+      addToast('유효하지 않은 이메일입니다.', 'error')
+      console.error(err)
+    }
+  }
 
   const BUTTONS = useMemo(
     () => [
@@ -77,15 +81,6 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
     ],
     [dashboardId],
   )
-
-  const InviteDashboard = async (data: InviteDashboardParamType) => {
-    try {
-      if (dashboardId) await fetchPostInviteDashboard(data, +dashboardId)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
   // TODO: 로딩 구현
   if (!userData)
     return (
