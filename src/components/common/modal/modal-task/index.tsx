@@ -35,6 +35,7 @@ interface ModalTaskProps {
   columnTitle: string
   cardData: TaskCardDataType
   setCardData: React.Dispatch<React.SetStateAction<TaskCardDataType>>
+  setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
 }
 
 const ModalTask = ({
@@ -46,7 +47,8 @@ const ModalTask = ({
   dueDate,
   assignee,
   imageUrl,
-  taskCard,
+  cardData,
+  setCardData,
   setTaskCards,
 }: ModalTaskProps) => {
   const modalStatus = useContext(ModalContext)
@@ -114,8 +116,8 @@ const ModalTask = ({
   const handlePopoverDelete = async () => {
     try {
       await deleteTaskCards(cardId)
-      setTaskCards((prevCard: TaskCardDataType) => {
-        return prevCard.filter((card) => card.id !== cardId)
+      setTaskCards((prevCard) => {
+        return prevCard.filter((card: TaskCardDataType) => card.id !== cardId)
       })
     } catch (error) {
       console.error('카드를 삭제하는 데 실패했습니다:', error)
@@ -130,7 +132,7 @@ const ModalTask = ({
     <div className={S.container}>
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
-          <ModalEdittodo cardData={taskCard} setCardData={setTaskCards} />
+          <ModalEdittodo cardData={cardData} setCardData={setCardData} />
         </Modal>
       )}
       <div className={S.titleContainer}>
@@ -168,7 +170,7 @@ const ModalTask = ({
       <div className={S.contentContainer}>
         <div className={S.content}>
           <div className={S.chips}>
-            <ProgressChip progress={columnStatus[taskCard.columnId]} />
+            <ProgressChip progress={columnStatus[cardData.columnId]} />
             <Image src={BAR_ICON} alt="구분선" width={0} height={20} />
             <div className={S.tags}>
               {tags.map((tag, index) => (

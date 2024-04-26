@@ -5,6 +5,7 @@ import AXIOS from '@/lib/axios'
 import { handleImageChange } from '@/pages/api/imageUpload'
 import BorderButton from '@/src/components/common/button/border'
 import Input from '@/src/components/common/input'
+import { useToast } from '@/src/context/toast'
 import { useUser } from '@/src/context/users'
 import { InputFormValues } from '@/src/types/input'
 
@@ -18,6 +19,7 @@ interface ProfileUpdateProps {
 
 const ProfileForm = () => {
   const { userData, setUserData } = useUser()
+  const { addToast } = useToast()
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
 
   useEffect(() => {
@@ -57,6 +59,7 @@ const ProfileForm = () => {
                 nickname: res.data.nickname,
               }
             })
+            addToast('프로필이 성공적으로 업데이트 되었습니다.', 'success')
           })
           .catch((err) => {
             console.error(err.response.data.message)
@@ -85,12 +88,12 @@ const ProfileForm = () => {
             type="text"
             disabled={true}
             placeholder={userData?.email}
-            className={S.textInput}
+            className={`${S.textInput} ${S.email}`}
           />
           <label className={S.title}>닉네임</label>
           <Input
             inputType="newNickname"
-            placeholder=""
+            placeholder={userData?.nickname}
             error={errors.newNickname}
             register={register}
             currentNickname={userData?.nickname}

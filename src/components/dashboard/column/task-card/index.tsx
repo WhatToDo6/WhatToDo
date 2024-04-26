@@ -13,6 +13,7 @@ import TaskCardDate from '../task-card-date'
 interface TaskCardProps {
   columnId: number | undefined
   taskCard: TaskCardDataType
+  setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
   columnTitle: string
 }
 
@@ -23,33 +24,36 @@ const TaskCard = ({
   columnTitle,
 }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [cardData, setCardData] = useState<TaskCardDataType>(taskCard)
 
   return (
     <>
       <div className={S.container} onClick={() => setIsModalOpen(true)}>
         <div className={S.imageWrapper}>
-          <Image
-            className={S.cardImage}
-            src={taskCard.imageUrl}
-            width={274}
-            height={160}
-            layout="responsive"
-            alt="카드 이미지"
-          />
+          {cardData.imageUrl && (
+            <Image
+              className={S.cardImage}
+              src={cardData.imageUrl}
+              width={274}
+              height={160}
+              layout="responsive"
+              alt="카드 이미지"
+            />
+          )}
         </div>
         <div className={S.content}>
-          <h2 className={S.cardTitle}>{taskCard.title}</h2>
+          <h2 className={S.cardTitle}>{cardData.title}</h2>
           <div className={S.wrapper}>
             <div className={S.tag}>
-              {taskCard.tags.map((tag, index) => (
+              {cardData.tags.map((tag, index) => (
                 <TagChip key={index} index={index} text={tag} />
               ))}
             </div>
             <div className={S.cardBottom}>
               <div
-                className={taskCard.dueDate === EMPTY_DUEDATE ? S.hidden : ''}
+                className={cardData.dueDate === EMPTY_DUEDATE ? S.hidden : ''}
               >
-                <TaskCardDate dueDate={taskCard.dueDate} />
+                <TaskCardDate dueDate={cardData.dueDate} />
               </div>
               <div>아이콘</div>
             </div>
@@ -60,15 +64,16 @@ const TaskCard = ({
         <Modal setIsOpen={setIsModalOpen}>
           <ModalTask
             columnId={columnId}
-            cardId={taskCard.id}
-            title={taskCard.title}
-            dueDate={taskCard.dueDate}
-            assignee={taskCard.assignee}
-            imageUrl={taskCard.imageUrl}
-            tags={taskCard.tags}
-            description={taskCard.description}
+            cardId={cardData.id}
+            title={cardData.title}
+            dueDate={cardData.dueDate}
+            assignee={cardData.assignee}
+            imageUrl={cardData.imageUrl}
+            tags={cardData.tags}
+            description={cardData.description}
             columnTitle={columnTitle}
-            taskCard={taskCard}
+            cardData={cardData}
+            setCardData={setCardData}
             setTaskCards={setTaskCards}
           />
         </Modal>
