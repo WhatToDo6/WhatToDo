@@ -9,7 +9,7 @@ import {
 
 import {
   fetchGetDashboardDetail,
-  fetchGetDashboardListInfinite,
+  fetchGetDashboardList,
 } from '@/pages/api/dashboards'
 
 import { usePagination } from '../hooks/usePagination'
@@ -21,7 +21,7 @@ interface DashboardContextType<T> extends PaginationContextType<T> {
   dashboardDetail: DashboardType | null
   setDashboardDetail: Dispatch<SetStateAction<DashboardType | null>>
   sideMenuDashboards: DashboardType[]
-  getSideMenuDashboards: (firstFetch?: boolean) => Promise<void>
+  getSideMenuDashboards: () => Promise<void>
   editSideMenuDashboards: (dashboard: DashboardType) => void
   selectedDashboard: string
   setSelectedDashboard: Dispatch<SetStateAction<string>>
@@ -39,7 +39,7 @@ export const DashboardsContext = createContext<
   dashboardDetail: null,
   setDashboardDetail: () => {},
   sideMenuDashboards: [],
-  getSideMenuDashboards: async (firstFetch?: boolean): Promise<void> => {},
+  getSideMenuDashboards: async (): Promise<void> => {},
   editSideMenuDashboards: () => {},
   selectedDashboard: '',
   setSelectedDashboard: () => {},
@@ -60,8 +60,6 @@ function DashboardsProvider({ children }: ChildrenProps) {
   )
   const [selectedDashboard, setSelectedDashboard] = useState('')
 
-  const [currCursorId, setCurrCursorId] = useState(0)
-
   const getDashboardDetail = async (dashboardId: number) => {
     try {
       const dashboard = await fetchGetDashboardDetail(dashboardId)
@@ -71,14 +69,12 @@ function DashboardsProvider({ children }: ChildrenProps) {
     }
   }
 
-  const getSideMenuDashboards = async (firstFetch: boolean = false) => {
+  //TODO: 페이지네이션으로 수정
+  const getSideMenuDashboards = async () => {
     try {
-      const { data: dashboards, cursorId } =
-        await fetchGetDashboardListInfinite(15, currCursorId)
-      setSideMenuDashboards((prev) =>
-        firstFetch ? dashboards : [...prev, ...dashboards],
-      )
-      setCurrCursorId(cursorId)
+      const { data: dashboards, totalCount } =
+        await fetchGetDashboardList<DashboardType>(1, 15)
+      setSideMenuDashboards(dashboards)
     } catch (err) {
       console.error(err)
     }
@@ -116,7 +112,7 @@ function DashboardsProvider({ children }: ChildrenProps) {
   }, [id])
 
   useEffect(() => {
-    getSideMenuDashboards(true)
+    getSideMenuDashboards()
   }, [])
 
   return (

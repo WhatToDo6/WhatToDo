@@ -72,6 +72,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
                 profileImageUrl={null}
                 nickname={nickname}
                 type="dropdown"
+                userId={userId}
               />
               <Image src={DELETE_ICON} alt="삭제" width={20} height={20} />
             </div>
@@ -114,6 +115,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
                 profileImageUrl={null}
                 nickname={nickname}
                 type="dropdown"
+                userId={userId}
               />
             </div>
           )}
@@ -136,6 +138,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
                     profileImageUrl={null}
                     nickname={elem.nickname}
                     type="dropdown"
+                    userId={userId}
                   />
                 </div>
               )

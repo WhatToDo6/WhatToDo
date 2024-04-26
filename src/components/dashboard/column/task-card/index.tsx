@@ -63,7 +63,9 @@ const TaskCard = ({
               <div>
                 <ManagerProfile
                   profileImageUrl={userData?.profileImageUrl}
-                  type="card"
+                  type="onlyImg"
+                  nickname={userData?.nickname}
+                  userId={userData ? userData.id : null}
                 />
               </div>
             </div>
