@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { handleImageChange } from '@/pages/api/imageUpload'
 import { putTaskCards } from '@/pages/api/taskCards'
 import { fetchGetUser } from '@/pages/api/users'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
@@ -27,6 +28,7 @@ export const CardContext = createContext<TaskCardDataType>(
 const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
   const modalStatus = useContext(ModalContext)
   const [userId, setUserId] = useState()
+  const [imageUrl, setImageUrl] = useState<string | undefined>()
   const [isDisabled, setIsDisabled] = useState(true)
 
   const {
@@ -52,6 +54,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
       ? setValue('date', null)
       : setValue('date', formatLocalDate(cardData.dueDate))
     setValue('tags', cardData.tags.join(','))
+    setImageUrl(cardData.imageUrl)
   }, [])
 
   useEffect(() => {
@@ -78,9 +81,8 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
         description: data.textarea,
         dueDate: dueDate,
         tags: tags,
-        imageUrl:
-          'https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/3-7_20345_1713591497409.png',
-      }) // TODO: 이미지 수정 데이터 연결
+        imageUrl: imageUrl || '',
+      })
       setCardData(response)
       modalStatus.setIsOpen(false)
     } catch (error) {
@@ -158,7 +160,10 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
           </label>
           <div className={S.imageContainer}>
             <InputProfileImage
-              handleImageChange={() => console.log('로직 연결 필요')}
+              profileImageUrl={imageUrl}
+              handleImageChange={(event) => {
+                handleImageChange(event, setImageUrl, cardData.columnId)
+              }}
             />
           </div>
         </div>
