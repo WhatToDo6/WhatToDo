@@ -35,6 +35,7 @@ interface InvitedCardProps extends UnionPartialType {
   id: number
   handleChange: (id: number) => void
   dashboardId?: number
+  userId?: number
 }
 
 function InvitedListCard({
@@ -47,8 +48,10 @@ function InvitedListCard({
   dashboardId,
   handleChange,
   isOwner,
+  userId,
 }: InvitedCardProps) {
   const className = `${S.container} ${S[type]}`
+  const myUserId = userId ? userId : null
   const { getSideMenuDashboards } = useContext(DashboardsContext)
 
   const handleClickAnswerInvitation = async (answer: boolean) => {
@@ -122,7 +125,7 @@ function InvitedListCard({
             <UserDefaultImg
               nickname={nickname ? nickname : '닉네임'}
               type="member"
-              userId={id}
+              userId={myUserId}
             />
           )}
 
