@@ -5,10 +5,7 @@ import { handleImageChange } from '@/pages/api/imageUpload'
 import { postTaskCards } from '@/pages/api/taskCards'
 import { fetchGetUser } from '@/pages/api/users'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
-import {
-  TaskCardDataType,
-  TaskCardsPromise,
-} from '@/src/types/dashboard.interface'
+import { TaskCardDataType } from '@/src/types/dashboard.interface'
 import { InputFormValues } from '@/src/types/input'
 import { formatDate } from '@/src/utils/formatDate'
 
@@ -27,7 +24,7 @@ interface ModalTodoProps {
 const ModalTodo = ({
   columnId,
   dashboardId,
-  onCreateTaskCard: onTaskCardCreated,
+  onCreateTaskCard,
 }: ModalTodoProps) => {
   const modalStatus = useContext(ModalContext)
   const [userId, setUserId] = useState()
@@ -62,7 +59,7 @@ const ModalTodo = ({
         tags: data.tags,
         imageUrl: imageUrl,
       })
-      onTaskCardCreated(response)
+      onCreateTaskCard(response)
       modalStatus.setIsOpen(false)
     } catch (error) {
       console.error('Failed to create card:', error)
