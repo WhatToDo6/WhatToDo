@@ -1,8 +1,10 @@
+import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import { fetchPostUser } from '@/pages/api/users'
+import CHECK_ICON from '@/public/icons/check.svg'
 import BasicButton from '@/src/components/common/button/basic'
 import Input from '@/src/components/common/input'
 import Modal from '@/src/components/common/modal'
@@ -95,6 +97,13 @@ const SignUpForm = () => {
           password={watch('password')}
         />
         <div className={S.agreeBox}>
+          <Image
+            className={S.check}
+            src={CHECK_ICON}
+            alt="check"
+            width={18}
+            height={18}
+          />
           <input
             className={S.agreeCheck}
             type="checkbox"
