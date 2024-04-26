@@ -29,7 +29,9 @@ const TaskCard = ({
   return (
     <>
       <div className={S.container} onClick={() => setIsModalOpen(true)}>
-        <div className={S.imageWrapper}>
+        <div
+          className={`${S.imageWrapper} ${!cardData.imageUrl ? S.hidden : ''}`}
+        >
           {cardData.imageUrl && (
             <Image
               className={S.cardImage}
