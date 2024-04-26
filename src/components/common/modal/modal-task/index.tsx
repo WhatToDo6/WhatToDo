@@ -182,7 +182,7 @@ const ModalTask = ({
           {imageUrl && (
             <Image
               src={imageUrl}
-              alt="임시 사진"
+              alt="할일 카드 이미지"
               width={450}
               height={262}
               className={S.contentImg}

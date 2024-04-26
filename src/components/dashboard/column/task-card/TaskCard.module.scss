@@ -38,6 +38,10 @@
     width: 100%;
     height: auto;
   }
+
+  &.hidden {
+    display: none;
+  }
 }
 
 .content {
@@ -59,15 +63,18 @@
 
   @include tablet {
     flex-direction: row;
+    align-items: center;
   }
 
   @include mobile {
     flex-direction: column;
+    align-items: normal;
   }
 }
 
 .tag {
   display: flex;
+  height: fit-content;
   gap: 0.6rem;
 }
 

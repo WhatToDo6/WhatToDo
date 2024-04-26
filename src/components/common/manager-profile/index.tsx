@@ -7,8 +7,8 @@ import UserDefaultImg from '../user-default-img'
 
 interface ManagerProfileProps {
   type: 'dropdown' | 'dashboardHeader' | 'card' | 'member'
-  profileImageUrl: string | null
-  nickname: string
+  profileImageUrl: string | null | undefined
+  nickname?: string
   showPopover?: boolean
   userId: number | null
 }
@@ -61,7 +61,7 @@ function ManagerProfile({
       ) : (
         <UserDefaultImg
           type={type}
-          nickname={nickname}
+          nickname={nickname ? nickname : '닉네임'}
           userId={userId}
           onClick={togglePopover}
         />
