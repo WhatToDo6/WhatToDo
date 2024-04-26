@@ -1,11 +1,13 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import { InputProps } from '@/src/types/input'
 
 import S from './Tag.module.scss'
 import TagChip from '../../chip/tag-chip'
+import { CardContext } from '../../modal/modal-edittodo'
 
 const InputTag = ({ placeholder, setValue }: InputProps) => {
+  const cardStatus = useContext(CardContext)
   const [tags, setTags] = useState<string[]>([])
   const [isFocus, setIsFocus] = useState(false)
 
@@ -25,6 +27,12 @@ const InputTag = ({ placeholder, setValue }: InputProps) => {
       setValue('tags', tags.slice(0, -1)) // 태그 배열 업데이트 시 setValue 호출
     }
   }
+
+  useEffect(() => {
+    if (cardStatus?.tags) {
+      setTags(cardStatus.tags)
+    }
+  }, [])
 
   useEffect(() => {
     setIsFocus(false)

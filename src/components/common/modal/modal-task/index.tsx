@@ -7,6 +7,7 @@ import { ColumnContext } from '@/pages/dashboards/[id]'
 import BAR_ICON from '@/public/icons/bar.svg'
 import CLOSE_ICON from '@/public/icons/close.svg'
 import POPOVER_ICON from '@/public/icons/popover.svg'
+import { EMPTY_DUEDATE } from '@/src/constants/date'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 import { CommentsType, TaskCardDataType } from '@/src/types/dashboard.interface'
 
@@ -182,7 +183,9 @@ const ModalTask = ({
           {imageUrl && (
             <Image
               src={imageUrl}
-              alt="할일 카드 이미지"
+
+              alt={title}
+
               width={450}
               height={262}
               className={S.contentImg}
@@ -199,7 +202,9 @@ const ModalTask = ({
               userId={assignee.id}
             />
           </div>
-          <div className={S.dueDate}>
+          <div
+            className={`${S.dueDate} ${dueDate === EMPTY_DUEDATE ? S.hidden : ''}`}
+          >
             <span className={S.detailTitle}>마감일</span>
             <p className={S.detailText}>{dueDate}</p>
           </div>
