@@ -18,6 +18,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const [getMore, setGetMore] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [reload, setReload] = useState<any>(null)
 
   const handleClick = () => {
     setIsModalOpen(true)
@@ -52,6 +53,10 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
     fetchTaskCards(true)
   }, [columnId])
 
+  useEffect(() => {
+    reload && fetchTaskCards(true)
+  }, [reload])
+
   return (
     <div className={S.container}>
       <ColumnHeader
@@ -69,6 +74,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
               setTaskCards={setTaskCards}
               columnId={columnId}
               columnTitle={title}
+              setReload={setReload}
             />
           ))}
       </div>
