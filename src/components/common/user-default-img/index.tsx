@@ -1,5 +1,5 @@
 import { CHIP_COLOR } from '@/src/constants/colorchip'
-import { changeUserIdToColorIdx } from '@/src/utils/userIdToColorIdx'
+import { userIdToColorIdx } from '@/src/utils/userIdToColorIdx'
 
 import S from './UserDefaultImg.module.scss'
 
@@ -31,7 +31,7 @@ function UserDefaultImg({
   userId,
   onClick,
 }: UserDefaultImgProps) {
-  const myIdx = userId ? changeUserIdToColorIdx(userId) : 3
+  const myIdx = userId ? userIdToColorIdx(userId) : 3
 
   return (
     <div
