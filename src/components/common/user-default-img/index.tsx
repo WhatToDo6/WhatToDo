@@ -37,7 +37,7 @@ function UserDefaultImg({
     <div
       className={`${S.container} ${S[type]}`}
       style={{
-        backgroundColor: `${CHIP_COLOR[myIdx ? myIdx : 1]}`,
+        backgroundColor: `${CHIP_COLOR[myIdx]}`,
         zIndex: zIndex ? zIndex : 'auto',
       }}
       onClick={onClick}

@@ -196,6 +196,7 @@ const ModalTask = ({
               profileImageUrl={assignee.profileImageUrl}
               nickname={assignee.nickname}
               type="card"
+              userId={assignee.id}
             />
           </div>
           <div className={S.dueDate}>
