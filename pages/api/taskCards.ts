@@ -82,7 +82,7 @@ export const putTaskCards = async ({
   description: string
   dueDate: string
   tags: string[]
-  imageUrl: string
+  imageUrl: string | undefined
 }): Promise<TaskCardsPromise> => {
   const url = `https://sp-taskify-api.vercel.app/4-6/cards/${cardId}`
   const data = {

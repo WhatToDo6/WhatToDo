@@ -81,7 +81,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
         description: data.textarea,
         dueDate: dueDate,
         tags: tags,
-        imageUrl: imageUrl || '',
+        imageUrl: imageUrl || undefined,
       })
       setCardData(response)
       modalStatus.setIsOpen(false)
