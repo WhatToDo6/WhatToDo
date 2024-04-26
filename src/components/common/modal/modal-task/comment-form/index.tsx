@@ -45,7 +45,12 @@ const CommentForm = ({ setComments, cardId, columnId }: CommentFormProps) => {
         onChange={(e) => setInputText(e.target.value)}
       />
       <div className={S.button}>
-        <BorderButton size="change" color="white" onClick={handleClick}>
+        <BorderButton
+          size="change"
+          color="white"
+          onClick={handleClick}
+          isDisabled={!inputText.trim()}
+        >
           입력
         </BorderButton>
       </div>

@@ -183,7 +183,9 @@ const ModalTask = ({
           {imageUrl && (
             <Image
               src={imageUrl}
+
               alt={title}
+
               width={450}
               height={262}
               className={S.contentImg}
