@@ -11,13 +11,14 @@ interface UserDefaultImgProps {
     | 'card'
     | 'dashboardHeaderMembers'
     | 'member'
+    | 'onlyImg'
   zIndex?: number
   userId: number | null
   onClick?: () => void
 }
 
 /**
- * @param type - 'dropdown' | 'dashboardHeader' | 'card' | 'dashboardHeaderMembers' | 'member'
+ * @param type - 'dropdown' | 'dashboardHeader' | 'card' | 'dashboardHeaderMembers' | 'member' | 'onlyImg'
  * @param nickname - string
  * @param zIndex - (optional) number 대시보드 헤더에서 zindex 를 다르게 하기 위해 쓰는 용도
  * @param userId - userId: number | null

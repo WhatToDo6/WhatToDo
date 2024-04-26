@@ -43,6 +43,12 @@
     }
   }
 
+  &.onlyImg {
+    span {
+      display: none;
+    }
+  }
+
   span {
     color: $color-black-200;
   }
@@ -63,6 +69,11 @@
   }
 
   &.card {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
+  &.onlyImg {
     width: 3.4rem;
     height: 3.4rem;
   }

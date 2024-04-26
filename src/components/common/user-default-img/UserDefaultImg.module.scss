@@ -38,7 +38,8 @@
     }
   }
 
-  &.card {
+  &.card,
+  &.onlyImg {
     width: 3.4rem;
     height: 3.4rem;
 

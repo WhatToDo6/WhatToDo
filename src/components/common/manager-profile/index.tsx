@@ -6,7 +6,7 @@ import S from './ManagerProfile.module.scss'
 import UserDefaultImg from '../user-default-img'
 
 interface ManagerProfileProps {
-  type: 'dropdown' | 'dashboardHeader' | 'card' | 'member'
+  type: 'dropdown' | 'dashboardHeader' | 'card' | 'member' | 'onlyImg'
   profileImageUrl: string | null | undefined
   nickname?: string
   showPopover?: boolean
@@ -15,10 +15,11 @@ interface ManagerProfileProps {
 
 /**
  *
- * @param type - 'dropdown' | 'dashboardHeader' | 'card' | 'member'
+ * @param type - 'dropdown' | 'dashboardHeader' | 'card' | 'member' | 'onlyImg'
  * @param profileImageUrl - string | null
  * @param nickname - string
  * @param showPopover - (optional) 팝오버의 유무를 결정
+ * @param userId = number | null
  * @returns
  */
 
