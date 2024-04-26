@@ -38,6 +38,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
           columnId,
           firstFetch ? null : nextCursorId,
           firstFetch,
+          3,
         )
         setTaskCards((prev) => (firstFetch ? data : [...prev, ...data]))
         setNextCursorId(fetchNextCursorId)
@@ -54,11 +55,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
 
   return (
     <div className={S.container}>
-      <ColumnHeader
-        title={title}
-        taskCount={taskCards.length}
-        columnId={columnId}
-      />
+      <ColumnHeader title={title} columnId={columnId} />
       <div className={S.taskWrapper}>
         <DashboardButton type="add" onClick={handleClick} />
         {Array.isArray(taskCards) &&
