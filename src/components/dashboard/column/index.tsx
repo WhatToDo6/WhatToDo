@@ -6,7 +6,6 @@ import TaskCard from '@/src/components/dashboard/column/task-card'
 import DashboardButton from '@/src/components/dashboard/dashboard-button'
 import {
   ColumnDataType,
-  PaginationResponse,
   TaskCardDataType,
 } from '@/src/types/dashboard.interface'
 
@@ -62,15 +61,16 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
       />
       <div className={S.taskWrapper}>
         <DashboardButton type="add" onClick={handleClick} />
-        {taskCards.map((taskCard) => (
-          <TaskCard
-            key={taskCard.id}
-            taskCard={taskCard}
-            setTaskCards={setTaskCards}
-            columnId={columnId}
-            columnTitle={title}
-          />
-        ))}
+        {Array.isArray(taskCards) &&
+          taskCards.map((taskCard) => (
+            <TaskCard
+              key={taskCard.id}
+              taskCard={taskCard}
+              setTaskCards={setTaskCards}
+              columnId={columnId}
+              columnTitle={title}
+            />
+          ))}
       </div>
       {getMore && (
         <button className={S.getMoreCards} onClick={() => fetchTaskCards()}>
