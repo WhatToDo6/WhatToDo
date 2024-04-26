@@ -72,7 +72,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
             />
           ))}
       </div>
-      {getMore && (
+      {taskCards.length > 0 && getMore && (
         <button className={S.getMoreCards} onClick={() => fetchTaskCards()}>
           더보기
         </button>
