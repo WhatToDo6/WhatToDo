@@ -56,9 +56,11 @@ const TaskCard = ({
           <h2 className={S.cardTitle}>{cardData.title}</h2>
           <div className={S.wrapper}>
             <div className={S.tag}>
-              {cardData.tags.map((tag, index) => (
-                <TagChip key={index} index={index} text={tag} />
-              ))}
+              {cardData.tags
+                .filter((tag) => tag.length !== 0)
+                .map((tag, index) => (
+                  <TagChip key={index} index={index} text={tag} />
+                ))}
             </div>
             <div className={S.cardBottom}>
               <div

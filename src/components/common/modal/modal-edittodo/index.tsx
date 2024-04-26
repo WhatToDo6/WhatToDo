@@ -70,8 +70,18 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
 
     try {
       const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
-      const tags =
-        typeof data.tags === 'string' ? data.tags.split(',') : data.tags
+
+      let tags
+
+      if (data.tags.length === 0) {
+        tags = undefined
+      } else {
+        if (typeof data.tags === 'string') {
+          tags = data.tags.split(',')
+        } else {
+          tags = data.tags
+        }
+      }
 
       const response = await putTaskCards({
         cardId: cardData.id,
