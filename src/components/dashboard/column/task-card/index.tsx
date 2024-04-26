@@ -2,9 +2,11 @@ import Image from 'next/image'
 import { useState } from 'react'
 
 import TagChip from '@/src/components/common/chip/tag-chip'
+import ManagerProfile from '@/src/components/common/manager-profile'
 import Modal from '@/src/components/common/modal'
 import ModalTask from '@/src/components/common/modal/modal-task'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
+import { useUser } from '@/src/context/users'
 import { TaskCardDataType } from '@/src/types/dashboard.interface'
 
 import S from './TaskCard.module.scss'
@@ -25,11 +27,14 @@ const TaskCard = ({
 }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [cardData, setCardData] = useState<TaskCardDataType>(taskCard)
+  const { userData } = useUser()
 
   return (
     <>
       <div className={S.container} onClick={() => setIsModalOpen(true)}>
-        <div className={S.imageWrapper}>
+        <div
+          className={`${S.imageWrapper} ${!cardData.imageUrl ? S.hidden : ''}`}
+        >
           {cardData.imageUrl && (
             <Image
               className={S.cardImage}
@@ -55,7 +60,12 @@ const TaskCard = ({
               >
                 <TaskCardDate dueDate={cardData.dueDate} />
               </div>
-              <div>아이콘</div>
+              <div>
+                <ManagerProfile
+                  profileImageUrl={userData?.profileImageUrl}
+                  type="card"
+                />
+              </div>
             </div>
           </div>
         </div>
