@@ -9,8 +9,10 @@ import { InputProps } from '@/src/types/input'
 
 import S from './Manager.module.scss'
 import ManagerProfile from '../../../manager-profile'
+import { CardContext } from '../../../modal/modal-edittodo'
 
 const DropDownManager = ({ placeholder, setValue }: InputProps) => {
+  const cardStatus = useContext(CardContext)
   const { headerMembers } = useContext(MembersContext)
   const memberData = headerMembers
 
@@ -18,6 +20,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
   const [isFocus, setIsFocus] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [userId, setUserId] = useState<number | null>(null)
+  const [prevUserId, setPrevUserId] = useState<number | null>(null)
   const [nickname, setNickname] = useState<string | null>(null)
   const [displayList, setDisplayList] = useState(memberData)
 
@@ -44,9 +47,19 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
     displayList.length === 0 && setDisplayList(memberData)
   }, [displayList])
 
+  useEffect(() => {
+    if (cardStatus?.assignee?.id) {
+      setPrevUserId(cardStatus.assignee.id)
+      setUserId(cardStatus.assignee.id)
+      setNickname(cardStatus.assignee.nickname)
+    }
+  }, [])
+
   const error = userId === null && inputValue !== ''
   useEffect(() => {
-    setValue('manager', userId)
+    setValue('manager', userId || prevUserId)
+
+    console.log(userId, prevUserId)
   }, [userId, setValue])
 
   return (

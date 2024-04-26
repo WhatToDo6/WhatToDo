@@ -20,7 +20,9 @@ interface ModalEdittodoProps {
   setCardData: React.Dispatch<React.SetStateAction<any>> //TODO: 타입 명시
 }
 
-export const CardContext = createContext<number>(0)
+export const CardContext = createContext<TaskCardDataType>(
+  {} as TaskCardDataType,
+)
 
 const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
   const modalStatus = useContext(ModalContext)
@@ -43,6 +45,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
   // 기본 값 설정
   useEffect(() => {
     setValue('status', cardData.columnId)
+    setValue('manager', cardData.assignee.id)
     setValue('title', cardData.title)
     setValue('textarea', cardData.description)
 
@@ -89,29 +92,29 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
       <div className={S.container}>
         <h1 className={S.title}>할 일 수정</h1>
         <div className={S.row}>
-          <div className={S.box}>
-            <label className={S.label} htmlFor="status">
-              상태
-            </label>
-            <CardContext.Provider value={cardData.columnId}>
+          <CardContext.Provider value={cardData}>
+            <div className={S.box}>
+              <label className={S.label} htmlFor="status">
+                상태
+              </label>
               <Input
                 inputType="status"
                 register={register}
                 setValue={setValue}
               />
-            </CardContext.Provider>
-          </div>
-          <div className={S.box}>
-            <label className={S.label} htmlFor="keeper">
-              담당자
-            </label>
-            <Input
-              inputType="manager"
-              placeholder="이름을 입력해주세요"
-              register={register}
-              setValue={setValue}
-            />
-          </div>
+            </div>
+            <div className={S.box}>
+              <label className={S.label} htmlFor="keeper">
+                담당자
+              </label>
+              <Input
+                inputType="manager"
+                placeholder="이름을 입력해주세요"
+                register={register}
+                setValue={setValue}
+              />
+            </div>
+          </CardContext.Provider>
         </div>
         <label className={S.label} htmlFor="title">
           제목<span className={S.required}>*</span>
@@ -176,3 +179,6 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
 }
 
 export default ModalEdittodo
+function setValue(arg0: string, title: string) {
+  throw new Error('Function not implemented.')
+}
