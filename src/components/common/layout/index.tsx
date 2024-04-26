@@ -5,11 +5,13 @@ import SideMenu from '@/src/components/dashboard/side-menu'
 import DashboardsProvider from '@/src/context/dashboards'
 import InviteeEmailProvider from '@/src/context/inviteeEmail'
 import MembersProvider from '@/src/context/members'
+import { ToastProvider } from '@/src/context/toast'
 import UserProvider from '@/src/context/users'
 import { ChildrenProps } from '@/src/types/commonType'
 
 import S from './Layout.module.scss'
 import DashboardHeader from '../../dashboard/header'
+import Toast from '../../toast'
 
 type ContextType = ComponentType<ChildrenProps>
 
@@ -31,8 +33,9 @@ const Layout = ({ children }: ChildrenProps) => {
       contexts={[
         MembersProvider,
         InviteeEmailProvider,
-        DashboardsProvider,
         UserProvider,
+        DashboardsProvider,
+        ToastProvider,
       ]}
     >
       <div className={S.container}>
@@ -44,6 +47,7 @@ const Layout = ({ children }: ChildrenProps) => {
           <main className={S.children}>{children}</main>
         </div>
       </div>
+      <Toast />
     </AppProvider>
   )
 }
