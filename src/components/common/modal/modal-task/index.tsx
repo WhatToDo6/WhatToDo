@@ -183,9 +183,7 @@ const ModalTask = ({
           {imageUrl && (
             <Image
               src={imageUrl}
-
               alt={title}
-
               width={450}
               height={262}
               className={S.contentImg}
@@ -196,8 +194,8 @@ const ModalTask = ({
           <div className={S.assignee}>
             <span className={S.detailTitle}>담당자</span>
             <ManagerProfile
-              profileImageUrl={assignee.profileImageUrl}
-              nickname={assignee.nickname}
+              profileImageUrl={assignee?.profileImageUrl}
+              nickname={assignee?.nickname}
               type="card"
             />
           </div>
