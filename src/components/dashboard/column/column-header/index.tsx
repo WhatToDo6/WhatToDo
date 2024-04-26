@@ -1,8 +1,7 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import { putColumns } from '@/pages/api/columns'
-import { getTaskCards } from '@/pages/api/taskCards'
 import Modal from '@/src/components/common/modal'
 import ModalDashBoard from '@/src/components/common/modal/modal-dashboard'
 import {
@@ -13,10 +12,13 @@ import {
 import S from './ColumnHeader.module.scss'
 import { SETTING } from '../constants'
 
-const ColumnHeader = ({ title: initialTitle, columnId }: ColumnHeaderType) => {
+const ColumnHeader = ({
+  title: initialTitle,
+  columnId,
+  totalCount,
+}: ColumnHeaderType) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [title, setTitle] = useState(initialTitle)
-  const [totalCount, setTotalCount] = useState<number>(0)
 
   const handleClick = () => {
     setIsModalOpen(true)
@@ -36,21 +38,6 @@ const ColumnHeader = ({ title: initialTitle, columnId }: ColumnHeaderType) => {
       console.error('컬럼 데이터를 업데이트하는 데 실패했습니다:', error)
     }
   }
-
-  const fetchTotalCount = async () => {
-    if (columnId) {
-      try {
-        const { totalCount: fetchedTotalCount } = await getTaskCards(columnId)
-        setTotalCount(fetchedTotalCount)
-      } catch (error) {
-        console.error('총 카드 개수를 불러오는 데 실패했습니다.:', error)
-      }
-    }
-  }
-
-  useEffect(() => {
-    fetchTotalCount()
-  }, [columnId])
 
   return (
     <header className={S.wrapper}>

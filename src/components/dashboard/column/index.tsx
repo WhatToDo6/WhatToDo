@@ -18,6 +18,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const [getMore, setGetMore] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [totalCount, setTotalCount] = useState<number>(0)
 
   const handleClick = () => {
     setIsModalOpen(true)
@@ -25,6 +26,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
 
   const addNewTaskCard = (newTaskCard: TaskCardDataType) => {
     setTaskCards((prevTaskCards) => [...prevTaskCards, newTaskCard])
+    setTotalCount((prevCount) => prevCount + 1)
   }
 
   const fetchTaskCards = async (firstFetch: boolean = false) => {
@@ -43,6 +45,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
         setTaskCards((prev) => (firstFetch ? data : [...prev, ...data]))
         setNextCursorId(fetchNextCursorId)
         setGetMore(taskCards.length + data.length < totalCount)
+        setTotalCount(totalCount)
       } catch (error) {
         console.error('카드를 불러오는 데 실패했습니다.:', error)
       }
@@ -55,7 +58,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
 
   return (
     <div className={S.container}>
-      <ColumnHeader title={title} columnId={columnId} />
+      <ColumnHeader title={title} columnId={columnId} totalCount={totalCount} />
       <div className={S.taskWrapper}>
         <DashboardButton type="add" onClick={handleClick} />
         {Array.isArray(taskCards) &&

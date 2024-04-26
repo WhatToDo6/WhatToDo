@@ -26,6 +26,7 @@ export interface ColumnDataType {
 export interface ColumnHeaderType {
   title: string
   columnId: number | undefined
+  totalCount: number
 }
 
 export interface TaskCardDateProps {
