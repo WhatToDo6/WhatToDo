@@ -120,7 +120,7 @@ function InvitedListCard({
             </div>
           ) : (
             <UserDefaultImg
-              nickname={nickname ? nickname : '없음'}
+              nickname={nickname ? nickname : '닉네임'}
               type="member"
               userId={id}
             />

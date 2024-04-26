@@ -169,21 +169,17 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
                       className={S.memberImg}
                       fill
                       key={member.id}
-                      src={
-                        member.profileImageUrl
-                          ? member.profileImageUrl
-                          : EMPTY_IMG[idx]
-                      }
+                      src={member.profileImageUrl}
                       alt={`${member.nickname}의 이미지`}
                     />
                   </div>
                 ) : (
                   <UserDefaultImg
                     key={member.id}
-                    userId={member.id}
+                    userId={member.userId}
                     zIndex={idx}
                     nickname={member.nickname}
-                    type="member"
+                    type="dashboardHeaderMembers"
                   />
                 ),
               )}

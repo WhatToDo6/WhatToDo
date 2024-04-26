@@ -21,10 +21,18 @@
     }
   }
 
-  &.member {
+  &.dashboardHeaderMembers {
     width: 3.8rem;
     height: 3.8rem;
     margin-right: -1rem;
+    .nickname {
+      @include font-style(1.5rem, 500, normal);
+    }
+  }
+
+  &.member {
+    width: 3.8rem;
+    height: 3.8rem;
     .nickname {
       @include font-style(1.5rem, 500, normal);
     }
@@ -39,7 +47,7 @@
     }
   }
 
-  &.member {
+  &.myPage {
     width: 3.6rem;
     height: 3.6rem;
 

@@ -5,14 +5,19 @@ import S from './UserDefaultImg.module.scss'
 
 interface UserDefaultImgProps {
   nickname: string
-  type: 'dropdown' | 'dashboardHeader' | 'card' | 'member' | 'myPage'
+  type:
+    | 'dropdown'
+    | 'dashboardHeader'
+    | 'card'
+    | 'dashboardHeaderMembers'
+    | 'member'
   zIndex?: number
   userId: number | null
   onClick?: () => void
 }
 
 /**
- * @param type - 'dropdown' | 'dashboardHeader' | 'card' | 'member' | 'myPage'
+ * @param type - 'dropdown' | 'dashboardHeader' | 'card' | 'dashboardHeaderMembers' | 'member'
  * @param nickname - string
  * @param zIndex - (optional) number 대시보드 헤더에서 zindex 를 다르게 하기 위해 쓰는 용도
  * @param userId - userId: number | null
