@@ -8,8 +8,8 @@ import S from './ManagerProfile.module.scss'
 
 interface ManagerProfileProps {
   type: 'dropdown' | 'dashboardHeader' | 'card'
-  profileImageUrl: string | null
-  nickname: string
+  profileImageUrl: string | null | undefined
+  nickname?: string
   showPopover?: boolean
 }
 
