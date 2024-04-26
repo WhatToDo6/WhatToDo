@@ -151,6 +151,7 @@ const Input = ({
         error={error}
         register={register}
         control={control}
+        setValue={setValue}
       />
     ),
     tag: (

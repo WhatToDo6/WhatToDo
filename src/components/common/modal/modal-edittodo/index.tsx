@@ -145,6 +145,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
             error={errors.date}
             register={register}
             control={control}
+            setValue={setValue}
           />
           <label className={S.label} htmlFor="tag">
             태그
