@@ -1,10 +1,10 @@
-import Image from 'next/image'
 import { useState } from 'react'
 
 import { putComments } from '@/pages/api/comments'
 import { CommentsType } from '@/src/types/dashboard.interface'
 
 import S from './Comment.module.scss'
+import ManagerProfile from '../../../manager-profile'
 
 const Comment = ({
   id: commentId,
@@ -47,13 +47,11 @@ const Comment = ({
 
   return (
     <div className={S.container}>
-      <Image
-        //임시 url
-        src="https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/taskify/task_image/3-7_20345_1713591497409.png"
-        alt="댓글 프로필"
-        width={34}
-        height={34}
-        className={S.img}
+      <ManagerProfile
+        type="onlyImg"
+        profileImageUrl={author.profileImageUrl}
+        nickname={author.nickname}
+        userId={author.id}
       />
       <div className={S.comment}>
         <div className={S.title}>

@@ -2,23 +2,24 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
-import basicImg from '@/public/icons/temp-circle-1.svg'
-
 import S from './ManagerProfile.module.scss'
+import UserDefaultImg from '../user-default-img'
 
 interface ManagerProfileProps {
-  type: 'dropdown' | 'dashboardHeader' | 'card'
+  type: 'dropdown' | 'dashboardHeader' | 'card' | 'member' | 'onlyImg'
   profileImageUrl: string | null | undefined
   nickname?: string
   showPopover?: boolean
+  userId: number | null
 }
 
 /**
  *
- * @param type - 'dropdown' | 'dashboardHeader' | 'card'
+ * @param type - 'dropdown' | 'dashboardHeader' | 'card' | 'member' | 'onlyImg'
  * @param profileImageUrl - string | null
  * @param nickname - string
  * @param showPopover - (optional) 팝오버의 유무를 결정
+ * @param userId = number | null
  * @returns
  */
 
@@ -27,12 +28,8 @@ function ManagerProfile({
   nickname,
   type,
   showPopover = false,
+  userId,
 }: ManagerProfileProps) {
-  const SIZE = {
-    dashboardHeader: 38,
-    dropdown: 26,
-    card: 34,
-  }
   const [isPopoverOpen, setIsPopoverOpen] = useState(false)
   const router = useRouter()
 
@@ -52,14 +49,25 @@ function ManagerProfile({
 
   return (
     <div className={`${S.container} ${S[type]}`}>
-      <Image
-        width={SIZE[type]}
-        height={SIZE[type]}
-        src={profileImageUrl ? profileImageUrl : basicImg}
-        alt="profileImg"
-        className={S.img}
-        onClick={togglePopover}
-      />
+      {profileImageUrl ? (
+        <div className={`${S.imgDiv} ${S[type]}`}>
+          <Image
+            fill
+            src={profileImageUrl}
+            alt="profileImg"
+            className={S.img}
+            onClick={togglePopover}
+          />
+        </div>
+      ) : (
+        <UserDefaultImg
+          type={type}
+          nickname={nickname ? nickname : '닉네임'}
+          userId={userId}
+          onClick={togglePopover}
+        />
+      )}
+
       {showPopover && isPopoverOpen && (
         <div className={S.popoverContainer}>
           <button className={S.popoverOption} onClick={handleMyInfoClick}>

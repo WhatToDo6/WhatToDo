@@ -21,6 +21,7 @@ import S from './DashboardHeader.module.scss'
 import ManagerProfile from '../../common/manager-profile'
 import Modal from '../../common/modal'
 import ModalDashBoard from '../../common/modal/modal-dashboard'
+import UserDefaultImg from '../../common/user-default-img'
 
 const EMPTY_IMG = [
   tempCircle1,
@@ -46,6 +47,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
   const { userData } = useUser()
   const { headerMembers } = useContext(MembersContext)
   const { dashboardDetail } = useContext(DashboardsContext)
+  const visibleMemberNum = 4
 
   const {
     query: { id },
@@ -99,6 +101,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
         <div className={S.rightBox}>
           <ManagerProfile
             profileImageUrl={userData.profileImageUrl}
+            userId={userData.id}
             nickname={userData.nickname}
             type="dashboardHeader"
             showPopover={true}
@@ -154,24 +157,35 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
           )}
           <div className={S.memberImgBox}>
             {headerMembers
-              .filter((_, idx) => idx < 4)
-              .map((member, idx) => (
-                <Image
-                  className={`${S.memberImg}`}
-                  width={38}
-                  height={38}
-                  key={member.id}
-                  src={
-                    member.profileImageUrl
-                      ? member.profileImageUrl
-                      : EMPTY_IMG[idx]
-                  }
-                  alt={`${member.nickname}의 이미지`}
-                />
-              ))}
-            {headerMembers.length > 4 && (
+              .filter((_, idx) => idx < visibleMemberNum)
+              .map((member, idx) =>
+                member.profileImageUrl ? (
+                  <div
+                    key={member.id}
+                    className={S.memberImgDiv}
+                    style={{ zIndex: idx }}
+                  >
+                    <Image
+                      className={S.memberImg}
+                      fill
+                      key={member.id}
+                      src={member.profileImageUrl}
+                      alt={`${member.nickname}의 이미지`}
+                    />
+                  </div>
+                ) : (
+                  <UserDefaultImg
+                    key={member.id}
+                    userId={member.userId}
+                    zIndex={idx}
+                    nickname={member.nickname}
+                    type="dashboardHeaderMembers"
+                  />
+                ),
+              )}
+            {headerMembers.length > visibleMemberNum && (
               <div className={S.overImg}>
-                <span>+{+headerMembers.length - 4}</span>
+                <span>+{+headerMembers.length - visibleMemberNum}</span>
               </div>
             )}
           </div>
@@ -180,6 +194,8 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
             profileImageUrl={userData.profileImageUrl}
             nickname={userData.nickname}
             type="dashboardHeader"
+            userId={userData.id}
+            showPopover={true}
           />
         </div>
       </div>

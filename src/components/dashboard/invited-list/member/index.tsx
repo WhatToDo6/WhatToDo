@@ -28,16 +28,16 @@ function InviteListMember() {
         />
       </div>
       <div className={S.tag}>이름</div>
-      {pageData.map((data, idx) => (
+      {pageData.map((data) => (
         <InvitedListCard
           type="member"
-          idx={idx}
           key={data.id}
           id={data.id}
           nickname={data.nickname}
           userId={data.userId}
           profileImageUrl={data.profileImageUrl}
           handleChange={handleDelete}
+          isOwner={data.isOwner}
         />
       ))}
     </div>
