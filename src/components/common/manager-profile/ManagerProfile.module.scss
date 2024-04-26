@@ -13,10 +13,14 @@
   }
 
   &.dashboardHeader {
-    gap: 1.2rem;
+    gap: 1rem;
 
     span {
       @include font-style(1.6rem, 500, normal);
+
+      @include mobile {
+        display: none;
+      }
     }
   }
 
@@ -39,8 +43,39 @@
     }
   }
 
+  &.onlyImg {
+    span {
+      display: none;
+    }
+  }
+
   span {
     color: $color-black-200;
+  }
+}
+
+.imgDiv {
+  position: relative;
+  border: 0.1rem solid $color-white;
+
+  &.dropdown {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  &.dashboardHeader {
+    width: 3.8rem;
+    height: 3.8rem;
+  }
+
+  &.card {
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
+  &.onlyImg {
+    width: 3.4rem;
+    height: 3.4rem;
   }
 }
 

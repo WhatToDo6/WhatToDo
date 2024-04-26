@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { fetchPutDashboardEdit } from '@/pages/api/dashboards'
@@ -16,8 +16,6 @@ interface DashboardEditorProps {
   dashboardId: number
 }
 
-const initialColor = '#7AC555'
-
 function DashboardEditor({ dashboardId }: DashboardEditorProps) {
   const {
     register,
@@ -25,11 +23,18 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
     formState: { errors },
     reset,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
-  const [selectedColor, setSelectedColor] = useState(initialColor)
+
   const { addToast } = useToast()
 
   const { dashboardDetail, setDashboardDetail, editSideMenuDashboards } =
     useContext(DashboardsContext)
+
+  const initialColor =
+    dashboardDetail && typeof dashboardDetail.color === 'string'
+      ? dashboardDetail.color
+      : ''
+
+  const [selectedColor, setSelectedColor] = useState(initialColor)
 
   const editDashboard = async (data: EditDahsboardParamType) => {
     try {
@@ -43,6 +48,10 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
       console.error(err)
     }
   }
+
+  useEffect(() => {
+    setSelectedColor(initialColor)
+  }, [initialColor])
 
   return (
     <form

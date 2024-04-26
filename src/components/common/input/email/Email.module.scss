@@ -3,6 +3,14 @@
 
 .container {
   @include Input.input;
+
+  &::placeholder {
+    color: $color-gray-400;
+    @include font-style(1.6rem, 400, normal);
+    @include mobile {
+      @include font-style(1.4rem, 400, normal);
+    }
+  }
 }
 
 .large {

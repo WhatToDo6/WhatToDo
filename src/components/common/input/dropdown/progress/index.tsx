@@ -14,7 +14,7 @@ const DropdownProgress = ({ setValue }: InputProps) => {
   const columnStatus = useContext(ColumnContext)
   const cardStatus = useContext(CardContext)
   const [isOpen, setIsOpen] = useState(false)
-  const [columnId, setColumnId] = useState(cardStatus)
+  const [columnId, setColumnId] = useState(cardStatus.columnId)
 
   useEffect(() => {
     setValue('status', columnId)

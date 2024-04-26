@@ -171,6 +171,7 @@
 .taskDetails {
   width: 20rem;
   height: 15.5rem;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   border-radius: 0.8rem;
@@ -227,4 +228,8 @@
   @include mobile {
     @include font-style(1.2rem, 400, normal);
   }
+}
+
+.hidden {
+  display: none;
 }

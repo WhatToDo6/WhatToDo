@@ -1,10 +1,9 @@
 import Image from 'next/image'
 
 import CHECK_IMG from '@/public/icons/check.svg'
+import { CHIP_COLOR } from '@/src/constants/colorchip'
 
 import S from './ColorChip.module.scss'
-
-const chipColor = ['#7AC555', '#760DDE', '#FFA500', '#76A5EA', '#E876EA']
 
 interface ColorChipProps {
   showSelectedOnly?: boolean
@@ -20,16 +19,19 @@ interface ColorChipProps {
  */
 const ColorChip = ({
   showSelectedOnly = false,
-  selectedColor,
+  selectedColor: selectedColorinProps,
   setSelectedColor,
 }: ColorChipProps) => {
   const handleSelectChip = (color: string) => {
     setSelectedColor(color)
   }
 
+  const selectedColor =
+    selectedColorinProps && selectedColorinProps.toUpperCase()
+
   return (
     <div className={S.container}>
-      {chipColor.map((color) => {
+      {CHIP_COLOR.map((color) => {
         if (showSelectedOnly && selectedColor !== color) {
           return null
         }

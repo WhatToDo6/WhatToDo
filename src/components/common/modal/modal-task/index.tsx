@@ -7,6 +7,7 @@ import { ColumnContext } from '@/pages/dashboards/[id]'
 import BAR_ICON from '@/public/icons/bar.svg'
 import CLOSE_ICON from '@/public/icons/close.svg'
 import POPOVER_ICON from '@/public/icons/popover.svg'
+import { EMPTY_DUEDATE } from '@/src/constants/date'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 import { CommentsType, TaskCardDataType } from '@/src/types/dashboard.interface'
 
@@ -35,6 +36,7 @@ interface ModalTaskProps {
   columnTitle: string
   cardData: TaskCardDataType
   setCardData: React.Dispatch<React.SetStateAction<TaskCardDataType>>
+  setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
 }
 
 const ModalTask = ({
@@ -46,7 +48,8 @@ const ModalTask = ({
   dueDate,
   assignee,
   imageUrl,
-  taskCard,
+  cardData,
+  setCardData,
   setTaskCards,
 }: ModalTaskProps) => {
   const modalStatus = useContext(ModalContext)
@@ -114,8 +117,8 @@ const ModalTask = ({
   const handlePopoverDelete = async () => {
     try {
       await deleteTaskCards(cardId)
-      setTaskCards((prevCard: TaskCardDataType) => {
-        return prevCard.filter((card) => card.id !== cardId)
+      setTaskCards((prevCard) => {
+        return prevCard.filter((card: TaskCardDataType) => card.id !== cardId)
       })
     } catch (error) {
       console.error('카드를 삭제하는 데 실패했습니다:', error)
@@ -130,7 +133,7 @@ const ModalTask = ({
     <div className={S.container}>
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
-          <ModalEdittodo cardData={taskCard} setCardData={setTaskCards} />
+          <ModalEdittodo cardData={cardData} setCardData={setCardData} />
         </Modal>
       )}
       <div className={S.titleContainer}>
@@ -168,7 +171,7 @@ const ModalTask = ({
       <div className={S.contentContainer}>
         <div className={S.content}>
           <div className={S.chips}>
-            <ProgressChip progress={columnStatus[taskCard.columnId]} />
+            <ProgressChip progress={columnStatus[cardData.columnId]} />
             <Image src={BAR_ICON} alt="구분선" width={0} height={20} />
             <div className={S.tags}>
               {tags.map((tag, index) => (
@@ -180,7 +183,9 @@ const ModalTask = ({
           {imageUrl && (
             <Image
               src={imageUrl}
-              alt="임시 사진"
+
+              alt={title}
+
               width={450}
               height={262}
               className={S.contentImg}
@@ -194,9 +199,12 @@ const ModalTask = ({
               profileImageUrl={assignee.profileImageUrl}
               nickname={assignee.nickname}
               type="card"
+              userId={assignee.id}
             />
           </div>
-          <div className={S.dueDate}>
+          <div
+            className={`${S.dueDate} ${dueDate === EMPTY_DUEDATE ? S.hidden : ''}`}
+          >
             <span className={S.detailTitle}>마감일</span>
             <p className={S.detailText}>{dueDate}</p>
           </div>

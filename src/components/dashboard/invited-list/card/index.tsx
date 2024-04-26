@@ -1,11 +1,13 @@
 import Image from 'next/image'
+import { useContext } from 'react'
 
 import AXIOS from '@/lib/axios'
 import { fetchDeleteCancelInviteDashboard } from '@/pages/api/dashboards'
 import { fetchPutAnswerInvitation } from '@/pages/api/invitations'
-import basicImg from '@/public/icons/temp-circle-6.svg'
 import BorderButton from '@/src/components/common/button/border'
 import OptionButton from '@/src/components/common/button/option'
+import UserDefaultImg from '@/src/components/common/user-default-img'
+import { DashboardsContext } from '@/src/context/dashboards'
 import {
   InvitedListDashboardType,
   InvitedListEmailType,
@@ -15,10 +17,6 @@ import {
 import S from './InviteCard.module.scss'
 
 type InvitedListType = 'dashboard' | 'member' | 'email'
-
-type Partial<T> = {
-  [key in keyof T]?: T[key]
-}
 
 type PartialInvitedListDashboardType = Partial<InvitedListDashboardType>
 type PartialInvitedListEmailType = Partial<InvitedListEmailType>
@@ -36,11 +34,7 @@ interface InvitedCardProps extends UnionPartialType {
   id: number
   handleChange: (id: number) => void
   dashboardId?: number
-  idx?: number
-}
-
-function isDashboardType(type: InvitedListType): type is 'dashboard' {
-  return type === 'dashboard'
+  userId?: number
 }
 
 function InvitedListCard({
@@ -50,15 +44,19 @@ function InvitedListCard({
   nickname,
   profileImageUrl,
   id,
-  idx,
   dashboardId,
   handleChange,
+  isOwner,
+  userId,
 }: InvitedCardProps) {
-  const className = `${S.container} ${isDashboardType(type) ? S.dashboard : ''}`
+  const className = `${S.container} ${S[type]}`
+  const myUserId = userId ? userId : null
+  const { getSideMenuDashboards } = useContext(DashboardsContext)
 
   const handleClickAnswerInvitation = async (answer: boolean) => {
     try {
       await fetchPutAnswerInvitation(id, answer)
+      getSideMenuDashboards()
       handleChange(id)
     } catch (err) {
       console.error(err)
@@ -91,8 +89,14 @@ function InvitedListCard({
   const INVITED_CARD = {
     dashboard: (
       <>
-        <p>{title}</p>
-        <p>{nickname}</p>
+        <span>
+          <p className={S.mobileTag}>이름</p>
+          {title}
+        </span>
+        <span>
+          <p className={S.mobileTag}>초대자</p>
+          {nickname}
+        </span>
         <OptionButton
           size="medium"
           leftColor="purple"
@@ -107,27 +111,38 @@ function InvitedListCard({
     member: (
       <>
         <div className={S.userBox}>
-          <Image
-            src={profileImageUrl ? profileImageUrl : basicImg}
-            alt="프로필이미지"
-            width={38}
-            height={38}
-          />
-          <p>{nickname}</p>
+          {profileImageUrl ? (
+            <div className={S.userImgDiv}>
+              <Image
+                className={S.userImg}
+                src={profileImageUrl}
+                alt="프로필이미지"
+                fill
+              />
+            </div>
+          ) : (
+            <UserDefaultImg
+              nickname={nickname ? nickname : '닉네임'}
+              type="member"
+              userId={myUserId}
+            />
+          )}
+
+          <span>{nickname}</span>
         </div>
         <BorderButton
           size="small"
-          color={idx === 0 ? 'purple' : 'white'}
+          color={isOwner ? 'purple' : 'white'}
           onClick={handleClickDeleteDashboardMember}
-          isDisabled={idx === 0 ? true : false}
+          isDisabled={isOwner}
         >
-          {idx === 0 ? '관리자' : '삭제'}
+          {isOwner ? '관리자' : '삭제'}
         </BorderButton>
       </>
     ),
     email: (
       <>
-        <p>{email}</p>
+        <span>{email}</span>
         <BorderButton
           size="small"
           color="white"
