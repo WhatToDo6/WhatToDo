@@ -18,6 +18,7 @@ import Modal, { ModalContext } from '..'
 import ProgressChip from '../../chip/progress-chip'
 import TagChip from '../../chip/tag-chip'
 import ManagerProfile from '../../manager-profile'
+import Spinner from '../../spinner'
 import ModalEdittodo from '../modal-edittodo'
 
 interface ModalTaskProps {
@@ -60,15 +61,17 @@ const ModalTask = ({
   const [comments, setComments] = useState<CommentsType[]>([])
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
   const { observe, isScrolled } = useIntersectionObserver()
 
   const handleClose = () => {
     modalStatus.setIsOpen.call(null, false)
   }
-
   const fetchComments = async (firstFetch: boolean = false) => {
     if (cardId) {
       try {
+        setIsLoading(true)
+        await new Promise((resolve) => setTimeout(resolve, 300))
         const { data: comments, nextCursorId: fetchNextCursorId } =
           await getComments(
             cardId,
@@ -79,6 +82,8 @@ const ModalTask = ({
         setNextCursorId(fetchNextCursorId)
       } catch (error) {
         console.error('댓글을 불러오는 데 실패했습니다.:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
   }
@@ -183,9 +188,7 @@ const ModalTask = ({
           {imageUrl && (
             <Image
               src={imageUrl}
-
               alt={title}
-
               width={450}
               height={262}
               className={S.contentImg}
@@ -218,7 +221,8 @@ const ModalTask = ({
       {comments?.map((comment) => (
         <Comment key={comment.id} {...comment} onDelete={DeleteComments} />
       ))}
-      <div ref={observeRef} />
+      <div className={S.spinnerWrapper}>{isLoading && <Spinner />}</div>
+      {!isLoading && <div ref={observeRef} />}
     </div>
   )
 }
