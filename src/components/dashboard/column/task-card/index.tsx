@@ -30,7 +30,7 @@ const TaskCard = ({
   const { userData } = useUser()
 
   return (
-    <>
+    <div>
       <div className={S.container} onClick={() => setIsModalOpen(true)}>
         <div
           className={`${S.imageWrapper} ${!cardData.imageUrl ? S.hidden : ''}`}
@@ -90,7 +90,7 @@ const TaskCard = ({
           />
         </Modal>
       )}
-    </>
+    </div>
   )
 }
 
