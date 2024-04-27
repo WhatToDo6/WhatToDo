@@ -22,7 +22,7 @@ interface InputTextProps extends InputProps {
  * @param error - react-hook-form의 에러 객체
  * @param register - react-hook-form의 register 함수
  * @param textType - 'nickname' | 'title'
- * @param size - 'small' | 'medium' | 'large'
+ * @param size - 'small' | 'medium' | 'large' | 'full'
  * @param disabled - (optional) input 비활성화 여부
  * @returns
  */
