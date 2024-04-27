@@ -39,9 +39,11 @@ const Layout = ({ children }: ChildrenProps) => {
       ]}
     >
       <div className={S.container}>
-        <SideMenu />
+        <div className={S.sideMenu}>
+          <SideMenu />
+        </div>
         <div className={S.rightSideContainer}>
-          <nav>
+          <nav className={S.header}>
             <DashboardHeader pathname={pathname} />
           </nav>
           <main className={S.children}>{children}</main>
