@@ -58,8 +58,15 @@
 
   &.deleteDashboard {
     background-color: $color-gray-100;
+    @include font-style(1.8rem, 500, normal);
     width: 32rem;
     height: 6rem;
+
+    @include mobile {
+      @include font-style(1.6rem, 500, normal);
+      width: 28.4rem;
+      height: 5.2rem;
+    }
   }
 }
 

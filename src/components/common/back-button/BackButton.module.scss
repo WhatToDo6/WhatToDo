@@ -3,12 +3,12 @@
 .before {
   display: flex;
   align-items: center;
-  margin-bottom: 2.5rem;
+  margin-bottom: 1.5rem;
   gap: 0.6rem;
   cursor: pointer;
 
   @include mobile {
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
   }
 }
 

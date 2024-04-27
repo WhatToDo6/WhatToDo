@@ -5,6 +5,10 @@
   padding: 2.8rem;
   background-color: $color-white;
   border-radius: 0.8rem;
+
+  @include mobile {
+    padding: 2rem;
+  }
 }
 
 .header {
@@ -12,6 +16,10 @@
   align-items: center;
   justify-content: space-between;
   margin-bottom: 3.7rem;
+
+  @include mobile {
+    margin-bottom: 2.4rem;
+  }
 
   span {
     @include font-style(2rem, 700, normal);

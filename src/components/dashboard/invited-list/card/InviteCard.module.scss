@@ -8,14 +8,28 @@
   padding-right: 2.8rem;
   align-items: center;
 
+  @include mobile {
+    padding: 1.3rem 0 1.3rem;
+    padding-right: 2rem;
+  }
+
   .userBox {
     display: flex;
     justify-content: center;
     align-items: center;
     padding-left: 2.8rem;
 
+    @include mobile {
+      padding-left: 2rem;
+    }
+
     span {
       padding-left: 1.2rem;
+
+      @include mobile {
+        padding-left: 0.8rem;
+        @include font-style(1.4rem, 400, normal);
+      }
     }
   }
 
@@ -79,4 +93,15 @@
 
 .userImg {
   border-radius: 100%;
+}
+
+.email {
+  @include font-style(1.6rem, 400, normal);
+  color: $color-black-200;
+  padding-left: 2.8rem;
+
+  @include mobile {
+    @include font-style(1.4rem, 400, normal);
+    padding-left: 1rem;
+  }
 }

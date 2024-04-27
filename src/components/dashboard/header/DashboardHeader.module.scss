@@ -10,14 +10,16 @@
   background-color: $color-white;
   gap: 3rem;
 
-  @include tablet {
-    display: flex;
-    justify-content: center;
-  }
+  &.idPage {
+    @include tablet {
+      display: flex;
+      justify-content: center;
+    }
 
-  @include mobile {
-    display: flex;
-    justify-content: center;
+    @include mobile {
+      display: flex;
+      justify-content: center;
+    }
   }
 }
 
@@ -59,7 +61,15 @@
   padding-right: 8rem;
 
   @include mobile {
+    gap: 1.6rem;
     padding-right: 1.2rem;
+  }
+}
+
+.barImg {
+  @include mobile {
+    margin-right: -0.4rem;
+    // margin-left: -0.4rem;
   }
 }
 
@@ -151,6 +161,7 @@
   justify-content: center;
   border: 0.1rem solid $color-white;
   z-index: 5;
+  margin-right: -1rem;
 
   span {
     color: #d25b68;
