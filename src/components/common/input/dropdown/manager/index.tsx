@@ -23,6 +23,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
   const [prevUserId, setPrevUserId] = useState<number | null>(null)
   const [nickname, setNickname] = useState<string | null>(null)
   const [displayList, setDisplayList] = useState(memberData)
+  const [imgUrl, setImgUrl] = useState<string | null>('')
 
   const searchManager = (value: string) => {
     setInputValue(value)
@@ -39,6 +40,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
     setNickname(null)
     setUserId(null)
     setInputValue('')
+    setImgUrl(null)
   }
 
   useEffect(() => {
@@ -52,6 +54,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
       setPrevUserId(cardStatus.assignee.id)
       setUserId(cardStatus.assignee.id)
       setNickname(cardStatus.assignee.nickname)
+      setImgUrl(cardStatus.assignee.profileImageUrl)
     }
   }, [])
 
@@ -69,7 +72,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
           {nickname ? (
             <div className={S.selected} onClick={undo}>
               <ManagerProfile
-                profileImageUrl={null}
+                profileImageUrl={imgUrl}
                 nickname={nickname}
                 type="dropdown"
                 userId={userId}
@@ -112,7 +115,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
             >
               <Image src={CHECK_ICON} alt="선택됨" width={20} height={20} />
               <ManagerProfile
-                profileImageUrl={null}
+                profileImageUrl={imgUrl}
                 nickname={nickname}
                 type="dropdown"
                 userId={userId}
@@ -130,15 +133,16 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
                     setUserId(elem.userId)
                     setNickname(elem.nickname)
                     setInputValue(elem.nickname)
+                    setImgUrl(elem.profileImageUrl)
                     setIsOpen(false)
                     setIsFocus(false)
                   }}
                 >
                   <ManagerProfile
-                    profileImageUrl={null}
+                    profileImageUrl={elem.profileImageUrl}
                     nickname={elem.nickname}
                     type="dropdown"
-                    userId={userId}
+                    userId={elem.userId}
                   />
                 </div>
               )
