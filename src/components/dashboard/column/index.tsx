@@ -12,6 +12,7 @@ import {
 import S from './Column.module.scss'
 import Modal from '../../common/modal'
 import ModalTodo from '../../common/modal/modal-todo'
+import Spinner from '../../common/spinner'
 
 const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
   const [taskCards, setTaskCards] = useState<TaskCardDataType[]>([])
@@ -19,6 +20,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
   const [getMore, setGetMore] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [totalCount, setTotalCount] = useState<number>(0)
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleClick = () => {
     setIsModalOpen(true)
@@ -31,7 +33,9 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
 
   const fetchTaskCards = async (firstFetch: boolean = false) => {
     if (columnId) {
+      setIsLoading(true)
       try {
+        await new Promise((resolve) => setTimeout(resolve, 300))
         const {
           data,
           nextCursorId: fetchNextCursorId,
@@ -48,6 +52,8 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
         setTotalCount(totalCount)
       } catch (error) {
         console.error('카드를 불러오는 데 실패했습니다.:', error)
+      } finally {
+        setIsLoading(false)
       }
     }
   }
@@ -73,9 +79,14 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
           ))}
       </div>
       {taskCards.length > 0 && getMore && (
-        <button className={S.getMoreCards} onClick={() => fetchTaskCards()}>
-          더보기
-        </button>
+        <div className={S.getMoreCardWrapper}>
+          <div className={S.spinnerWrapper}>{isLoading && <Spinner />}</div>
+          {!isLoading && (
+            <button className={S.getMoreCards} onClick={() => fetchTaskCards()}>
+              더보기
+            </button>
+          )}
+        </div>
       )}
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>

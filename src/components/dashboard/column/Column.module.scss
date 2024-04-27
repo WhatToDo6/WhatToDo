@@ -35,3 +35,9 @@
 
   @include font-style(1.6rem, 600, normal);
 }
+
+.spinnerWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
