@@ -4,11 +4,23 @@
   width: 102rem;
   display: flex;
   flex-direction: column;
-  margin-top: 3rem;
-  margin-left: 3rem;
+  padding: 4rem;
 
   .invitedDashboard {
     margin-top: 3rem;
     height: 60rem;
+
+    @include mobile {
+      margin-top: 2.4rem;
+      height: 83rem;
+    }
+  }
+
+  @include tablet {
+    width: 100%;
+  }
+
+  @include mobile {
+    padding: 2.4rem;
   }
 }

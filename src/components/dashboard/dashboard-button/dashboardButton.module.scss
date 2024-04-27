@@ -2,7 +2,7 @@
 
 .btn,
 .addDashboard {
-  width: 33rem;
+  width: 100%;
   height: 7rem;
   display: flex;
   justify-content: center;
@@ -49,6 +49,10 @@
     p {
       @include font-style(1.6rem, 600, normal);
       margin: 0 0.8rem 0 1.6rem;
+
+      @include mobile {
+        @include font-style(1.4rem, 600, normal);
+      }
     }
   }
 
@@ -62,12 +66,18 @@
 .addDashboard,
 .moveDashboard {
   @include tablet {
-    width: 25rem;
+    width: 100%;
   }
 
   @include mobile {
-    width: 26rem;
+    width: 100%;
     height: 6rem;
+
+    div {
+      @include mobile {
+        @include font-style(1.4rem, 600, normal);
+      }
+    }
   }
 }
 
@@ -75,4 +85,20 @@
   width: 0.8rem;
   height: 0.8rem;
   border-radius: 50%;
+}
+
+.imgBox {
+  position: relative;
+  width: 2rem;
+  height: 1.6rem;
+
+  @include tablet {
+    width: 1.75rem;
+    height: 1.4rem;
+  }
+
+  @include mobile {
+    width: 1.5rem;
+    height: 1.2rem;
+  }
 }

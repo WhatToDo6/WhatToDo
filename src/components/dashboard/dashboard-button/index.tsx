@@ -85,7 +85,9 @@ function DashboardButton({
             <div className={S.colorChip} style={{ backgroundColor: color }} />
             <p>{title}</p>
             {createdByMe && (
-              <Image width={20} height={16} src={crownIcon} alt="왕관" />
+              <div className={S.imgBox}>
+                <Image fill src={crownIcon} alt="왕관" />
+              </div>
             )}
           </div>
           <Image width={18} height={18} src={rightArrow} alt="rightArrow" />

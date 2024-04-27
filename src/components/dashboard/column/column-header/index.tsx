@@ -14,8 +14,8 @@ import { SETTING } from '../constants'
 
 const ColumnHeader = ({
   title: initialTitle,
-  taskCount,
   columnId,
+  totalCount,
 }: ColumnHeaderType) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [title, setTitle] = useState(initialTitle)
@@ -44,7 +44,7 @@ const ColumnHeader = ({
       <div className={S.columnHeading}>
         <div className={S.ellipse} />
         <div className={S.columnTitle}>{title}</div>
-        <div className={S.cardCount}>{taskCount}</div>
+        <div className={S.cardCount}>{totalCount}</div>
       </div>
       <div onClick={handleClick}>
         <Image

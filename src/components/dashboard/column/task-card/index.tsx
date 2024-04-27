@@ -36,7 +36,7 @@ const TaskCard = ({
   }, [cardData])
 
   return (
-    <>
+    <div>
       <div className={S.container} onClick={() => setIsModalOpen(true)}>
         <div
           className={`${S.imageWrapper} ${!cardData.imageUrl ? S.hidden : ''}`}
@@ -71,7 +71,9 @@ const TaskCard = ({
               <div>
                 <ManagerProfile
                   profileImageUrl={userData?.profileImageUrl}
-                  type="card"
+                  type="onlyImg"
+                  nickname={userData?.nickname}
+                  userId={userData ? userData.id : null}
                 />
               </div>
             </div>
@@ -96,7 +98,7 @@ const TaskCard = ({
           />
         </Modal>
       )}
-    </>
+    </div>
   )
 }
 

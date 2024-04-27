@@ -42,6 +42,7 @@ function InviteListEmail({ dashboardId }: InviteListEmailProps) {
       handleCreate()
       addToast('초대가 완료되었습니다.', 'success')
     } catch (err) {
+      addToast('유효하지 않은 이메일입니다.', 'error')
       console.error(err)
     }
   }

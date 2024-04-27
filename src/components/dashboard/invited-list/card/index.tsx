@@ -1,11 +1,16 @@
 import Image from 'next/image'
+import { useContext, useState } from 'react'
 
-import AXIOS from '@/lib/axios'
 import { fetchDeleteCancelInviteDashboard } from '@/pages/api/dashboards'
 import { fetchPutAnswerInvitation } from '@/pages/api/invitations'
-import basicImg from '@/public/icons/temp-circle-6.svg'
+import { fetchDeleteDashboardMember } from '@/pages/api/members'
 import BorderButton from '@/src/components/common/button/border'
 import OptionButton from '@/src/components/common/button/option'
+import Modal from '@/src/components/common/modal'
+import ModalConfirm from '@/src/components/common/modal/modal-confirm'
+import UserDefaultImg from '@/src/components/common/user-default-img'
+import { DashboardsContext } from '@/src/context/dashboards'
+import { useToast } from '@/src/context/toast'
 import {
   InvitedListDashboardType,
   InvitedListEmailType,
@@ -15,10 +20,6 @@ import {
 import S from './InviteCard.module.scss'
 
 type InvitedListType = 'dashboard' | 'member' | 'email'
-
-type Partial<T> = {
-  [key in keyof T]?: T[key]
-}
 
 type PartialInvitedListDashboardType = Partial<InvitedListDashboardType>
 type PartialInvitedListEmailType = Partial<InvitedListEmailType>
@@ -36,11 +37,11 @@ interface InvitedCardProps extends UnionPartialType {
   id: number
   handleChange: (id: number) => void
   dashboardId?: number
-  idx?: number
+  userId?: number
 }
 
-function isDashboardType(type: InvitedListType): type is 'dashboard' {
-  return type === 'dashboard'
+function isInEditPage(type: InvitedListType): type is 'member' | 'email' {
+  return type !== 'dashboard'
 }
 
 function InvitedListCard({
@@ -50,15 +51,25 @@ function InvitedListCard({
   nickname,
   profileImageUrl,
   id,
-  idx,
   dashboardId,
   handleChange,
+  isOwner,
+  userId,
 }: InvitedCardProps) {
-  const className = `${S.container} ${isDashboardType(type) ? S.dashboard : ''}`
+  const className = `${S.container} ${S[type]}`
+  const myUserId = userId ? userId : null
+  const { getSideMenuDashboards } = useContext(DashboardsContext)
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const { addToast } = useToast()
+
+  const handleClick = () => {
+    setIsModalOpen(true)
+  }
 
   const handleClickAnswerInvitation = async (answer: boolean) => {
     try {
       await fetchPutAnswerInvitation(id, answer)
+      getSideMenuDashboards()
       handleChange(id)
     } catch (err) {
       console.error(err)
@@ -75,13 +86,8 @@ function InvitedListCard({
   }
   //TODO: member api 정리
   const handleClickDeleteDashboardMember = async () => {
-    const token = localStorage.getItem('accessToken')
     try {
-      await AXIOS.delete(`/members/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      await fetchDeleteDashboardMember(id)
       handleChange(id)
     } catch (err) {
       console.error(err)
@@ -91,8 +97,14 @@ function InvitedListCard({
   const INVITED_CARD = {
     dashboard: (
       <>
-        <p>{title}</p>
-        <p>{nickname}</p>
+        <span>
+          <p className={S.mobileTag}>이름</p>
+          {title}
+        </span>
+        <span>
+          <p className={S.mobileTag}>초대자</p>
+          {nickname}
+        </span>
         <OptionButton
           size="medium"
           leftColor="purple"
@@ -107,39 +119,78 @@ function InvitedListCard({
     member: (
       <>
         <div className={S.userBox}>
-          <Image
-            src={profileImageUrl ? profileImageUrl : basicImg}
-            alt="프로필이미지"
-            width={38}
-            height={38}
-          />
-          <p>{nickname}</p>
+          {profileImageUrl ? (
+            <div className={S.userImgDiv}>
+              <Image
+                className={S.userImg}
+                src={profileImageUrl}
+                alt="프로필이미지"
+                fill
+              />
+            </div>
+          ) : (
+            <UserDefaultImg
+              nickname={nickname ? nickname : '닉네임'}
+              type="member"
+              userId={myUserId}
+            />
+          )}
+
+          <span>{nickname}</span>
         </div>
         <BorderButton
           size="small"
-          color={idx === 0 ? 'purple' : 'white'}
-          onClick={handleClickDeleteDashboardMember}
-          isDisabled={idx === 0 ? true : false}
+          color="white"
+          onClick={
+            isOwner
+              ? () => addToast('관리자는 삭제 할 수 없습니다.', 'error')
+              : handleClick
+          }
         >
-          {idx === 0 ? '관리자' : '삭제'}
+          삭제
         </BorderButton>
       </>
     ),
     email: (
       <>
-        <p>{email}</p>
-        <BorderButton
-          size="small"
-          color="white"
-          onClick={handleClickCancelIniviteEmail}
-        >
+        <span>{email}</span>
+        <BorderButton size="small" color="white" onClick={handleClick}>
           취소
         </BorderButton>
       </>
     ),
   }
 
-  return <div className={className}>{INVITED_CARD[type]}</div>
+  const EDIT_PAGE_MODAL = {
+    member: {
+      message: `${nickname}을 구성원에서 삭제하시겠습니까?`,
+      onClick: handleClickDeleteDashboardMember,
+      leftButtonText: '취소',
+      rightButtonText: '삭제',
+    },
+    email: {
+      message: `${email}에 대한 초대를 취소하시겠습니까?`,
+      onClick: handleClickCancelIniviteEmail,
+      leftButtonText: '취소',
+      rightButtonText: '확인',
+    },
+  }
+
+  return (
+    <>
+      {isModalOpen && isInEditPage(type) && (
+        <Modal setIsOpen={setIsModalOpen}>
+          <ModalConfirm
+            content={`${EDIT_PAGE_MODAL[type].message}`}
+            leftButtonText={EDIT_PAGE_MODAL[type].leftButtonText}
+            rightButtonText={EDIT_PAGE_MODAL[type].rightButtonText}
+            onClick={EDIT_PAGE_MODAL[type].onClick}
+          />
+        </Modal>
+      )}
+      <div className={className}>{INVITED_CARD[type]}</div>
+    </>
+  )
 }
 
 export default InvitedListCard
