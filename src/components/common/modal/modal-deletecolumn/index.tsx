@@ -14,6 +14,8 @@ interface ModalDeleteColumn {
   leftButtonText: string
   rightButtonText: string
   moveTo?: string
+  setIsEditModalOpen: (boolean: boolean) => void
+  setIsDeleteEditModalOpen: (boolean: boolean) => void
 }
 
 /**
@@ -30,14 +32,16 @@ const ModalDeleteColumn = ({
   leftButtonText,
   rightButtonText,
   moveTo,
+  setIsEditModalOpen,
+  setIsDeleteEditModalOpen,
 }: ModalDeleteColumn) => {
   const router = useRouter()
   const modalStatus = useContext(ModalContext)
   const { setColumns } = useColumnsContext()
 
   const handleLeftClick = () => {
-    modalStatus.setIsOpen.call(null, false)
-    moveTo && router.push(moveTo)
+    setIsDeleteEditModalOpen(false)
+    setIsEditModalOpen(true)
   }
 
   const handleRightClick = async () => {
