@@ -1,9 +1,11 @@
+export interface AuthorType {
+  id: number
+  nickname: string
+  profileImageUrl: string | null
+}
+
 export interface CommentsType {
-  author: {
-    id: number
-    nickname: string
-    profileImageUrl: string | null
-  }
+  author: AuthorType
   cardId: number
   content: string
   id: number

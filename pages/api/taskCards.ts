@@ -136,7 +136,7 @@ export const postTaskCards = async ({
   title: string
   description: string
   dueDate: string
-  tags: string
+  tags: string[]
   imageUrl: string | undefined
 }): Promise<TaskCardDataType> => {
   const data = {

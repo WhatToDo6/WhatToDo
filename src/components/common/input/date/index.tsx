@@ -43,7 +43,7 @@ const InputDate = ({ placeholder, control, setValue }: InputProps) => {
                 />
               </div>
               <ReactDatePicker
-                selected={value}
+                selected={value instanceof Date ? value : null}
                 onInputClick={() => setIsFocus(true)}
                 onChange={(e) => {
                   onChange(e)
@@ -62,7 +62,7 @@ const InputDate = ({ placeholder, control, setValue }: InputProps) => {
                 alt="삭제"
                 width={20}
                 height={20}
-                onClick={() => setValue('date', undefined)}
+                onClick={() => setValue && setValue('date', undefined)}
               />
             </>
           )

@@ -53,7 +53,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
     cardData.dueDate === EMPTY_DUEDATE
       ? setValue('date', null)
       : setValue('date', formatLocalDate(cardData.dueDate))
-    setValue('tags', cardData.tags.join(','))
+    setValue('tags', cardData.tags)
     setImageUrl(cardData.imageUrl)
   }, [])
 
@@ -70,23 +70,17 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
 
     try {
       const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
-
+      const assigneeUserId = data.manager ? data.manager : userId
       let tags
 
       if (data.tags.length === 0) {
-        tags = undefined
-      } else {
-        if (typeof data.tags === 'string') {
-          tags = data.tags.split(',')
-        } else {
-          tags = data.tags
-        }
+        tags = data.tags
       }
 
       const response = await putTaskCards({
         cardId: cardData.id,
         columnId: data.status,
-        assigneeUserId: data.manager,
+        assigneeUserId: assigneeUserId,
         title: data.title,
         description: data.textarea,
         dueDate: dueDate,
