@@ -2,14 +2,15 @@ import { InputProps } from '@/src/types/input'
 
 import S from './Text.module.scss'
 
+type InputTextType =
+  | 'nickname'
+  | 'newNickname'
+  | 'newColumn'
+  | 'columnName'
+  | 'newDash'
+  | 'title'
 interface InputTextProps extends InputProps {
-  textType:
-    | 'nickname'
-    | 'newNickname'
-    | 'newColumn'
-    | 'columnName'
-    | 'newDash'
-    | 'title' // 다른 input이 필요하면 추가
+  textType: InputTextType
   size: string
   currentNickname?: string
   currentColumn?: string

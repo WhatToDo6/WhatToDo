@@ -1,5 +1,6 @@
 import { TaskCardDataType } from './dashboard'
 import { InputFormValues } from './input'
+import { DashboardEditMakeParamType } from './mydashboard'
 
 export interface ModalAlertProps {
   content: string
