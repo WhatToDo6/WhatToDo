@@ -1,6 +1,11 @@
 // apiService.js
 import AXIOS from '@/lib/axios'
-import { TaskCardDataType, TaskCardsPromise } from '@/src/types/dashboard'
+import {
+  PostTaskCardDataType,
+  PutTaskCardDataType,
+  TaskCardDataType,
+  TaskCardsPromise,
+} from '@/src/types/dashboard'
 
 /**
  * API 요청에 사용될 공통 인증 헤더 반환
@@ -78,16 +83,7 @@ export const putTaskCards = async ({
   dueDate,
   tags,
   imageUrl,
-}: {
-  cardId: number
-  columnId: number
-  assigneeUserId: number
-  title: string
-  description: string
-  dueDate: string
-  tags: string[] | undefined
-  imageUrl: string | undefined
-}): Promise<TaskCardsPromise> => {
+}: PostTaskCardDataType): Promise<TaskCardsPromise> => {
   const url = `https://sp-taskify-api.vercel.app/4-6/cards/${cardId}`
   const data = {
     columnId,
@@ -129,16 +125,7 @@ export const postTaskCards = async ({
   dueDate,
   tags,
   imageUrl,
-}: {
-  assigneeUserId: number
-  dashboardId: number
-  columnId: number | undefined
-  title: string
-  description: string
-  dueDate: string
-  tags: string[]
-  imageUrl: string | undefined
-}): Promise<TaskCardDataType> => {
+}: PutTaskCardDataType): Promise<TaskCardDataType> => {
   const data = {
     assigneeUserId,
     dashboardId,

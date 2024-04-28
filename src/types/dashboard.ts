@@ -56,6 +56,28 @@ export interface TaskCardDataType {
   updatedAt: string
 }
 
+export interface PostTaskCardDataType {
+  assigneeUserId: number
+  cardId: number
+  columnId: number
+  title: string
+  description: string
+  dueDate: string
+  tags: string[] | undefined
+  imageUrl: string | undefined
+}
+
+export interface PutTaskCardDataType {
+  assigneeUserId: number
+  columnId: number | undefined
+  dashboardId: number
+  title: string
+  description: string
+  dueDate: string
+  tags: string[]
+  imageUrl: string | undefined
+}
+
 export interface PaginationResponse<T> {
   data: T[]
   nextCursorId: number | null
