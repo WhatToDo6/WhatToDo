@@ -5,7 +5,7 @@ import { handleImageChange } from '@/pages/api/imageUpload'
 import { postTaskCards } from '@/pages/api/taskCards'
 import { fetchGetUser } from '@/pages/api/users'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
-import { TaskCardDataType } from '@/src/types/dashboard.interface'
+import { TaskCardDataType } from '@/src/types/dashboard'
 import { InputFormValues } from '@/src/types/input'
 import { formatDate } from '@/src/utils/formatDate'
 

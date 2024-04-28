@@ -4,10 +4,7 @@ import { getTaskCards } from '@/pages/api/taskCards'
 import ColumnHeader from '@/src/components/dashboard/column/column-header'
 import TaskCard from '@/src/components/dashboard/column/task-card'
 import DashboardButton from '@/src/components/dashboard/dashboard-button'
-import {
-  ColumnDataType,
-  TaskCardDataType,
-} from '@/src/types/dashboard.interface'
+import { ColumnDataType, TaskCardDataType } from '@/src/types/dashboard'
 
 import S from './Column.module.scss'
 import Modal from '../../common/modal'

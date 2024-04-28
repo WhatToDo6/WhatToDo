@@ -4,7 +4,7 @@ import { createContext, useEffect, useState } from 'react'
 import { fetchGetDashboardMemberList } from '@/pages/api/members'
 
 import { usePagination } from '../hooks/usePagination'
-import { ChildrenProps } from '../types/commonType'
+import { ChildrenProps } from '../types/common'
 import { InvitedMemberType } from '../types/mydashboard'
 import { PaginationContextType } from '../types/mydashboard'
 

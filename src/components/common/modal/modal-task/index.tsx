@@ -9,7 +9,7 @@ import CLOSE_ICON from '@/public/icons/close.svg'
 import POPOVER_ICON from '@/public/icons/popover.svg'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
-import { CommentsType, TaskCardDataType } from '@/src/types/dashboard.interface'
+import { CommentsType, TaskCardDataType } from '@/src/types/dashboard'
 
 import Comment from './comment'
 import CommentForm from './comment-form/index'
