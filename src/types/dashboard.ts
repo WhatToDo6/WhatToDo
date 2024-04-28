@@ -41,7 +41,7 @@ export interface TaskCardAssigneeType {
   id: number
 }
 
-export type TaskCardDataType = {
+export interface TaskCardDataType {
   assignee: TaskCardAssigneeType
   columnId: number
   createdAt: string
