@@ -21,7 +21,7 @@ interface ModalDashBoardProps {
   currentColumn?: string
   showDeleteButton?: boolean
   onSubmit: (data: InputFormValues) => void
-  setIsDeleteEditModalOpen: (boolean: boolean) => void
+  setIsDeleteEditModalOpen?: (boolean: boolean) => void
 }
 
 /**
@@ -77,7 +77,7 @@ const ModalDashBoard = ({
   }
 
   const handleDeleteClick = () => {
-    setIsDeleteEditModalOpen(true)
+    setIsDeleteEditModalOpen?.(true)
   }
 
   useEffect(() => {
