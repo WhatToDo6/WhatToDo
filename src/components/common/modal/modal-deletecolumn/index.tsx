@@ -3,18 +3,11 @@ import { useContext } from 'react'
 
 import { deleteColumns } from '@/pages/api/columns'
 import { useColumnsContext } from '@/src/components/dashboard/column/column-layout'
+import { ModalDeleteColumnProps } from '@/src/types/modal'
 
 import S from './ModalDeleteColumn.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
-
-interface ModalDeleteColumn {
-  columnId: number | undefined
-  content: string
-  leftButtonText: string
-  rightButtonText: string
-  moveTo?: string
-}
 
 /**
  * @param columnId - 컬럼id
@@ -30,7 +23,7 @@ const ModalDeleteColumn = ({
   leftButtonText,
   rightButtonText,
   moveTo,
-}: ModalDeleteColumn) => {
+}: ModalDeleteColumnProps) => {
   const router = useRouter()
   const modalStatus = useContext(ModalContext)
   const { setColumns } = useColumnsContext()

@@ -5,8 +5,8 @@ import { handleImageChange } from '@/pages/api/imageUpload'
 import { postTaskCards } from '@/pages/api/taskCards'
 import { fetchGetUser } from '@/pages/api/users'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
-import { TaskCardDataType } from '@/src/types/dashboard'
 import { InputFormValues } from '@/src/types/input'
+import { ModalTodoProps } from '@/src/types/modal'
 import { formatDate } from '@/src/utils/formatDate'
 
 import S from './ModalTodo.module.scss'
@@ -14,12 +14,6 @@ import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
 import InputProfileImage from '../../input/profile-image'
-
-interface ModalTodoProps {
-  columnId: number | undefined
-  dashboardId: number
-  onCreateTaskCard: (newTaskCard: TaskCardDataType) => void
-}
 
 const ModalTodo = ({
   columnId,

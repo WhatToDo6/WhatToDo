@@ -7,6 +7,7 @@ import { fetchGetUser } from '@/pages/api/users'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
 import { TaskCardDataType } from '@/src/types/dashboard'
 import { InputFormValues } from '@/src/types/input'
+import { ModalEdittodoProps } from '@/src/types/modal'
 import { formatDate } from '@/src/utils/formatDate'
 import { formatLocalDate } from '@/src/utils/formatLocalDate'
 
@@ -15,11 +16,6 @@ import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
 import InputProfileImage from '../../input/profile-image'
-
-interface ModalEdittodoProps {
-  cardData: TaskCardDataType
-  setCardData: React.Dispatch<React.SetStateAction<any>> //TODO: 타입 명시
-}
 
 export const CardContext = createContext<TaskCardDataType>(
   {} as TaskCardDataType,

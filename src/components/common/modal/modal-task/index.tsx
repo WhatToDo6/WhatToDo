@@ -10,6 +10,7 @@ import POPOVER_ICON from '@/public/icons/popover.svg'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 import { CommentsType, TaskCardDataType } from '@/src/types/dashboard'
+import { ModalTaskProps } from '@/src/types/modal'
 
 import Comment from './comment'
 import CommentForm from './comment-form/index'
@@ -20,25 +21,6 @@ import TagChip from '../../chip/tag-chip'
 import ManagerProfile from '../../manager-profile'
 import Spinner from '../../spinner'
 import ModalEdittodo from '../modal-edittodo'
-
-interface ModalTaskProps {
-  cardId: number
-  title: string
-  description: string
-  tags: string[]
-  dueDate: string
-  assignee: {
-    profileImageUrl: string
-    nickname: string
-    id: number
-  }
-  imageUrl: string
-  columnId: number | undefined
-  columnTitle: string
-  cardData: TaskCardDataType
-  setCardData: React.Dispatch<React.SetStateAction<TaskCardDataType>>
-  setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
-}
 
 const ModalTask = ({
   cardId,
