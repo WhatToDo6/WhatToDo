@@ -4,6 +4,7 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 import { handleImageChange } from '@/pages/api/imageUpload'
 import { putTaskCards } from '@/pages/api/taskCards'
 import { fetchGetUser } from '@/pages/api/users'
+import { useColumnsContext } from '@/src/components/dashboard/column/column-layout'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
 import { TaskCardDataType } from '@/src/types/dashboard.interface'
 import { InputFormValues } from '@/src/types/input'
@@ -26,6 +27,7 @@ export const CardContext = createContext<TaskCardDataType>(
 )
 
 const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
+  const { setReload } = useColumnsContext()
   const modalStatus = useContext(ModalContext)
   const [userId, setUserId] = useState()
   const [imageUrl, setImageUrl] = useState<string | undefined>()
@@ -94,6 +96,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
         imageUrl: imageUrl || undefined,
       })
       setCardData(response)
+      setReload(true)
       modalStatus.setIsOpen(false)
     } catch (error) {
       console.error('Failed to create card:', error)

@@ -36,7 +36,6 @@ interface ModalTaskProps {
   columnId: number | undefined
   columnTitle: string
   cardData: TaskCardDataType
-  setCardData: React.Dispatch<React.SetStateAction<TaskCardDataType>>
   setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
 }
 
@@ -50,7 +49,6 @@ const ModalTask = ({
   assignee,
   imageUrl,
   cardData,
-  setCardData,
   setTaskCards,
 }: ModalTaskProps) => {
   const modalStatus = useContext(ModalContext)
@@ -138,7 +136,7 @@ const ModalTask = ({
     <div className={S.container}>
       {isModalOpen && (
         <Modal setIsOpen={setIsModalOpen}>
-          <ModalEdittodo cardData={cardData} setCardData={setCardData} />
+          <ModalEdittodo cardData={cardData} setCardData={setTaskCards} />
         </Modal>
       )}
       <div className={S.titleContainer}>
