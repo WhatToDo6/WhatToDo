@@ -179,9 +179,11 @@ const ModalTask = ({
             <ProgressChip progress={columnStatus[cardData.columnId]} />
             <Image src={BAR_ICON} alt="구분선" width={0} height={20} />
             <div className={S.tags}>
-              {tags.map((tag, index) => (
-                <TagChip key={index} index={index} text={tag} />
-              ))}
+              {tags
+                .filter((tag) => tag.length !== 0)
+                .map((tag, index) => (
+                  <TagChip key={index} index={index} text={tag} />
+                ))}
             </div>
           </div>
           <p className={S.text}>{description}</p>
@@ -199,8 +201,8 @@ const ModalTask = ({
           <div className={S.assignee}>
             <span className={S.detailTitle}>담당자</span>
             <ManagerProfile
-              profileImageUrl={assignee.profileImageUrl}
-              nickname={assignee.nickname}
+              profileImageUrl={assignee?.profileImageUrl}
+              nickname={assignee?.nickname}
               type="card"
               userId={assignee.id}
             />
