@@ -1,10 +1,10 @@
 import { createContext, useContext, useState } from 'react'
 
-import { ColumnDataType } from '@/src/types/dashboard.interface'
+import { ColumnDataType } from '@/src/types/dashboard'
 
 import S from './ColumnLayout.module.scss'
 
-import type { ChildrenProps } from '@/src/types/commonType'
+import type { ChildrenProps } from '@/src/types/common'
 
 interface ColumnsContextType {
   columns: ColumnDataType[]

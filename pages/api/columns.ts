@@ -1,5 +1,5 @@
 import AXIOS from '@/lib/axios'
-import { ColumnDataType } from '@/src/types/dashboard.interface'
+import { ColumnDataType } from '@/src/types/dashboard'
 
 /**
  * API 요청에 사용될 공통 인증 헤더 반환

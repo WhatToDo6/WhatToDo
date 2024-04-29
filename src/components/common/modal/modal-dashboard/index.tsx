@@ -3,26 +3,13 @@ import { useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { InputFormValues } from '@/src/types/input'
+import { ModalDashBoardProps } from '@/src/types/modal'
 
 import S from './ModalColumn.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
-
-interface ModalDashBoardProps {
-  columnId?: number | undefined
-  title: string
-  inputTitle: string
-  inputType: 'newColumn' | 'columnName' | 'email'
-  placeholder: string
-  leftButtonText: string
-  rightButtonText: string
-  moveTo?: string
-  currentColumn?: string
-  showDeleteButton?: boolean
-  onSubmit: (data: InputFormValues) => void
-  setIsDeleteEditModalOpen?: (boolean: boolean) => void
-}
+import ModalDeleteColumn from '../modal-deletecolumn'
 
 /**
  * @param columnId - 컬럼id

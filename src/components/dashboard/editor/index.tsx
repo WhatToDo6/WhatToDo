@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { fetchPutDashboardEdit } from '@/pages/api/dashboards'
 import { DashboardsContext } from '@/src/context/dashboards'
 import { useToast } from '@/src/context/toast'
+import useMobileSizeChange from '@/src/hooks/useMobileSizeChange'
 import { InputFormValues } from '@/src/types/input'
 import { EditDahsboardParamType } from '@/src/types/mydashboard'
 
@@ -27,6 +28,7 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
   const { addToast } = useToast()
+  const changeableVal = useMobileSizeChange<boolean>(false, true)
 
   const { dashboardDetail, setDashboardDetail, editSideMenuDashboards } =
     useContext(DashboardsContext)
@@ -89,6 +91,7 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
           <ColorChip
             selectedColor={selectedColor}
             setSelectedColor={setSelectedColor}
+            showSelectedOnly={changeableVal}
           />
         </div>
         <div className={S.inputTitle}>대시보드 이름</div>
@@ -97,7 +100,7 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
           placeholder="뉴프로젝트"
           register={register}
           error={errors.newDash}
-          size="large"
+          size="full"
         />
         <div className={S.buttonBox}>
           <BorderButton size="small" color="purple">

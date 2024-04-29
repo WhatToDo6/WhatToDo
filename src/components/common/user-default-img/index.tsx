@@ -3,15 +3,17 @@ import { userIdToColorIdx } from '@/src/utils/userIdToColorIdx'
 
 import S from './UserDefaultImg.module.scss'
 
+type UserDefaultImgType =
+  | 'dropdown'
+  | 'dashboardHeader'
+  | 'card'
+  | 'dashboardHeaderMembers'
+  | 'member'
+  | 'onlyImg'
+
 interface UserDefaultImgProps {
   nickname: string
-  type:
-    | 'dropdown'
-    | 'dashboardHeader'
-    | 'card'
-    | 'dashboardHeaderMembers'
-    | 'member'
-    | 'onlyImg'
+  type: UserDefaultImgType
   zIndex?: number
   userId: number | null
   onClick?: () => void

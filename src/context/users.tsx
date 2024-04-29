@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react'
 
 import { fetchGetUser } from '@/pages/api/users'
-import { ChildrenProps } from '@/src/types/commonType'
+import { ChildrenProps } from '@/src/types/common'
 import { UserType } from '@/src/types/mydashboard'
 
 interface UserContextValue {

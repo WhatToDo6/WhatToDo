@@ -5,8 +5,14 @@ import { useState } from 'react'
 import S from './ManagerProfile.module.scss'
 import UserDefaultImg from '../user-default-img'
 
+type ManagerProfileType =
+  | 'dropdown'
+  | 'dashboardHeader'
+  | 'card'
+  | 'member'
+  | 'onlyImg'
 interface ManagerProfileProps {
-  type: 'dropdown' | 'dashboardHeader' | 'card' | 'member' | 'onlyImg'
+  type: ManagerProfileType
   profileImageUrl: string | null | undefined
   nickname?: string
   showPopover?: boolean

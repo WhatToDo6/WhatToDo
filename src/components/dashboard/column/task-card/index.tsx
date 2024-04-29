@@ -7,7 +7,7 @@ import Modal from '@/src/components/common/modal'
 import ModalTask from '@/src/components/common/modal/modal-task'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
 import { useUser } from '@/src/context/users'
-import { TaskCardDataType } from '@/src/types/dashboard.interface'
+import { TaskCardDataType } from '@/src/types/dashboard'
 
 import S from './TaskCard.module.scss'
 import TaskCardDate from '../task-card-date'
