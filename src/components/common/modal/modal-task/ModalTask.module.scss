@@ -147,10 +147,19 @@
 }
 
 .text {
+  width: 45rem;
+  height: 7.2rem;
   color: $color-black-400;
+  word-wrap: break-word;
   @include font-style(1.4rem, 400, 2.4rem);
 
+  @include tablet {
+    width: 42rem;
+  }
+
   @include mobile {
+    width: 28.7rem;
+    height: 9rem;
     @include font-style(1.2rem, 400, 2.2rem);
   }
 }
@@ -195,6 +204,7 @@
 .assignee {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.6rem;
 
   @include mobile {
@@ -205,6 +215,7 @@
 .dueDate {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.6rem;
 
   @include mobile {
