@@ -36,7 +36,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
     control,
     setValue,
     watch,
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onChange' })
 
   useEffect(() => {
     fetchGetUser().then((data) => setUserId(data.id))

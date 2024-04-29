@@ -21,7 +21,7 @@ const Password = () => {
     formState: { errors },
     reset,
     watch,
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onChange' })
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     const accessToken = localStorage.getItem('accessToken')

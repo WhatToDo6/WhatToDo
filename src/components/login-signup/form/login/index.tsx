@@ -21,7 +21,7 @@ const LogInForm = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onChange' })
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     if (data.email === '' || data.password === '') return

@@ -28,7 +28,7 @@ const ModalNewDash = ({ moveTo, onSubmit }: ModalNewDashProps) => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onChange' })
 
   const handleLeftClick = () => {
     modalStatus.setIsOpen.call(null, false)

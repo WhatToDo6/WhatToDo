@@ -25,7 +25,7 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onChange' })
 
   const { addToast } = useToast()
   const changeableVal = useMobileSizeChange<boolean>(false, true)

@@ -39,6 +39,12 @@ const DashboardIdPage = ({ id }: { id: number }) => {
   }
 
   const handleAPI = async (data: ColumnTitleType) => {
+    for (let i in columns) {
+      if (columns[i].title === data.newColumn) {
+        alert('이미 존재하는 컬럼명입니다.')
+        return
+      }
+    }
     try {
       const requestData = {
         title: data.newColumn,

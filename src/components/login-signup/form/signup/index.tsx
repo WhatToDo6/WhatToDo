@@ -24,7 +24,7 @@ const SignUpForm = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onChange' })
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     if (!isChecked || Object.keys(errors).length > 0) return
@@ -49,7 +49,7 @@ const SignUpForm = () => {
   return (
     <>
       {isSuccessModalOpen && (
-        <Modal setIsOpen={setIsSuccessModalOpen}>
+        <Modal isOpen={isSuccessModalOpen} setIsOpen={setIsSuccessModalOpen}>
           <ModalAlert
             content="가입이 완료되었습니다!"
             buttonText="확인"
@@ -58,7 +58,7 @@ const SignUpForm = () => {
         </Modal>
       )}
       {isErrorModalOpen && (
-        <Modal setIsOpen={setIsErrorModalOpen}>
+        <Modal isOpen={isErrorModalOpen} setIsOpen={setIsErrorModalOpen}>
           <ModalAlert
             content="이미 사용 중인 이메일입니다."
             buttonText="확인"
