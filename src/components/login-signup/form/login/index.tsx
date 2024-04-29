@@ -14,6 +14,7 @@ import S from '../Form.module.scss'
 const LogInForm = () => {
   const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isCheck, setIsCheck] = useState(false)
 
   const {
     register,
@@ -43,6 +44,23 @@ const LogInForm = () => {
     }
   }, [])
 
+  useEffect(() => {
+    const email = watch('email')
+    const password = watch('password')
+
+    if (
+      email === '' ||
+      password === '' ||
+      email === undefined ||
+      password === undefined
+    ) {
+      setIsCheck(false)
+      return
+    }
+
+    setIsCheck(true)
+  }, [watch('email'), watch('password')])
+
   return (
     <>
       {isModalOpen && (
@@ -68,12 +86,7 @@ const LogInForm = () => {
           error={errors.password}
           register={register}
         />
-        <BasicButton
-          size="large"
-          isDisabled={
-            watch('email') === '' || watch('password') === '' ? true : false
-          }
-        >
+        <BasicButton size="large" isDisabled={!isCheck}>
           <span className={S.buttonText}>로그인</span>
         </BasicButton>
       </form>
