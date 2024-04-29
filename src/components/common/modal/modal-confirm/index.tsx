@@ -1,15 +1,10 @@
 import { useContext } from 'react'
 
+import { ModalConfirmProps } from '@/src/types/modal'
+
 import S from './ModalConfirm.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
-
-interface ModalConfirm {
-  content: string
-  leftButtonText: string
-  rightButtonText: string
-  onClick: () => void
-}
 
 /**
  * @param content - 모달 내부 내용
@@ -24,7 +19,7 @@ const ModalConfirm = ({
   leftButtonText,
   rightButtonText,
   onClick,
-}: ModalConfirm) => {
+}: ModalConfirmProps) => {
   const modalStatus = useContext(ModalContext)
 
   const handleLeftClick = () => {

@@ -30,7 +30,8 @@ const InputPassword = ({
         {...register('password', {
           required: '비밀번호를 입력해주세요.',
           validate: (value) =>
-            validatePassword(value) || '8자 이상 입력해 주세요.',
+            validatePassword(value) ||
+            '영문, 숫자를 조합해 8자 이상 입력해 주세요',
         })}
       />
       <div className={`${S.eyeContainer} ${S[`${size}Eye`]}`}>

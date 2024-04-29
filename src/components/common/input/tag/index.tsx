@@ -20,11 +20,11 @@ const InputTag = ({ placeholder, setValue }: InputProps) => {
       const inputElement = e.target as HTMLInputElement
       const newTags = [...tags, inputElement.value.trim()]
       setTags(newTags)
-      setValue('tags', newTags) // 'tags'로 필드 이름 지정
+      setValue && setValue('tags', newTags) // 'tags'로 필드 이름 지정
       inputElement.value = ''
     } else if (e.key === 'Backspace' && e.currentTarget.value === '') {
       setTags(tags.slice(0, -1))
-      setValue('tags', tags.slice(0, -1)) // 태그 배열 업데이트 시 setValue 호출
+      setValue && setValue('tags', tags.slice(0, -1)) // 태그 배열 업데이트 시 setValue 호출
     }
   }
 

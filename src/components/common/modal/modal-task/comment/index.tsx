@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import { putComments } from '@/pages/api/comments'
-import { CommentsType } from '@/src/types/dashboard.interface'
+import { CommentsType } from '@/src/types/dashboard'
 
 import S from './Comment.module.scss'
 import ManagerProfile from '../../../manager-profile'

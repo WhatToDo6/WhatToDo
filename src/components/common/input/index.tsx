@@ -29,6 +29,8 @@ import TextArea from './textarea'
  * @param required - (optional) required가 필요하지 않은 경우를 위해 필요
  * @param control - (optional) react-hook-form의 control 객체 (외부 라이브러리 연동 시 필요)
  * @param setValue - (optional) react-hook-form의 setValue 함수 (직접 값 제어 시 필요)
+ * @param columnId - (optional) 이미지 업로드 시 columnId 필요
+ * @param setImageUrl - (optional) 이미지 업로드 시 imageUrl 변경을 위해 필요
  */
 const Input = ({
   inputType,

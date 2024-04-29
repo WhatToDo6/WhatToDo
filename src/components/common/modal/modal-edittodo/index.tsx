@@ -5,8 +5,9 @@ import { handleImageChange } from '@/pages/api/imageUpload'
 import { putTaskCards } from '@/pages/api/taskCards'
 import { fetchGetUser } from '@/pages/api/users'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
-import { TaskCardDataType } from '@/src/types/dashboard.interface'
+import { TaskCardDataType } from '@/src/types/dashboard'
 import { InputFormValues } from '@/src/types/input'
+import { ModalEdittodoProps } from '@/src/types/modal'
 import { formatDate } from '@/src/utils/formatDate'
 import { formatLocalDate } from '@/src/utils/formatLocalDate'
 
@@ -15,11 +16,6 @@ import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
 import InputProfileImage from '../../input/profile-image'
-
-interface ModalEdittodoProps {
-  cardData: TaskCardDataType
-  setCardData: React.Dispatch<React.SetStateAction<any>> //TODO: 타입 명시
-}
 
 export const CardContext = createContext<TaskCardDataType>(
   {} as TaskCardDataType,
@@ -53,7 +49,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
     cardData.dueDate === EMPTY_DUEDATE
       ? setValue('date', null)
       : setValue('date', formatLocalDate(cardData.dueDate))
-    setValue('tags', cardData.tags.join(','))
+    setValue('tags', cardData.tags)
     setImageUrl(cardData.imageUrl)
   }, [])
 
@@ -70,23 +66,17 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
 
     try {
       const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
-
+      const assigneeUserId = data.manager ? data.manager : userId
       let tags
 
       if (data.tags.length === 0) {
-        tags = undefined
-      } else {
-        if (typeof data.tags === 'string') {
-          tags = data.tags.split(',')
-        } else {
-          tags = data.tags
-        }
+        tags = data.tags
       }
 
       const response = await putTaskCards({
         cardId: cardData.id,
         columnId: data.status,
-        assigneeUserId: data.manager,
+        assigneeUserId: assigneeUserId,
         title: data.title,
         description: data.textarea,
         dueDate: dueDate,

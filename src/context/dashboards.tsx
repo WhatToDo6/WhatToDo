@@ -13,7 +13,7 @@ import {
 } from '@/pages/api/dashboards'
 
 import { usePagination } from '../hooks/usePagination'
-import { ChildrenProps } from '../types/commonType'
+import { ChildrenProps } from '../types/common'
 import { DashboardType } from '../types/mydashboard'
 import { PaginationContextType } from '../types/mydashboard'
 
