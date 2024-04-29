@@ -40,7 +40,7 @@ const ProfileForm = () => {
       if (data.newNickname && data.newNickname !== userData?.nickname) {
         changes.nickname = data.newNickname
       }
-      if (uploadedImageUrl !== userData?.profileImageUrl) {
+      if (uploadedImageUrl && uploadedImageUrl !== userData?.profileImageUrl) {
         changes.profileImageUrl = uploadedImageUrl
       }
 
@@ -67,7 +67,7 @@ const ProfileForm = () => {
       }
     }
     reset({
-      nickname: '',
+      newNickname: '',
     })
   }
 
