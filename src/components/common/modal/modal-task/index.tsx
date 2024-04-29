@@ -11,6 +11,7 @@ import { EMPTY_DUEDATE } from '@/src/constants/date'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 import { CommentsType, TaskCardDataType } from '@/src/types/dashboard'
 import { ModalTaskProps } from '@/src/types/modal'
+import { formatDate } from '@/src/utils/formatDate'
 
 import Comment from './comment'
 import CommentForm from './comment-form/index'
