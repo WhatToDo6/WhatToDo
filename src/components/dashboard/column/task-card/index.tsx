@@ -25,7 +25,6 @@ const TaskCard = ({
   columnTitle,
 }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [cardData, setCardData] = useState<TaskCardDataType>(taskCard)
 
   return (
     <div>
@@ -62,10 +61,10 @@ const TaskCard = ({
               </div>
               <div>
                 <ManagerProfile
-                  profileImageUrl={cardData.assignee.profileImageUrl}
+                  profileImageUrl={taskCard.assignee.profileImageUrl}
                   type="onlyImg"
-                  nickname={cardData.assignee.nickname}
-                  userId={cardData.assignee.id}
+                  nickname={taskCard.assignee.nickname}
+                  userId={taskCard.assignee.id}
                 />
               </div>
             </div>
