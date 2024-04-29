@@ -1,9 +1,11 @@
+export interface AuthorType {
+  id: number
+  nickname: string
+  profileImageUrl: string | null
+}
+
 export interface CommentsType {
-  author: {
-    id: number
-    nickname: string
-    profileImageUrl: string | null
-  }
+  author: AuthorType
   cardId: number
   content: string
   id: number
@@ -39,7 +41,7 @@ export interface TaskCardAssigneeType {
   id: number
 }
 
-export type TaskCardDataType = {
+export interface TaskCardDataType {
   assignee: TaskCardAssigneeType
   columnId: number
   createdAt: string
@@ -52,6 +54,28 @@ export type TaskCardDataType = {
   teamId: number
   title: string
   updatedAt: string
+}
+
+export interface PostTaskCardDataType {
+  assigneeUserId: number
+  cardId: number
+  columnId: number
+  title: string
+  description: string
+  dueDate: string
+  tags: string[] | undefined
+  imageUrl: string | undefined
+}
+
+export interface PutTaskCardDataType {
+  assigneeUserId: number
+  columnId: number | undefined
+  dashboardId: number
+  title: string
+  description: string
+  dueDate: string
+  tags: string[]
+  imageUrl: string | undefined
 }
 
 export interface PaginationResponse<T> {

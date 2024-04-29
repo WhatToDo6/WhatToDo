@@ -1,15 +1,11 @@
 import { useRouter } from 'next/router'
 import { useContext } from 'react'
 
+import { ModalAlertProps } from '@/src/types/modal'
+
 import S from './ModalAlert.module.scss'
 import { ModalContext } from '..'
 import BorderButton from '../../button/border'
-
-interface ModalAlertProps {
-  content: string
-  buttonText: string
-  moveTo?: string
-}
 
 /**
  *

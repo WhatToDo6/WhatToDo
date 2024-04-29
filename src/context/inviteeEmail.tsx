@@ -2,7 +2,7 @@ import { useRouter } from 'next/router'
 import { createContext, useEffect, useState } from 'react'
 
 import { usePagination } from '../hooks/usePagination'
-import { ChildrenProps } from '../types/commonType'
+import { ChildrenProps } from '../types/common'
 import { InvitedListEmailType } from '../types/mydashboard'
 import { PaginationContextType } from '../types/mydashboard'
 

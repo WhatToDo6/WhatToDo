@@ -9,7 +9,8 @@ import CLOSE_ICON from '@/public/icons/close.svg'
 import POPOVER_ICON from '@/public/icons/popover.svg'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
-import { CommentsType, TaskCardDataType } from '@/src/types/dashboard.interface'
+import { CommentsType, TaskCardDataType } from '@/src/types/dashboard'
+import { ModalTaskProps } from '@/src/types/modal'
 
 import Comment from './comment'
 import CommentForm from './comment-form/index'
@@ -20,25 +21,6 @@ import TagChip from '../../chip/tag-chip'
 import ManagerProfile from '../../manager-profile'
 import Spinner from '../../spinner'
 import ModalEdittodo from '../modal-edittodo'
-
-interface ModalTaskProps {
-  cardId: number
-  title: string
-  description: string
-  tags: string[]
-  dueDate: string
-  assignee: {
-    profileImageUrl: string
-    nickname: string
-    id: number
-  }
-  imageUrl: string
-  columnId: number | undefined
-  columnTitle: string
-  cardData: TaskCardDataType
-  setCardData: React.Dispatch<React.SetStateAction<TaskCardDataType>>
-  setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
-}
 
 const ModalTask = ({
   cardId,
@@ -179,9 +161,11 @@ const ModalTask = ({
             <ProgressChip progress={columnStatus[cardData.columnId]} />
             <Image src={BAR_ICON} alt="구분선" width={0} height={20} />
             <div className={S.tags}>
-              {tags.map((tag, index) => (
-                <TagChip key={index} index={index} text={tag} />
-              ))}
+              {tags
+                .filter((tag) => tag.length !== 0)
+                .map((tag, index) => (
+                  <TagChip key={index} index={index} text={tag} />
+                ))}
             </div>
           </div>
           <p className={S.text}>{description}</p>
@@ -199,8 +183,8 @@ const ModalTask = ({
           <div className={S.assignee}>
             <span className={S.detailTitle}>담당자</span>
             <ManagerProfile
-              profileImageUrl={assignee.profileImageUrl}
-              nickname={assignee.nickname}
+              profileImageUrl={assignee?.profileImageUrl}
+              nickname={assignee?.nickname}
               type="card"
               userId={assignee.id}
             />

@@ -6,6 +6,7 @@ import { Controller } from 'react-hook-form'
 
 import CALENDAR_BLACK_ICON from '@/public/icons/calendar-black.svg'
 import CALENDAR_GRAY_ICON from '@/public/icons/calendar-gray.svg'
+import DELETE_ICON from '@/public/icons/delete.svg'
 import { InputProps } from '@/src/types/input'
 
 import S from './Date.module.scss'
@@ -19,7 +20,7 @@ import S from './Date.module.scss'
  * @ref [react-datepicker](https://www.npmjs.com/package/react-datepicker)
  */
 
-const InputDate = ({ placeholder, control }: InputProps) => {
+const InputDate = ({ placeholder, control, setValue }: InputProps) => {
   const [isFocus, setIsFocus] = useState(false)
   registerLocale('ko', ko)
 
@@ -42,7 +43,7 @@ const InputDate = ({ placeholder, control }: InputProps) => {
                 />
               </div>
               <ReactDatePicker
-                selected={value}
+                selected={value instanceof Date ? value : null}
                 onInputClick={() => setIsFocus(true)}
                 onChange={(e) => {
                   onChange(e)
@@ -54,6 +55,14 @@ const InputDate = ({ placeholder, control }: InputProps) => {
                 minDate={new Date()}
                 locale="ko"
                 timeCaption="시간"
+              />
+              <Image
+                src={DELETE_ICON}
+                className={S.delete}
+                alt="삭제"
+                width={20}
+                height={20}
+                onClick={() => setValue && setValue('date', undefined)}
               />
             </>
           )

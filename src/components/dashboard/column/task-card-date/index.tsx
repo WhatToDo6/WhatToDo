@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { TaskCardDateProps } from '@/src/types/dashboard.interface'
+import { TaskCardDateProps } from '@/src/types/dashboard'
 
 import S from './TaskCardDate.module.scss'
 import { CALENDAR } from '../constants'

@@ -8,10 +8,7 @@ import ModalDashBoard from '@/src/components/common/modal/modal-dashboard'
 import Column from '@/src/components/dashboard/column'
 import ColumnLayout from '@/src/components/dashboard/column/column-layout'
 import DashboardButton from '@/src/components/dashboard/dashboard-button'
-import {
-  ColumnDataType,
-  ColumnTitleType,
-} from '@/src/types/dashboard.interface'
+import { ColumnDataType, ColumnTitleType } from '@/src/types/dashboard'
 
 import S from './DashboardId.module.scss'
 
