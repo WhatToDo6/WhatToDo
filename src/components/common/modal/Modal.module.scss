@@ -1,0 +1,44 @@
+@import '@/src/styles/global.scss';
+
+.background {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 100vh;
+  width: 100vw;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+
+  &.backdrop {
+    background-color: rgba(0, 0, 0, 0);
+  }
+}
+
+@mixin modal(
+  $desktop-width: 52rem,
+  $desktop-height: 90vh,
+  $mobile-width: 32.7rem,
+  $mobile-height: 90vh
+) {
+  border-radius: 0.8rem;
+  background: $color-white;
+  padding: 2.8rem;
+  width: $desktop-width;
+  height: $desktop-height;
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include mobile {
+    width: $mobile-width;
+    height: $mobile-height;
+    padding: 2rem;
+  }
+}

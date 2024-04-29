@@ -1,0 +1,111 @@
+@import '@/src/styles/global.scss';
+
+.btn,
+.addDashboard {
+  width: 100%;
+  height: 7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $color-white;
+  border-radius: 0.8rem;
+  border: 0.1rem solid $color-gray-300;
+  white-space: nowrap;
+  cursor: pointer;
+  gap: 1.2rem;
+
+  div {
+    @include font-style(1.6rem, 600, normal);
+    color: $color-black-200;
+  }
+
+  &.add {
+    width: 100%;
+    height: 4rem;
+  }
+
+  &.addColumn {
+    height: 7rem;
+
+    @include mobile {
+      height: 6rem;
+    }
+
+    div {
+      @include font-style(1.8rem, 700, normal);
+    }
+  }
+
+  &.moveDashboard {
+    padding: 0 2rem 0 2rem;
+    justify-content: space-between;
+    align-items: center;
+
+    .infoBox {
+      display: flex;
+      align-items: center;
+    }
+
+    p {
+      @include font-style(1.6rem, 600, normal);
+      margin: 0 0.8rem 0 1.6rem;
+
+      @include mobile {
+        @include font-style(1.4rem, 600, normal);
+      }
+    }
+  }
+
+  &.deleteDashboard {
+    background-color: $color-gray-100;
+    @include font-style(1.8rem, 500, normal);
+    width: 32rem;
+    height: 6rem;
+
+    @include mobile {
+      @include font-style(1.6rem, 500, normal);
+      width: 28.4rem;
+      height: 5.2rem;
+    }
+  }
+}
+
+.addDashboard,
+.moveDashboard {
+  @include tablet {
+    width: 100%;
+  }
+
+  @include mobile {
+    width: 100%;
+    height: 6rem;
+
+    div {
+      @include mobile {
+        @include font-style(1.4rem, 600, normal);
+      }
+    }
+  }
+}
+
+.colorChip {
+  width: 0.8rem;
+  height: 0.8rem;
+  border-radius: 50%;
+}
+
+.imgBox {
+  position: relative;
+  width: 2rem;
+  height: 1.6rem;
+
+  @include tablet {
+    width: 1.75rem;
+    height: 1.4rem;
+  }
+
+  @include mobile {
+    width: 1.5rem;
+    height: 1.2rem;
+  }
+}

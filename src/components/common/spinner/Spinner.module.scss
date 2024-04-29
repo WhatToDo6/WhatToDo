@@ -1,0 +1,19 @@
+@import '@/src/styles/global.scss';
+
+.spinner {
+  width: 4rem;
+  height: 4rem;
+  border: 0.4rem solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: $color-violet-200;
+  animation: spin 0.8s ease-in-out infinite;
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}

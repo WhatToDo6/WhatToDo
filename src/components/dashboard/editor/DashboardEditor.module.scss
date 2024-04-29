@@ -1,0 +1,42 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  width: 100%;
+  padding: 2.8rem;
+  background-color: $color-white;
+  border-radius: 0.8rem;
+
+  @include mobile {
+    padding: 2rem;
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3.7rem;
+
+  @include mobile {
+    margin-bottom: 2.4rem;
+  }
+
+  span {
+    @include font-style(2rem, 700, normal);
+  }
+}
+
+.inputTitle {
+  @include font-style(1.8rem, 500, normal);
+  margin-bottom: 1rem;
+
+  @include mobile {
+    @include font-style(1.6rem, 500, normal);
+  }
+}
+
+.buttonBox {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: flex-end;
+}

@@ -1,0 +1,15 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding-top: 2rem;
+  padding-left: 2rem;
+  background-color: $color-gray-100;
+
+  @include mobile {
+    padding-top: 1.7rem;
+    padding-bottom: 1.2rem;
+  }
+}

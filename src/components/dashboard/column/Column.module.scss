@@ -1,0 +1,69 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 35.4rem;
+  min-height: 100vh;
+  padding: 2.8rem 2rem;
+  border-right: 0.1rem solid $color-gray-300;
+
+  @include tablet {
+    width: 100%;
+    min-height: fit-content;
+    border-right: none;
+    border-bottom: 0.1rem solid $color-gray-300;
+  }
+
+  animation: fadeInUp 1s ease-out forwards;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.taskWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.getMoreCards {
+  width: 100%;
+  height: 5rem;
+  background-color: $color-white;
+  border-radius: 0.8rem;
+  border: 0.1rem solid $color-gray-300;
+  white-space: nowrap;
+  cursor: pointer;
+  gap: 1.2rem;
+
+  @include font-style(1.6rem, 600, normal);
+
+  animation: fadeInUp 1s ease-out forwards;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.spinnerWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

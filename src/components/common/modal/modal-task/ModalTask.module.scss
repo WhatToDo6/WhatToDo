@@ -1,0 +1,282 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  position: relative;
+  width: 73rem;
+  height: 76.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 3.2rem 2.8rem;
+  border-radius: 0.8rem;
+  background-color: $color-white;
+  overflow-y: scroll;
+
+  @include tablet {
+    width: 68rem;
+  }
+
+  @include mobile {
+    width: 32.7rem;
+    padding: 4rem 2rem 2.8rem;
+  }
+}
+
+.titleContainer {
+  width: 45rem;
+
+  @include tablet {
+    width: 42rem;
+  }
+
+  @include mobile {
+    width: 21rem;
+  }
+}
+
+.title {
+  color: $color-black-200;
+  word-wrap: break-word;
+  @include font-style(2.4rem, 700, normal);
+
+  @include mobile {
+    @include font-style(2rem, 700, normal);
+  }
+}
+
+.popover {
+  position: absolute;
+  top: 3.2rem;
+  right: 8.4rem;
+  cursor: pointer;
+
+  @include mobile {
+    width: 2.4rem;
+    height: 2.4rem;
+    top: 1.2rem;
+    right: 5.2rem;
+  }
+}
+
+.popoverContainer {
+  position: absolute;
+  top: 6.2rem;
+  right: 9.1rem;
+  width: 9.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  border-radius: 0.6rem;
+  border: 0.1rem solid $color-gray-300;
+  background-color: $color-white;
+  box-shadow: 0 0.4rem 2rem 0 rgba(0, 0, 0, 0.08);
+
+  @include mobile {
+    top: 3.4rem;
+    right: 5.6rem;
+    width: 8.6rem;
+  }
+}
+
+.popoverOption {
+  width: 100%;
+  padding: 0.4rem 0;
+  color: $color-black-200;
+  border: none;
+  border-radius: 0.4rem;
+  @include font-style(1.4rem, 400, 2.4rem);
+  text-align: center;
+  background-color: $color-white;
+  cursor: pointer;
+  outline: none;
+
+  &:hover {
+    color: $color-violet-200;
+    background-color: $color-violet-100;
+  }
+
+  @include mobile {
+    @include font-style(1.2rem, 400, 2.4rem);
+  }
+}
+
+.close {
+  position: absolute;
+  top: 3.2rem;
+  right: 2.8rem;
+  cursor: pointer;
+
+  @include mobile {
+    top: 1.2rem;
+    right: 1.2rem;
+    width: 2.4rem;
+    height: 2.4rem;
+  }
+}
+
+.contentContainer {
+  display: flex;
+  gap: 2.4rem;
+
+  @include mobile {
+    flex-direction: column-reverse;
+    gap: 1.6rem;
+  }
+}
+
+.content {
+  width: 45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+
+  @include tablet {
+    width: 42rem;
+  }
+
+  @include mobile {
+    width: 28.7rem;
+  }
+}
+
+.chips {
+  display: flex;
+  gap: 2rem;
+
+  @include mobile {
+    gap: 1.2rem;
+  }
+}
+
+.tags {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.text {
+  width: 45rem;
+  height: 7.2rem;
+  color: $color-black-400;
+  word-wrap: break-word;
+  @include font-style(1.4rem, 400, 2.4rem);
+
+  @include tablet {
+    width: 42rem;
+  }
+
+  @include mobile {
+    width: 28.7rem;
+    height: 9rem;
+    @include font-style(1.2rem, 400, 2.2rem);
+  }
+}
+
+.contentImg {
+  border-radius: 0.6rem;
+  @include tablet {
+    width: 42rem;
+    height: 24.5rem;
+  }
+
+  @include mobile {
+    width: 28.7rem;
+    height: 16.7rem;
+  }
+}
+
+.taskDetails {
+  width: 20rem;
+  height: 15.5rem;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.8rem;
+  border: 0.1rem solid $color-gray-300;
+  padding: 1.6rem;
+  gap: 2rem;
+
+  @include tablet {
+    width: 18rem;
+  }
+
+  @include mobile {
+    width: 28.7rem;
+    height: 7.5rem;
+    flex-direction: row;
+    gap: 6.2rem;
+    padding: 1.2rem 1.6rem 1rem;
+  }
+}
+
+.assignee {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+
+  @include mobile {
+    gap: 0.4rem;
+  }
+}
+
+.dueDate {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.6rem;
+
+  @include mobile {
+    gap: 1rem;
+  }
+}
+
+.detailTitle {
+  color: $color-black-400;
+  @include font-style(1.2rem, 600, 2rem);
+
+  @include mobile {
+    @include font-style(1rem, 600, 2rem);
+  }
+}
+
+.detailText {
+  color: $color-black-200;
+  @include font-style(1.4rem, 400, normal);
+
+  @include mobile {
+    @include font-style(1.2rem, 400, normal);
+  }
+}
+
+.hidden {
+  display: none;
+}
+
+.spinnerWrapper {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.container::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+.container::-webkit-scrollbar-track {
+  background: $color-white;
+  border-radius: 0.8rem;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: $color-gray-200;
+  border-radius: 0.8rem;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: $color-gray-300;
+}

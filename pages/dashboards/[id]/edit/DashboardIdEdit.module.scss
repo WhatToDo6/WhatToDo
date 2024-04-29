@@ -1,0 +1,25 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  width: 62rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+
+
+  @include tablet {
+    width: 54.4rem;
+  }
+
+  @include mobile {
+    width: 28.4rem;
+  }
+
+  margin-left: 2rem;
+  padding-top: 2rem;
+}
+
+.buttonBox {
+  margin-top: 2.8rem;
+}

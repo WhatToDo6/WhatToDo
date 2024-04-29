@@ -1,0 +1,30 @@
+@import '@/src/styles/global.scss';
+@import '../member/InviteListMember.module.scss';
+
+.container {
+  @include mobile {
+    position: relative;
+  }
+}
+
+.headerBox {
+  @include mobile {
+    padding: 2.8rem 2rem 0;
+  }
+}
+
+.tag {
+  @include mobile {
+    padding-left: 2rem;
+    padding-top: 1.8rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+.borderButton {
+  @include mobile {
+    position: absolute;
+    right: 2rem;
+    top: 7.45rem;
+  }
+}
