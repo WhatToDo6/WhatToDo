@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^5.1.2",
     "@types/react-datepicker": "^6.2.0",
     "axios": "^1.6.8",
     "date-fns": "^3.6.0",
