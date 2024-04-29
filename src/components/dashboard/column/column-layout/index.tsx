@@ -1,4 +1,4 @@
-import { createContext, useContext } from 'react'
+import { createContext, useContext, useState } from 'react'
 
 import { ColumnDataType } from '@/src/types/dashboard'
 
@@ -10,6 +10,8 @@ interface ColumnsContextType {
   columns: ColumnDataType[]
   setColumns: React.Dispatch<React.SetStateAction<ColumnDataType[]>>
   dashboardId: number
+  setReload: (boolean: boolean) => void
+  columnList: Record<number, string>
 }
 
 const ColumnsContext = createContext<ColumnsContextType | undefined>(undefined)
@@ -26,6 +28,8 @@ interface ColumnsProviderProps extends ChildrenProps {
   columns: ColumnDataType[]
   setColumns: React.Dispatch<React.SetStateAction<ColumnDataType[]>>
   dashboardId: number
+  setReload: (boolean: boolean) => void
+  columnList: Record<number, string>
 }
 
 export const ColumnsProvider = ({
@@ -33,9 +37,13 @@ export const ColumnsProvider = ({
   columns,
   setColumns,
   dashboardId,
+  setReload,
+  columnList,
 }: ColumnsProviderProps) => {
   return (
-    <ColumnsContext.Provider value={{ columns, setColumns, dashboardId }}>
+    <ColumnsContext.Provider
+      value={{ columns, setColumns, dashboardId, setReload, columnList }}
+    >
       <main className={S.container}>{children}</main>
     </ColumnsContext.Provider>
   )
