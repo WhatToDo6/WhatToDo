@@ -66,7 +66,7 @@ const Password = () => {
           <div className={S.item}>
             <label className={S.label}>비밀번호</label>
             <Input
-              inputType="password"
+              inputType="password-login"
               placeholder="현재 비밀번호 입력"
               error={errors.password}
               register={register}
