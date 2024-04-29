@@ -20,9 +20,17 @@
 }
 
 .columnTitle {
+  max-width: 23rem;
   margin: 0 1.2rem 0 0.8rem;
   color: $color-black-200;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
   @include font-style(1.8rem, 700, normal);
+
+  @include tablet {
+    max-width: 90%;
+  }
 }
 
 .cardCount {

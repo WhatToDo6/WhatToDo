@@ -23,7 +23,7 @@ export const CardContext = createContext<TaskCardDataType>(
 )
 
 const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
-  const { setReload } = useColumnsContext()
+  const { fetchColumns } = useColumnsContext()
   const modalStatus = useContext(ModalContext)
   const [userId, setUserId] = useState()
   const [imageUrl, setImageUrl] = useState<string | undefined>()
@@ -86,7 +86,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
         imageUrl: imageUrl || undefined,
       })
       setCardData(response)
-      setReload(true)
+      fetchColumns()
       modalStatus.setIsOpen(false)
     } catch (error) {
       console.error('Failed to create card:', error)
