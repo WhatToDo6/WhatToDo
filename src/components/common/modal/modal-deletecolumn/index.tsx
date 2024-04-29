@@ -23,6 +23,8 @@ const ModalDeleteColumn = ({
   leftButtonText,
   rightButtonText,
   moveTo,
+  setIsEditModalOpen,
+  setIsDeleteEditModalOpen,
 }: ModalDeleteColumnProps) => {
   const router = useRouter()
   const modalStatus = useContext(ModalContext)

@@ -9,7 +9,6 @@ import S from './ModalColumn.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
-import ModalDeleteColumn from '../modal-deletecolumn'
 
 /**
  * @param columnId - 컬럼id

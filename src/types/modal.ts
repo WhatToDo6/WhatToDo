@@ -33,6 +33,7 @@ export interface ModalDashBoardProps {
   currentColumn?: string
   showDeleteButton?: boolean
   onSubmit: (data: InputFormValues) => void
+  setIsDeleteEditModalOpen?: (boolean: boolean) => void
 }
 
 export interface ModalDeleteColumnProps {
@@ -41,6 +42,8 @@ export interface ModalDeleteColumnProps {
   leftButtonText: string
   rightButtonText: string
   moveTo?: string
+  setIsEditModalOpen: (boolean: boolean) => void
+  setIsDeleteEditModalOpen: (boolean: boolean) => void
 }
 
 export interface ModalEdittodoProps {

@@ -4,6 +4,7 @@ import { useContext, useState } from 'react'
 import { putColumns } from '@/pages/api/columns'
 import Modal, { ModalContext } from '@/src/components/common/modal'
 import ModalDashBoard from '@/src/components/common/modal/modal-dashboard'
+import ModalDeleteColumn from '@/src/components/common/modal/modal-deletecolumn'
 import { ColumnHeaderType, ColumnTitleType } from '@/src/types/dashboard'
 
 import S from './ColumnHeader.module.scss'

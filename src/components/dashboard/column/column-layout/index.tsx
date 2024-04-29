@@ -11,6 +11,7 @@ interface ColumnsContextType {
   setColumns: React.Dispatch<React.SetStateAction<ColumnDataType[]>>
   dashboardId: number
   setReload: (boolean: boolean) => void
+  columnList: Record<number, string>
 }
 
 const ColumnsContext = createContext<ColumnsContextType | undefined>(undefined)
@@ -28,6 +29,7 @@ interface ColumnsProviderProps extends ChildrenProps {
   setColumns: React.Dispatch<React.SetStateAction<ColumnDataType[]>>
   dashboardId: number
   setReload: (boolean: boolean) => void
+  columnList: Record<number, string>
 }
 
 export const ColumnsProvider = ({
