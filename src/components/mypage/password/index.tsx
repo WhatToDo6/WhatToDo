@@ -56,7 +56,7 @@ const Password = () => {
   return (
     <>
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalAlert content="현재 비밀번호가 틀렸습니다." buttonText="확인" />
         </Modal>
       )}

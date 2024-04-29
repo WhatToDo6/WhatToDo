@@ -68,7 +68,7 @@ function DashboardEditor({ dashboardId }: DashboardEditorProps) {
   return (
     <>
       {isModalOpen && changedDasgboardValue && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalConfirm
             content="대시보드를 변경하시겠습니까?"
             leftButtonText="취소"

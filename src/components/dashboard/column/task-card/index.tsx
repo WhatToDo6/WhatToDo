@@ -72,7 +72,7 @@ const TaskCard = ({
         </div>
       </div>
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalTask
             columnId={columnId}
             cardId={taskCard.id}

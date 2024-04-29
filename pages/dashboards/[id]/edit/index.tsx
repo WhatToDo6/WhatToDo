@@ -58,7 +58,7 @@ const DashboardIdEdit = ({ id }: DashboardIdEditProps) => {
   return (
     <>
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalConfirm
             content="대시보드를 삭제하시겠습니까?"
             leftButtonText="취소"

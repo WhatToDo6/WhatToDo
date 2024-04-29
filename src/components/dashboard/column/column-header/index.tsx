@@ -57,7 +57,7 @@ const ColumnHeader = ({
         />
       </div>
       {isEditModalOpen && (
-        <Modal setIsOpen={setIsEditModalOpen}>
+        <Modal isOpen={isEditModalOpen} setIsOpen={setIsEditModalOpen}>
           <ModalDashBoard
             columnId={columnId}
             title="컬럼 관리"
@@ -74,6 +74,7 @@ const ColumnHeader = ({
       )}
       {isDeleteModalOpen && (
         <Modal
+          isOpen={isDeleteModalOpen}
           setIsOpen={modalStatus.setIsOpen}
           deleteBackdrop={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
         >
