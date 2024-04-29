@@ -63,6 +63,16 @@ const Input = ({
         error={error}
         register={register}
         size={size || ''}
+        pwType="signup"
+      />
+    ),
+    'password-login': (
+      <InputPassword
+        placeholder={placeholder || ''}
+        error={error}
+        register={register}
+        size={size || ''}
+        pwType="login"
       />
     ),
     passwordCheck: (

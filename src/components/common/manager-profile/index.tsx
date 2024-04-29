@@ -49,8 +49,9 @@ function ManagerProfile({
   }
 
   const handleLogout = () => {
-    //TODO 로그아웃 구현
     setIsPopoverOpen((prev) => !prev)
+    localStorage.removeItem('accessToken')
+    router.push('/')
   }
 
   return (

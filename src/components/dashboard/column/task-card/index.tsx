@@ -6,7 +6,6 @@ import ManagerProfile from '@/src/components/common/manager-profile'
 import Modal from '@/src/components/common/modal'
 import ModalTask from '@/src/components/common/modal/modal-task'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
-import { useUser } from '@/src/context/users'
 import { TaskCardDataType } from '@/src/types/dashboard'
 
 import S from './TaskCard.module.scss'
@@ -26,7 +25,7 @@ const TaskCard = ({
   columnTitle,
 }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const { userData } = useUser()
+  const [cardData, setCardData] = useState<TaskCardDataType>(taskCard)
 
   return (
     <div>
@@ -63,10 +62,10 @@ const TaskCard = ({
               </div>
               <div>
                 <ManagerProfile
-                  profileImageUrl={userData?.profileImageUrl}
+                  profileImageUrl={cardData.assignee.profileImageUrl}
                   type="onlyImg"
-                  nickname={userData?.nickname}
-                  userId={userData ? userData.id : null}
+                  nickname={cardData.assignee.nickname}
+                  userId={cardData.assignee.id}
                 />
               </div>
             </div>

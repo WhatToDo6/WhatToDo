@@ -10,6 +10,7 @@ import S from './Password.module.scss'
 
 interface PasswordProps extends InputProps {
   size: string
+  pwType: 'login' | 'signup'
 }
 
 const InputPassword = ({
@@ -17,8 +18,20 @@ const InputPassword = ({
   error,
   register,
   size,
+  pwType,
 }: PasswordProps) => {
   const [isPwVisible, setIsPwVisible] = useState(false)
+
+  const VALIDATION_MAP = {
+    login: {
+      required: '비밀번호를 입력해주세요.',
+    },
+    signup: {
+      required: '비밀번호를 입력해주세요.',
+      validate: (value: string) =>
+        validatePassword(value) || '영문, 숫자를 조합해 8자 이상 입력해 주세요',
+    },
+  }
 
   return (
     <div className={S.pwContainer}>
@@ -27,12 +40,7 @@ const InputPassword = ({
         required
         type={isPwVisible ? 'text' : 'password'}
         placeholder={placeholder}
-        {...register('password', {
-          required: '비밀번호를 입력해주세요.',
-          validate: (value) =>
-            validatePassword(value) ||
-            '영문, 숫자를 조합해 8자 이상 입력해 주세요',
-        })}
+        {...register('password', VALIDATION_MAP[pwType])}
       />
       <div className={`${S.eyeContainer} ${S[`${size}Eye`]}`}>
         <Image
