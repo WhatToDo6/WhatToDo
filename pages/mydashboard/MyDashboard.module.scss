@@ -4,7 +4,9 @@
   width: 102rem;
   display: flex;
   flex-direction: column;
-  padding: 4rem;
+  padding-top: 4rem;
+  margin-left: 4rem;
+
 
   .invitedDashboard {
     margin-top: 3rem;
@@ -20,6 +22,8 @@
   }
 
   @include mobile {
-    padding: 2.4rem;
+    width: 26rem;
+    padding-top: 2.4rem;
+    margin-left: 2.4rem;
   }
 }
