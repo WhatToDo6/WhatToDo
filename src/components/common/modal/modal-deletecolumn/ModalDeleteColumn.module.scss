@@ -2,15 +2,14 @@
 @import '@/src/styles/global.scss';
 
 .container {
-  @include Modal.modal(54rem, 25rem, 32.7rem, 22rem);
+  @include Modal.modal(54rem, 27.6rem, 32.7rem, 27.6rem);
   position: relative;
-
   display: flex;
   justify-content: center;
-  padding-top: 8rem;
+  padding-top: 10.6rem;
 
   @include mobile {
-    padding-top: 5.3rem;
+    padding-top: 10rem;
   }
 }
 
@@ -27,6 +26,6 @@
   bottom: 2.8rem;
   right: 2.8rem;
   @include mobile {
-    left: 2.8rem;
+    left: 2rem;
   }
 }
