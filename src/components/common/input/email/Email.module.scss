@@ -1,0 +1,23 @@
+@use '../Input.module.scss' as Input;
+@import '@/src/styles/global.scss';
+
+.container {
+  @include Input.input;
+
+  &::placeholder {
+    color: $color-gray-400;
+    @include font-style(1.6rem, 400, normal);
+    @include mobile {
+      @include font-style(1.4rem, 400, normal);
+    }
+  }
+}
+
+.large {
+  width: 48.4rem;
+  border-radius: 0.6rem;
+
+  @include mobile {
+    width: 28.7rem;
+  }
+}

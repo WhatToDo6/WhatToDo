@@ -1,0 +1,65 @@
+@use '.././Modal.module.scss' as Modal;
+@import '@/src/styles/global.scss';
+
+.modal {
+  @include Modal.modal(50.6rem, 90vh, 32.7rem, 90vh);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 3.2rem;
+
+  @include mobile {
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+}
+
+.title {
+  color: $color-black-200;
+  @include font-style(2.4rem, 700, normal);
+  @include mobile {
+    @include font-style(2rem, 700, normal);
+  }
+}
+
+.label {
+  color: $color-black-200;
+  display: flex;
+  gap: 0.3rem;
+  @include font-style(1.8rem, 500, normal);
+  @include mobile {
+    @include font-style(1.6rem, 500, normal);
+  }
+
+  &.required {
+    color: $color-violet-200;
+  }
+}
+
+.button {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+
+  position: relative;
+  top: 10px;
+
+  @include mobile {
+    justify-content: center;
+  }
+}
+
+.imageContainer {
+  width: 7.6rem;
+  height: 7.6rem;
+
+  @include mobile {
+    width: 5.8rem;
+    height: 5.8rem;
+  }
+}

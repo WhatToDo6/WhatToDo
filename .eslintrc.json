@@ -1,0 +1,68 @@
+{
+  "extends": "next/core-web-vitals",
+  "plugins": ["prettier"],
+  "rules": {
+    "no-var": "warn",
+    "no-multiple-empty-lines": "warn",
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "eqeqeq": "warn",
+    "no-unused-vars": "warn",
+    "react/destructuring-assignment": "warn",
+    "react/jsx-pascal-case": "warn",
+    "react/no-direct-mutation-state": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "react/no-unused-state": "warn",
+    "react/jsx-key": "warn",
+    "react/self-closing-comp": "warn",
+    "react/jsx-curly-brace-presence": "warn",
+    "react-hooks/exhaustive-deps": "off",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["parent", "sibling"],
+          "index",
+          "object",
+          "type",
+          "unknown"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "next",
+            "group": "builtin",
+            "position": "before"
+          },
+          {
+            "pattern": "@/core/**",
+            "group": "unknown"
+          },
+          {
+            "pattern": "**/*.ts",
+            "group": "unknown",
+            "position": "after"
+          },
+          {
+            "pattern": "@/styles/*.css",
+            "group": "unknown",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ]
+  }
+}

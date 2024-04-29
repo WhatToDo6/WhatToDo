@@ -1,0 +1,43 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1.5rem;
+
+  p {
+    @include font-style(1.4rem, 400, normal);
+
+    @include mobile {
+      @include font-style(1.2rem, 400, normal);
+    }
+  }
+}
+
+.btnContainer {
+  display: flex;
+  button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 4rem;
+    height: 4rem;
+    background-color: $color-white;
+    border: 0.1rem solid $color-gray-300;
+    cursor: pointer;
+
+    @include mobile {
+      width: 3.6rem;
+      height: 3.6rem;
+    }
+
+    &:first-child {
+      border-radius: 4px 0 0 4px;
+    }
+    &:last-child {
+      border-radius: 0 4px 4px 0;
+    }
+  }
+}

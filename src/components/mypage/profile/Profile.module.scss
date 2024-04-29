@@ -1,0 +1,31 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 62rem;
+  gap: 3.2rem;
+  flex-shrink: 0;
+  border-radius: 0.8rem;
+  padding: 3.2rem 2.8rem 2.8rem;
+  background-color: $color-white;
+
+  @include tablet {
+    width: 54.4rem;
+    gap: 2.4rem;
+  }
+
+  @include mobile {
+    width: 28.4rem;
+    padding: 2.8rem 2rem 2rem;
+  }
+}
+
+.title {
+  color: $color-black-200;
+  @include font-style(2.4rem, 700, normal);
+
+  @include mobile {
+    @include font-style(2rem, 700, normal);
+  }
+}

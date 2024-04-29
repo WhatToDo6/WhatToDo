@@ -1,0 +1,29 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  width: 102rem;
+  display: flex;
+  flex-direction: column;
+  padding-top: 4rem;
+  margin-left: 4rem;
+
+
+  .invitedDashboard {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+
+    @include mobile {
+      margin-top: 2.4rem;
+    }
+  }
+
+  @include tablet {
+    width: 100%;
+  }
+
+  @include mobile {
+    width: 26rem;
+    padding-top: 2.4rem;
+    margin-left: 2.4rem;
+  }
+}

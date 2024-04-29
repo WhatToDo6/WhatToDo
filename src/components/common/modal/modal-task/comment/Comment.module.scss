@@ -1,0 +1,116 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  width: 40rem;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  @include tablet {
+    width: 37rem;
+  }
+
+  @include mobile {
+    width: 24rem;
+    gap: 0.8rem;
+  }
+}
+
+.img {
+  border-radius: 100%;
+
+  @include mobile {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+}
+
+.comment {
+  width: 100%;
+  padding-top: 0.8rem;
+
+  @include mobile {
+    padding-top: 0.6rem;
+  }
+}
+
+.title {
+  display: flex;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+
+  @include mobile {
+    gap: 0.6rem;
+  }
+}
+
+.people {
+  color: $color-black-200;
+  @include font-style(1.4rem, 600, normal);
+
+  @include mobile {
+    @include font-style(1.2rem, 600, normal);
+  }
+}
+
+.createdAt {
+  color: $color-gray-400;
+  @include font-style(1.2rem, 400, normal);
+
+  @include mobile {
+    @include font-style(1rem, 400, normal);
+  }
+}
+
+.description {
+  width: 100%;
+  margin-bottom: 1.2rem;
+  word-wrap: break-word;
+  color: $color-black-200;
+  @include font-style(1.4rem, 400, normal);
+
+  @include mobile {
+    margin-bottom: 0.8rem;
+    @include font-style(1.2rem, 400, normal);
+  }
+}
+
+.option {
+  display: flex;
+  gap: 1.2rem;
+
+  @include mobile {
+    gap: 0.8rem;
+  }
+}
+
+.optionText {
+  color: $color-gray-400;
+  @include font-style(1.2rem, 400, normal);
+  text-decoration-line: underline;
+  cursor: pointer;
+
+  @include mobile {
+    @include font-style(1rem, 400, normal);
+  }
+}
+
+.editTextarea {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-radius: 0.6rem;
+  padding: 1.6rem;
+  margin-bottom: 1rem;
+  border: 0.1rem solid $color-gray-300;
+  resize: none;
+
+  &:focus {
+    outline: none;
+    border-color: $color-violet-200;
+  }
+
+  @include mobile {
+    padding: 1.2rem;
+  }
+}

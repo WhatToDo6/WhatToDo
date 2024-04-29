@@ -1,0 +1,10 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  min-height: 100vh;
+
+  @include tablet {
+    flex-direction: column;
+  }
+}

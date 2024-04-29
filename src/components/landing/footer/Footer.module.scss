@@ -1,0 +1,64 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  padding: 4rem 14rem;
+  background-color: $color-black-400;
+
+  @include tablet {
+    padding: 4rem;
+  }
+
+  @include mobile {
+    flex-direction: column;
+    align-items: center;
+    padding: 0 0 9rem;
+  }
+}
+
+.copyright {
+  color: $color-gray-400;
+  @include font-style(1.6rem, 400, normal);
+
+  @include mobile {
+    margin-bottom: 1.2rem;
+    @include font-style(1.2rem, 400, normal);
+  }
+}
+
+.links {
+  display: flex;
+  gap: 3.2rem;
+
+  @include mobile {
+    gap: 2rem;
+    margin-bottom: 6.8rem;
+  }
+}
+
+.link {
+  color: $color-gray-400;
+  text-decoration: none;
+  @include font-style(1.6rem, 400, normal);
+
+  @include mobile {
+    @include font-style(1.2rem, 400, normal);
+  }
+}
+
+.icons {
+  display: flex;
+  gap: 1.4rem;
+
+  @include mobile {
+    gap: 2rem;
+  }
+}
+
+.img {
+  @include mobile {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+}

@@ -1,0 +1,63 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  border: 0.1rem solid $color-white;
+
+  &.dropdown {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+
+  &.dashboardHeader {
+    width: 3.8rem;
+    height: 3.8rem;
+    cursor: pointer;
+    .nickname {
+      @include font-style(1.5rem, 500, normal);
+    }
+  }
+
+  &.dashboardHeaderMembers {
+    width: 3.8rem;
+    height: 3.8rem;
+    margin-right: -1rem;
+    .nickname {
+      @include font-style(1.5rem, 500, normal);
+    }
+  }
+
+  &.member {
+    width: 3.8rem;
+    height: 3.8rem;
+    .nickname {
+      @include font-style(1.5rem, 500, normal);
+    }
+  }
+
+  &.card,
+  &.onlyImg {
+    width: 3.4rem;
+    height: 3.4rem;
+
+    .nickname {
+      @include font-style(1.2rem, 500, normal);
+    }
+  }
+
+  &.myPage {
+    width: 3.6rem;
+    height: 3.6rem;
+
+    .nickname {
+      @include font-style(1.4rem, 500, normal);
+    }
+  }
+
+  .nickname {
+    color: $color-white;
+  }
+}

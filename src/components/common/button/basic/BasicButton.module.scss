@@ -1,0 +1,34 @@
+@import '@/src/styles/global.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1.4rem 0;
+  border: none;
+  border-radius: 0.8rem;
+  cursor: pointer;
+  color: $color-white;
+  @include font-style(1.8rem, 500, normal);
+  background-color: $color-violet-200;
+  &:disabled {
+    background-color: $color-gray-400;
+    cursor: not-allowed;
+  }
+}
+
+.small {
+  width: 28rem;
+
+  @include mobile {
+    width: 23.5rem;
+    padding: 1.3rem 0;
+  }
+}
+
+.large {
+  width: 52rem;
+  @include mobile {
+    width: 35.1rem;
+  }
+}

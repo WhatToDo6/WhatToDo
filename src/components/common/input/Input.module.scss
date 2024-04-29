@@ -1,0 +1,58 @@
+@import '@/src/styles/global.scss';
+
+@mixin textarea($desktop-width: 52rem, $tablet-width: 35.1rem) {
+  textarea::placeholder {
+    color: $color-gray-400;
+    @include font-style(1.6rem, 400, normal);
+    @include mobile {
+      @include font-style(1.4rem, 400, normal);
+    }
+  }
+}
+
+@mixin input($desktop-width: 52rem, $tablet-width: 35.1rem) {
+  display: flex;
+  width: $desktop-width;
+  box-sizing: border-box;
+  padding: 1.8rem 1.5rem;
+  align-items: center;
+  border-radius: 0.8rem;
+  border: 0.1rem solid $color-gray-300;
+  background-color: $color-white;
+  height: 4.8rem;
+
+  input::placeholder {
+    color: $color-gray-400;
+    @include font-style(1.6rem, 400, normal);
+    @include mobile {
+      @include font-style(1.4rem, 400, normal);
+    }
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-violet-200;
+  }
+
+  &.error {
+    border-color: $color-red;
+  }
+
+  @include mobile {
+    width: $tablet-width;
+    height: 4.2rem;
+    padding: 1.5rem 1.6rem;
+  }
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.errorText {
+  color: $color-red;
+
+  @include font-style(1.4rem, 400, normal);
+}

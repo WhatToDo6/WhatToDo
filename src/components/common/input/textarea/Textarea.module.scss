@@ -1,0 +1,13 @@
+@use '../Input.module.scss' as Input;
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  @include Input.textarea;
+}
+
+.textarea {
+  @include Input.input(45rem, 28.7rem);
+  height: 9.6rem !important; //TODO: Input css refactor
+  resize: none;
+}

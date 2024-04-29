@@ -1,0 +1,128 @@
+@use '../InvitedList.module.scss' as InvitedList;
+@import '@/src/styles/global.scss';
+
+.container {
+  @include InvitedList.container;
+}
+
+.title {
+  @include InvitedList.title;
+  padding-top: 3.2rem;
+  padding-left: 2.8rem;
+
+  @include mobile {
+    padding-top: 2.4rem;
+    padding-left: 1.6rem;
+  }
+}
+
+.inputBox {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+  margin: 2.4rem 2.8rem 2.4rem 2.8rem;
+  border: 0.1rem solid $color-gray-200;
+  border-radius: 0.6rem;
+  background-color: $color-white;
+
+  .magnifyingGlassImg {
+    margin-left: 1.6rem;
+    background-color: inherit;
+  }
+
+  input {
+    flex-grow: 1;
+    border: none;
+    width: 100%;
+    @include font-style(1.6rem, 400, normal);
+
+    &::placeholder {
+      color: $color-gray-400;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  @include mobile {
+    margin: 2rem 1.6rem 2rem 1.6rem;
+  }
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+
+  &.withInviteData {
+    height: 40rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+
+    .inviteInfo {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      margin-bottom: 1.5rem;
+
+      div {
+        @include font-style(1.6rem, 400, normal);
+        color: $color-gray-400;
+
+        &:first-child {
+          padding-left: 2.8rem;
+        }
+      }
+
+      @include mobile {
+        display: none;
+      }
+    }
+
+    @include mobile {
+      height: 60rem;
+    }
+  }
+
+  &.withoutInviteData {
+    justify-content: center;
+    align-items: center;
+    height: 40rem;
+
+    span {
+      @include font-style(1.8rem, 400, normal);
+      color: $color-gray-400;
+
+      @include mobile {
+        @include font-style(1.4rem, 400, normal);
+      }
+    }
+  }
+}
+
+.imgBox {
+  position: relative;
+  width: 10rem;
+  height: 10rem;
+
+  @include mobile {
+    width: 6rem;
+    height: 6rem;
+  }
+}
+
+.contents::-webkit-scrollbar {
+  width: 0.8rem; /* 스크롤바 너비 */
+}
+
+.contents::-webkit-scrollbar-track {
+  background: $color-white; /* 스크롤바 트랙 배경색 */
+}
+
+.contents::-webkit-scrollbar-thumb {
+  background: $color-gray-200;
+  border-radius: 0.6rem;
+}
+
+.contents::-webkit-scrollbar-thumb:hover {
+  background: $color-gray-300;
+}

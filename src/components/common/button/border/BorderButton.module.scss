@@ -1,0 +1,92 @@
+@import '@/src/styles/global.scss';
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  width: 8.4rem;
+  padding: 0.7rem 2.9rem;
+  &:disabled {
+    color: $color-gray-200;
+    background-color: $color-gray-400;
+    cursor: not-allowed;
+  }
+
+  @include font-style(1.4rem, 500, normal);
+}
+
+.xsmall {
+  @include mobile {
+    width: 5.2rem;
+    padding: 0.7rem 0.9rem;
+    @include font-style(1.2rem, 500, normal);
+  }
+}
+
+.small {
+  @include mobile {
+    @include font-style(1.2rem, 500, normal);
+  }
+}
+
+.medium {
+  @include tablet {
+    width: 7.2rem;
+    padding: 0.6rem 2.3rem;
+    @include font-style(1.4rem, 500, normal);
+  }
+
+  @include mobile {
+    width: 10.9rem;
+    padding: 0.7rem 3.7rem;
+    @include font-style(1.2rem, 500, normal);
+  }
+}
+
+.large {
+  width: 12rem;
+  padding: 1.4rem 4.6rem;
+  border-radius: 0.8rem;
+  @include font-style(1.6rem, 500, normal);
+
+  @include mobile {
+    width: 13.8rem;
+    padding: 1.2rem 5.6rem;
+    @include font-style(1.4rem, 500, normal);
+  }
+}
+
+.extra {
+  width: 10.5rem;
+  @include font-style(1.4rem, 500, normal);
+
+  @include mobile {
+    width: 8.6rem;
+    @include font-style(1.2rem, 500, normal);
+  }
+}
+
+.change {
+  width: 7.7rem;
+  padding: 0.9rem 0;
+  @include font-style(1.2rem, 500, normal);
+
+  @include mobile {
+    width: 8.4rem;
+    @include font-style(1rem, 500, normal);
+  }
+}
+
+.white {
+  background-color: $color-white;
+  color: $color-violet-200;
+  border: 1px solid $color-gray-300;
+}
+
+.purple {
+  background-color: $color-violet-200;
+  color: $color-white;
+  border: none;
+}

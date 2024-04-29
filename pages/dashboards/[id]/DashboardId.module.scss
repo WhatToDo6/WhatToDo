@@ -1,0 +1,17 @@
+@import '@/src/styles/global.scss';
+
+.addWrapper {
+  display: flex;
+  width: 33.2rem;
+  height: 7rem;
+  padding: 6.8rem 2rem 2rem;
+
+  @include tablet {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 2rem;
+  }
+}

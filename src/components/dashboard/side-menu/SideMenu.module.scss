@@ -1,0 +1,38 @@
+@import '@/src/styles/global.scss';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 30rem;
+  height: 100%;
+
+  @include tablet {
+    width: 16rem;
+  }
+
+  @include mobile {
+    width: 6.7rem;
+  }
+}
+
+.logoWrapper {
+  padding: 2rem 0 0 2.4rem;
+
+  @include tablet {
+    padding: 2rem 0 0 2.6rem;
+  }
+
+  @include mobile {
+    padding: 2rem 0 0 2.2rem;
+  }
+}
+
+.logoText {
+  @include mobile {
+    display: none;
+  }
+}
+
+.listWrapper {
+  padding: 4rem 1.2rem 0;
+}
