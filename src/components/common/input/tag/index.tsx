@@ -45,14 +45,18 @@ const InputTag = ({ placeholder, setValue }: InputProps) => {
       onMouseLeave={() => setIsFocus(false)}
     >
       <div className={S.tagList}>
-        {tags.map((tag, index) => (
-          <TagChip key={index} index={index} text={tag} />
-        ))}
+        {tags
+          .filter((elem) => elem.length !== 0)
+          .map((tag, index) => (
+            <TagChip key={index} index={index} text={tag} />
+          ))}
         <input
           className={S.input}
           type="text"
           onKeyDown={makeTag}
-          placeholder={tags.length > 0 ? '' : placeholder}
+          placeholder={
+            tags.length > 0 && tags[0]?.length > 0 ? '' : placeholder
+          }
         />
       </div>
     </div>

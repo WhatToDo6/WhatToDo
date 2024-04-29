@@ -70,8 +70,18 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
 
     try {
       const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
-      const tags =
-        typeof data.tags === 'string' ? data.tags.split(',') : data.tags
+
+      let tags
+
+      if (data.tags.length === 0) {
+        tags = undefined
+      } else {
+        if (typeof data.tags === 'string') {
+          tags = data.tags.split(',')
+        } else {
+          tags = data.tags
+        }
+      }
 
       const response = await putTaskCards({
         cardId: cardData.id,
@@ -81,7 +91,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
         description: data.textarea,
         dueDate: dueDate,
         tags: tags,
-        imageUrl: imageUrl || '',
+        imageUrl: imageUrl || undefined,
       })
       setCardData(response)
       modalStatus.setIsOpen(false)
@@ -145,6 +155,7 @@ const ModalEdittodo = ({ cardData, setCardData }: ModalEdittodoProps) => {
             error={errors.date}
             register={register}
             control={control}
+            setValue={setValue}
           />
           <label className={S.label} htmlFor="tag">
             태그
