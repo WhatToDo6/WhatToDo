@@ -11,9 +11,9 @@ const Footer = () => {
       <div className={S.links}>
         {LINK.map((link) => {
           return (
-            <Link key={link.id} href={link.link} className={S.link}>
+            <div key={link.id} className={S.link}>
               {link.name}
-            </Link>
+            </div>
           )
         })}
       </div>
