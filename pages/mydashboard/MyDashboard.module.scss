@@ -8,11 +8,10 @@
 
   .invitedDashboard {
     margin-top: 3rem;
-    height: 60rem;
+    margin-bottom: 3rem;
 
     @include mobile {
       margin-top: 2.4rem;
-      height: 83rem;
     }
   }
 

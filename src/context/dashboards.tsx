@@ -48,7 +48,9 @@ export const DashboardsContext = createContext<
 function DashboardsProvider({ children }: ChildrenProps) {
   const {
     query: { id },
+    pathname,
   } = useRouter()
+  const router = useRouter()
   const dashboardId = typeof id === 'string' ? +id : 0
 
   const [dashboards, setDashboards] = useState<DashboardType[]>([])
@@ -114,6 +116,12 @@ function DashboardsProvider({ children }: ChildrenProps) {
   useEffect(() => {
     getSideMenuDashboards()
   }, [])
+
+  useEffect(() => {
+    if (pathname === '/dashboards/[id]/edit' && dashboardDetail) {
+      if (!dashboardDetail.createdByMe) router.push('/404')
+    }
+  }, [dashboardDetail])
 
   return (
     <DashboardsContext.Provider

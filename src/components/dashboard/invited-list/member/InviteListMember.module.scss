@@ -9,10 +9,18 @@
   display: flex;
   align-items: center;
   padding: 3.2rem 2.8rem 0;
+
+  @include mobile {
+    padding: 2.8rem 2rem 0;
+  }
 }
 
 .title {
   @include InvitedList.title;
+
+  @include mobile {
+    @include font-style(2rem, 700, normal);
+  }
 }
 
 .tag {
@@ -21,6 +29,13 @@
   padding-top: 2rem;
   padding-left: 2.8rem;
   padding-bottom: 2rem;
+
+  @include mobile {
+    @include font-style(1.4rem, 400, normal);
+    padding-left: 2rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
 }
 
 .borderButton {

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import { useState, useMemo, useContext } from 'react'
+import { useState, useMemo, useContext, useEffect } from 'react'
 
 import { fetchPostInviteDashboard } from '@/pages/api/dashboards'
 import addBoxIcon from '@/public/icons/add-box-icon.svg'
@@ -12,6 +12,7 @@ import { InviteeEmailContext } from '@/src/context/inviteeEmail'
 import { MembersContext } from '@/src/context/members'
 import { useToast } from '@/src/context/toast'
 import { useUser } from '@/src/context/users'
+import useMobileSizeChange from '@/src/hooks/useMobileSizeChange'
 import { InviteDashboardParamType } from '@/src/types/mydashboard'
 
 import S from './DashboardHeader.module.scss'
@@ -38,7 +39,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
   const { dashboardDetail } = useContext(DashboardsContext)
   const { handleCreate } = useContext(InviteeEmailContext)
   const { addToast } = useToast()
-  const visibleMemberNum = 4
+  const changeableVal = useMobileSizeChange<number>(4, 2)
 
   const {
     query: { id },
@@ -81,6 +82,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
     ],
     [dashboardId],
   )
+
   // TODO: 로딩 구현
   if (!userData)
     return (
@@ -120,7 +122,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
           />
         </Modal>
       )}
-      <div className={S.container}>
+      <div className={`${S.container} ${S.idPage}`}>
         {dashboardDetail && (
           <div className={S.dashboardTitle}>
             <p>{dashboardDetail.title}</p>
@@ -152,7 +154,7 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
           )}
           <div className={S.memberImgBox}>
             {headerMembers
-              .filter((_, idx) => idx < visibleMemberNum)
+              .filter((_, idx) => idx < changeableVal)
               .map((member, idx) =>
                 member.profileImageUrl ? (
                   <div
@@ -178,13 +180,19 @@ function DashboardHeader({ pathname }: DashboardHeaderProps) {
                   />
                 ),
               )}
-            {headerMembers.length > visibleMemberNum && (
+            {headerMembers.length > changeableVal && (
               <div className={S.overImg}>
-                <span>+{+headerMembers.length - visibleMemberNum}</span>
+                <span>+{+headerMembers.length - changeableVal}</span>
               </div>
             )}
           </div>
-          <Image width={0} height={38} src={barIcon} alt="bar" />
+          <Image
+            className={S.barImg}
+            width={0}
+            height={38}
+            src={barIcon}
+            alt="bar"
+          />
           <ManagerProfile
             profileImageUrl={userData.profileImageUrl}
             nickname={userData.nickname}
