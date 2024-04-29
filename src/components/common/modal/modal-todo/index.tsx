@@ -30,7 +30,7 @@ const ModalTodo = ({
     formState: { errors },
     control,
     setValue,
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onChange' })
 
   useEffect(() => {
     fetchGetUser().then((data) => setUserId(data.id))

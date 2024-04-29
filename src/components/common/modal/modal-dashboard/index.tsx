@@ -46,7 +46,7 @@ const ModalDashBoard = ({
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onChange' })
 
   const ButtonDisabledCond =
     watch('email') || watch('newColumn') || watch('columnName')
