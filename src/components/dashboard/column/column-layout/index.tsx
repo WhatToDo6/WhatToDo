@@ -10,8 +10,8 @@ interface ColumnsContextType {
   columns: ColumnDataType[]
   setColumns: React.Dispatch<React.SetStateAction<ColumnDataType[]>>
   dashboardId: number
-  setReload: (boolean: boolean) => void
   columnList: Record<number, string>
+  fetchColumns: () => Promise<void>
 }
 
 const ColumnsContext = createContext<ColumnsContextType | undefined>(undefined)
@@ -28,8 +28,8 @@ interface ColumnsProviderProps extends ChildrenProps {
   columns: ColumnDataType[]
   setColumns: React.Dispatch<React.SetStateAction<ColumnDataType[]>>
   dashboardId: number
-  setReload: (boolean: boolean) => void
   columnList: Record<number, string>
+  fetchColumns: () => Promise<void>
 }
 
 export const ColumnsProvider = ({
@@ -37,12 +37,18 @@ export const ColumnsProvider = ({
   columns,
   setColumns,
   dashboardId,
-  setReload,
   columnList,
+  fetchColumns,
 }: ColumnsProviderProps) => {
   return (
     <ColumnsContext.Provider
-      value={{ columns, setColumns, dashboardId, setReload, columnList }}
+      value={{
+        columns,
+        setColumns,
+        dashboardId,
+        columnList,
+        fetchColumns,
+      }}
     >
       <main className={S.container}>{children}</main>
     </ColumnsContext.Provider>
