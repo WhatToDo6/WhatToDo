@@ -45,13 +45,11 @@ const ModalTodo = ({
   const onSubmit: SubmitHandler<InputFormValues> = async (data) => {
     if (userId === undefined) return
 
-    const assignee = data.manager === null ? userId : data.manager
-
     try {
       const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
 
       const response = await postTaskCards({
-        assigneeUserId: assignee,
+        assigneeUserId: data.manager,
         dashboardId,
         columnId,
         title: data.title,

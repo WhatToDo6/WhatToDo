@@ -50,10 +50,17 @@ const apiCall = async (
  */
 export const getTaskCards = async (
   columnId: number,
-  cursorId: number | null,
+  cursorId?: number | null,
   firstFetch: boolean = false,
+  size?: number,
 ): Promise<TaskCardsPromise> => {
-  const path = `/cards?size=3&columnId=${columnId}${!firstFetch && cursorId ? `&cursorId=${cursorId}` : ''}`
+  let path = `/cards?columnId=${columnId}`
+  if (size) {
+    path += `&size=${size}`
+  }
+  if (!firstFetch && cursorId) {
+    path += `&cursorId=${cursorId}`
+  }
   const response = await apiCall('get', path)
   return {
     data: response.cards,
@@ -81,8 +88,8 @@ export const putTaskCards = async ({
   title: string
   description: string
   dueDate: string
-  tags: string[]
-  imageUrl: string
+  tags: string[] | undefined
+  imageUrl: string | undefined
 }): Promise<TaskCardsPromise> => {
   const url = `https://sp-taskify-api.vercel.app/4-6/cards/${cardId}`
   const data = {
@@ -135,7 +142,6 @@ export const postTaskCards = async ({
   tags: string
   imageUrl: string | undefined
 }): Promise<TaskCardDataType> => {
-  const url = 'https://sp-taskify-api.vercel.app/4-6/cards'
   const data = {
     assigneeUserId,
     dashboardId,
@@ -146,5 +152,5 @@ export const postTaskCards = async ({
     tags,
     imageUrl,
   }
-  return await apiCall('post', url, data)
+  return await apiCall('post', '/cards', data)
 }

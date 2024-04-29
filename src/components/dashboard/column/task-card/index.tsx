@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import TagChip from '@/src/components/common/chip/tag-chip'
 import ManagerProfile from '@/src/components/common/manager-profile'
@@ -17,6 +17,7 @@ interface TaskCardProps {
   taskCard: TaskCardDataType
   setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
   columnTitle: string
+  setReload: React.Dispatch<React.SetStateAction<any>>
 }
 
 const TaskCard = ({
@@ -24,13 +25,18 @@ const TaskCard = ({
   taskCard,
   setTaskCards,
   columnTitle,
+  setReload,
 }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [cardData, setCardData] = useState<TaskCardDataType>(taskCard)
   const { userData } = useUser()
 
+  useEffect(() => {
+    setReload(cardData)
+  }, [cardData])
+
   return (
-    <>
+    <div>
       <div className={S.container} onClick={() => setIsModalOpen(true)}>
         <div
           className={`${S.imageWrapper} ${!cardData.imageUrl ? S.hidden : ''}`}
@@ -50,9 +56,11 @@ const TaskCard = ({
           <h2 className={S.cardTitle}>{cardData.title}</h2>
           <div className={S.wrapper}>
             <div className={S.tag}>
-              {cardData.tags.map((tag, index) => (
-                <TagChip key={index} index={index} text={tag} />
-              ))}
+              {cardData.tags
+                .filter((tag) => tag.length !== 0)
+                .map((tag, index) => (
+                  <TagChip key={index} index={index} text={tag} />
+                ))}
             </div>
             <div className={S.cardBottom}>
               <div
@@ -90,7 +98,7 @@ const TaskCard = ({
           />
         </Modal>
       )}
-    </>
+    </div>
   )
 }
 
