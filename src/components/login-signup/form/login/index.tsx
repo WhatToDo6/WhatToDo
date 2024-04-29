@@ -63,7 +63,7 @@ const LogInForm = () => {
         />
         <label className={S.label}>비밀번호</label>
         <Input
-          inputType="password"
+          inputType="password-login"
           placeholder="비밀번호를 입력해 주세요"
           error={errors.password}
           register={register}

@@ -8,6 +8,7 @@ import {
 export type InputType =
   | 'email'
   | 'password'
+  | 'password-login'
   | 'passwordCheck'
   | 'newPassword'
   | 'newPasswordCheck'
