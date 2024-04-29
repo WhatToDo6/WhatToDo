@@ -60,7 +60,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
 
   const error = userId === null && inputValue !== ''
   useEffect(() => {
-    setValue('manager', userId || prevUserId)
+    setValue && setValue('manager', userId || prevUserId)
   }, [userId, setValue])
 
   return (

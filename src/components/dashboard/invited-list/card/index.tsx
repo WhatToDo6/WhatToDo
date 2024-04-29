@@ -139,7 +139,7 @@ function InvitedListCard({
           <span>{nickname}</span>
         </div>
         <BorderButton
-          size="small"
+          size="xsmall"
           color="white"
           onClick={
             isOwner
@@ -153,8 +153,8 @@ function InvitedListCard({
     ),
     email: (
       <>
-        <span>{email}</span>
-        <BorderButton size="small" color="white" onClick={handleClick}>
+        <p className={S.email}>{email}</p>
+        <BorderButton size="xsmall" color="white" onClick={handleClick}>
           취소
         </BorderButton>
       </>

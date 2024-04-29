@@ -22,6 +22,15 @@
 
   &.newDash {
     @include Input.input(48.4rem, 28.7rem);
+
+    &.full {
+      @include Input.input(100%, 28.7rem);
+
+      @include mobile {
+        width: 100%;
+        height: 4.2rem;
+      }
+    }
   }
 
   &::placeholder {

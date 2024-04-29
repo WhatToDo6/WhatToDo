@@ -4,17 +4,12 @@ import { SubmitHandler, useForm } from 'react-hook-form'
 
 import ColorChip from '@/src/components/common/chip/color-chip'
 import { InputFormValues } from '@/src/types/input'
-import { DashboardEditMakeParamType } from '@/src/types/mydashboard'
+import { ModalNewDashProps } from '@/src/types/modal'
 
 import S from './ModalNewDash.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
-
-interface ModalNewDashProps {
-  moveTo?: string
-  onSubmit: (data: DashboardEditMakeParamType) => void
-}
 
 /**
  *

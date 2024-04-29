@@ -34,6 +34,7 @@ const DashboardList = ({
 
   return (
     <div
+      id={id.toString()}
       className={`${S.wrapper} ${selected === id && S.selected}`}
       onClick={onSelect}
     >

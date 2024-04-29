@@ -13,7 +13,7 @@ import {
 } from '@/pages/api/dashboards'
 
 import { usePagination } from '../hooks/usePagination'
-import { ChildrenProps } from '../types/commonType'
+import { ChildrenProps } from '../types/common'
 import { DashboardType } from '../types/mydashboard'
 import { PaginationContextType } from '../types/mydashboard'
 
@@ -26,6 +26,11 @@ interface DashboardContextType<T> extends PaginationContextType<T> {
   selectedDashboard: string
   setSelectedDashboard: Dispatch<SetStateAction<string>>
 }
+
+export const pageContext = createContext({
+  currPage: 1,
+  lastPage: 1,
+})
 
 export const DashboardsContext = createContext<
   DashboardContextType<DashboardType>
@@ -48,7 +53,9 @@ export const DashboardsContext = createContext<
 function DashboardsProvider({ children }: ChildrenProps) {
   const {
     query: { id },
+    pathname,
   } = useRouter()
+  const router = useRouter()
   const dashboardId = typeof id === 'string' ? +id : 0
 
   const [dashboards, setDashboards] = useState<DashboardType[]>([])
@@ -59,36 +66,6 @@ function DashboardsProvider({ children }: ChildrenProps) {
     [],
   )
   const [selectedDashboard, setSelectedDashboard] = useState('')
-
-  const getDashboardDetail = async (dashboardId: number) => {
-    try {
-      const dashboard = await fetchGetDashboardDetail(dashboardId)
-      setDashboardDetail(dashboard)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  //TODO: 페이지네이션으로 수정
-  const getSideMenuDashboards = async () => {
-    try {
-      const { data: dashboards, totalCount } =
-        await fetchGetDashboardList<DashboardType>(1, 15)
-      setSideMenuDashboards(dashboards)
-    } catch (err) {
-      console.error(err)
-    }
-  }
-
-  const editSideMenuDashboards = (dashboard: DashboardType) => {
-    const id = dashboard.id
-    let newState: DashboardType[]
-    newState = sideMenuDashboards.map((el) => {
-      if (el.id === id) return (el = dashboard)
-      return el
-    })
-    setSideMenuDashboards(newState)
-  }
 
   const {
     pageData,
@@ -105,6 +82,37 @@ function DashboardsProvider({ children }: ChildrenProps) {
     dashboardId,
   )
 
+  const getDashboardDetail = async (dashboardId: number) => {
+    try {
+      const dashboard = await fetchGetDashboardDetail(dashboardId)
+      setDashboardDetail(dashboard)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  //TODO: 페이지네이션으로 수정
+  const getSideMenuDashboards = async () => {
+    try {
+      // console.log(Math.ceil(currPage / 2), '페이지')
+      const { data: dashboards, totalCount } =
+        await fetchGetDashboardList<DashboardType>(1, 50)
+      setSideMenuDashboards(dashboards)
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  const editSideMenuDashboards = (dashboard: DashboardType) => {
+    const id = dashboard.id
+    let newState: DashboardType[]
+    newState = sideMenuDashboards.map((el) => {
+      if (el.id === id) return (el = dashboard)
+      return el
+    })
+    setSideMenuDashboards(newState)
+  }
+
   useEffect(() => {
     if (dashboardId) {
       getDashboardDetail(dashboardId)
@@ -114,6 +122,12 @@ function DashboardsProvider({ children }: ChildrenProps) {
   useEffect(() => {
     getSideMenuDashboards()
   }, [])
+
+  useEffect(() => {
+    if (pathname === '/dashboards/[id]/edit' && dashboardDetail) {
+      if (!dashboardDetail.createdByMe) router.push('/404')
+    }
+  }, [dashboardDetail])
 
   return (
     <DashboardsContext.Provider

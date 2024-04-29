@@ -18,7 +18,7 @@ function DashboardButtonContainer() {
   const { pageData, currPage, lastPage, onClickPrevPage, onClickNextPage } =
     useContext(DashboardsContext)
 
-  const handleClickButton = (id: number) => {
+  const handleClickButton = async (id: number) => {
     router.push(`/dashboards/${id}`)
   }
 

@@ -1,13 +1,11 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { putColumns } from '@/pages/api/columns'
-import Modal from '@/src/components/common/modal'
+import Modal, { ModalContext } from '@/src/components/common/modal'
 import ModalDashBoard from '@/src/components/common/modal/modal-dashboard'
-import {
-  ColumnHeaderType,
-  ColumnTitleType,
-} from '@/src/types/dashboard.interface'
+import ModalDeleteColumn from '@/src/components/common/modal/modal-deletecolumn'
+import { ColumnHeaderType, ColumnTitleType } from '@/src/types/dashboard'
 
 import S from './ColumnHeader.module.scss'
 import { SETTING } from '../constants'
@@ -17,11 +15,14 @@ const ColumnHeader = ({
   columnId,
   totalCount,
 }: ColumnHeaderType) => {
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const modalStatus = useContext(ModalContext)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isDeleteModalOpen, setIsDeleteEditModalOpen] = useState(false)
+
   const [title, setTitle] = useState(initialTitle)
 
   const handleClick = () => {
-    setIsModalOpen(true)
+    setIsEditModalOpen(true)
   }
 
   const handleAPI = async (data: ColumnTitleType) => {
@@ -33,7 +34,7 @@ const ColumnHeader = ({
       if (data.columnName !== undefined) {
         setTitle(data.columnName)
       }
-      setIsModalOpen(false)
+      setIsEditModalOpen(false)
     } catch (error) {
       console.error('컬럼 데이터를 업데이트하는 데 실패했습니다:', error)
     }
@@ -55,8 +56,8 @@ const ColumnHeader = ({
           alt="설정"
         />
       </div>
-      {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+      {isEditModalOpen && (
+        <Modal setIsOpen={setIsEditModalOpen}>
           <ModalDashBoard
             columnId={columnId}
             title="컬럼 관리"
@@ -67,6 +68,22 @@ const ColumnHeader = ({
             rightButtonText="변경"
             showDeleteButton={true}
             onSubmit={handleAPI}
+            setIsDeleteEditModalOpen={setIsDeleteEditModalOpen}
+          />
+        </Modal>
+      )}
+      {isDeleteModalOpen && (
+        <Modal
+          setIsOpen={modalStatus.setIsOpen}
+          deleteBackdrop={{ backgroundColor: 'rgba(0, 0, 0, 0)' }}
+        >
+          <ModalDeleteColumn
+            columnId={columnId}
+            content="칼럼의 모든 카드가 삭제됩니다."
+            leftButtonText="취소"
+            rightButtonText="삭제"
+            setIsEditModalOpen={setIsEditModalOpen}
+            setIsDeleteEditModalOpen={setIsDeleteEditModalOpen}
           />
         </Modal>
       )}

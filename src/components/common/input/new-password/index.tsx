@@ -32,7 +32,8 @@ const InputNewPassword = ({
           required: '새 비밀번호를 입력해주세요.',
           validate: {
             validPassword: (value) =>
-              validatePassword(value) || '새 비밀번호는 8자 이상 입력해주세요.',
+              validatePassword(value) ||
+              '영문, 숫자를 조합해 8자 이상 입력해 주세요',
             notSameAsOld: (value) =>
               value !== currentPassword || '기존 비밀번호와 동일합니다.',
           },
