@@ -1,13 +1,12 @@
 import Image from 'next/image'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import TagChip from '@/src/components/common/chip/tag-chip'
 import ManagerProfile from '@/src/components/common/manager-profile'
 import Modal from '@/src/components/common/modal'
 import ModalTask from '@/src/components/common/modal/modal-task'
 import { EMPTY_DUEDATE } from '@/src/constants/date'
-import { useUser } from '@/src/context/users'
-import { TaskCardDataType } from '@/src/types/dashboard.interface'
+import { TaskCardDataType } from '@/src/types/dashboard'
 
 import S from './TaskCard.module.scss'
 import TaskCardDate from '../task-card-date'
@@ -17,6 +16,7 @@ interface TaskCardProps {
   taskCard: TaskCardDataType
   setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
   columnTitle: string
+  setReload: React.Dispatch<React.SetStateAction<any>>
 }
 
 const TaskCard = ({
@@ -24,10 +24,14 @@ const TaskCard = ({
   taskCard,
   setTaskCards,
   columnTitle,
+  setReload,
 }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [cardData, setCardData] = useState<TaskCardDataType>(taskCard)
-  const { userData } = useUser()
+
+  useEffect(() => {
+    setReload(cardData)
+  }, [cardData])
 
   return (
     <div>
@@ -50,9 +54,11 @@ const TaskCard = ({
           <h2 className={S.cardTitle}>{cardData.title}</h2>
           <div className={S.wrapper}>
             <div className={S.tag}>
-              {cardData.tags.map((tag, index) => (
-                <TagChip key={index} index={index} text={tag} />
-              ))}
+              {cardData.tags
+                .filter((tag) => tag.length !== 0)
+                .map((tag, index) => (
+                  <TagChip key={index} index={index} text={tag} />
+                ))}
             </div>
             <div className={S.cardBottom}>
               <div
@@ -62,10 +68,10 @@ const TaskCard = ({
               </div>
               <div>
                 <ManagerProfile
-                  profileImageUrl={userData?.profileImageUrl}
+                  profileImageUrl={cardData.assignee.profileImageUrl}
                   type="onlyImg"
-                  nickname={userData?.nickname}
-                  userId={userData ? userData.id : null}
+                  nickname={cardData.assignee.nickname}
+                  userId={cardData.assignee.id}
                 />
               </div>
             </div>

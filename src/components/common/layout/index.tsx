@@ -7,7 +7,7 @@ import InviteeEmailProvider from '@/src/context/inviteeEmail'
 import MembersProvider from '@/src/context/members'
 import { ToastProvider } from '@/src/context/toast'
 import UserProvider from '@/src/context/users'
-import { ChildrenProps } from '@/src/types/commonType'
+import { ChildrenProps } from '@/src/types/common'
 
 import S from './Layout.module.scss'
 import DashboardHeader from '../../dashboard/header'

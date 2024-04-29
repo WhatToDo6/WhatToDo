@@ -2,7 +2,7 @@ import { MouseEvent, useState } from 'react'
 
 import { postComments } from '@/pages/api/comments'
 import { useColumnsContext } from '@/src/components/dashboard/column/column-layout'
-import { CommentsType } from '@/src/types/dashboard.interface'
+import { CommentsType } from '@/src/types/dashboard'
 
 import S from './CommentForm.module.scss'
 import BorderButton from '../../../button/border'

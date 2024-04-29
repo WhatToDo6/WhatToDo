@@ -1,5 +1,5 @@
 import AXIOS from '@/lib/axios'
-import { CommentsType } from '@/src/types/dashboard.interface'
+import { CommentsType } from '@/src/types/dashboard'
 
 const getAuthHeaders = (): Record<string, string> => ({
   Authorization: `Bearer ${localStorage.getItem('accessToken')}`,

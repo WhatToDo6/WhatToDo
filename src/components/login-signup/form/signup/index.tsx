@@ -84,7 +84,7 @@ const SignUpForm = () => {
         <label className={S.label}>비밀번호</label>
         <Input
           inputType="password"
-          placeholder="8자 이상 입력해 주세요"
+          placeholder="영문, 숫자를 조합해 8자 이상 입력해 주세요"
           error={errors.password}
           register={register}
         />

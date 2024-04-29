@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react'
 
-import { ChildrenProps } from '../types/commonType'
+import { ChildrenProps } from '../types/common'
 
 interface Toast {
   id: number

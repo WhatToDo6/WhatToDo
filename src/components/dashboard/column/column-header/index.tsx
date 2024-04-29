@@ -4,10 +4,7 @@ import { useState } from 'react'
 import { putColumns } from '@/pages/api/columns'
 import Modal from '@/src/components/common/modal'
 import ModalDashBoard from '@/src/components/common/modal/modal-dashboard'
-import {
-  ColumnHeaderType,
-  ColumnTitleType,
-} from '@/src/types/dashboard.interface'
+import { ColumnHeaderType, ColumnTitleType } from '@/src/types/dashboard'
 
 import S from './ColumnHeader.module.scss'
 import { SETTING } from '../constants'

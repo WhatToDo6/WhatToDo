@@ -4,10 +4,7 @@ import { getTaskCards } from '@/pages/api/taskCards'
 import ColumnHeader from '@/src/components/dashboard/column/column-header'
 import TaskCard from '@/src/components/dashboard/column/task-card'
 import DashboardButton from '@/src/components/dashboard/dashboard-button'
-import {
-  ColumnDataType,
-  TaskCardDataType,
-} from '@/src/types/dashboard.interface'
+import { ColumnDataType, TaskCardDataType } from '@/src/types/dashboard'
 
 import S from './Column.module.scss'
 import Modal from '../../common/modal'
@@ -19,6 +16,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
   const [nextCursorId, setNextCursorId] = useState<number | null>(null)
   const [getMore, setGetMore] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [reload, setReload] = useState<any>(null)
   const [totalCount, setTotalCount] = useState<number>(0)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -62,6 +60,10 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
     fetchTaskCards(true)
   }, [columnId])
 
+  useEffect(() => {
+    reload && fetchTaskCards(true)
+  }, [reload])
+
   return (
     <div className={S.container}>
       <ColumnHeader title={title} columnId={columnId} totalCount={totalCount} />
@@ -75,6 +77,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
               setTaskCards={setTaskCards}
               columnId={columnId}
               columnTitle={title}
+              setReload={setReload}
             />
           ))}
       </div>
