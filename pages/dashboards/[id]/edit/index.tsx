@@ -1,7 +1,7 @@
 import { GetStaticPropsContext } from 'next'
 
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 
 import { fetchDeleteDashboard } from '@/pages/api/dashboards'
 import BackButton from '@/src/components/common/back-button/BackButton'
@@ -12,6 +12,7 @@ import DashboardButton from '@/src/components/dashboard/dashboard-button'
 import DashboardEditor from '@/src/components/dashboard/editor'
 import InviteListEmail from '@/src/components/dashboard/invited-list/email'
 import InviteListMember from '@/src/components/dashboard/invited-list/member'
+import { DashboardsContext } from '@/src/context/dashboards'
 
 import S from './DashboardIdEdit.module.scss'
 
@@ -37,6 +38,7 @@ interface DashboardIdEditProps {
 const DashboardIdEdit = ({ id }: DashboardIdEditProps) => {
   const router = useRouter()
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { updateData, getSideMenuDashboards } = useContext(DashboardsContext)
 
   const handleClick = () => {
     setIsModalOpen(true)
@@ -50,15 +52,17 @@ const DashboardIdEdit = ({ id }: DashboardIdEditProps) => {
     }
   }
 
-  const handleButtonClick = () => {
+  const handleButtonClick = async () => {
     deleteDashboard()
-    router.push('/mydashboard')
+    await updateData(1)
+    await getSideMenuDashboards()
+    router.replace('/mydashboard')
   }
 
   return (
     <>
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalConfirm
             content="대시보드를 삭제하시겠습니까?"
             leftButtonText="취소"

@@ -179,7 +179,7 @@ function InvitedListCard({
   return (
     <>
       {isModalOpen && isInEditPage(type) && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalConfirm
             content={`${EDIT_PAGE_MODAL[type].message}`}
             leftButtonText={EDIT_PAGE_MODAL[type].leftButtonText}

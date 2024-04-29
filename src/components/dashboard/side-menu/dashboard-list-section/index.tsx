@@ -47,17 +47,15 @@ const DashboardListSection = () => {
     <div className={S.container}>
       <ListHeader />
       <div className={S.dashboardScrollBox} ref={ref}>
-        <div className={S.dashboardWrapper}>
-          {sideMenuDashboards.map((dashboard) => (
-            <DashboardList
-              key={dashboard.id}
-              {...dashboard}
-              selected={selectedDashboard}
-              onSelect={() => handleSelect(dashboard.id)}
-              handleChange={handleChange}
-            />
-          ))}
-        </div>
+        {sideMenuDashboards.map((dashboard) => (
+          <DashboardList
+            key={dashboard.id}
+            {...dashboard}
+            selected={selectedDashboard}
+            onSelect={() => handleSelect(dashboard.id)}
+            handleChange={handleChange}
+          />
+        ))}
       </div>
     </div>
   )

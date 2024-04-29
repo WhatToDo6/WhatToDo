@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { createContext, useContext, useState, useEffect } from 'react'
 
 import { fetchGetUser } from '@/pages/api/users'
@@ -18,6 +19,7 @@ export const useUser = () => useContext(UserContext)
 
 export const UserProvider = ({ children }: ChildrenProps) => {
   const [userData, setUserData] = useState<UserType | null>(null)
+  const router = useRouter()
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -26,6 +28,7 @@ export const UserProvider = ({ children }: ChildrenProps) => {
         setUserData(user)
       } catch (error) {
         console.error('유저의 정보를 불러오지 못했습니다.', error)
+        router.replace('/')
       }
     }
 

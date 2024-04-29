@@ -21,7 +21,7 @@ const LogInForm = () => {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onChange' })
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     if (data.email === '' || data.password === '') return
@@ -64,7 +64,7 @@ const LogInForm = () => {
   return (
     <>
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalAlert
             content="비밀번호가 일치하지 않습니다."
             buttonText="확인"

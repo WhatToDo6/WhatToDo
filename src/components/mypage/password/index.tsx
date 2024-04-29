@@ -21,7 +21,7 @@ const Password = () => {
     formState: { errors },
     reset,
     watch,
-  } = useForm<InputFormValues>({ mode: 'onBlur' })
+  } = useForm<InputFormValues>({ mode: 'onChange' })
 
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     const accessToken = localStorage.getItem('accessToken')
@@ -56,7 +56,7 @@ const Password = () => {
   return (
     <>
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalAlert content="현재 비밀번호가 틀렸습니다." buttonText="확인" />
         </Modal>
       )}

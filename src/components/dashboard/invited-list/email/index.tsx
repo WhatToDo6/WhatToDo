@@ -50,7 +50,7 @@ function InviteListEmail({ dashboardId }: InviteListEmailProps) {
   return (
     <>
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalDashBoard
             title="초대하기"
             inputTitle="이메일"

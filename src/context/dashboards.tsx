@@ -87,6 +87,7 @@ function DashboardsProvider({ children }: ChildrenProps) {
       const dashboard = await fetchGetDashboardDetail(dashboardId)
       setDashboardDetail(dashboard)
     } catch (err) {
+      router.push('/mydashboard')
       console.error(err)
     }
   }
