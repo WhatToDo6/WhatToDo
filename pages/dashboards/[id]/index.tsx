@@ -28,7 +28,6 @@ const DashboardIdPage = ({ id }: { id: number }) => {
   const [columns, setColumns] = useState<ColumnDataType[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [reload, setReload] = useState(false)
   const columnList: Record<number, string> = {}
   columns.map((column) => {
     columnList[Number(column.id)] = column.title
@@ -67,7 +66,6 @@ const DashboardIdPage = ({ id }: { id: number }) => {
       try {
         const data = await getColumns(dashboardId)
         setColumns(data)
-        setReload(false)
       } catch (error) {
         console.error('Failed to fetch columns:', error)
       } finally {
@@ -75,9 +73,10 @@ const DashboardIdPage = ({ id }: { id: number }) => {
       }
     }
   }
+
   useEffect(() => {
     fetchColumns()
-  }, [dashboardId, reload])
+  }, [dashboardId])
 
   if (isLoading) {
     return <div>칼럼을 로딩 중입니다</div>
@@ -89,8 +88,8 @@ const DashboardIdPage = ({ id }: { id: number }) => {
         columns={columns}
         setColumns={setColumns}
         dashboardId={dashboardId}
-        setReload={setReload}
         columnList={columnList}
+        fetchColumns={fetchColumns}
       >
         {columns.map((column) => (
           <Column key={column.id} {...column} dashboardId={dashboardId} />
