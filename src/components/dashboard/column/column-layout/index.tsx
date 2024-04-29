@@ -36,10 +36,11 @@ export const ColumnsProvider = ({
   setColumns,
   dashboardId,
   setReload,
+  columnList,
 }: ColumnsProviderProps) => {
   return (
     <ColumnsContext.Provider
-      value={{ columns, setColumns, dashboardId, setReload }}
+      value={{ columns, setColumns, dashboardId, setReload, columnList }}
     >
       <main className={S.container}>{children}</main>
     </ColumnsContext.Provider>
