@@ -119,7 +119,7 @@ const ModalTask = ({
   return (
     <div className={S.container}>
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalEdittodo cardData={cardData} setCardData={setTaskCards} />
         </Modal>
       )}

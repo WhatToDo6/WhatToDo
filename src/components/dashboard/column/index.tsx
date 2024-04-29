@@ -86,7 +86,7 @@ const Column = ({ id: columnId, title, dashboardId }: ColumnDataType) => {
         </div>
       )}
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalTodo
             columnId={columnId}
             dashboardId={dashboardId}

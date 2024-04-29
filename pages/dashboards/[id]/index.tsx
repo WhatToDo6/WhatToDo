@@ -94,7 +94,7 @@ const DashboardIdPage = ({ id }: { id: number }) => {
         </div>
       </ColumnLayout>
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalDashBoard
             title="새 칼럼 생성"
             inputTitle="이름"

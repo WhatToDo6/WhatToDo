@@ -4,6 +4,7 @@ import S from './Modal.module.scss'
 import ModalPortal from './ModalPortal'
 
 interface ModalProps {
+  isOpen: boolean
   setIsOpen: (_: boolean) => void
   children: React.ReactNode
   deleteBackdrop?: React.CSSProperties
@@ -11,7 +12,13 @@ interface ModalProps {
 
 export const ModalContext = createContext({ setIsOpen: (_: boolean) => {} })
 
-const Modal = ({ setIsOpen, children, deleteBackdrop }: ModalProps) => {
+const Modal = ({ isOpen, setIsOpen, children, deleteBackdrop }: ModalProps) => {
+  if (isOpen) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = 'auto'
+  }
+
   const closeModal = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       setIsOpen(false)

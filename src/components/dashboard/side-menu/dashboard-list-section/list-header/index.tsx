@@ -31,7 +31,7 @@ const ListHeader = () => {
   return (
     <>
       {isModalOpen && (
-        <Modal setIsOpen={setIsModalOpen}>
+        <Modal isOpen={isModalOpen} setIsOpen={setIsModalOpen}>
           <ModalNewDash onSubmit={makeNewDashboard} />
         </Modal>
       )}
