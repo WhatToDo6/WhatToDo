@@ -11,7 +11,6 @@
   border-radius: 0.8rem;
   background-color: $color-white;
   overflow-y: scroll;
-  -ms-overflow-style: none;
 
   @include tablet {
     width: 68rem;
@@ -21,14 +20,23 @@
     width: 32.7rem;
     padding: 4rem 2rem 2.8rem;
   }
+}
 
-  &::-webkit-scrollbar {
-    display: none;
+.titleContainer {
+  width: 45rem;
+
+  @include tablet {
+    width: 42rem;
+  }
+
+  @include mobile {
+    width: 21rem;
   }
 }
 
 .title {
   color: $color-black-200;
+  word-wrap: break-word;
   @include font-style(2.4rem, 700, normal);
 
   @include mobile {
@@ -147,10 +155,19 @@
 }
 
 .text {
+  width: 45rem;
+  height: 7.2rem;
   color: $color-black-400;
+  word-wrap: break-word;
   @include font-style(1.4rem, 400, 2.4rem);
 
+  @include tablet {
+    width: 42rem;
+  }
+
   @include mobile {
+    width: 28.7rem;
+    height: 9rem;
     @include font-style(1.2rem, 400, 2.2rem);
   }
 }
@@ -195,6 +212,7 @@
 .assignee {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.6rem;
 
   @include mobile {
@@ -205,6 +223,7 @@
 .dueDate {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.6rem;
 
   @include mobile {
@@ -235,11 +254,29 @@
 }
 
 .spinnerWrapper {
-  width: 50%;
+  width: 60%;
   display: flex;
   justify-content: center;
 
   @include mobile {
     width: 100%;
   }
+}
+
+.container::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+.container::-webkit-scrollbar-track {
+  background: $color-white;
+  border-radius: 0.8rem;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: $color-gray-200;
+  border-radius: 0.8rem;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: $color-gray-300;
 }

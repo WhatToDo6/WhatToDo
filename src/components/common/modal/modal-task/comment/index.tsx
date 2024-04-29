@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import { putComments } from '@/pages/api/comments'
 import { CommentsType } from '@/src/types/dashboard'
+import { formatDate } from '@/src/utils/formatDate'
 
 import S from './Comment.module.scss'
 import ManagerProfile from '../../../manager-profile'
@@ -16,6 +17,7 @@ const Comment = ({
   const [isEditing, setIsEditing] = useState(false)
   const [editContent, setEditContent] = useState(initialContent)
   const [content, setContent] = useState(initialContent)
+  const formatCreatedAt = formatDate(String(createdAt))
 
   const handleEdit = () => {
     setIsEditing(true)
@@ -56,7 +58,7 @@ const Comment = ({
       <div className={S.comment}>
         <div className={S.title}>
           <span className={S.people}>{author.nickname}</span>
-          <p className={S.createdAt}>{createdAt}</p>
+          <p className={S.createdAt}>{formatCreatedAt}</p>
         </div>
         {isEditing ? (
           <textarea

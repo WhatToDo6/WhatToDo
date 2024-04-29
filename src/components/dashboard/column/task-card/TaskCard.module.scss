@@ -36,6 +36,10 @@
   }
 }
 
+.cardTitle {
+  word-wrap: break-word;
+}
+
 .imageWrapper {
   width: 100%;
   display: flex;
@@ -55,6 +59,10 @@
   &.hidden {
     display: none;
   }
+}
+
+.cardImage {
+  border-radius: 0.4rem;
 }
 
 .content {
