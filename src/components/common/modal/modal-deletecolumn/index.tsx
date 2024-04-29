@@ -3,18 +3,11 @@ import { useContext } from 'react'
 
 import { deleteColumns } from '@/pages/api/columns'
 import { useColumnsContext } from '@/src/components/dashboard/column/column-layout'
+import { ModalDeleteColumnProps } from '@/src/types/modal'
 
 import S from './ModalDeleteColumn.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
-
-interface ModalDeleteColumn {
-  columnId: number | undefined
-  content: string
-  leftButtonText: string
-  rightButtonText: string
-  moveTo?: string
-}
 
 /**
  * @param columnId - 컬럼id
@@ -30,14 +23,16 @@ const ModalDeleteColumn = ({
   leftButtonText,
   rightButtonText,
   moveTo,
-}: ModalDeleteColumn) => {
+  setIsEditModalOpen,
+  setIsDeleteEditModalOpen,
+}: ModalDeleteColumnProps) => {
   const router = useRouter()
   const modalStatus = useContext(ModalContext)
   const { setColumns } = useColumnsContext()
 
   const handleLeftClick = () => {
-    modalStatus.setIsOpen.call(null, false)
-    moveTo && router.push(moveTo)
+    setIsDeleteEditModalOpen(false)
+    setIsEditModalOpen(true)
   }
 
   const handleRightClick = async () => {
@@ -49,7 +44,7 @@ const ModalDeleteColumn = ({
       modalStatus.setIsOpen(false)
       moveTo && router.push(moveTo)
     } catch (error) {
-      console.error('Failed to delete column:', error)
+      console.error('컬럼을 삭제하는 데 실패했습니다.:', error)
       modalStatus.setIsOpen(false)
     }
   }

@@ -9,6 +9,7 @@ interface OptionButtonProps {
   rightText: string
   onLeftClick?: () => void
   onRightClick?: () => void
+  isDisabled?: boolean
 }
 const OptionButton = ({
   size,
@@ -18,13 +19,19 @@ const OptionButton = ({
   rightText,
   onLeftClick,
   onRightClick,
+  isDisabled,
 }: OptionButtonProps) => {
   return (
     <div className={`${S.container} ${S.size}`}>
       <BorderButton size={size} color={leftColor} onClick={onLeftClick}>
         {leftText}
       </BorderButton>
-      <BorderButton size={size} color={rightColor} onClick={onRightClick}>
+      <BorderButton
+        size={size}
+        color={rightColor}
+        onClick={onRightClick}
+        isDisabled={isDisabled}
+      >
         {rightText}
       </BorderButton>
     </div>

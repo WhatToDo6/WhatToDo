@@ -9,6 +9,7 @@
   width: 8.4rem;
   padding: 0.7rem 2.9rem;
   &:disabled {
+    color: $color-gray-200;
     background-color: $color-gray-400;
     cursor: not-allowed;
   }

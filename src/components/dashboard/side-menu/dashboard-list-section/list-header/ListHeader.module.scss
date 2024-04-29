@@ -3,6 +3,9 @@
 .wrapper {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-left: 1.2rem;
+  padding-right: 1.2rem;
 
   @include mobile {
     justify-content: center;

@@ -1,26 +1,29 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 import ARROW_ICON from '@/public/icons/arrow-dropdown.svg'
 import CHECK_ICON from '@/public/icons/check-gray.svg'
 import DELETE_ICON from '@/public/icons/delete.svg'
+import { MembersContext } from '@/src/context/members'
 import { InputProps } from '@/src/types/input'
-import { MemberProps } from '@/src/types/member'
 
-import dummyData from './dummyData'
 import S from './Manager.module.scss'
 import ManagerProfile from '../../../manager-profile'
+import { CardContext } from '../../../modal/modal-edittodo'
 
-// TODO: 초대받은 인원 api 연결
 const DropDownManager = ({ placeholder, setValue }: InputProps) => {
-  const memberData: MemberProps[] = dummyData[0].members
+  const cardStatus = useContext(CardContext)
+  const { headerMembers } = useContext(MembersContext)
+  const memberData = headerMembers
 
   const [isOpen, setIsOpen] = useState(false)
   const [isFocus, setIsFocus] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [userId, setUserId] = useState<number | null>(null)
+  const [prevUserId, setPrevUserId] = useState<number | null>(null)
   const [nickname, setNickname] = useState<string | null>(null)
   const [displayList, setDisplayList] = useState(memberData)
+  const [imgUrl, setImgUrl] = useState<string | null>('')
 
   const searchManager = (value: string) => {
     setInputValue(value)
@@ -37,6 +40,7 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
     setNickname(null)
     setUserId(null)
     setInputValue('')
+    setImgUrl(null)
   }
 
   useEffect(() => {
@@ -45,9 +49,18 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
     displayList.length === 0 && setDisplayList(memberData)
   }, [displayList])
 
+  useEffect(() => {
+    if (cardStatus?.assignee?.id) {
+      setPrevUserId(cardStatus.assignee.id)
+      setUserId(cardStatus.assignee.id)
+      setNickname(cardStatus.assignee.nickname)
+      setImgUrl(cardStatus.assignee.profileImageUrl)
+    }
+  }, [])
+
   const error = userId === null && inputValue !== ''
   useEffect(() => {
-    setValue('manager', userId)
+    setValue && setValue('manager', userId || prevUserId)
   }, [userId, setValue])
 
   return (
@@ -59,9 +72,10 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
           {nickname ? (
             <div className={S.selected} onClick={undo}>
               <ManagerProfile
-                profileImageUrl={null}
+                profileImageUrl={imgUrl}
                 nickname={nickname}
                 type="dropdown"
+                userId={userId}
               />
               <Image src={DELETE_ICON} alt="삭제" width={20} height={20} />
             </div>
@@ -101,14 +115,15 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
             >
               <Image src={CHECK_ICON} alt="선택됨" width={20} height={20} />
               <ManagerProfile
-                profileImageUrl={null}
+                profileImageUrl={imgUrl}
                 nickname={nickname}
                 type="dropdown"
+                userId={userId}
               />
             </div>
           )}
           {displayList
-            .filter((elem) => elem.id !== userId)
+            .filter((elem) => elem.userId !== userId)
             .map((elem) => {
               return (
                 <div
@@ -118,14 +133,16 @@ const DropDownManager = ({ placeholder, setValue }: InputProps) => {
                     setUserId(elem.userId)
                     setNickname(elem.nickname)
                     setInputValue(elem.nickname)
+                    setImgUrl(elem.profileImageUrl)
                     setIsOpen(false)
                     setIsFocus(false)
                   }}
                 >
                   <ManagerProfile
-                    profileImageUrl={null}
+                    profileImageUrl={elem.profileImageUrl}
                     nickname={elem.nickname}
                     type="dropdown"
+                    userId={elem.userId}
                   />
                 </div>
               )

@@ -10,6 +10,7 @@
   border: 0.1rem solid $color-gray-300;
   border-radius: 0.6rem;
   background-color: $color-white;
+  cursor: pointer;
 
   @include tablet {
     flex-direction: row;
@@ -20,6 +21,23 @@
     flex-direction: column;
     justify-content: center;
   }
+
+  animation: fadeInUp 1s ease-out forwards;
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+.cardTitle {
+  word-wrap: break-word;
 }
 
 .imageWrapper {
@@ -37,6 +55,14 @@
     width: 100%;
     height: auto;
   }
+
+  &.hidden {
+    display: none;
+  }
+}
+
+.cardImage {
+  border-radius: 0.4rem;
 }
 
 .content {
@@ -58,11 +84,19 @@
 
   @include tablet {
     flex-direction: row;
+    align-items: center;
   }
 
   @include mobile {
     flex-direction: column;
+    align-items: normal;
   }
+}
+
+.tag {
+  display: flex;
+  height: fit-content;
+  gap: 0.6rem;
 }
 
 .cardBottom {
@@ -73,4 +107,8 @@
 
   @include tablet {
   }
+}
+
+.hidden {
+  visibility: hidden;
 }

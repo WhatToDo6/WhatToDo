@@ -1,5 +1,6 @@
 import Image from 'next/image'
-import { PropsWithChildren } from 'react'
+import { useRouter } from 'next/router'
+import { PropsWithChildren, useEffect } from 'react'
 
 import S from './DashboardList.module.scss'
 import { CROWN } from '../../constants'
@@ -7,8 +8,11 @@ import { CROWN } from '../../constants'
 interface DashboardListProps {
   title: string
   color: string
-  selected: string
+  selected: number
   onSelect: () => void
+  createdByMe: boolean
+  id: number
+  handleChange: (id: number) => void
 }
 
 const DashboardList = ({
@@ -16,21 +20,35 @@ const DashboardList = ({
   color,
   selected,
   onSelect,
+  createdByMe,
+  id,
+  handleChange,
 }: PropsWithChildren<DashboardListProps>) => {
+  const {
+    query: { id: dashboardId },
+  } = useRouter()
+
+  useEffect(() => {
+    if (dashboardId) handleChange(+dashboardId)
+  }, [])
+
   return (
     <div
-      className={`${S.wrapper} ${selected === title && S.selected}`}
+      id={id.toString()}
+      className={`${S.wrapper} ${selected === id && S.selected}`}
       onClick={onSelect}
     >
       <div className={S.dashboardColor} style={{ backgroundColor: color }} />
       <div className={S.dashboardTitle}>{title}</div>
-      <Image
-        className={S.crown}
-        src={CROWN}
-        width={17}
-        height={14}
-        alt="왕관"
-      />
+      {createdByMe && (
+        <Image
+          className={S.crown}
+          src={CROWN}
+          width={17}
+          height={14}
+          alt="왕관"
+        />
+      )}
     </div>
   )
 }

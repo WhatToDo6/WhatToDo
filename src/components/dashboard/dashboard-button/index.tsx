@@ -23,12 +23,20 @@ interface DashboardButtonProps extends PartialDashboardButtonType {
   onClick?: () => void
 }
 
+/**
+ *
+ * @param type - 'add' | 'addColumn' | 'addDashboard' | 'moveDashboard'  | 'deleteDashboard'
+ * @param onClick - () => void - 함수를 한 번 감싸서 보내면 됩니다!
+ * @param PartialDashboardButtonType - DashboardButtonType 을 확장해서 DashboardButtonType 의 타입들은 다 Prop 으로 적용할 수 있습니다.
+ * @returns
+ */
+
 function DashboardButton({
   type,
+  onClick,
   color,
   createdByMe,
   title,
-  onClick,
 }: DashboardButtonProps) {
   const BUTTON = {
     add: {
@@ -77,7 +85,9 @@ function DashboardButton({
             <div className={S.colorChip} style={{ backgroundColor: color }} />
             <p>{title}</p>
             {createdByMe && (
-              <Image width={20} height={16} src={crownIcon} alt="왕관" />
+              <div className={S.imgBox}>
+                <Image fill src={crownIcon} alt="왕관" />
+              </div>
             )}
           </div>
           <Image width={18} height={18} src={rightArrow} alt="rightArrow" />

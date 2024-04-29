@@ -2,13 +2,16 @@
 
 .addWrapper {
   display: flex;
+  width: 33.2rem;
   height: 7rem;
-  margin: 6.8rem 0 0 2rem;
+  padding: 6.8rem 2rem 2rem;
 
   @include tablet {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2rem;
+    width: 100%;
+    margin-top: 2rem;
+    padding: 2rem;
   }
 }

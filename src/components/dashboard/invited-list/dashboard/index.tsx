@@ -1,9 +1,10 @@
 import Image from 'next/image'
-import { useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 
-import AXIOS from '@/lib/axios'
+import { fetchGetInvitedDashboardList } from '@/pages/api/invitations'
 import magnifyingGlassIcon from '@/public/icons/magnifying-glass-icon.svg'
 import emptyBoardImg from '@/public/images/empty-board-img.png'
+import { DashboardsContext } from '@/src/context/dashboards'
 import { useInputSearch } from '@/src/hooks/useInputSearch'
 import useIntersectionObserver from '@/src/hooks/useInterSectionObserver'
 import { InvitedListDashboardType } from '@/src/types/mydashboard'
@@ -11,11 +12,8 @@ import { InvitedListDashboardType } from '@/src/types/mydashboard'
 import S from './InviteListDashboard.module.scss'
 import InvitedListCard from '../card'
 
-interface InviteListDashboardProps {
-  updateData: () => void
-}
-
-function InviteListDashboard({ updateData }: InviteListDashboardProps) {
+function InviteListDashboard() {
+  const { currPage, updateData } = useContext(DashboardsContext)
   const observeRef = useRef<HTMLDivElement>(null)
   const [cursorId, setCursorId] = useState(0)
   const { observe, isScrolled } = useIntersectionObserver()
@@ -31,21 +29,13 @@ function InviteListDashboard({ updateData }: InviteListDashboardProps) {
 
   const handleChange = (id: number) => {
     setMyInvitedListData((prev) => prev.filter((data) => data.id !== id))
-    updateData()
+    updateData(currPage)
   }
 
   const getInvitedListDashbaord = async (firstFetch: boolean = false) => {
-    const token = localStorage.getItem('accessToken')
     const path = `/invitations?size=6${firstFetch ? '' : `&cursorId=${cursorId}`}`
     try {
-      const response = await AXIOS.get(path, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      const {
-        data: { invitations, cursorId },
-      } = response
+      const { invitations, cursorId } = await fetchGetInvitedDashboardList(path)
       setMyInvitedListData((prev) =>
         firstFetch ? invitations : [...prev, ...invitations],
       )
@@ -76,13 +66,9 @@ function InviteListDashboard({ updateData }: InviteListDashboardProps) {
       <div className={S.container}>
         <div className={S.title}>초대받은 대시보드</div>
         <div className={contentsClassName}>
-          <Image
-            width={100}
-            height={100}
-            priority
-            src={emptyBoardImg}
-            alt="emptyBoardImg"
-          />
+          <div className={S.imgBox}>
+            <Image fill priority src={emptyBoardImg} alt="emptyBoardImg" />
+          </div>
           <span>아직 초대받은 대시보드가 없어요</span>
         </div>
       </div>
@@ -92,7 +78,7 @@ function InviteListDashboard({ updateData }: InviteListDashboardProps) {
   return (
     <div className={S.container}>
       <div className={S.title}>초대받은 대시보드</div>
-      <div className={S.input_box}>
+      <div className={S.inputBox}>
         <Image
           width={24}
           height={24}
@@ -107,7 +93,7 @@ function InviteListDashboard({ updateData }: InviteListDashboardProps) {
         />
       </div>
       <div className={contentsClassName}>
-        <div className={S.invite_info}>
+        <div className={S.inviteInfo}>
           <div>이름</div>
           <div>초대자</div>
           <div>수락 여부</div>

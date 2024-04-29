@@ -3,13 +3,14 @@
 .container {
   position: relative;
   width: 73rem;
-  height: auto;
+  height: 76.3rem;
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
   padding: 3.2rem 2.8rem;
   border-radius: 0.8rem;
   background-color: $color-white;
+  overflow-y: scroll;
 
   @include tablet {
     width: 68rem;
@@ -21,8 +22,21 @@
   }
 }
 
+.titleContainer {
+  width: 45rem;
+
+  @include tablet {
+    width: 42rem;
+  }
+
+  @include mobile {
+    width: 21rem;
+  }
+}
+
 .title {
   color: $color-black-200;
+  word-wrap: break-word;
   @include font-style(2.4rem, 700, normal);
 
   @include mobile {
@@ -34,6 +48,7 @@
   position: absolute;
   top: 3.2rem;
   right: 8.4rem;
+  cursor: pointer;
 
   @include mobile {
     width: 2.4rem;
@@ -90,6 +105,7 @@
   position: absolute;
   top: 3.2rem;
   right: 2.8rem;
+  cursor: pointer;
 
   @include mobile {
     top: 1.2rem;
@@ -139,10 +155,19 @@
 }
 
 .text {
+  width: 45rem;
+  height: 7.2rem;
   color: $color-black-400;
+  word-wrap: break-word;
   @include font-style(1.4rem, 400, 2.4rem);
 
+  @include tablet {
+    width: 42rem;
+  }
+
   @include mobile {
+    width: 28.7rem;
+    height: 9rem;
     @include font-style(1.2rem, 400, 2.2rem);
   }
 }
@@ -163,6 +188,7 @@
 .taskDetails {
   width: 20rem;
   height: 15.5rem;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   border-radius: 0.8rem;
@@ -186,6 +212,7 @@
 .assignee {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.6rem;
 
   @include mobile {
@@ -196,6 +223,7 @@
 .dueDate {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   gap: 0.6rem;
 
   @include mobile {
@@ -219,4 +247,36 @@
   @include mobile {
     @include font-style(1.2rem, 400, normal);
   }
+}
+
+.hidden {
+  display: none;
+}
+
+.spinnerWrapper {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+
+  @include mobile {
+    width: 100%;
+  }
+}
+
+.container::-webkit-scrollbar {
+  width: 0.8rem;
+}
+
+.container::-webkit-scrollbar-track {
+  background: $color-white;
+  border-radius: 0.8rem;
+}
+
+.container::-webkit-scrollbar-thumb {
+  background: $color-gray-200;
+  border-radius: 0.8rem;
+}
+
+.container::-webkit-scrollbar-thumb:hover {
+  background: $color-gray-300;
 }

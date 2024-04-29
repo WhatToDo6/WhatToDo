@@ -63,18 +63,19 @@
 }
 
 .description {
+  text-align: center;
   margin-top: 2.4rem;
   margin-bottom: 6.6rem;
   color: $color-white;
   letter-spacing: -0.1rem;
-  @include font-style(1.8rem, 400, normal);
+  @include font-style(2rem, 400, 170%);
 
   @include tablet {
-    @include font-style(1.6rem, 400, normal);
+    @include font-style(1.8rem, 400, 170%);
   }
 
   @include mobile {
     margin-bottom: 7rem;
-    @include font-style(1.2rem, 400, normal);
+    @include font-style(1.4rem, 400, 170%);
   }
 }

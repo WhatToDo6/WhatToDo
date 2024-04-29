@@ -6,12 +6,14 @@ import BorderButton from '@/src/components/common/button/border'
 import Input from '@/src/components/common/input'
 import Modal from '@/src/components/common/modal'
 import ModalAlert from '@/src/components/common/modal/modal-alert'
+import { useToast } from '@/src/context/toast'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './Password.module.scss'
 
 const Password = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const { addToast } = useToast()
 
   const {
     register,
@@ -36,9 +38,13 @@ const Password = () => {
             Authorization: `Bearer ${accessToken}`,
           },
         },
-      ).catch(() => {
-        setIsModalOpen(true)
-      })
+      )
+        .then(() => {
+          addToast('비밀번호가 성공적으로 업데이트 되었습니다.', 'success')
+        })
+        .catch(() => {
+          setIsModalOpen(true)
+        })
     }
     reset({
       password: '',
@@ -60,7 +66,7 @@ const Password = () => {
           <div className={S.item}>
             <label className={S.label}>비밀번호</label>
             <Input
-              inputType="password"
+              inputType="password-login"
               placeholder="현재 비밀번호 입력"
               error={errors.password}
               register={register}
@@ -89,16 +95,16 @@ const Password = () => {
               size="large"
             />
           </div>
-          <div className={S['button-container']}>
+          <div className={S.buttonContainer}>
             <BorderButton
               size="small"
               color="purple"
               isDisabled={
-                watch('password') === '' ||
-                watch('newPassword') === '' ||
-                watch('newPasswordCheck') === ''
-                  ? true
-                  : false
+                watch('password') !== '' &&
+                watch('newPassword') !== '' &&
+                watch('newPasswordCheck') !== ''
+                  ? false
+                  : true
               }
             >
               변경

@@ -1,28 +1,14 @@
 import { useRouter } from 'next/router'
-import { useContext, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
 import { InputFormValues } from '@/src/types/input'
+import { ModalDashBoardProps } from '@/src/types/modal'
 
 import S from './ModalColumn.module.scss'
-import Modal, { ModalContext } from '..'
+import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
-import ModalDeleteColumn from '../modal-deletecolumn'
-
-interface ModalDashBoardProps {
-  columnId?: number | undefined
-  title: string
-  inputTitle: string
-  inputType: 'newColumn' | 'columnName' | 'email'
-  placeholder: string
-  leftButtonText: string
-  rightButtonText: string
-  moveTo?: string
-  currentColumn?: string
-  showDeleteButton?: boolean
-  onSubmit: (data: InputFormValues) => void
-}
 
 /**
  * @param columnId - 컬럼id
@@ -39,7 +25,6 @@ interface ModalDashBoardProps {
  * @returns
  */
 const ModalDashBoard = ({
-  columnId,
   title,
   inputTitle,
   inputType,
@@ -50,16 +35,21 @@ const ModalDashBoard = ({
   currentColumn,
   showDeleteButton,
   onSubmit,
+  setIsDeleteEditModalOpen,
 }: ModalDashBoardProps) => {
   const router = useRouter()
   const modalStatus = useContext(ModalContext)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isDisabled, setIsDisabled] = useState(false)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
+
+  const ButtonDisabledCond =
+    watch('email') || watch('newColumn') || watch('columnName')
 
   const handleLeftClick = () => {
     modalStatus.setIsOpen.call(null, false)
@@ -73,8 +63,12 @@ const ModalDashBoard = ({
   }
 
   const handleDeleteClick = () => {
-    setIsModalOpen(true)
+    setIsDeleteEditModalOpen?.(true)
   }
+
+  useEffect(() => {
+    setIsDisabled(!ButtonDisabledCond)
+  }, [ButtonDisabledCond])
 
   return (
     <form
@@ -104,18 +98,9 @@ const ModalDashBoard = ({
           leftText={leftButtonText}
           rightText={rightButtonText}
           onLeftClick={handleLeftClick}
+          isDisabled={isDisabled}
         />
       </div>
-      {isModalOpen && (
-        <Modal setIsOpen={modalStatus.setIsOpen}>
-          <ModalDeleteColumn
-            columnId={columnId}
-            content="칼럼의 모든 카드가 삭제됩니다."
-            leftButtonText="취소"
-            rightButtonText="삭제"
-          />
-        </Modal>
-      )}
     </form>
   )
 }

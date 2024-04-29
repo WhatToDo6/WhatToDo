@@ -1,10 +1,12 @@
-import { useState, ChangeEvent, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 
 import AXIOS from '@/lib/axios'
+import { handleImageChange } from '@/pages/api/imageUpload'
 import BorderButton from '@/src/components/common/button/border'
 import Input from '@/src/components/common/input'
-import { useUserData } from '@/src/hooks/useUserData'
+import { useToast } from '@/src/context/toast'
+import { useUser } from '@/src/context/users'
 import { InputFormValues } from '@/src/types/input'
 
 import S from './ProfileForm.module.scss'
@@ -16,12 +18,13 @@ interface ProfileUpdateProps {
 }
 
 const ProfileForm = () => {
-  const { profileImageUrl, nickname, email } = useUserData()
+  const { userData, setUserData } = useUser()
+  const { addToast } = useToast()
   const [uploadedImageUrl, setUploadedImageUrl] = useState('')
 
   useEffect(() => {
-    setUploadedImageUrl(profileImageUrl)
-  }, [profileImageUrl])
+    setUploadedImageUrl(userData?.profileImageUrl ?? '')
+  }, [userData?.profileImageUrl])
 
   const {
     register,
@@ -30,35 +33,14 @@ const ProfileForm = () => {
     formState: { errors },
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
-  const handleImageChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const accessToken = localStorage.getItem('accessToken')
-    const files = event.target.files
-    if (files && files[0] && accessToken) {
-      const formData = new FormData()
-      formData.append('image', files[0])
-
-      AXIOS.post('/users/me/image', formData, {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      })
-        .then((res) => {
-          setUploadedImageUrl(res.data.profileImageUrl)
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-    }
-  }
-
   const onSubmit: SubmitHandler<InputFormValues> = (data) => {
     const accessToken = localStorage.getItem('accessToken')
     if (accessToken) {
       const changes: ProfileUpdateProps = {}
-      if (data.newNickname && data.newNickname !== nickname) {
+      if (data.newNickname && data.newNickname !== userData?.nickname) {
         changes.nickname = data.newNickname
       }
-      if (uploadedImageUrl !== profileImageUrl) {
+      if (uploadedImageUrl !== userData?.profileImageUrl) {
         changes.profileImageUrl = uploadedImageUrl
       }
 
@@ -67,9 +49,21 @@ const ProfileForm = () => {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
-        }).catch((err) => {
-          console.error(err.response.data.message)
         })
+          .then((res) => {
+            setUserData((prevUserData) => {
+              if (prevUserData === null) return null
+              return {
+                ...prevUserData,
+                profileImageUrl: res.data.profileImageUrl,
+                nickname: res.data.nickname,
+              }
+            })
+            addToast('프로필이 성공적으로 업데이트 되었습니다.', 'success')
+          })
+          .catch((err) => {
+            console.error(err.response.data.message)
+          })
       }
     }
     reset({
@@ -83,7 +77,9 @@ const ProfileForm = () => {
         <div className={S.imgContainer}>
           <InputProfileImage
             profileImageUrl={uploadedImageUrl}
-            handleImageChange={handleImageChange}
+            handleImageChange={(event) =>
+              handleImageChange(event, setUploadedImageUrl)
+            }
           />
         </div>
         <div className={S.textContainer}>
@@ -91,16 +87,16 @@ const ProfileForm = () => {
           <input
             type="text"
             disabled={true}
-            placeholder={email}
-            className={S.textInput}
+            placeholder={userData?.email}
+            className={`${S.textInput} ${S.email}`}
           />
           <label className={S.title}>닉네임</label>
           <Input
             inputType="newNickname"
-            placeholder=""
+            placeholder={userData?.nickname}
             error={errors.newNickname}
             register={register}
-            currentNickname={nickname}
+            currentNickname={userData?.nickname}
             size="small"
           />
         </div>

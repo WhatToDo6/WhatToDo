@@ -1,15 +1,28 @@
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
+import { handleImageChange } from '@/pages/api/imageUpload'
+import { postTaskCards } from '@/pages/api/taskCards'
+import { fetchGetUser } from '@/pages/api/users'
+import { EMPTY_DUEDATE } from '@/src/constants/date'
 import { InputFormValues } from '@/src/types/input'
+import { ModalTodoProps } from '@/src/types/modal'
+import { formatDate } from '@/src/utils/formatDate'
 
 import S from './ModalTodo.module.scss'
 import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
+import InputProfileImage from '../../input/profile-image'
 
-const ModalTodo = () => {
-  const modalStaus = useContext(ModalContext)
+const ModalTodo = ({
+  columnId,
+  dashboardId,
+  onCreateTaskCard,
+}: ModalTodoProps) => {
+  const modalStatus = useContext(ModalContext)
+  const [userId, setUserId] = useState()
+  const [imageUrl, setImageUrl] = useState<string | undefined>()
 
   const {
     register,
@@ -19,9 +32,32 @@ const ModalTodo = () => {
     setValue,
   } = useForm<InputFormValues>({ mode: 'onBlur' })
 
-  const onSubmit: SubmitHandler<InputFormValues> = (data) => {
-    // TODO: 할 일 생성 로직
-    console.log(data)
+  useEffect(() => {
+    fetchGetUser().then((data) => setUserId(data.id))
+  }, [])
+
+  const onSubmit: SubmitHandler<InputFormValues> = async (data) => {
+    if (userId === undefined) return
+
+    try {
+      const dueDate = data.date ? formatDate(String(data.date)) : EMPTY_DUEDATE
+      const assigneeUserId = data.manager ? data.manager : userId
+
+      const response = await postTaskCards({
+        assigneeUserId: assigneeUserId,
+        dashboardId,
+        columnId,
+        title: data.title,
+        description: data.textarea,
+        dueDate: dueDate,
+        tags: data.tags,
+        imageUrl: imageUrl,
+      })
+      onCreateTaskCard(response)
+      modalStatus.setIsOpen(false)
+    } catch (error) {
+      console.error('Failed to create card:', error)
+    }
   }
 
   return (
@@ -77,7 +113,14 @@ const ModalTodo = () => {
         <label className={S.label} htmlFor="image">
           이미지
         </label>
-        <Input inputType="image" register={register} setValue={setValue} />
+        <div className={S.imageContainer}>
+          <InputProfileImage
+            profileImageUrl={imageUrl}
+            handleImageChange={(event) => {
+              handleImageChange(event, setImageUrl, columnId)
+            }}
+          />
+        </div>
       </div>
       <div className={S.button}>
         <OptionButton
@@ -86,7 +129,7 @@ const ModalTodo = () => {
           rightColor="purple"
           leftText="취소"
           rightText="생성"
-          onLeftClick={() => modalStaus.setIsOpen.call(null, false)}
+          onLeftClick={() => modalStatus.setIsOpen.call(null, false)}
           onRightClick={handleSubmit(onSubmit)}
         />
       </div>

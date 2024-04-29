@@ -1,5 +1,5 @@
 export const EMAIL_REGEX = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/
-export const PASSWORD_REGEX = /^(.{1,7})$/
+export const PASSWORD_REGEX = /^(.{1,7}|[a-zA-Z]+|\d+)$/
 
 /**
  * 이메일 주소의 유효성을 검사

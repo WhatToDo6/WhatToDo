@@ -1,49 +1,94 @@
-import Image from 'next/image'
+import { useState } from 'react'
+
+import { putComments } from '@/pages/api/comments'
+import { CommentsType } from '@/src/types/dashboard'
+import { formatDate } from '@/src/utils/formatDate'
 
 import S from './Comment.module.scss'
+import ManagerProfile from '../../../manager-profile'
 
-interface CommentProps {
-  id: number
-  content: string
-  createdAt: string
-  author: {
-    profileImageUrl: string
-    nickname: string
-  }
-}
+const Comment = ({
+  id: commentId,
+  content: initialContent,
+  createdAt,
+  author,
+  onDelete,
+}: CommentsType) => {
+  const [isEditing, setIsEditing] = useState(false)
+  const [editContent, setEditContent] = useState(initialContent)
+  const [content, setContent] = useState(initialContent)
+  const formatCreatedAt = formatDate(String(createdAt))
 
-const Comment = ({ id, content, createdAt, author }: CommentProps) => {
   const handleEdit = () => {
-    //TODO 댓글 수정 기능을 구현해야 합니다.
-    console.log(id)
+    setIsEditing(true)
+  }
+
+  const handleSave = async () => {
+    try {
+      const requestData: { content: string } = {
+        content: editContent,
+      }
+      await putComments(commentId, requestData)
+      setIsEditing(false)
+      setContent(editContent)
+    } catch (error) {
+      console.error('댓글 데이터를 업데이트하는 데 실패했습니다:', error)
+    }
+  }
+
+  const handleCancel = () => {
+    setIsEditing(false)
+    setEditContent(content)
   }
 
   const handleDelete = () => {
-    //TODO 댓글 삭제 기능을 구현해야 합니다.
+    if (onDelete) {
+      onDelete(commentId)
+    }
   }
 
   return (
     <div className={S.container}>
-      <Image
-        src={author.profileImageUrl}
-        alt="댓글 프로필"
-        width={34}
-        height={34}
-        className={S.img}
+      <ManagerProfile
+        type="onlyImg"
+        profileImageUrl={author.profileImageUrl}
+        nickname={author.nickname}
+        userId={author.id}
       />
       <div className={S.comment}>
         <div className={S.title}>
           <span className={S.people}>{author.nickname}</span>
-          <p className={S.createdAt}>{createdAt}</p>
+          <p className={S.createdAt}>{formatCreatedAt}</p>
         </div>
-        <p className={S.description}>{content}</p>
+        {isEditing ? (
+          <textarea
+            className={S.editTextarea}
+            value={editContent}
+            onChange={(e) => setEditContent(e.target.value)}
+          />
+        ) : (
+          <p className={S.description}>{content}</p>
+        )}
         <div className={S.option}>
-          <p className={S.optionText} onClick={handleEdit}>
-            수정
-          </p>
-          <p className={S.optionText} onClick={handleDelete}>
-            삭제
-          </p>
+          {isEditing ? (
+            <>
+              <p className={S.optionText} onClick={handleSave}>
+                저장
+              </p>
+              <p className={S.optionText} onClick={handleCancel}>
+                취소
+              </p>
+            </>
+          ) : (
+            <>
+              <p className={S.optionText} onClick={handleEdit}>
+                수정
+              </p>
+              <p className={S.optionText} onClick={handleDelete}>
+                삭제
+              </p>
+            </>
+          )}
         </div>
       </div>
     </div>

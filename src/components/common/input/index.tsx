@@ -1,15 +1,16 @@
+import { handleImageChange } from '@/pages/api/imageUpload'
 import { InputInterface } from '@/src/types/input'
 
 import InputDate from './date'
 import DropDownManager from './dropdown/manager'
 import DropdownProgress from './dropdown/progress'
 import InputEmail from './email'
-import InputImageUpload from './image-upload'
 import S from './Input.module.scss'
 import InputNewPassword from './new-password'
 import InputNewPasswordCheck from './new-password-check'
 import InputPassword from './password'
 import InputPasswordCheck from './password-check'
+import InputProfileImage from './profile-image'
 import InputTag from './tag'
 import InputText from './text'
 import TextArea from './textarea'
@@ -28,6 +29,8 @@ import TextArea from './textarea'
  * @param required - (optional) required가 필요하지 않은 경우를 위해 필요
  * @param control - (optional) react-hook-form의 control 객체 (외부 라이브러리 연동 시 필요)
  * @param setValue - (optional) react-hook-form의 setValue 함수 (직접 값 제어 시 필요)
+ * @param columnId - (optional) 이미지 업로드 시 columnId 필요
+ * @param setImageUrl - (optional) 이미지 업로드 시 imageUrl 변경을 위해 필요
  */
 const Input = ({
   inputType,
@@ -42,6 +45,8 @@ const Input = ({
   size,
   control,
   setValue,
+  columnId,
+  setImageUrl,
 }: InputInterface) => {
   const INPUT_MAP = {
     email: (
@@ -58,6 +63,16 @@ const Input = ({
         error={error}
         register={register}
         size={size || ''}
+        pwType="signup"
+      />
+    ),
+    'password-login': (
+      <InputPassword
+        placeholder={placeholder || ''}
+        error={error}
+        register={register}
+        size={size || ''}
+        pwType="login"
       />
     ),
     passwordCheck: (
@@ -148,6 +163,7 @@ const Input = ({
         error={error}
         register={register}
         control={control}
+        setValue={setValue}
       />
     ),
     tag: (
@@ -164,7 +180,13 @@ const Input = ({
         register={register}
       />
     ),
-    image: <InputImageUpload handleImageChange={() => console.log('임시')} />, //TODO: handleImageChange 함수 연결
+    image: (
+      <InputProfileImage
+        handleImageChange={(event) =>
+          setImageUrl && handleImageChange(event, setImageUrl, columnId)
+        }
+      />
+    ),
     manager: (
       <DropDownManager
         placeholder={placeholder || ''}
@@ -173,7 +195,7 @@ const Input = ({
         error={error}
       />
     ),
-    progress: <DropdownProgress register={register} setValue={setValue} />,
+    status: <DropdownProgress register={register} setValue={setValue} />,
   }
 
   return (

@@ -1,5 +1,5 @@
 import AXIOS from '@/lib/axios'
-import { ColumnDataType } from '@/src/types/dashboard.interface'
+import { ColumnDataType } from '@/src/types/dashboard'
 
 /**
  * API 요청에 사용될 공통 인증 헤더 반환
@@ -41,14 +41,14 @@ const apiCall = async (
 
 /**
  * 지정된 대시보드 ID에 대한 칼럼 요청
- * @param {number | undefined} id - 대시보드 ID
+ * @param {number | undefined} dashboardId - 대시보드 ID
  * @returns {Promise<ColumnDataType[]>} 칼럼 데이터 배열
  */
 export const getColumns = async (
-  id: number | undefined,
+  dashboardId: number | undefined,
 ): Promise<ColumnDataType[]> => {
-  if (!id) throw new Error('칼럼 ID가 필요합니다.')
-  return await apiCall('get', `/columns?dashboardId=${id}`)
+  if (!dashboardId) throw new Error('대시보드 ID가 필요합니다.')
+  return await apiCall('get', `/columns?dashboardId=${dashboardId}`)
 }
 
 /**
@@ -59,9 +59,9 @@ export const getColumns = async (
  */
 export const putColumns = async (
   id: number | undefined,
-  data: { title: string },
+  data: { title: string | undefined },
 ): Promise<ColumnDataType[]> => {
-  if (!id) throw new Error('칼럼 ID가 필요합니다.')
+  if (!id) throw new Error('대시보드 ID가 필요합니다.')
   return await apiCall('put', `/columns/${id}`, data)
 }
 
@@ -73,7 +73,7 @@ export const putColumns = async (
 export const deleteColumns = async (
   id: number | undefined,
 ): Promise<ColumnDataType[]> => {
-  if (!id) throw new Error('칼럼 ID가 필요합니다.')
+  if (!id) throw new Error('대시보드 ID가 필요합니다.')
   return await apiCall('delete', `/columns/${id}`)
 }
 
