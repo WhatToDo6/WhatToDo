@@ -4,6 +4,13 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  height: 70rem;
+}
+
+.dashboardScrollBox {
+  height: 70rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 .dashboardWrapper {
@@ -19,4 +26,25 @@
     width: 4rem;
     height: 4rem;
   }
+}
+
+.dashboardScrollBox::-webkit-scrollbar {
+  width: 0;
+}
+
+.dashboardScrollBox:hover::-webkit-scrollbar {
+  width: 0.8rem; /* 스크롤바 너비 */
+}
+
+.dashboardScrollBox::-webkit-scrollbar-track {
+  background: $color-white; /* 스크롤바 트랙 배경색 */
+}
+
+.dashboardScrollBox::-webkit-scrollbar-thumb {
+  background: $color-gray-200;
+  border-radius: 0.6rem;
+}
+
+.dashboardScrollBox::-webkit-scrollbar-thumb:hover {
+  background: $color-gray-300;
 }

@@ -27,6 +27,11 @@ interface DashboardContextType<T> extends PaginationContextType<T> {
   setSelectedDashboard: Dispatch<SetStateAction<string>>
 }
 
+export const pageContext = createContext({
+  currPage: 1,
+  lastPage: 1,
+})
+
 export const DashboardsContext = createContext<
   DashboardContextType<DashboardType>
 >({
@@ -62,6 +67,21 @@ function DashboardsProvider({ children }: ChildrenProps) {
   )
   const [selectedDashboard, setSelectedDashboard] = useState('')
 
+  const {
+    pageData,
+    currPage,
+    lastPage,
+    onClickPrevPage,
+    onClickNextPage,
+    updateData,
+  } = usePagination<DashboardType>(
+    5,
+    'dashboard',
+    dashboards,
+    setDashboards,
+    dashboardId,
+  )
+
   const getDashboardDetail = async (dashboardId: number) => {
     try {
       const dashboard = await fetchGetDashboardDetail(dashboardId)
@@ -74,8 +94,9 @@ function DashboardsProvider({ children }: ChildrenProps) {
   //TODO: 페이지네이션으로 수정
   const getSideMenuDashboards = async () => {
     try {
+      // console.log(Math.ceil(currPage / 2), '페이지')
       const { data: dashboards, totalCount } =
-        await fetchGetDashboardList<DashboardType>(1, 15)
+        await fetchGetDashboardList<DashboardType>(1, 50)
       setSideMenuDashboards(dashboards)
     } catch (err) {
       console.error(err)
@@ -91,21 +112,6 @@ function DashboardsProvider({ children }: ChildrenProps) {
     })
     setSideMenuDashboards(newState)
   }
-
-  const {
-    pageData,
-    currPage,
-    lastPage,
-    onClickPrevPage,
-    onClickNextPage,
-    updateData,
-  } = usePagination<DashboardType>(
-    5,
-    'dashboard',
-    dashboards,
-    setDashboards,
-    dashboardId,
-  )
 
   useEffect(() => {
     if (dashboardId) {
