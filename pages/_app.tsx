@@ -11,7 +11,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Taskify</title>
         <link
           rel="icon"
-          href="https://raw.githubusercontent.com/WhatToDo6/WhatToDo/027f5302001614a333b41894bd24b212cc73eb75/public/favicon.ico"
+          href="https://raw.githubusercontent.com/WhatToDo6/WhatToDo/develop/public/favicon.ico"
         />
       </Head>
       <Component {...pageProps} />
