@@ -22,8 +22,21 @@
   }
 }
 
+.titleContainer {
+  width: 45rem;
+
+  @include tablet {
+    width: 42rem;
+  }
+
+  @include mobile {
+    width: 21rem;
+  }
+}
+
 .title {
   color: $color-black-200;
+  word-wrap: break-word;
   @include font-style(2.4rem, 700, normal);
 
   @include mobile {
