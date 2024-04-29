@@ -23,14 +23,16 @@ const ModalDeleteColumn = ({
   leftButtonText,
   rightButtonText,
   moveTo,
+  setIsEditModalOpen,
+  setIsDeleteEditModalOpen,
 }: ModalDeleteColumnProps) => {
   const router = useRouter()
   const modalStatus = useContext(ModalContext)
   const { setColumns } = useColumnsContext()
 
   const handleLeftClick = () => {
-    modalStatus.setIsOpen.call(null, false)
-    moveTo && router.push(moveTo)
+    setIsDeleteEditModalOpen(false)
+    setIsEditModalOpen(true)
   }
 
   const handleRightClick = async () => {

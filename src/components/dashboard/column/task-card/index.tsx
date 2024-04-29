@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import TagChip from '@/src/components/common/chip/tag-chip'
 import ManagerProfile from '@/src/components/common/manager-profile'
@@ -16,7 +16,6 @@ interface TaskCardProps {
   taskCard: TaskCardDataType
   setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
   columnTitle: string
-  setReload: React.Dispatch<React.SetStateAction<any>>
 }
 
 const TaskCard = ({
@@ -24,25 +23,19 @@ const TaskCard = ({
   taskCard,
   setTaskCards,
   columnTitle,
-  setReload,
 }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [cardData, setCardData] = useState<TaskCardDataType>(taskCard)
-
-  useEffect(() => {
-    setReload(cardData)
-  }, [cardData])
 
   return (
     <div>
       <div className={S.container} onClick={() => setIsModalOpen(true)}>
         <div
-          className={`${S.imageWrapper} ${!cardData.imageUrl ? S.hidden : ''}`}
+          className={`${S.imageWrapper} ${!taskCard.imageUrl ? S.hidden : ''}`}
         >
-          {cardData.imageUrl && (
+          {taskCard.imageUrl && (
             <Image
               className={S.cardImage}
-              src={cardData.imageUrl}
+              src={taskCard.imageUrl}
               width={274}
               height={160}
               layout="responsive"
@@ -51,10 +44,10 @@ const TaskCard = ({
           )}
         </div>
         <div className={S.content}>
-          <h2 className={S.cardTitle}>{cardData.title}</h2>
+          <h2 className={S.cardTitle}>{taskCard.title}</h2>
           <div className={S.wrapper}>
             <div className={S.tag}>
-              {cardData.tags
+              {taskCard.tags
                 .filter((tag) => tag.length !== 0)
                 .map((tag, index) => (
                   <TagChip key={index} index={index} text={tag} />
@@ -62,16 +55,16 @@ const TaskCard = ({
             </div>
             <div className={S.cardBottom}>
               <div
-                className={cardData.dueDate === EMPTY_DUEDATE ? S.hidden : ''}
+                className={taskCard.dueDate === EMPTY_DUEDATE ? S.hidden : ''}
               >
-                <TaskCardDate dueDate={cardData.dueDate} />
+                <TaskCardDate dueDate={taskCard.dueDate} />
               </div>
               <div>
                 <ManagerProfile
-                  profileImageUrl={cardData.assignee.profileImageUrl}
+                  profileImageUrl={taskCard.assignee.profileImageUrl}
                   type="onlyImg"
-                  nickname={cardData.assignee.nickname}
-                  userId={cardData.assignee.id}
+                  nickname={taskCard.assignee.nickname}
+                  userId={taskCard.assignee.id}
                 />
               </div>
             </div>
@@ -82,16 +75,15 @@ const TaskCard = ({
         <Modal setIsOpen={setIsModalOpen}>
           <ModalTask
             columnId={columnId}
-            cardId={cardData.id}
-            title={cardData.title}
-            dueDate={cardData.dueDate}
-            assignee={cardData.assignee}
-            imageUrl={cardData.imageUrl}
-            tags={cardData.tags}
-            description={cardData.description}
+            cardId={taskCard.id}
+            title={taskCard.title}
+            dueDate={taskCard.dueDate}
+            assignee={taskCard.assignee}
+            imageUrl={taskCard.imageUrl}
+            tags={taskCard.tags}
+            description={taskCard.description}
             columnTitle={columnTitle}
-            cardData={cardData}
-            setCardData={setCardData}
+            cardData={taskCard}
             setTaskCards={setTaskCards}
           />
         </Modal>

@@ -6,10 +6,9 @@ import { InputFormValues } from '@/src/types/input'
 import { ModalDashBoardProps } from '@/src/types/modal'
 
 import S from './ModalColumn.module.scss'
-import Modal, { ModalContext } from '..'
+import { ModalContext } from '..'
 import OptionButton from '../../button/option'
 import Input from '../../input'
-import ModalDeleteColumn from '../modal-deletecolumn'
 
 /**
  * @param columnId - 컬럼id
@@ -26,7 +25,6 @@ import ModalDeleteColumn from '../modal-deletecolumn'
  * @returns
  */
 const ModalDashBoard = ({
-  columnId,
   title,
   inputTitle,
   inputType,
@@ -37,10 +35,10 @@ const ModalDashBoard = ({
   currentColumn,
   showDeleteButton,
   onSubmit,
+  setIsDeleteEditModalOpen,
 }: ModalDashBoardProps) => {
   const router = useRouter()
   const modalStatus = useContext(ModalContext)
-  const [isModalOpen, setIsModalOpen] = useState(false)
   const [isDisabled, setIsDisabled] = useState(false)
 
   const {
@@ -65,7 +63,7 @@ const ModalDashBoard = ({
   }
 
   const handleDeleteClick = () => {
-    setIsModalOpen(true)
+    setIsDeleteEditModalOpen?.(true)
   }
 
   useEffect(() => {
@@ -103,16 +101,6 @@ const ModalDashBoard = ({
           isDisabled={isDisabled}
         />
       </div>
-      {isModalOpen && (
-        <Modal setIsOpen={modalStatus.setIsOpen}>
-          <ModalDeleteColumn
-            columnId={columnId}
-            content="칼럼의 모든 카드가 삭제됩니다."
-            leftButtonText="취소"
-            rightButtonText="삭제"
-          />
-        </Modal>
-      )}
     </form>
   )
 }
