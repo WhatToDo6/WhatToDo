@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import TagChip from '@/src/components/common/chip/tag-chip'
 import ManagerProfile from '@/src/components/common/manager-profile'
@@ -17,7 +17,6 @@ interface TaskCardProps {
   taskCard: TaskCardDataType
   setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
   columnTitle: string
-  setReload: React.Dispatch<React.SetStateAction<any>>
 }
 
 const TaskCard = ({
@@ -25,14 +24,9 @@ const TaskCard = ({
   taskCard,
   setTaskCards,
   columnTitle,
-  setReload,
 }: TaskCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const { userData } = useUser()
-
-  useEffect(() => {
-    setReload(taskCard)
-  }, [taskCard])
 
   return (
     <div>

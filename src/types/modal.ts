@@ -71,6 +71,6 @@ export interface ModalTaskProps {
   columnId: number | undefined
   columnTitle: string
   cardData: TaskCardDataType
-  setCardData: React.Dispatch<React.SetStateAction<TaskCardDataType>>
+  setCardData?: React.Dispatch<React.SetStateAction<TaskCardDataType>>
   setTaskCards: React.Dispatch<React.SetStateAction<TaskCardDataType[]>>
 }
