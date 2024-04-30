@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 
 import { getColumns, postColumns } from '@/pages/api/columns'
 import Layout from '@/src/components/common/layout'
+import LoadingIndicator from '@/src/components/common/loading-indicator'
 import Modal from '@/src/components/common/modal'
 import ModalDashBoard from '@/src/components/common/modal/modal-dashboard'
 import Column from '@/src/components/dashboard/column'
@@ -62,6 +63,7 @@ const DashboardIdPage = ({ id }: { id: number }) => {
 
   const fetchColumns = async () => {
     if (dashboardId) {
+      await new Promise((resolve) => setTimeout(resolve, 500))
       setIsLoading(true)
       try {
         const data = await getColumns(dashboardId)
@@ -79,7 +81,11 @@ const DashboardIdPage = ({ id }: { id: number }) => {
   }, [dashboardId])
 
   if (isLoading) {
-    return <div>칼럼을 로딩 중입니다</div>
+    return (
+      <div className={S.loadingWrapper}>
+        <LoadingIndicator />
+      </div>
+    )
   }
 
   return (

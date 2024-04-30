@@ -1,0 +1,47 @@
+@import '@/src/styles/global.scss';
+
+.holder {
+  text-align: center;
+}
+
+.loading {
+  display: inline-flex;
+  gap: 2rem;
+  text-align: center;
+  margin: 20px auto;
+
+  div {
+    border-radius: 50%;
+    height: 3rem;
+    width: 3rem;
+    background: $color-violet-200;
+
+    &:nth-of-type(1) {
+      animation: flash 0.4s -0.2s linear infinite;
+    }
+
+    &:nth-of-type(2) {
+      animation: flash 0.4s -0.1s linear infinite;
+    }
+
+    &:nth-of-type(3) {
+      animation: flash 0.4s linear infinite;
+    }
+
+    &:nth-of-type(4) {
+      animation: flash 0.4s 0.1s ease-in-out infinite;
+    }
+  }
+}
+
+@keyframes flash {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
